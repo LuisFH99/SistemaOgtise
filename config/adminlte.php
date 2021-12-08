@@ -247,13 +247,30 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
+            'text'        => 'Inicio',
+            'url'         => '/home',
+            'icon'        => 'fas fa-home',
             'label_color' => 'success',
         ],
-        ['header' => 'account_settings'],
+
+        ['header' => 'DOCENTES'],
+
+        [
+            'text'      => 'Registrar Asistencia',
+            'icon'      => 'far fa-address-card',
+            'submenu'   => [
+                [
+                    'text'  => 'Registrar Entrada',
+                    'url'   => '/entrada',
+                ],
+                [
+                    'text'  => 'Registrar Salida',
+                    'url'   => '/salida',
+                ],
+            ],
+        ],
+
+        ['header' => 'CONFIGIRACION DE CUENTA'],
         [
             'text' => 'profile',
             'url'  => 'admin/settings',
