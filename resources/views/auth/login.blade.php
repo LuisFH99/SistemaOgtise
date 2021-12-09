@@ -4,14 +4,30 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+        <div class="col-md-8 justify-content-right">
+            <h1 class="bs-gray-200">BIENVENIDO AL SISTEMA DE ASISTENCIA DOCENTE</h1>
+        </div>
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
-
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
+                        <div class="row mb-3">
+                            <label for="Perfil" class="col-md-4 col-form-label text-md-right">{{ __('Perfil') }}</label>
+                            <div class="col-md-6">
+                                <select class="form-select" aria-label="Seector Rol" id="cbPerfiles" onChange='selecPer(this.value);' onselect='selecPer(this.value);'>
+                                    <option >Seleccione...</option>
+                                    <option value="1" selected>Docente</option>
+                                    <option value="2" >Dpto. Academico</option>
+                                    <option value="3" >Decano</option>
+                                    <option value="4" >URyC</option>
+                                    <option value="5" >Administrador</option>
+                                </select>
+                            </div>
+                        </div>
 
                         <div class="row mb-3">
+                            
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
