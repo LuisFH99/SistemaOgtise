@@ -25,4 +25,5 @@ class LicenciasController extends Controller
     {
         return view('licencias');
     }
+    
 }

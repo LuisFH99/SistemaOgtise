@@ -25,3 +25,5 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/licencias', [App\Http\Controllers\LicenciasController::class, 'index'])->name('licencias');
+Route::get('/entrada', [App\Http\Controllers\EntradaController::class, 'index'])->name('entrada');
+Route::get('/salida', [App\Http\Controllers\SalidaController::class, 'index'])->name('salida');
