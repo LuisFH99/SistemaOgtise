@@ -3,7 +3,7 @@
 @section('title', 'Inicio')
 
 @section('content_header')
-    <h1>Aqui sera la Ventana de Incio</h1>
+    <h1>Asistencia Docente</h1>
 @stop
 
 @section('content')
