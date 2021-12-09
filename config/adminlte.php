@@ -122,7 +122,7 @@ return [
     */
 
     'classes_body' => '',
-    'classes_brand' => 'bg-blue',
+    'classes_brand' => 'bg-dark',
     'classes_brand_text' => '',
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
@@ -246,23 +246,11 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
+               
         [
-            'text' => 'Dasboard',
-            'route'  => 'home',
-        ],
-        [
-            'text' => 'Licencias',
-            'route'  => 'licencias',
-        ],
-        [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
             'text'        => 'Inicio',
             'url'         => '/home',
             'icon'        => 'fas fa-home',
-            'label_color' => 'success',
         ],
 
         ['header' => 'DOCENTES'],
@@ -280,6 +268,12 @@ return [
                     'url'   => '/salida',
                 ],
             ],
+
+        ],
+        [
+            'text' => 'Licencias',
+            'icon'      => 'fas fa-file-upload',
+            'route'  => 'licencias',
         ],
 
         ['header' => 'CONFIGIRACION DE CUENTA'],
