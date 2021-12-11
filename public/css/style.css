@@ -1,14 +1,16 @@
-
 .fondo-cards {
-background-color: #e6e7e9;
+    background-color: #e6e7e9;
 }
-.fondo-table{
+
+.fondo-table {
     background-color: #003260;
 }
+
 .fondo-table td {
     color: #ffff;
     text-align: center;
 }
+
 .bg-tr {
     background-color: #b4b6bc;
     color: #ffff;
@@ -22,7 +24,7 @@ background-color: #e6e7e9;
     display: none;
 }
 
-.checkbox-custom input[type=checkbox] ~ b {
+.checkbox-custom input[type=checkbox]~b {
     cursor: pointer;
     outline: 0;
     position: relative;
@@ -40,7 +42,7 @@ background-color: #e6e7e9;
     border-radius: 5px;
 }
 
-.checkbox-custom input[type=checkbox]:checked ~ b:after {
+.checkbox-custom input[type=checkbox]:checked~b:after {
     content: '\2713';
     color: #28AECE;
 }
@@ -53,4 +55,32 @@ background-color: #e6e7e9;
 #tituloModal{
     font-weight: bold;
     text-align: center;
+.dropdown-menu {
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.dr {
+    float: right;
+    font-weight: bold;
+}
+
+.c {
+    float: center;
+    font-weight: bold;
+}
+
+.d {
+    float: right;
+}
+
+.anc {
+    width: 100%;
+}
+
+.centrado {
+    margin: 10px auto;
+    display: block;
+    width: 50px;
+    height: 50px;
 }

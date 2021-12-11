@@ -275,6 +275,12 @@ return [
             'icon'      => 'fas fa-file-upload',
             'route'  => 'licencias',
         ],
+        ['header' => 'DPTO. ACADÉMINCO'],
+        [
+            'text' => 'Validar Salidas',
+            'icon' => 'fas fa-user-check',
+            'route'  => 'ValidaSalida',
+        ],
 
         ['header' => 'CONFIGIRACION DE CUENTA'],
         [
