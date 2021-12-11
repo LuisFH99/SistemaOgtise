@@ -55,6 +55,7 @@
 #tituloModal{
     font-weight: bold;
     text-align: center;
+}
 .dropdown-menu {
     max-height: 150px;
     overflow-y: auto;
