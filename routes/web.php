@@ -1,6 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\EntradaController;
+use App\Http\Controllers\SalidaController;
+use App\Http\Controllers\ValidaSalidaController;
+use App\Http\Controllers\LicenciasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,15 +29,21 @@ Route::get('/licencias', function () {
 Route::get('/ValidaSalida', function () {
     return view('ValidaSalida');
 });
+
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/licencias', [App\Http\Controllers\LicenciasController::class, 'index'])->name('licencias');
-Route::get('/ValidaSalida', [App\Http\Controllers\ValidaSalidaController::class, 'index'])->name('ValidaSalida');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/entrada', [App\Http\Controllers\EntradaController::class, 'index'])->name('entrada');
-Route::get('/salida', [App\Http\Controllers\SalidaController::class, 'index'])->name('salida');
+Route::get('/licencias', [LicenciasController::class, 'index'])->name('licencias');
+
+Route::get('/ValidaSalida', [ValidaSalidaController::class, 'index'])->name('ValidaSalida');
+
+Route::get('/entrada', [EntradaController::class, 'index'])->name('entrada');
+
+Route::post('/entrada/registrar',[EntradaController::class, 'store'])->name('registar.entrada');
+
+Route::get('/salida', [SalidaController::class, 'index'])->name('salida');
 
 
 
