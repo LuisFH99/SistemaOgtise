@@ -47,6 +47,15 @@
     color: #28AECE;
 }
 
+.opcional{
+    font-style: italic;
+    color: red;
+    font-size: 11px;
+}
+#tituloModal{
+    font-weight: bold;
+    text-align: center;
+}
 .dropdown-menu {
     max-height: 150px;
     overflow-y: auto;

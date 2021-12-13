@@ -261,11 +261,11 @@ return [
             'submenu'   => [
                 [
                     'text'  => 'Registrar Entrada',
-                    'url'   => '/entrada',
+                    'url'   => 'entrada',
                 ],
                 [
                     'text'  => 'Registrar Salida',
-                    'url'   => '/salida',
+                    'url'   => 'salida',
                 ],
             ],
 
@@ -430,7 +430,7 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -451,6 +451,16 @@ return [
                     'type' => 'js',
                     'asset' => false,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+                ],
+            ],
+        ],
+        'jQuery' => [
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//code.jquery.com/jquery-3.6.0.js',
                 ],
             ],
         ],
