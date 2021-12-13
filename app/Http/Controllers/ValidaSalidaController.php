@@ -23,6 +23,6 @@ class ValidaSalidaController extends Controller
      */
     public function index()
     {
-        return view('ValidaSalida');
+        return view('departamento.ValidaSalida');
     }
 }

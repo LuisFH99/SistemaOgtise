@@ -1,39 +1,31 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Licencia;
-
-class LicenciasController extends Controller
+use App\Models\File;
+use Illuminate\Support\Facades\Storage;
+class FileController extends Controller
 {
     /**
-     * Create a new controller instance.
+     * Display a listing of the resource.
      *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('docentes.licencias');
+        return view('Admin.files.index');
     }
-     /**
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        return view('Licencias.create');
+        return view('Admin.files.create');
     }
 
     /**
@@ -44,7 +36,12 @@ class LicenciasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $Archivos= $request->file('file')->store('public/Archivos');
+        $url=Storage::url($Archivos);
+        File::create([
+            'url' => $url
+        ]);
+        //return redirect()->route('Admin.files.index');
     }
 
     /**
@@ -53,9 +50,9 @@ class LicenciasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($licencia)
+    public function show($file)
     {
-        return view('Licencias.show');
+        return view('Admin.files.show');
     }
 
     /**
@@ -64,9 +61,9 @@ class LicenciasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($licencia)
+    public function edit($file)
     {
-        return view('Licencias.edit');
+        return view('Admin.files.edit');
     }
 
     /**
@@ -76,7 +73,7 @@ class LicenciasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $licencia)
+    public function update(Request $request, $file)
     {
         //
     }
@@ -87,9 +84,8 @@ class LicenciasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($licencia)
+    public function destroy($file)
     {
         //
     }
-    
 }

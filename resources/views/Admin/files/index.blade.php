@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <p>Quizas algo se nos ocurra xd xd</p>
+    <p>Index</p>
 @stop
 
 @section('css')
