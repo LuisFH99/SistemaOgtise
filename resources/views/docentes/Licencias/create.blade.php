@@ -12,7 +12,7 @@
         <div class="col-16 p-2">
             <div class="card h-100 fondo-cards">
                 <div class="card-body">
-                    <h2>Crear solicitud de Licencia:</h2>
+                    <h2>Crear solicitud de Licencia: create</h2>
                     <form>
                         <div class="row">
                             <div class="col-md-4 ">

@@ -249,7 +249,7 @@ return [
                
         [
             'text'        => 'Inicio',
-            'url'         => 'home',
+            'route'         => 'home',
             'icon'        => 'fas fa-home',
         ],
 
