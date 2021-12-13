@@ -12,7 +12,7 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-                        <div class="row mb-3">
+                        <div class="row mb-4">
                             <label for="Perfil" class="col-md-4 col-form-label text-md-right">{{ __('Perfil') }}</label>
                             <div class="col-md-6">
                                 <select class="form-select" aria-label="Seector Rol" id="cbPerfiles" onChange='selecPer(this.value);' onselect='selecPer(this.value);'>

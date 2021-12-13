@@ -11,9 +11,14 @@ class EntradaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        return view('entrada');
+        return view('docentes.entrada');
     }
 
     /**
@@ -34,7 +39,10 @@ class EntradaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $firma=$request->firma;
+        return json_encode($firma);
+        
     }
 
     /**

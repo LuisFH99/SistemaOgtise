@@ -249,7 +249,7 @@ return [
                
         [
             'text'        => 'Inicio',
-            'url'         => '/home',
+            'route'         => 'home',
             'icon'        => 'fas fa-home',
         ],
 
@@ -261,11 +261,11 @@ return [
             'submenu'   => [
                 [
                     'text'  => 'Registrar Entrada',
-                    'url'   => '/entrada',
+                    'route'   => 'entrada',
                 ],
                 [
                     'text'  => 'Registrar Salida',
-                    'url'   => '/salida',
+                    'route'   => 'salida',
                 ],
             ],
 
@@ -274,6 +274,12 @@ return [
             'text' => 'Licencias',
             'icon'      => 'fas fa-file-upload',
             'route'  => 'licencias',
+        ],
+        ['header' => 'DPTO. ACADÉMINCO'],
+        [
+            'text' => 'Validar Salidas',
+            'icon' => 'fas fa-user-check',
+            'route'  => 'ValidaSalida',
         ],
 
         ['header' => 'CONFIGIRACION DE CUENTA'],
@@ -424,7 +430,7 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -445,6 +451,16 @@ return [
                     'type' => 'js',
                     'asset' => false,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+                ],
+            ],
+        ],
+        'jQuery' => [
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//code.jquery.com/jquery-3.6.0.js',
                 ],
             ],
         ],

@@ -3,37 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Licencia;
 
-class LicenciasController extends Controller
+class FileController extends Controller
 {
     /**
-     * Create a new controller instance.
+     * Display a listing of the resource.
      *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('docentes.licencias');
+        //
     }
-     /**
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        return view('Licencias.create');
+        //
     }
 
     /**
@@ -53,9 +43,9 @@ class LicenciasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($licencia)
+    public function show($id)
     {
-        return view('Licencias.show');
+        //
     }
 
     /**
@@ -64,9 +54,9 @@ class LicenciasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($licencia)
+    public function edit($id)
     {
-        return view('Licencias.edit');
+        //
     }
 
     /**
@@ -76,7 +66,7 @@ class LicenciasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $licencia)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -87,9 +77,8 @@ class LicenciasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($licencia)
+    public function destroy($id)
     {
         //
     }
-    
 }

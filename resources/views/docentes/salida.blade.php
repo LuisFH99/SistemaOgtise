@@ -1,35 +1,35 @@
 @extends('adminlte::page')
 
-@section('title', 'Asistencia')
+@section('title', 'Asistencia | Salida')
 
 @section('content_header')
-    <h1 id='id'>Registro de Asistencia</h1>
+<h1>Registro de Asistencia</h1>
 @stop
 
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-6 p-2">
-            <div class="card h-100 fondo-cards">
+        <div class="col-md-6">
+            <div class="card fondo-cards">
                 <div class="card-body">
-                    <h4 class="">Registro de Entrada</h4>
+                    <h4>Registro de Salida</h4>
                     <div class="row">
                         <div class="col-12">
-                            <label class="form-label text-black" >Hora de Entrada: 07:04:33</label>
+                            <label class="form-label text-black">Hora de Salida: 18:04:33</label>
                         </div>
                         <div class="col-12">
-                            <label class="form-label text-black" >Camara:</label>
-                            <div class="row">
-                                <div class="col-lg-6 col-12">
-                                <video id="video" class="img-responsive" width="200"></video>
-                                </div>
-                                <div class="col-lg-6 col-12">
-                                <canvas id="canvas" width="200" class="img-responsive"></canvas>
-                                </div>
+                            <h6>Detalle de actividad realizada:</h6>
+                            <textarea class="form-control" aria-label="With textarea"></textarea>
+                        </div>
+                        <div class="col-12 mt-2">
+                            <h6>Cargar Evidencia <p class="opcional">* La carga de Archivos es Opcional</p> </h6>
+                            
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" for="customFile">Cargar Archivo</label>
                             </div>
-                            <input type="text" name="" id="txt">
                         </div>
-                        <div class="col-12">
+                        <div class="col-12 d-flex justify-content-center mt-2">
                             <div class="d-inline-flex my-1">
                                     <div class="checkbox-custom mr-4">
                                         <label>
@@ -47,6 +47,7 @@
                                     </div>
                             </div>
                         </div>
+                        <div class="col-12 d-flex justify-content-center">
                         <div class="col-8">
                             <label class="mt-1 text-sm-right ">Ingrese clave</label>
                             <div class="input-group">
@@ -55,17 +56,17 @@
                                 <button style="background-color:#28AECE;border-color:#28AECE" id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()">
                                 <span class="fa fa-eye-slash icon"></span>
                                 </div>
-                            </div> 
-                            <div>
-                                <button type="button" class="btn btn-primary" id="grabar"> Marcar Asistencia</button>
-                            </div>                       
+                            </div>                        
                         </div>
-                        
+                        </div>
+                        <div class="col-12 d-flex justify-content-center pt-3">
+                                <button type="button" class="btn btn-primary" id="grabar"> Registrar Salida</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-6 p-2">
+        <div class="col-md-6">
             <div class="card fondo-cards">
                 <div class="card-body">
                     <h4 class="card-title mb-2">Viernes, 03 Diciembre del 2021</h4>
@@ -80,13 +81,14 @@
                             <tbody>
                                 <tr>
                                     <td>08:01:33</td>
-                                    <td></td>
+                                    <td>18:04:33</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
+
             <div class="card fondo-cards">
                 <div class="card-body">
                         <h4 class="card-title mb-2">Ultimas Asistencias</h4>
@@ -137,11 +139,30 @@
                 </div>
             </div>
         </div>
-
         <div class="col-12 p-2">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Mis Registros de Asistencia Mensual:</h4>
+                    <h4><strong>Mis Registros de Asistencia Mensual:</strong></h4>
+                    <div class="mb-2 row">
+                        <label class="col-sm-1 col-form-label d-flex justify-content-end">MES:</label>
+                        <div class="col-sm-4 d-flex justify-content-start">
+                            <select class="form-select " >
+                                <option value="1">Enero</option>
+                                <option value="2">Febrero</option>
+                                <option value="3">Marzo</option>
+                                <option value="4" selected >Diciembre</option>
+                              </select>
+                        </div>
+                        <label class="col-sm-1 col-form-label d-flex justify-content-end">AÑO:</label>
+                        <div class="col-sm-4 d-flex justify-content-start">
+                            <select class="form-select" >
+                                <option value="1">2021</option>
+                                <option value="2">2020</option>
+                                <option value="3">2019</option>
+                              </select>
+                        </div>
+                    </div>
+
                     <div class=" table-responsive">
                     <table class="table table-sm  table-bordered">
                         <thead class="fondo-table">
@@ -214,37 +235,37 @@
                                 <td>31</td>
                             </tr>
                             <tr>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/falto.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/nd.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/justificado.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/falto.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/nd.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/justificado.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
                             </tr>
                         </tbody>
                     </table>
@@ -257,60 +278,15 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 @stop
 
 @section('js')
-    <script>
-        /* navigator.mediaDevices.getUserMedia({ audio: false, video: true}).then((stream)=>{
-        let video = document.getElementById("video");
-
-        video.srcObject = stream;
-
-        video.onloadedmetadata = (ev) => video.play();
-        
-        }).catch((err)=>console.log(err)); */
-        navigator.mediaDevices.getUserMedia({
-                            audio: false,
-                            video: false
-                        }).then((stream) => {
-                            if (stream) {
-                                let video = document.getElementById('video');
-                                video.srcObject = stream;
-                                video.onloadedmetadata = (ev) => video.play();
-                                var canvas = document.getElementById('canvas');
-                                grabar.addEventListener("click", function() {
-                                    canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight,
-                                        0, 0, 198, 150);
-                                    var data = canvas.toDataURL('image/png');
-                                    document.getElementById('txt').setAttribute('value', data);
-                                    var a = data;
-                                    console.log(data);
-                                    //document.getElementById('tema').value =  document.getElementById('tem').value;
-                                    // document.getElementById('marcadosalida').value = document.getElementById('MSalida').value;
-
-                                });
-                            }
-                        }).catch((err)=>{
-                            console.log(err);
-                            grabar.addEventListener("click", function() {
-                                    document.getElementById('tema').value =  document.getElementById('tem').value;
-                                    // document.getElementById('marcadosalida').value = document.getElementById('MSalida').value;
-
-                                });
-                        })
-
-
-
-        function mostrarPassword() {
-            var cambio = document.getElementById("txtCodigoFirma");
-            if (cambio.type == "password") {
-                cambio.type = "text";
-                $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
-            } else {
-                cambio.type = "password";
-                $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
-            }
-        }
-    </script>
+<script>
+    $(document).ready(function(){
+        $("#grabar").click(function(){
+            alert("Hola Jquery esta funcionando ");
+        });
+    });
+</script>
 @stop
