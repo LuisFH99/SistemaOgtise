@@ -18,7 +18,7 @@ class SalidaController extends Controller
 
     public function index()
     {
-        return view('salida');
+        return view('docentes.salida');
     }
 
     /**

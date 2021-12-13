@@ -23,22 +23,19 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
-Route::get('/docentes/licencias', function () {
-    return view('licencias');
-});
-
-Route::get('/departamento/ValidaSalida', function () {
-    return view('ValidaSalida');
-});
 
 Auth::routes();
 
 Route::get('/Admin/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
 
-Route::get('/docentes/licencias', [App\Http\Controllers\LicenciasController::class, 'index'])->name('licencias');
-Route::get('/departamento/ValidaSalida', [App\Http\Controllers\ValidaSalidaController::class, 'index'])->name('ValidaSalida');
+Route::get('/docentes/licencias', [LicenciasController::class, 'index'])->name('licencias');
+Route::get('/departamento/ValidaSalida', [ValidaSalidaController::class, 'index'])->name('ValidaSalida');
 
-Route::get('/salida', [SalidaController::class, 'index'])->name('salida');
+Route::get('docentes/entrada', [EntradaController::class, 'index'])->name('entrada');
+Route::get('docentes/salida', [SalidaController::class, 'index'])->name('salida');
+Route::post('docentes/entrada/registrar', [EntradaxController::class, 'store'])->name('docentes.entrada.registrar');
+
+
 
 
 

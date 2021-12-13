@@ -18,7 +18,7 @@ class EntradaController extends Controller
 
     public function index()
     {
-        return view('entrada');
+        return view('docentes.entrada');
     }
 
     /**
@@ -40,7 +40,7 @@ class EntradaController extends Controller
     public function store(Request $request)
     {
         
-        $firma=$request->hora;
+        $firma=$request->firma;
         return json_encode($firma);
         
     }

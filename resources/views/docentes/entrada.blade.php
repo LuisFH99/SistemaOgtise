@@ -239,37 +239,37 @@
                                     <td>31</td>
                                 </tr>
                                 <tr>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt="" onclick="AbrirModal('a')"></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt="" onclick="AbrirModal('a')"></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt="" onclick="AbrirModal('a')"></td>
-                                    <td><img src="vendor/adminlte/dist/img/falto.svg" alt="" onclick="AbrirModal('f')"></td>
-                                    <td><img src="vendor/adminlte/dist/img/libre.svg" alt=""></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                    <td><img src="vendor/adminlte/dist/img/justificado.svg" alt="" onclick="AbrirModal('j')"></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                    <td><img src="vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt="" onclick="AbrirModal('a')"></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt="" onclick="AbrirModal('a')"></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt="" onclick="AbrirModal('a')"></td>
+                                    <td><img src="/vendor/adminlte/dist/img/falto.svg" alt="" onclick="AbrirModal('f')"></td>
+                                    <td><img src="/vendor/adminlte/dist/img/libre.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/justificado.svg" alt="" onclick="AbrirModal('j')"></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -297,7 +297,7 @@
                         <div class="col-6">
                             <h6 class="">Hora de Entrada: 07:01:52</h6>
                             <h6>Captura de Imagen</h6>
-                            <img src="vendor/adminlte/dist/img/image.png" width="197" height="197">
+                            <img src="/vendor/adminlte/dist/img/image.png" width="197" height="197">
                         </div>
                         <div class="col-6">
                             <h6>Hora de Salida: 17:02:52</h6>
@@ -352,7 +352,7 @@
                     0, 0, 198, 150);
                 var data = canvas.toDataURL('image/png');
                 $.ajax({
-                    url: '/entrada/registrar',
+                    url: 'entrada/registrar',
                     method: 'POST',
                     data: {
                         _token: $('input[name="_token"]').val(),

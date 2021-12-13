@@ -261,11 +261,11 @@ return [
             'submenu'   => [
                 [
                     'text'  => 'Registrar Entrada',
-                    'url'   => 'entrada',
+                    'route'   => 'entrada',
                 ],
                 [
                     'text'  => 'Registrar Salida',
-                    'url'   => 'salida',
+                    'route'   => 'salida',
                 ],
             ],
 
@@ -455,7 +455,7 @@ return [
             ],
         ],
         'jQuery' => [
-            'active' => true,
+            'active' => false,
             'files' => [
                 [
                     'type' => 'js',
