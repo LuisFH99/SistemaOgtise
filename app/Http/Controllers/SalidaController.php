@@ -39,7 +39,8 @@ class SalidaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $firma=$request->actividad;
+        return $firma;
     }
 
     /**

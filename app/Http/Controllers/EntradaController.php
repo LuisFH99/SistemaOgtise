@@ -40,8 +40,8 @@ class EntradaController extends Controller
     public function store(Request $request)
     {
         
-        $firma=$request->firma;
-        return json_encode($firma);
+        $firma=$request->foto;
+        return $firma;
         
     }
 

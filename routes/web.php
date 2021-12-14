@@ -33,7 +33,10 @@ Route::get('/departamento/ValidaSalida', [ValidaSalidaController::class, 'index'
 
 Route::get('docentes/entrada', [EntradaController::class, 'index'])->name('entrada');
 Route::get('docentes/salida', [SalidaController::class, 'index'])->name('salida');
-Route::post('docentes/entrada/registrar', [EntradaxController::class, 'store'])->name('docentes.entrada.registrar');
+
+Route::post('/docentes/entrada/registrar', [EntradaController::class, 'store'])->name('registrar');
+Route::post('/docentes/salida/registrar', [SalidaController::class, 'store'])->name('registrar.salida');
+
 
 
 
