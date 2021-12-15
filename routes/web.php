@@ -7,7 +7,7 @@ use App\Http\Controllers\EntradaController;
 use App\Http\Controllers\SalidaController;
 use App\Http\Controllers\ValidaSalidaController;
 use App\Http\Controllers\LicenciasController;
-
+use App\Http\Controllers\Admin\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,13 +26,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/Admin/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
+Route::get('/Admin/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])/*->middleware('can:admin.home')*/->name('home');
 
-Route::get('/docentes/licencias', [LicenciasController::class, 'index'])->name('licencias');
+Route::get('/docentes/licencias', [LicenciasController::class, 'index'])/*->middleware('can:licencia')*/->name('licencias');
 Route::get('/departamento/ValidaSalida', [ValidaSalidaController::class, 'index'])->name('ValidaSalida');
 
-Route::get('docentes/entrada', [EntradaController::class, 'index'])->name('entrada');
-Route::get('docentes/salida', [SalidaController::class, 'index'])->name('salida');
+Route::get('docentes/entrada', [EntradaController::class, 'index'])/*->middleware('can:asistencia.Entrada')*/->name('entrada');
+Route::get('docentes/salida', [SalidaController::class, 'index'])/*->middleware('can:asistencia.Salida')*/->name('salida');
 Route::post('docentes/entrada/registrar', [EntradaxController::class, 'store'])->name('docentes.entrada.registrar');
 
 
@@ -53,3 +53,8 @@ Route::resource('/Admin/files', App\Http\Controllers\Admin\FileController::class
     'show' => 'Admin.files.show',
     'store' => 'Admin.file.store'
 ]);*/
+Route::resource('users', App\Http\Controllers\Admin\UserController::class)->names([
+    'index' => 'Users',
+    'edit' => 'Admin.users.edit',
+    'update'=> 'Admin.users.update'
+]);

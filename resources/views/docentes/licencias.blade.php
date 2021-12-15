@@ -9,13 +9,13 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-16 p-2">
+        <div class="col-12 p-2">
             <div class="card h-100 fondo-cards">
                 <div class="card-body">
                     <h2>Crear solicitud de Licencia:</h2>
                     <form>
                         <div class="row">
-                            <div class="col-md-4 ">
+                            <div class="col-md-3">
                                 <div>
                                     <p></p>
                                     <label>Solicito Licencia por el siguiente Motivo:</label>
@@ -48,103 +48,103 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <br>
-                                <div class="custom-file">
-                                    <!--<input type="file" class="custom-file-input" name="file" id="file" lang="es" multiple>
-                                    <label class="custom-file-label" for="file">Seleccionar Archivo</label>-->
-                                    <div action="{{route('Admin.file.store')}}"  
-                                        method="POST"
-                                        class="dropzone" 
-                                        id="my-awesome-dropzone">
-                                    </div>
-                                </div>
-                                <div class="form-container">
-                                    
-                                    <!--<form class="dropzone" id="FormUploadFile" action="upload.php">
-                                        <div class="dz-message">
-                                            <div class="icon">
-                                                <i class="fas fa-cloud-upload-alt"></i>
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <br>
+                                        <div class="custom-file">
+                                            <!--<input type="file" class="custom-file-input" name="file" id="file" lang="es" multiple>
+                                            <label class="custom-file-label" for="file">Seleccionar Archivo</label>-->
+                                            <div action="{{route('Admin.file.store')}}"  
+                                                method="POST"
+                                                class="dropzone" 
+                                                id="my-awesome-dropzone">
                                             </div>
-                                            <h4>Suelta tus archivos aqui</h4>
-                                            <span class="note">No hay archivos seleccionados</span>
                                         </div>
-                                        <div class="fallback">
-                                        <input type="file" name="file" multiple></input>
-                                        </div>
-                                    </form>
-                                    -->
+                                        <div class="form-container">
+                                            
+                                            <!--<form class="dropzone" id="FormUploadFile" action="upload.php">
+                                                <div class="dz-message">
+                                                    <div class="icon">
+                                                        <i class="fas fa-cloud-upload-alt"></i>
+                                                    </div>
+                                                    <h4>Suelta tus archivos aqui</h4>
+                                                    <span class="note">No hay archivos seleccionados</span>
+                                                </div>
+                                                <div class="fallback">
+                                                <input type="file" name="file" multiple></input>
+                                                </div>
+                                            </form>
+                                            -->
 
-                                </div><br><br><br><br>
-                                <div>
-                                    <label>Justificación</label>
-                                    <textarea class="form-control" id="txtarea" rows="3"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <br>
-                                <label>Me ausentare</label><br>
-                                <label>Desde: </label>
-                                <input type="date" id="desde" name="trip-start"
-                                    value="2018-07-22"
-                                    min="2021-11-09" max="2050-12-31"><br>
-                                <label>Hasta: </label>
-                                <input type="date" id="hasta" name="trip-start"
-                                    value="2018-07-22"
-                                    min="2021-11-09" max="2050-12-31">
-                            </div> 
-                            <div class="col-md-2 ">
-                                <br>
-                                <label>N° de dias: </label>
-                                <span id="dias">0 dias</span><br>
-                                <label>Fecha de Reincorporación:</label>
-                                <span id="reincorporar">Miercoles, 01/12/2021</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4"></div>
-                            <div class="col-md-3">
-                                <br>
-                                <p class="text-right text-danger">Debes firmar para autenticar el documento:</p>
-                            </div>
-                            <div class="col-md-2">
-                                <br>
-                                <div class="d-inline-flex my-1">
-                                    <div class="checkbox-custom mr-4">
-                                        <label>
-                                            <input type="checkbox" id="chkDNIE">
-                                            <b></b>
-                                            <span class="font-weight-light">DNIe</span>
-                                        </label>
-                                    </div>                              
-                                    <div class="checkbox-custom">
-                                        <label>
-                                        <input type="checkbox" id="chkCodigoFirma">
-                                            <b></b>
-                                            <span class="font-weight-light">Clave de Firma Electrónica</span>
-                                        </label>
-                                    </div>
-                                </div>                 
-                            </div>
-                            <div class="col-md-3">
-                                <br>
-                                <div class="col-md-8">
-                                    <label class="mt-1 text-sm-right ">Ingrese clave</label>
-                                    <div class="input-group">
-                                        <input id="txtCodigoFirma" type="Password" Class="form-control">
-                                        <div class="input-group-append">
-                                            <button style="background-color:#28AECE;border-color:#28AECE" id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()">
-                                            <span class="fa fa-eye-slash icon"></span>
+                                        </div><br><br><br><br>
+                                        <div>
+                                            <label>Justificación</label>
+                                            <textarea class="form-control" id="txtarea" rows="3"></textarea>
                                         </div>
-                                    </div> 
-                                </div>                   
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <br>
+                                                <label>Me ausentare</label><br>
+                                                <label>Desde: </label>
+                                                <input type="date" id="desde" name="trip-start"
+                                                    value="<?php echo date('Y-m-d');?>"
+                                                    min="2021-11-09" max="2050-12-31"><br>
+                                                <label>Hasta: </label>
+                                                <input type="date" id="hasta" name="trip-start"
+                                                    value="<?php echo date('Y-m-d');?>"
+                                                    min="2021-11-09" max="2050-12-31">
+                                            </div> 
+                                            <div class="col-5">
+                                                <br>
+                                                <label>N° de dias: </label>
+                                                <span id="dias">0 dias</span><br>
+                                                <label>Fecha de Reincorporación:</label>
+                                                <span id="reincorporar">Miercoles, 01/12/2021</span>
+                                            </div>
+                                            <div class="col-12">
+                                                <br>
+                                                <p class="text-danger">*Debes firmar para autenticar el documento:</p>
+                                                <div class="col-12 d-flex justify-content-center">
+                                                    <div class="checkbox-custom mr-4">
+                                                        <label>
+                                                            <input type="checkbox" id="chkDNIE">
+                                                            <b></b>
+                                                            <span class="font-weight-light">DNIe</span>
+                                                        </label>
+                                                    </div>                              
+                                                    <div class="checkbox-custom">
+                                                        <label>
+                                                        <input type="checkbox" id="chkCodigoFirma">
+                                                            <b></b>
+                                                            <span class="font-weight-light">Clave de Firma Electrónica</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 d-flex justify-content-center">
+                                                    <div class="col-8">
+                                                        <label class="mt-1 text-sm-right ">Ingrese clave</label>
+                                                        <div class="input-group">
+                                                            <input id="txtCodigoFirma" type="Password" Class="form-control">
+                                                            <div class="input-group-append">
+                                                                <button style="background-color:#28AECE;border-color:#28AECE" id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()">
+                                                                    <span class="fa fa-eye-slash icon"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </form>
-                    <br>
-                    <div>
+                        <br>
                         <button type="button" class="btn btn-primary btn-lg dr" data-toggle="modal" data-target="#exampleModal">Solicitar</button>
-                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -240,18 +240,20 @@
                 <div class="col-14 p-2 ">
                     <div class="card fondo-cards">
                         <div class="table-responsive">
-                            <table class="table table-sm ">
-                                <tbody>
-                                    <tr>
-                                        <td>Código de solicitud</td>
-                                        <td class="dr">y7GAf5dg</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Fecha de envío:</td>
-                                        <td class="d">Jueves, 02/12/2021</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <form action="">
+                                <table class="table table-sm " id="tableCodigo">
+                                    <tbody>
+                                        <tr>
+                                            <td>Código de solicitud</td>
+                                            <td class="dr">y7GAf5dg</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Fecha de envío:</td>
+                                            <td class="d">Jueves, 02/12/2021</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -319,7 +321,7 @@
             maxFilesize: 10, // MB
             maxFiles: 5,
             addRemoveLinks: true, // Don't show remove links on dropzone itself.
-            /*dictCancelUpload: true,//cancelar archivo al subir
+            dictDefaultMessage: "Arrastra los archivos aquí para subirlos",/*dictCancelUpload: true,//cancelar archivo al subir
             accept: function(file, done) {
             if (file.name == "justinbieber.jpg") {
                 done("Naha, you don't.");
