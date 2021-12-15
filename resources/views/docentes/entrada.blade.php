@@ -14,21 +14,41 @@
                 <div class="card-body">
                     <h4 class="">Registro de Entrada</h4>
                     <div class="row">
-                        <div class="col-12">
-                            <label class="form-label text-black">Hora de Entrada: 07:04:33 </label>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label text-black">Camara:</label>
-                            <div class="row">
-                                <div class="col-sm-6 col-12">
-                                    <video id="video" class="img-responsive" width="200"></video>
+                        <div id="divEntrada"> 
+                            <div class="col-12">
+                                <label class="form-label text-black">Hora de Entrada: 07:04:33 </label>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label text-black">Camara:</label>
+                                <div class="row">
+                                    <div class="col-sm-6 col-12">
+                                        <video id="video" class="img-responsive" width="200"></video>
+                                    </div>
+                                    <div class="col-sm-6 col-12">
+                                        <canvas id="canvas" width="200" class="img-responsive"></canvas>
+                                    </div>
                                 </div>
-                                <div class="col-sm-6 col-12">
-                                    <canvas id="canvas" width="200" class="img-responsive"></canvas>
+                                <input type="hidden" name="foto" id="txt">
+                                @csrf
+                            </div>
+                        </div>
+                        <div id="divSalida">
+                            <div class="col-12">
+                                <label class="form-label text-black">Hora de Salida: 18:04:33</label>
+                            </div>
+                            <div class="col-12">
+                                <h6>Detalle de actividad realizada:</h6>
+                                <textarea class="form-control" aria-label="With textarea" id="actividad"></textarea>
+                            </div>
+                            <div class="col-12 mt-2">
+                                <h6>Cargar Evidencia <p class="opcional">* La carga de Archivos es Opcional</p>
+                                </h6>
+
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="customFile">
+                                    <label class="custom-file-label" for="customFile">Cargar Archivo</label>
                                 </div>
                             </div>
-                            <input type="hidden" name="foto" id="txt">
-                            @csrf
                         </div>
                         <div class="col-12 d-flex justify-content-center">
                             <div class="d-inline-flex my-1">
@@ -336,10 +356,11 @@
 @stop
 
 @section('js')
-<script>
+<script src="/js/asistencia.js"></script>
+<!-- <script>
     navigator.mediaDevices.getUserMedia({
         audio: false,
-        video: false
+        video: true
     }).then((stream) => {
         if (stream) {
             let video = document.getElementById('video');
@@ -352,7 +373,7 @@
                     0, 0, 198, 150);
                 var data = canvas.toDataURL('image/png');
                 $.ajax({
-                    url: 'entrada/registrar',
+                    url: "{{ route('registrar') }}",
                     method: 'POST',
                     data: {
                         _token: $('input[name="_token"]').val(),
@@ -429,6 +450,6 @@
     function ModalLicencia() {
         $('#tituloModal').text('Detalle de Licencia');
         $('#AsisteciaModal').modal('show');
-    }
+    } -->
 </script>
 @stop

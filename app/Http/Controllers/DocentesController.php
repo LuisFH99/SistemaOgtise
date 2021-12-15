@@ -4,21 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class EntradaController extends Controller
+class DocentesController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
-        return view('docentes.entrada');
+        return view('departamento.docentes');
     }
 
     /**
@@ -39,10 +34,7 @@ class EntradaController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $firma=$request->foto;
-        return $firma;
-        
+        //
     }
 
     /**
