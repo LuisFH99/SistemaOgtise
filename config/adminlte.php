@@ -281,6 +281,11 @@ return [
             'icon' => 'fas fa-user-check',
             'route'  => 'ValidaSalida',
         ],
+        [
+            'text' => 'Docentes',
+            'icon' => 'fas fa-user-tie',
+            'route'  => 'docentes',
+        ],
 
         ['header' => 'CONFIGIRACION DE CUENTA'],
         [
