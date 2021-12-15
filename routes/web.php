@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DocentesController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
@@ -36,6 +37,9 @@ Route::get('docentes/salida', [SalidaController::class, 'index'])->name('salida'
 
 Route::post('/docentes/entrada/registrar', [EntradaController::class, 'store'])->name('registrar');
 Route::post('/docentes/salida/registrar', [SalidaController::class, 'store'])->name('registrar.salida');
+
+Route::get('/departamento/docentes', [DocentesController::class, 'index'])->name('docentes');
+
 
 
 
