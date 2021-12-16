@@ -12,7 +12,11 @@
         <div class="col-lg-6 p-2">
             <div class="card h-100 fondo-cards">
                 <div class="card-body">
+                    @if($var==1)    
                     <h4 class="">Registro de Entrada</h4>
+                    @else
+                    <h4 class="">Registro de Salida</h4>
+                    @endif
                     <div class="row">
                         @if($var==1)
                         <div id="divEntrada">
@@ -31,7 +35,6 @@
                                     </div>
                                 </div>
                                 <input type="hidden" name="foto" id="txt">
-                                @csrf
                             </div>
                         </div>
                         @else
@@ -59,7 +62,6 @@
                             <div class="d-inline-flex my-1">
                                 <div class="checkbox-custom mr-4">
                                     <label>
-
                                         <input type="checkbox" id="chkDNIE">
                                         <b></b>
                                         <span>DNIe</span>
@@ -69,7 +71,7 @@
                                     <label>
                                         <input type="checkbox" id="chkCodigoFirma">
                                         <b></b>
-                                        <span>Clave de Firma Electrinica</span>
+                                        <span>Clave de Firma Electronica</span>
                                     </label>
                                 </div>
                             </div>
@@ -79,6 +81,7 @@
                                 <label class="mt-1 text-sm-right ">Ingrese clave</label>
                                 <div class="input-group">
                                     <input id="txtCodigoFirma" type="Password" Class="form-control">
+                                    @csrf
                                     <div class="input-group-append">
                                         <button style="background-color:#28AECE;border-color:#28AECE" id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()">
                                             <span class="fa fa-eye-slash icon"></span>

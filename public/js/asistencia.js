@@ -36,10 +36,7 @@ navigator.mediaDevices.getUserMedia({
 }
 
 $(function() {
-    let dto=$('#aux').val();
-    alert(dto);
-    console.log($('#aux').val())
-
+    
     if($('#aux').val()==1){
       
         CapturarDocente();
