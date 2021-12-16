@@ -20,6 +20,12 @@ class DatabaseSeeder extends Seeder
             'email'=>'davi1905m@gmail.com',
             'password'=>bcrypt('1234')
         ])->assignRole('Admin');
+        User::create([
+            'name'=>'Luis Factor',
+            'email'=>'luis@gmail.com',
+            'password'=>bcrypt('1234')
+        ])->assignRole('Admin');
+        
         User::factory(9)->create();
     }
 }

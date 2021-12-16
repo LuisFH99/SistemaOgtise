@@ -264,18 +264,19 @@ return [
         [
             'text'      => 'Registrar Asistencia',
             'icon'      => 'far fa-address-card',
-            'submenu'   => [
-                [
-                    'text'  => 'Registrar Entrada',
-                    'route'   => 'entrada',
-                    //'can'  => 'asistencia.Entrada'
-                ],
-                [
-                    'text'  => 'Registrar Salida',
-                    'route'   => 'salida',
-                    //'can'  => 'asistencia.Salida'
-                ],
-            ],
+            'route'     => 'entrada',
+            // 'submenu'   => [
+            //     [
+            //         'text'  => 'Registrar Entrada',
+            //         'route'   => 'entrada',
+            //         //'can'  => 'asistencia.Entrada'
+            //     ],
+            //     [
+            //         'text'  => 'Registrar Salida',
+            //         'route'   => 'salida',
+            //         //'can'  => 'asistencia.Salida'
+            //     ],
+            // ],
 
         ],
         [
@@ -525,5 +526,5 @@ return [
     |
     */
 
-    'livewire' => true,
+    'livewire' => false,
 ];

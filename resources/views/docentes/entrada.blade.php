@@ -14,8 +14,10 @@
                 <div class="card-body">
                     <h4 class="">Registro de Entrada</h4>
                     <div class="row">
-                        <div id="divEntrada"> 
+                        @if($var==1)
+                        <div id="divEntrada">
                             <div class="col-12">
+                                <input type="hidden" value="{{ $var }}" id="aux">
                                 <label class="form-label text-black">Hora de Entrada: 07:04:33 </label>
                             </div>
                             <div class="col-12">
@@ -32,8 +34,10 @@
                                 @csrf
                             </div>
                         </div>
+                        @else
                         <div id="divSalida">
                             <div class="col-12">
+                                <input type="hidden" value="{{ $var }}" id="aux">
                                 <label class="form-label text-black">Hora de Salida: 18:04:33</label>
                             </div>
                             <div class="col-12">
@@ -50,10 +54,12 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                         <div class="col-12 d-flex justify-content-center">
                             <div class="d-inline-flex my-1">
                                 <div class="checkbox-custom mr-4">
                                     <label>
+
                                         <input type="checkbox" id="chkDNIE">
                                         <b></b>
                                         <span>DNIe</span>
@@ -353,103 +359,10 @@
 @section('css')
 
 <link rel="stylesheet" href="/css/style.css">
+
 @stop
 
 @section('js')
 <script src="/js/asistencia.js"></script>
-<!-- <script>
-    navigator.mediaDevices.getUserMedia({
-        audio: false,
-        video: true
-    }).then((stream) => {
-        if (stream) {
-            let video = document.getElementById('video');
-            video.srcObject = stream;
-            video.onloadedmetadata = (ev) => video.play();
-            var canvas = document.getElementById('canvas');
-
-            $('#grabar').click(function() {
-                canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight,
-                    0, 0, 198, 150);
-                var data = canvas.toDataURL('image/png');
-                $.ajax({
-                    url: "{{ route('registrar') }}",
-                    method: 'POST',
-                    data: {
-                        _token: $('input[name="_token"]').val(),
-                        firma: $('#txtCodigoFirma').val(),
-                        foto: data
-
-
-                    }
-                }).done(function(res) {
-                    alert(res);
-                }).fail(function() {
-                    alert("error");
-                });
-            });
-        }
-    }).catch((err) => {
-        console.log(err);
-        
-    })
-
-    function mostrarPassword() {
-        var cambio = document.getElementById("txtCodigoFirma");
-        if (cambio.type == "password") {
-            cambio.type = "text";
-            $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
-        } else {
-            cambio.type = "password";
-            $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
-        }
-    }
-</script>
-<script>
-    $(document).ready(function() {
-
-    });
-
-    function AbrirModal(dto) {
-        switch (dto) {
-            case 'a':
-                ModalAsistio();
-                break;
-            case 'f':
-                ModalFalto();
-                break;
-            case 'j':
-                ModalJusticado();
-                break;
-            case 'l':
-                ModalLicencia();
-                break;
-        }
-    }
-
-    function ModalAsistio() {
-        $('#tituloModal').text('Detalle Registro de Asistencia');
-        $('#Asistencia').css('display', 'block');
-        $('#Jusficacion').css('display', 'none');
-
-        $('#AsisteciaModal').modal('show');
-    }
-
-    function ModalFalto() {
-        $('#tituloModal').text('Justificar Falta');
-        $('#Jusficacion').css('display', 'block');
-        $('#Asistencia').css('display', 'none');
-        $('#AsisteciaModal').modal('show');
-    }
-
-    function ModalJusticado() {
-        $('#tituloModal').text('Detalle de Justificación');
-        $('#AsisteciaModal').modal('show');
-    }
-
-    function ModalLicencia() {
-        $('#tituloModal').text('Detalle de Licencia');
-        $('#AsisteciaModal').modal('show');
-    } -->
 </script>
 @stop
