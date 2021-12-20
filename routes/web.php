@@ -9,6 +9,12 @@ use App\Http\Controllers\SalidaController;
 use App\Http\Controllers\ValidaSalidaController;
 use App\Http\Controllers\LicenciasController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\ContactanosController;
+use App\Http\Livewire\Admin\UsersIndex;
+use App\Http\Livewire\LicenciasIndex;
+use App\Mail\ContactanosMailable;
+use Illuminate\Support\Facades\Mail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -68,3 +74,12 @@ Route::resource('users', App\Http\Controllers\Admin\UserController::class)->name
     'edit' => 'Admin.users.edit',
     'update'=> 'Admin.users.update'
 ]);
+
+Route::post('/users/index/datos', [UsersIndex::class, 'datos'])->name('datos');
+Route::get('/users/index/roles', [UsersIndex::class, 'devolverRoles'])->name('roles.datos');
+
+Route::resource('/contactanos', App\Http\Controllers\ContactanosController::class)->names([
+    'index' => 'contactanos.index',
+    'store' => 'contactanos.store'
+]);
+Route::post('/licencia/index/datos', [LicenciasIndex::class, 'datos'])->name('datos1');

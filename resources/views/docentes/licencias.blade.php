@@ -12,7 +12,7 @@
         <div class="col-12 p-2">
             <div class="card h-100 fondo-cards">
                 <div class="card-body">
-                    <h2>Crear solicitud de Licencia:</h2>
+                    <h2>Crear solicitud de Licencia: {{$user->email}}</h2>
                     <form>
                         <div class="row">
                             <div class="col-md-3">
@@ -22,29 +22,22 @@
                                 </div>
                                 <div class="dropdown">
                                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Enfermedad
+                                        Seleccionar Motivo...
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href='#' onclick='selecMotivo(1);'>Comisión de Servicio</a>
-                                        <a class="dropdown-item" href='#' onclick='selecMotivo(2);'>A cuenta de Vacaciones</a>
-                                        <a class="dropdown-item" href='#' onclick='selecMotivo(3);'>Asuntos Particulares</a>
-                                        <a class="dropdown-item" href='#' onclick='selecMotivo(4);'>Enfermedad</a>
-                                        <a class="dropdown-item" href='#' onclick='selecMotivo(5);'>Vacaciones</a>
-                                        <a class="dropdown-item" href='#' onclick='selecMotivo(6);'>Compensación</a>
-                                        <a class="dropdown-item" href='#' onclick='selecMotivo(7);'>Capacitación</a>
-                                        <a class="dropdown-item" href='#' onclick='selecMotivo(8);'>Gravidez</a>
-                                        <a class="dropdown-item" href='#' onclick='selecMotivo(9);'>Onomástico</a>
-                                        <a class="dropdown-item" href='#' onclick='selecMotivo(10);'>Sepelio y Luto</a>
-                                        <a class="dropdown-item" href='#' onclick='selecMotivo(11);'>Cítas Médicas</a>
-                                        <a class="dropdown-item" href='#' onclick='selecMotivo(12);'>Paternidad</a>
-                                        <a class="dropdown-item" href='#' onclick='selecMotivo(13);'>Oncología</a>
+                                        @foreach ($Motivos as $Motivo)
+                                            <a class="dropdown-item" href='#' onclick='selecMotivo({{$Motivo->idMotivoSolicitudes}});'>
+                                                {{$Motivo->motivo}}</a>
+                                        @endforeach
+                                        
                                     </div>
                                 </div>
                                 <br>
                                 <div id="Nota">
-                                    <label id="req1" name="req1">Requisitos:</label>
+                                    <label id="req1" name="req1">Requisitos</label>
                                     <div id='Nota1'>
-                                        <p>*  Certificado médico</p>
+                                        <label class="text-danger">Debes Seleccionar un Motivo</label>
+                                        <p>*  Especifique</p>
                                     </div>
                                 </div>
                             </div>
@@ -149,79 +142,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-14 p-2 anc">
-            <div class="card fondo-cards">
-                <div class="col-14 card-body ">
-                    <h2>Licencias:</h2>
-                    <div class="table-responsive">
-                        <table class="table table-sm " id="idtablelicencia">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Código de licencia</th>
-                                    <th scope="col">Fecha</th>
-                                    <th scope="col">Hora</th>
-                                    <th scope="col">Estado</th>
-                                    <th scope="col">Ver</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>y7GAf5dg</td>
-                                    <td>Jueves, 02/12/2021</td>
-                                    <td>15:27:50</td>
-                                    <td>Enviado</td>
-                                    <td><a href="#" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="far fa-eye"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>y7GAf5dg</td>
-                                    <td>Jueves, 02/12/2021</td>
-                                    <td>15:27:50</td>
-                                    <td>Dpto. Académico</td>
-                                    <td><a href="#" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="far fa-eye"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>y7GAf5dg</td>
-                                    <td>Jueves, 02/12/2021</td>
-                                    <td>15:27:50</td>
-                                    <td>Dpto. Académico</td>
-                                    <td><a href="#" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="far fa-eye"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>y7GAf5dg</td>
-                                    <td>Jueves, 02/12/2021</td>
-                                    <td>15:27:50</td>
-                                    <td>Decanatura</td>
-                                    <td><a href="#" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="far fa-eye"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>y7GAf5dg</td>
-                                    <td>Jueves, 02/12/2021</td>
-                                    <td>15:27:50</td>
-                                    <td>URyC</td>
-                                    <td><a href="#" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="far fa-eye"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>y7GAf5dg</td>
-                                    <td>Jueves, 02/12/2021</td>
-                                    <td>15:27:50</td>
-                                    <td>Aprobado</td>
-                                    <td><a href="#" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="far fa-eye"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>y7GAf5dg</td>
-                                    <td>Jueves, 02/12/2021</td>
-                                    <td>15:27:50</td>
-                                    <td>Desaprobado</td>
-                                    <td><a href="#" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="far fa-eye"></i></a></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @livewire('licencias-index',['user' => $user])
 </div>
 
 <!-- Modal1 -->
@@ -266,31 +187,17 @@
     </div>
 </div>
 <!-- Modal2 -->
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" id="modalPDF" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Licencia pedida el 06/12/21 15:27:12</h5>
+                <h5 class="modal-title" id="labelPDF">Licencia pedida el 06/12/21 15:27:12</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <!--<div class="col-14 p-2 ">
-                    <div class="card fondo-cards">
-                        <div class="table-responsive">
-                            <table class="table table-sm ">
-                                <tbody>
-                                    <tr>
-                                        <td>Fecha y Hora de Petición</td>
-                                        <td class="dr">Lunes, 06 de diciembre de 2021</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>-->
-                        <embed src="https://www.fdi.ucm.es/profesor/jpavon/poo/01HolaMundo.pdf" frameborder="0" width="100%" height="400px">
-                    <!--</div>
-                </div>-->
+            <div class="modal-body" id="mostrarPDF" >
+                
             </div>
             <div class="modal-footer">
                 <!--<button type="button" class="btn btn-outline-danger " data-dismiss="modal">Denegar</button>-->
@@ -304,12 +211,14 @@
 @section('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css" integrity="sha512-jU/7UFiaW5UBGODEopEqnbIAHOI8fO6T99m7Tsmqs2gkdujByJfkCbbfPSN4Wlqlb9TGnsuC0YgUgWkRBK7B9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/css/style.css">
+    @livewireStyles
 @stop
 
 @section('js')
 
     <script> console.log('Hi!');</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js" integrity="sha512-oQq8uth41D+gIH/NJvSJvVB85MFk1eWpMK6glnkg6I7EdMqC1XVkW7RxLheXwmFdG03qScCM7gKS/Cx3FYt7Tg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         Dropzone.options.myAwesomeDropzone = { // camelized version of the `id`
             headers:{
@@ -332,27 +241,6 @@
 	        dictCancelUploadConfirmation: true,//confirma la cancelacion
 	        dictRemoveFile: 'Remove.'*/
         };
-    /*
-    $(window).on("load resize", function() {
-    if (this.matchMedia("(min-width: 768px)").matches) {
-        $dropdown.hover(
-        function() {
-            const $this = $(this);
-            $this.addClass(showClass);
-            $this.find($dropdownToggle).attr("aria-expanded", "true");
-            $this.find($dropdownMenu).addClass(showClass);
-        },
-        function() {
-            const $this = $(this);
-            $this.removeClass(showClass);
-            $this.find($dropdownToggle).attr("aria-expanded", "false");
-            $this.find($dropdownMenu).removeClass(showClass);
-        }
-        );
-    } else {
-        $dropdown.off("mouseenter mouseleave");
-    }
-    });*/
         function selecMotivo(id) {
             console.log('->'+id);
             //addElement1('label','Requerimientos', 'Nota',id); 
@@ -415,25 +303,6 @@
             document.getElementById(''+lugar).appendChild(lbb);
             document.getElementById('dropdownMenuButton').innerHTML=""+ele;
         }
-        function addElement2(tipo,texto, lugar,val){
-            document.getElementById(''+lugar).innerHTML="";
-            var lbb = document.createElement(''+tipo); 
-            lbb.appendChild(document.createTextNode(''+texto));
-            lbb.setAttribute('id', ''+tipo.substr(0,2)+''+val);
-        }
-        function addElement3(tipo,texto, lugar,val){
-            
-            var lbb = document.createElement(''+tipo); 
-            lbb.appendChild(document.createTextNode(''+texto));
-            lbb.setAttribute('id', ''+tipo.substr(0,2)+''+val);
-            document.getElementById(''+lugar).appendChild(lbb);
-            // Obtener una referencia al elemento, antes de donde queremos insertar el elemento
-            var sp2 = document.getElementById(''+lugar);
-            // Obtener una referencia al nodo padre
-            var parentDiv = sp2.parentNode;
-            // Inserta un nuevo elemento en el DOM antes de sp2
-            parentDiv.insertBefore(lbb, sp2.nextSibling);
-        }
         function mostrarPassword() {
             var cambio = document.getElementById("txtCodigoFirma");
             if (cambio.type == "password") {
@@ -444,6 +313,28 @@
                 $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
             }
         }
+        function selectId(id){
+            $.ajax({
+                url: '/licencia/index/datos',
+                method: 'POST',
+                data: {
+                    _token: $('input[name="_token"]').val(),
+                    dt: id,
+                }
+            }).done(function(res) {
+                alert(res.url_doc);
+                $('#labelPDF').html('Licencia pedida el '+res.fech_solicitud+' a horas: '+res.hor_solicitud);
+                $('#mostrarPDF').html("<embed src='"+res.url_doc+"' frameborder='0'"
+                    +" width='100%' height='400px'>");
+                $('#modalPDF').modal('show');
+            }).fail(function(msg) {
+                alert("error");
+            });
+            
+            //event.preventDefault();
+            //idp=id;
+        }
     </script>
     <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
+    @livewireScripts
 @stop

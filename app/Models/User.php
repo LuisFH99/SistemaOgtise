@@ -49,6 +49,6 @@ class User extends Authenticatable
         return 'https://picsum.photos/300/300';
     }
     public function adminlte_desc(){
-        return 'Admin';
+        return auth()->user()->email;
     }
 }

@@ -1,12 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Models\Licencia;
+
+use App\Models\User;
+use App\Models\Persona;
+use App\Models\Docente;
+use App\Models\Solicitud;
+use App\Models\MotivoSolicitud;
+
 
 class LicenciasController extends Controller
 {
+    
     /**
      * Create a new controller instance.
      *
@@ -24,7 +31,9 @@ class LicenciasController extends Controller
      */
     public function index()
     {
-        return view('docentes.licencias');
+        $user=auth()->user();
+        $Motivos=MotivoSolicitud::all();
+        return view('docentes.licencias',compact('user','Motivos'));
     }
      /**
      * Show the form for creating a new resource.
