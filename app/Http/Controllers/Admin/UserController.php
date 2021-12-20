@@ -8,11 +8,17 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 class UserController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    /*public function __construct(){
+        $this->middleware(['can:admin.users.index'])->only('index');
+        $this->middleware(['can:admin.users.edit'])->only('edit','update');
+    }*/
+
     public function index()
     {
         return view('users.index');
@@ -60,8 +66,9 @@ class UserController extends Controller
     {   
         $roles=Role::all();
         return view('users.edit',compact('user','roles'));
+        //return view('users.index',compact('user'));
     }
-
+    
     /**
      * Update the specified resource in storage.
      *
@@ -72,7 +79,7 @@ class UserController extends Controller
     public function update(Request $request,User $user)
     {
         $user->roles()->sync($request->roles);
-        return redirect()->route('Admin.users.edit',$user)->with('info','Se asignó un rol al usuario');
+        return redirect()->route('Users')->with('info','Se asignó un rol al usuario: '.$user->name);
     }
 
     /**
