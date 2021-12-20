@@ -23,7 +23,7 @@ class DocentesController extends Controller
      */
     public function create()
     {
-        //
+        return view('departamento.creardocente');
     }
 
     /**

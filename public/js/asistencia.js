@@ -24,6 +24,7 @@ navigator.mediaDevices.getUserMedia({
                 }
             }).done(function(res) {
                 alert(res);
+                location.reload();
             }).fail(function() {
                 alert("error");
             });
@@ -35,8 +36,12 @@ navigator.mediaDevices.getUserMedia({
 }
 
 $(function() {
-    let registro=1;
-     RegistroAsistencia(registro);
+    
+    if($('#aux').val()==1){
+      
+        CapturarDocente();
+    }
+    
 });
 
 function RegistroAsistencia(tp){

@@ -18,7 +18,8 @@ class EntradaController extends Controller
 
     public function index()
     {
-        return view('docentes.entrada');
+        $var=2;
+        return view('docentes.entrada',compact('var'));
     }
 
     /**

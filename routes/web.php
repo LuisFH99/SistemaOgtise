@@ -47,6 +47,7 @@ Route::post('/docentes/entrada/registrar', [EntradaController::class, 'store'])-
 Route::post('/docentes/salida/registrar', [SalidaController::class, 'store'])->name('registrar.salida');
 
 Route::get('/departamento/docentes', [DocentesController::class, 'index'])->name('docentes');
+Route::get('/departamento/creardocente', [DocentesController::class, 'create'])->name('creardocente');
 
 
 
