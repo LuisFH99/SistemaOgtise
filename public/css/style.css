@@ -5,6 +5,11 @@
 .fondo-table {
     background-color: #003260;
 }
+.fondo-table th {
+    color: #ffff;
+    text-align: center;
+    font-weight: normal;
+}
 
 .fondo-table td {
     color: #ffff;
@@ -14,6 +19,15 @@
 .bg-tr {
     background-color: #b4b6bc;
     color: #ffff;
+}
+
+.titulo_pregunta_1 {
+    /* font-family: Quicksand; */
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 19px;
+    color: #03529c;
 }
 
 .checkbox-custom {

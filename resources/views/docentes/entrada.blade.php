@@ -10,9 +10,9 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-6 p-2">
-            <div class="card h-100 fondo-cards">
+            <div class="card fondo-cards">
                 <div class="card-body">
-                    @if($var==1)    
+                    @if($var==1)
                     <h4 class="">Registro de Entrada</h4>
                     @else
                     <h4 class="">Registro de Salida</h4>
@@ -38,26 +38,29 @@
                             </div>
                         </div>
                         @else
-                        <div id="divSalida">
-                            <div class="col-12">
-                                <input type="hidden" value="{{ $var }}" id="aux">
-                                <label class="form-label text-black">Hora de Salida: 18:04:33</label>
-                            </div>
-                            <div class="col-12">
-                                <h6>Detalle de actividad realizada:</h6>
-                                <textarea class="form-control" aria-label="With textarea" id="actividad"></textarea>
-                            </div>
-                            <div class="col-12 mt-2">
-                                <h6>Cargar Evidencia <p class="opcional">* La carga de Archivos es Opcional</p>
-                                </h6>
+                        <!-- <div id="divSalida"> -->
+                        <div class="col-12">
+                            <input type="hidden" value="{{ $var }}" id="aux">
+                            <label class="form-label text-black">Hora de Salida: 18:04:33</label>
+                        </div>
+                        <div class="col-12">
+                            <h6>Detalle de actividad realizada:</h6>
+                            <textarea class="form-control" aria-label="With textarea" id="actividad"></textarea>
+                        </div>
+                        <div class="col-12 mt-2">
+                            <h6>Cargar Evidencia <p class="opcional">* La carga de Archivos es Opcional</p>
+                            </h6>
 
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="customFile">
-                                    <label class="custom-file-label" for="customFile">Cargar Archivo</label>
-                                </div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" for="customFile">Cargar Archivo</label>
                             </div>
                         </div>
+                        <!-- </div> -->
                         @endif
+                        <div class="col-12 text-center">
+                            <h4 class="titulo_pregunta_1 my-2">¿Con qué deseas firmar?</h4>
+                        </div>
                         <div class="col-12 d-flex justify-content-center">
                             <div class="d-inline-flex my-1">
                                 <div class="checkbox-custom mr-4">
@@ -76,7 +79,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 d-flex justify-content-center">
+
+                        <div class="col-12 d-none justify-content-center" id="formclave">
                             <div class="col-8">
                                 <label class="mt-1 text-sm-right ">Ingrese clave</label>
                                 <div class="input-group">
@@ -89,7 +93,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 d-flex justify-content-center pt-3">
+                        <div class="col-12 d-none justify-content-center pt-3" id="formbtn">
                             <button type="button" class="btn btn-primary" id="grabar"> Marcar Asistencia</button>
                         </div>
 
@@ -179,16 +183,24 @@
                     <div class="mb-2 row">
                         <label class="col-sm-1 col-form-label d-flex justify-content-end">MES:</label>
                         <div class="col-sm-4 d-flex justify-content-start">
-                            <select class="custom-select">
+                            <select id="meses" class="custom-select" onchange="RegistroMensual(this.value)">
                                 <option value="1">Enero</option>
                                 <option value="2">Febrero</option>
                                 <option value="3">Marzo</option>
-                                <option value="4" selected>Diciembre</option>
+                                <option value="4">Abril</option>
+                                <option value="5">Mayo</option>
+                                <option value="6">Junio</option>
+                                <option value="7">Julio</option>
+                                <option value="8">Agosto</option>
+                                <option value="9">Setiembre</option>
+                                <option value="10">Octubre</option>
+                                <option value="11">Noviembre</option>
+                                <option value="12">Diciembre</option>
                             </select>
                         </div>
                         <label class="col-sm-1 col-form-label d-flex justify-content-end">AÑO:</label>
                         <div class="col-lg-2 col-md-2  col-sm-4   d-flex justify-content-start">
-                            <select class="custom-select">
+                            <select class="custom-select" onchange="limpiar()">
                                 <option value="1">2021</option>
                                 <option value="2">2020</option>
                                 <option value="3">2019</option>
@@ -197,45 +209,45 @@
                     </div>
 
                     <div class=" table-responsive">
-                        <table class="table table-sm  table-bordered">
+                        <table class="table table-sm  table-bordered" id="table">
                             <thead class="fondo-table">
-                                <tr>
-                                    <td>MI</td>
-                                    <td>JU</td>
-                                    <td>VI</td>
-                                    <td>SA</td>
-                                    <td>DO</td>
-                                    <td>LU</td>
-                                    <td>MA</td>
-                                    <td>MI</td>
-                                    <td>JU</td>
-                                    <td>VI</td>
-                                    <td>SA</td>
-                                    <td>DO</td>
-                                    <td>LU</td>
-                                    <td>MA</td>
-                                    <td>MI</td>
-                                    <td>JU</td>
-                                    <td>VI</td>
-                                    <td>SA</td>
-                                    <td>DO</td>
-                                    <td>LU</td>
-                                    <td>MA</td>
-                                    <td>MI</td>
-                                    <td>JU</td>
-                                    <td>VI</td>
-                                    <td>SA</td>
-                                    <td>DO</td>
-                                    <td>LU</td>
-                                    <td>MA</td>
-                                    <td>MI</td>
-                                    <td>JU</td>
-                                    <td>VI</td>
-                                </tr>
+                                <!-- <tr>
+                                    <th>MI</th>
+                                    <th>JU</th>
+                                    <th>VI</th>
+                                    <th>SA</th>
+                                    <th>DO</th>
+                                    <th>LU</th>
+                                    <th>MA</th>
+                                    <th>MI</th>
+                                    <th>JU</th>
+                                    <th>VI</th>
+                                    <th>SA</th>
+                                    <th>DO</th>
+                                    <th>LU</th>
+                                    <th>MA</th>
+                                    <th>MI</th>
+                                    <th>JU</th>
+                                    <th>VI</th>
+                                    <th>SA</th>
+                                    <th>DO</th>
+                                    <th>LU</th>
+                                    <th>MA</th>
+                                    <th>MI</th>
+                                    <th>JU</th>
+                                    <th>VI</th>
+                                    <th>SA</th>
+                                    <th>DO</th>
+                                    <th>LU</th>
+                                    <th>MA</th>
+                                    <th>MI</th>
+                                    <th>JU</th>
+                                    <th>VI</th>
+                                </tr> -->
                             </thead>
                             <tbody>
                                 <tr class="bg-tr">
-                                    <td>1</td>
+                                    <!-- <td>1</td>
                                     <td>2</td>
                                     <td>3</td>
                                     <td>4</td>
@@ -265,10 +277,10 @@
                                     <td>28</td>
                                     <td>29</td>
                                     <td>30</td>
-                                    <td>31</td>
+                                    <td>31</td> -->
                                 </tr>
-                                <tr>
-                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt="" onclick="AbrirModal('a')"></td>
+                                <tr id="Aux">
+                                    <!-- <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt="" onclick="AbrirModal('a')"></td>
                                     <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt="" onclick="AbrirModal('a')"></td>
                                     <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt="" onclick="AbrirModal('a')"></td>
                                     <td><img src="/vendor/adminlte/dist/img/falto.svg" alt="" onclick="AbrirModal('f')"></td>
@@ -298,7 +310,7 @@
                                     <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
                                     <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
                                     <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                    <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td> -->
                                 </tr>
                             </tbody>
                         </table>

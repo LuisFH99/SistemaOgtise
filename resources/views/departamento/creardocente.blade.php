@@ -102,7 +102,7 @@
 @section('js')
 <script>
     $(document).ready(function() {
-        $('.nav-link').click();
+        // $('.nav-link').click();
         $('#email').focus(function() {
             $(this).val("" + generaremail($('#nombres').val(), $('#apepat').val(), $('#apemat').val()));
         });

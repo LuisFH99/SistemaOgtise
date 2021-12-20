@@ -1,3 +1,24 @@
+$(function() {
+    
+    if($('#aux').val()==1){
+        CapturarDocente();
+    }
+
+    
+
+
+    $("#meses option[value="+ 12 +"]").attr("selected",true);
+    RegistroMensual(new Date().getMonth()+1);
+    MostarFirma();
+    
+
+   
+});
+
+
+
+//funciones
+
 function CapturarDocente(){
 navigator.mediaDevices.getUserMedia({
     audio: false,
@@ -24,7 +45,7 @@ navigator.mediaDevices.getUserMedia({
                 }
             }).done(function(res) {
                 alert(res);
-                location.reload();
+                // location.reload();
             }).fail(function() {
                 alert("error");
             });
@@ -35,41 +56,13 @@ navigator.mediaDevices.getUserMedia({
 })
 }
 
-$(function() {
-    
-    if($('#aux').val()==1){
-      
-        CapturarDocente();
-    }
-    
-});
-
-function RegistroAsistencia(tp){
-    if(tp==1){
-        $('#divEntrada').css('display', 'block');
-        $('#divSalida').css('display', 'none');
-        CapturarDocente();
-    }else{
-        $('#divEntrada').css('display', 'none');
-        $('#divSalida').css('display', 'block');
-        $('#grabar').click(function() {
-            $.ajax({
-                url: '/docentes/salida/registrar',
-                method: 'POST',
-                data: {
-                    _token: $('input[name="_token"]').val(),
-                    firma: $('#txtCodigoFirma').val(),
-                    actividad: $('#actividad').val(),
-
-                }
-            }).done(function(res) {
-                alert(res);
-            }).fail(function() {
-                alert("error");
-            });
-        }); 
-    }
+function limpiar(){
+    $("#table th").remove();
+    $("#table td").remove();   
 }
+
+let th=""; let td=""; let td2="";
+
 function mostrarPassword() {
     var cambio = document.getElementById("txtCodigoFirma");
     if (cambio.type == "password") {
@@ -79,6 +72,35 @@ function mostrarPassword() {
         cambio.type = "password";
         $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
     }
+}
+
+function MostarFirma(){
+    
+     $('#chkCodigoFirma').on("click", function(){
+        if ($(this).is(":checked")) {
+            $('#chkDNIE').prop("checked",false);
+            $("#formclave").removeClass("d-none");
+            $("#formbtn").removeClass("d-none");
+            $("#formclave").addClass("d-flex");
+            $("#formbtn").addClass("d-flex");
+            
+        }else{
+            $("#formclave").removeClass("d-flex");
+            $("#formbtn").removeClass("d-flex");
+            $("#formclave").addClass("d-none");
+            $("#formbtn").addClass("d-none");
+        }
+     });
+
+     $('#chkDNIE').on("click", function(){
+        if ($(this).is(":checked")) {
+            $('#chkCodigoFirma').prop("checked",false);
+            $("#formclave").removeClass("d-flex");
+            $("#formbtn").removeClass("d-flex");
+            $("#formclave").addClass("d-none");
+            $("#formbtn").addClass("d-none");
+        }
+     });
 }
 
 function AbrirModal(dto) {
@@ -121,4 +143,25 @@ function ModalJusticado() {
 function ModalLicencia() {
     $('#tituloModal').text('Detalle de Licencia');
     $('#AsisteciaModal').modal('show');
+}
+
+
+function RegistroMensual(mes){
+    limpiar()
+    let th=""; let td=""; let td2="";
+    let dtito="<img src='/vendor/adminlte/dist/img/asistio.svg' onclick=AbrirModal('a')>";
+    var diasMes = new Date(2021, mes, 0).getDate();
+    var diasSemana = ['D0', 'LU', 'MA', 'MI', 'JU', 'VI', 'SA'];
+    // let th=""; let td="";
+    for (var dia=1; dia <= diasMes;dia++){
+        var indice = new Date(2021, mes - 1, dia).getDay();
+        th+="<th>"+diasSemana[indice]+"</th>";
+        td+="<td>"+dia+"</td>";
+        
+        td2+="<td>"+dtito+"</td>";
+    }
+    $('.fondo-table').append("<tr>"+th+"</tr");
+    $('.bg-tr').append(td);
+    $('#Aux').append(td2);
+
 }

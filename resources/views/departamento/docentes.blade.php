@@ -93,7 +93,7 @@
 @section('js')
 <script>
     $(document).ready(function() {
-        $('.nav-link').click();
+        // $('.nav-link').click();
         $('#tableDocentes').DataTable();
     });
 </script>
