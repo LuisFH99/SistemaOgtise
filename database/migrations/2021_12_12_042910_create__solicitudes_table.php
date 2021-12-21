@@ -25,8 +25,8 @@ class CreateSolicitudesTable extends Migration
             $table->string('firm_reemplazo',150)->nulable();
             $table->string('url_doc',100);
             $table->mediumText('observacion')->nulable();
+            $table->string('codigo',45);
             $table->integer('estado');
-
             $table->unsignedBigInteger('fk_idFirmas')->unique();
             $table->foreign('fk_idFirmas')->references('idFirmas')->on('Firmas');
             $table->unsignedBigInteger('fk_idMotivoSolicitudes');

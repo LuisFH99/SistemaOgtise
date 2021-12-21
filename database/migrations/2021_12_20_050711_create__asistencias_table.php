@@ -25,7 +25,10 @@ class CreateAsistenciasTable extends Migration
             $table->foreign('fk_idFechAsistencias')->references('idFechAsistencias')->on('FechAsistencias');
             $table->unsignedBigInteger('fk_idEstadoAsistencias');
             $table->foreign('fk_idEstadoAsistencias')->references('idEstadoAsistencias')->on('EstadoAsistencias');
+            $table->unsignedBigInteger('fk_idDocentes');
+            $table->foreign('fk_idDocentes')->references('idDocentes')->on('Docentes');
             $table->timestamps();
+
         });
     }
 

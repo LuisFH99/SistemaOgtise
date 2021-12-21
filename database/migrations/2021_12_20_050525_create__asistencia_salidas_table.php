@@ -20,6 +20,7 @@ class CreateAsistenciaSalidasTable extends Migration
             $table->string('estado');
             $table->unsignedBigInteger('fk_idFirmas')->unique();
             $table->foreign('fk_idFirmas')->references('idFirmas')->on('Firmas');
+
             $table->timestamps();
         });
     }

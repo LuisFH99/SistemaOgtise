@@ -14,13 +14,13 @@ class CreateDetEvidenciasTable extends Migration
     public function up()
     {
         Schema::create('DetEvidencias', function (Blueprint $table) {
-            $table->id('DetEvidencias');
+            $table->id('idDetEvidencias');
             $table->integer('estado');
             $table->unsignedBigInteger('fk_idEvidencias')->unique();
             $table->foreign('fk_idEvidencias')->references('idEvidencias')->on('Evidencias');
             $table->unsignedBigInteger('fk_idAsistenciaSalidas');
             $table->foreign('fk_idAsistenciaSalidas')->references('idAsistenciaSalidas')->on('AsistenciaSalidas');
-           
+
             $table->timestamps();
         });
     }
