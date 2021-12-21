@@ -48,7 +48,7 @@
                                         <div class="custom-file">
                                             <!--<input type="file" class="custom-file-input" name="file" id="file" lang="es" multiple>
                                             <label class="custom-file-label" for="file">Seleccionar Archivo</label>-->
-                                            <div action="{{route('Admin.file.store')}}"  
+                                            <div action="{{route('licencias.file')}}"  
                                                 method="POST"
                                                 class="dropzone" 
                                                 id="my-awesome-dropzone">
@@ -73,7 +73,7 @@
                                         </div><br><br><br><br>
                                         <div>
                                             <label>Justificación</label>
-                                            <textarea class="form-control" id="txtarea" rows="3"></textarea>
+                                            <textarea class="form-control" id="txtareajus" rows="3"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-6">
@@ -136,7 +136,7 @@
                         </div>
                     </form>
                         <br>
-                        <button type="button" class="btn btn-primary btn-lg dr" data-toggle="modal" data-target="#exampleModal">Solicitar</button>
+                        <button type="button" class="btn btn-primary btn-lg dr" id="btnSolicitar">Solicitar</button>
                     
                 </div>
             </div>
@@ -146,7 +146,7 @@
 </div>
 
 <!-- Modal1 -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalSOlicitud" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -220,6 +220,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js" integrity="sha512-oQq8uth41D+gIH/NJvSJvVB85MFk1eWpMK6glnkg6I7EdMqC1XVkW7RxLheXwmFdG03qScCM7gKS/Cx3FYt7Tg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        let idMot=0;
+        let desde=new Date($('#desde').val());
+        let hasta=new Date($('#hasta').val());
+        let ndias=0;
+        let date = new Date();
+        const months = ["Enero", "Febrero", "Marzo","Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        const days = ["Lunes", "Martes", "Miercoles","Jueves", "Viernes", "Sabado", "Domingo"];
         Dropzone.options.myAwesomeDropzone = { // camelized version of the `id`
             headers:{
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -241,9 +248,82 @@
 	        dictCancelUploadConfirmation: true,//confirma la cancelacion
 	        dictRemoveFile: 'Remove.'*/
         };
+        
+        $(function() {
+            $('#reincorporar').html(devolverFechaLab(desde));
+            $('#desde').change(function() {
+                desde = new Date($(this).val()).getTime();
+                ndias = (hasta-desde)/(1000*60*60*24);
+                $('#dias').html(ndias+" dias");
+            });
+            $('#hasta').change(function() {
+                date = new Date($(this).val())
+                hasta = date.getTime();
+                ndias = (hasta-desde)/(1000*60*60*24);
+                $('#dias').html(ndias+" dias");
+                $('#reincorporar').html(devolverFechaLab(date));
+            });
+            $("#btnSolicitar").click(function(){
+                desde = new Date($('#desde').val())
+                hasta = new Date($('#hasta').val())
+                let txtareajus=$('#txtareajus').val();
+                let dias=$('#dias').val();
+                let reincorporar=$('#reincorporar').val();
+                let txtCodigoFirma=$('#txtCodigoFirma').val();
+                $.ajax({
+                    route: 'licencias.store',
+                    method: 'POST',
+                    data: {
+                        _token: $('input[name="_token"]').val(),
+                        Motivo: idMot,
+                        Justificacion: txtareajus,
+                        Fdesde: desde,
+                        Fhasta: hasta,
+                        Ndias: dias,
+                        Firma: txtCodigoFirma,
+                    }
+                }).done(function(res) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        customClass: {
+                            confirmButton: 'btn btn-outline-success'
+                        },
+                        buttonsStyling: false
+                    })
+                    swalWithBootstrapButtons.fire({
+                        title: '<strong>ENVÍO EXITOSO</strong>',
+                        icon: 'success',
+                        html:
+                            "<div class='col-14 p-2 '>"
+                                +"<div class='card fondo-cards'>"
+                                    +"<div class='table-responsive'>"
+                                        +"<table class='table table-sm ' id='tableCodigo'>"
+                                            +"<tbody>"
+                                                +"<tr>"
+                                                    +"<td>Código de solicitud</td>"
+                                                    +"<td class='dr'>"+res.codigo+"</td>"
+                                                +"</tr>"
+                                                +"<tr>"
+                                                    +"<td>Fecha de envío:</td>"
+                                                    +"<td class='d'>"+res.fecha+"</td>"
+                                                +"</tr>"
+                                            +" </tbody>"
+                                        +"</table>"
+                                    +"</div>"
+                                +"</div>"
+                            +"</div>"
+                            +"<center><p class='text-secondary'>Te hemos enviado una copia de esta constancia a tu correo institucional</p></center>",
+                        confirmButtonText:'Aceptar'
+                    })
+                    
+                }).fail(function(msg) {
+                    alert("error");
+                });
+            });
+        });
         function selecMotivo(id) {
             console.log('->'+id);
-            //addElement1('label','Requerimientos', 'Nota',id); 
+            //addElement1('label','Requerimientos', 'Nota',id);
+            idMot=id; 
             switch (id) {
                 case 1://comision de servicio
                     console.log('caso->'+id);
@@ -322,7 +402,7 @@
                     dt: id,
                 }
             }).done(function(res) {
-                alert(res.url_doc);
+                //alert(res.url_doc);
                 $('#labelPDF').html('Licencia pedida el '+res.fech_solicitud+' a horas: '+res.hor_solicitud);
                 $('#mostrarPDF').html("<embed src='"+res.url_doc+"' frameborder='0'"
                     +" width='100%' height='400px'>");
@@ -333,6 +413,29 @@
             
             //event.preventDefault();
             //idp=id;
+        }
+        function formatDate(date){
+            let formatted_date = days[date.getDay()] +", "+date.getDate() + " de " + months[date.getMonth()] + " de " + date.getFullYear();
+            return formatted_date;
+        }
+        function devolverFechaLab(d){
+            switch (d.getDay()) {
+                case 4://Viernes
+                    d.setDate(d.getDate()+3);
+                    console.log('caso->'+d);
+                    break;
+                case 5://Sabado
+                    d.setDate(d.getDate()+2);
+                    console.log('caso->'+d);
+                    break;
+                case 6://Domingo
+                    d.setDate(d.getDate()+1);
+                    console.log('caso->'+d);
+                    break;
+                default:
+                    d.setDate(d.getDate());
+            }
+            return ''+formatDate(d);
         }
     </script>
     <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
