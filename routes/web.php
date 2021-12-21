@@ -8,6 +8,12 @@ use App\Http\Controllers\EntradaController;
 use App\Http\Controllers\SalidaController;
 use App\Http\Controllers\ValidaSalidaController;
 use App\Http\Controllers\LicenciasController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\ContactanosController;
+use App\Http\Livewire\Admin\UsersIndex;
+use App\Http\Livewire\LicenciasIndex;
+use App\Mail\ContactanosMailable;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,18 +33,21 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/Admin/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
+Route::get('/Admin/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])/*->middleware('can:admin.home')*/->name('home');
 
-Route::get('/docentes/licencias', [LicenciasController::class, 'index'])->name('licencias');
+Route::get('/docentes/licencias', [LicenciasController::class, 'index'])/*->middleware('can:licencia')*/->name('licencias');
 Route::get('/departamento/ValidaSalida', [ValidaSalidaController::class, 'index'])->name('ValidaSalida');
 
-Route::get('docentes/entrada', [EntradaController::class, 'index'])->name('entrada');
-Route::get('docentes/salida', [SalidaController::class, 'index'])->name('salida');
+Route::get('docentes/entrada', [EntradaController::class, 'index'])/*->middleware('can:asistencia.Entrada')*/->name('entrada');
+Route::get('docentes/salida', [SalidaController::class, 'index'])/*->middleware('can:asistencia.Salida')*/->name('salida');
+Route::post('docentes/entrada/registrar', [EntradaxController::class, 'store'])->name('docentes.entrada.registrar');
+
 
 Route::post('/docentes/entrada/registrar', [EntradaController::class, 'store'])->name('registrar');
 Route::post('/docentes/salida/registrar', [SalidaController::class, 'store'])->name('registrar.salida');
 
 Route::get('/departamento/docentes', [DocentesController::class, 'index'])->name('docentes');
+Route::get('/departamento/creardocente', [DocentesController::class, 'create'])->name('creardocente');
 
 
 
@@ -60,3 +69,17 @@ Route::resource('/Admin/files', App\Http\Controllers\Admin\FileController::class
     'show' => 'Admin.files.show',
     'store' => 'Admin.file.store'
 ]);*/
+Route::resource('users', App\Http\Controllers\Admin\UserController::class)->names([
+    'index' => 'Users',
+    'edit' => 'Admin.users.edit',
+    'update'=> 'Admin.users.update'
+]);
+
+Route::post('/users/index/datos', [UsersIndex::class, 'datos'])->name('datos');
+Route::get('/users/index/roles', [UsersIndex::class, 'devolverRoles'])->name('roles.datos');
+
+Route::resource('/contactanos', App\Http\Controllers\ContactanosController::class)->names([
+    'index' => 'contactanos.index',
+    'store' => 'contactanos.store'
+]);
+Route::post('/licencia/index/datos', [LicenciasIndex::class, 'datos'])->name('datos1');

@@ -11,7 +11,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <button type="button" class="btn btn-primary my-2">Registar Docente</button>
+        <a href="{{ route('creardocente') }}" class="btn btn-primary my-2">Registar Docente</a>
         <table id="tableDocentes" class="table table-sm shadow-lg">
             <thead class="bg-primary text-white">
                 <tr>

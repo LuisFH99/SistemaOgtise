@@ -1,25 +1,27 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-class EntradaController extends Controller
+use App\Models\User;
+use Spatie\Permission\Models\Role;
+class UserController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    /*public function __construct(){
+        $this->middleware(['can:admin.users.index'])->only('index');
+        $this->middleware(['can:admin.users.edit'])->only('edit','update');
+    }*/
 
     public function index()
     {
-        $var=2;
-        return view('docentes.entrada',compact('var'));
+        return view('users.index');
     }
 
     /**
@@ -40,10 +42,7 @@ class EntradaController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $firma=$request->foto;
-        return $firma;
-        
+        //
     }
 
     /**
@@ -63,11 +62,13 @@ class EntradaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit(User $user)
+    {   
+        $roles=Role::all();
+        return view('users.edit',compact('user','roles'));
+        //return view('users.index',compact('user'));
     }
-
+    
     /**
      * Update the specified resource in storage.
      *
@@ -75,9 +76,10 @@ class EntradaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,User $user)
     {
-        //
+        $user->roles()->sync($request->roles);
+        return redirect()->route('Users')->with('info','Se asignó un rol al usuario: '.$user->name);
     }
 
     /**

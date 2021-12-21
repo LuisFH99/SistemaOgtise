@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'AsistenciaDocentes',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -244,36 +244,46 @@ return [
         [
             'text' => 'blog',
             'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            'can'  => 'manage-blog'
         ],
                
         [
             'text'        => 'Inicio',
             'route'         => 'home',
             'icon'        => 'fas fa-home',
+            //'can'  => 'admin.home'
         ],
-
+        [
+            'text'        => 'Usuarios',
+            'route'         => 'Users',
+            'icon'        => 'fas fa-users',
+           // 'can'  => 'admin.users.index'
+        ],
         ['header' => 'DOCENTES'],
 
         [
             'text'      => 'Registrar Asistencia',
             'icon'      => 'far fa-address-card',
-            'submenu'   => [
-                [
-                    'text'  => 'Registrar Entrada',
-                    'route'   => 'entrada',
-                ],
-                [
-                    'text'  => 'Registrar Salida',
-                    'route'   => 'salida',
-                ],
-            ],
+            'route'     => 'entrada',
+            // 'submenu'   => [
+            //     [
+            //         'text'  => 'Registrar Entrada',
+            //         'route'   => 'entrada',
+            //         //'can'  => 'asistencia.Entrada'
+            //     ],
+            //     [
+            //         'text'  => 'Registrar Salida',
+            //         'route'   => 'salida',
+            //         //'can'  => 'asistencia.Salida'
+            //     ],
+            // ],
 
         ],
         [
             'text' => 'Licencias',
             'icon'      => 'fas fa-file-upload',
             'route'  => 'licencias',
+            //'can'  => 'licencia'
         ],
         ['header' => 'DPTO. ACADÉMINCO'],
         [
