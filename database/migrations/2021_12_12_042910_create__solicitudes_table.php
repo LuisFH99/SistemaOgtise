@@ -19,6 +19,7 @@ class CreateSolicitudesTable extends Migration
             $table->time('hor_solicitud');
             $table->date('fech_inicio');
             $table->date('fech_fin');
+            $table->date('fech_retorno');
             $table->mediumText('justificacion');
             $table->integer('num_dias');
             $table->string('reemplazo',100)->nulable();
