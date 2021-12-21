@@ -15,11 +15,12 @@ class CreateAsistenciaSalidasTable extends Migration
     {
         Schema::create('AsistenciaSalidas', function (Blueprint $table) {
             $table->id('idAsistenciaSalidas');
-            $table->time('hor_entrada');
+            $table->time('hor_salida');
             $table->mediumText('informe');
             $table->string('estado');
             $table->unsignedBigInteger('fk_idFirmas')->unique();
             $table->foreign('fk_idFirmas')->references('idFirmas')->on('Firmas');
+
             $table->timestamps();
         });
     }

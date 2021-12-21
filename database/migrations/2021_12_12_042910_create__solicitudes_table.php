@@ -19,14 +19,15 @@ class CreateSolicitudesTable extends Migration
             $table->time('hor_solicitud');
             $table->date('fech_inicio');
             $table->date('fech_fin');
+            $table->date('fech_retorno');
             $table->mediumText('justificacion');
             $table->integer('num_dias');
             $table->string('reemplazo',100)->nulable();
             $table->string('firm_reemplazo',150)->nulable();
             $table->string('url_doc',100);
             $table->mediumText('observacion')->nulable();
+            $table->string('codigo',45);
             $table->integer('estado');
-
             $table->unsignedBigInteger('fk_idFirmas')->unique();
             $table->foreign('fk_idFirmas')->references('idFirmas')->on('Firmas');
             $table->unsignedBigInteger('fk_idMotivoSolicitudes');
