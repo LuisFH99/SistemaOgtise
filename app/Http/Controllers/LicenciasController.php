@@ -10,7 +10,6 @@ use App\Models\Docente;
 use App\Models\Solicitud;
 use App\Models\MotivoSolicitud;
 use App\Models\Adjunto;
-use App\Models\DetAdjunto;
 use App\Models\Firma;
 
 use App\Mail\ContactanosMailable;
