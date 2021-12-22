@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class DetAdjunto extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'estado',
+        'fk_idAdjuntos',
+        'fk_idSolicitudes',
+    ];
 }

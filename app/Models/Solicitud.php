@@ -24,6 +24,7 @@ class Solicitud extends Model
         'firm_reemplazo',
         'url_doc',
         'observacion',
+        'codigo',
         'estado',
         'fk_idFirmas',
         'fk_idMotivoSolicitudes',

@@ -279,8 +279,7 @@
                         Justificacion: txtareajus,
                         Fdesde: desde,
                         Fhasta: hasta,
-                        Ndias: dias,
-                        Firma: txtCodigoFirma,
+                        Ndias: dias
                     }
                 }).done(function(res) {
                     const swalWithBootstrapButtons = Swal.mixin({
@@ -300,11 +299,11 @@
                                             +"<tbody>"
                                                 +"<tr>"
                                                     +"<td>Código de solicitud</td>"
-                                                    +"<td class='dr'>"+res.codigo+"</td>"
+                                                    +"<td class='dr'>"+res.codSoli+"</td>"
                                                 +"</tr>"
                                                 +"<tr>"
                                                     +"<td>Fecha de envío:</td>"
-                                                    +"<td class='d'>"+res.fecha+"</td>"
+                                                    +"<td class='d'>"+res.fecha+" "+res.hora+"</td>"
                                                 +"</tr>"
                                             +" </tbody>"
                                         +"</table>"
