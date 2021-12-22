@@ -35,7 +35,7 @@ Auth::routes();
 
 Route::get('/Admin/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])/*->middleware('can:admin.home')*/->name('home');
 
-Route::get('/docentes/licencias', [LicenciasController::class, 'index'])/*->middleware('can:licencia')*/->name('licencias');
+//Route::get('/docentes/licencias', [LicenciasController::class, 'index'])/*->middleware('can:licencia')*/->name('licencias');
 Route::get('/departamento/ValidaSalida', [ValidaSalidaController::class, 'index'])->name('ValidaSalida');
 
 Route::get('docentes/entrada', [EntradaController::class, 'index'])/*->middleware('can:asistencia.Entrada')*/->name('entrada');
@@ -63,12 +63,14 @@ Route::resource('/Admin/files', App\Http\Controllers\Admin\FileController::class
     'store' => 'Admin.file.store'
 ]);
 //
-/*Route::resource('/docentes/Licencias', App\Http\Controllers\LicenciasController::class)->names([
-    'index' => 'Admin.files.index',
-    'create' => 'Admin.files.create',
-    'show' => 'Admin.files.show',
-    'store' => 'Admin.file.store'
-]);*/
+Route::resource('/docentes/licencias', App\Http\Controllers\LicenciasController::class)->names([
+    'index' => 'licencias',
+    'create' => 'licencias.create',
+    'show' => 'licencias.show',
+    'store' => 'licencias.store'
+]);
+Route::post('/docentes/licencias/file', [LicenciasController::class, 'file'])->name('licencias.file');
+
 Route::resource('users', App\Http\Controllers\Admin\UserController::class)->names([
     'index' => 'Users',
     'edit' => 'Admin.users.edit',
