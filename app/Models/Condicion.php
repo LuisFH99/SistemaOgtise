@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Condicion extends Model
 {
     use HasFactory;
+    protected $table = 'condiciones';
 }

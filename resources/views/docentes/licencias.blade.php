@@ -26,7 +26,7 @@
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         @foreach ($Motivos as $Motivo)
-                                            <a class="dropdown-item" href='#' onclick='selecMotivo({{$Motivo->idMotivoSolicitudes}});'>
+                                            <a class="dropdown-item" href='#' onclick='selecMotivo({{ $Motivo -> idMotivoSolicitudes }} );'>
                                                 {{$Motivo->motivo}}</a>
                                         @endforeach
                                         

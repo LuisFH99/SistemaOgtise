@@ -21,6 +21,5 @@ class Docente extends Model
         'fk_idCondiciones',
         'fk_idDedicaciones',
         'fk_idDepAcademicos',
-        'estado',
     ];
 }

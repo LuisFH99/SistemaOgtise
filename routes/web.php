@@ -41,13 +41,13 @@ Route::get('/departamento/ValidaSalida', [ValidaSalidaController::class, 'index'
 Route::get('docentes/entrada', [EntradaController::class, 'index'])/*->middleware('can:asistencia.Entrada')*/->name('entrada');
 Route::get('docentes/salida', [SalidaController::class, 'index'])/*->middleware('can:asistencia.Salida')*/->name('salida');
 Route::post('docentes/entrada/registrar', [EntradaxController::class, 'store'])->name('docentes.entrada.registrar');
-
-
 Route::post('/docentes/entrada/registrar', [EntradaController::class, 'store'])->name('registrar');
 Route::post('/docentes/salida/registrar', [SalidaController::class, 'store'])->name('registrar.salida');
 
+
 Route::get('/departamento/docentes', [DocentesController::class, 'index'])->name('docentes');
 Route::get('/departamento/creardocente', [DocentesController::class, 'create'])->name('creardocente');
+Route::post('/departamento/docentes/store',[DocentesController::class,'store'])->name('docentes.store');
 
 
 
