@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DetEvidencia extends Model
+class DetSemana extends Model
 {
     use HasFactory;
 }

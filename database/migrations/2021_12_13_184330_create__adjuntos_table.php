@@ -17,6 +17,8 @@ class CreateAdjuntosTable extends Migration
             $table->id('idAdjuntos');
             $table->mediumText('docs');
             $table->integer('estado');
+            $table->unsignedBigInteger('fk_idSolicitudes');
+            $table->foreign('fk_idSolicitudes')->references('idSolicitudes')->on('Solicitudes');
             $table->timestamps();
         });
     }

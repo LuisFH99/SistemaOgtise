@@ -17,6 +17,8 @@ class CreateEvidenciasTable extends Migration
             $table->id('idEvidencias');
             $table->mediumText('docs');
             $table->integer('estado');
+            $table->unsignedBigInteger('fk_idAsistenciaSalidas');
+            $table->foreign('fk_idAsistenciaSalidas')->references('idAsistenciaSalidas')->on('AsistenciaSalidas');
             $table->timestamps();
         });
     }

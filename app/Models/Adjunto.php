@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Adjunto extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'docs',
+        'estado',
+    ];
 }
