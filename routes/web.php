@@ -66,10 +66,12 @@ Route::resource('/Admin/files', App\Http\Controllers\Admin\FileController::class
 Route::resource('/docentes/licencias', App\Http\Controllers\LicenciasController::class)->names([
     'index' => 'licencias',
     'create' => 'licencias.create',
-    'show' => 'licencias.show',
-    'store' => 'licencias.store'
+    'show' => 'licencias.show'
 ]);
+Route::post('/docentes/licencias/store', [LicenciasController::class, 'store'])->name('licencias.store');
 Route::post('/docentes/licencias/file', [LicenciasController::class, 'file'])->name('licencias.file');
+Route::post('/docentes/licencias/dato', [LicenciasController::class, 'dato'])->name('licencias.dato');
+Route::get('/docentes/PDFs/imprimir', [LicenciasController::class, 'imprimir'])->name('licencias.imprimir');
 
 Route::resource('users', App\Http\Controllers\Admin\UserController::class)->names([
     'index' => 'Users',

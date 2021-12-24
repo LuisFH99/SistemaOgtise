@@ -12,7 +12,7 @@
         <div class="col-12 p-2">
             <div class="card h-100 fondo-cards">
                 <div class="card-body">
-                    <h2>Crear solicitud de Licencia: {{$user->email}}</h2>
+                    <h2>Crear solicitud de Licencia: {{$user->name}}</h2>
                     <form>
                         <div class="row">
                             <div class="col-md-3">
@@ -45,35 +45,22 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <br>
+                                        <div>
+                                            <label>Justificación</label>
+                                            <textarea class="form-control" id="txtareajus" rows="3"></textarea>
+                                        </div><br>
                                         <div class="custom-file">
+                                            <label>Adjuntar Archivos</label>
                                             <!--<input type="file" class="custom-file-input" name="file" id="file" lang="es" multiple>
                                             <label class="custom-file-label" for="file">Seleccionar Archivo</label>-->
                                             <div action="{{route('licencias.file')}}"  
                                                 method="POST"
-                                                class="dropzone" 
+                                                class="dropzone scroll-3a" 
                                                 id="my-awesome-dropzone">
+                                                {{-- <div class='fallback'>
+                                                    <input name='file' type='file' multiple />
+                                                </div> --}}
                                             </div>
-                                        </div>
-                                        <div class="form-container">
-                                            
-                                            <!--<form class="dropzone" id="FormUploadFile" action="upload.php">
-                                                <div class="dz-message">
-                                                    <div class="icon">
-                                                        <i class="fas fa-cloud-upload-alt"></i>
-                                                    </div>
-                                                    <h4>Suelta tus archivos aqui</h4>
-                                                    <span class="note">No hay archivos seleccionados</span>
-                                                </div>
-                                                <div class="fallback">
-                                                <input type="file" name="file" multiple></input>
-                                                </div>
-                                            </form>
-                                            -->
-
-                                        </div><br><br><br><br>
-                                        <div>
-                                            <label>Justificación</label>
-                                            <textarea class="form-control" id="txtareajus" rows="3"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-6">
@@ -82,12 +69,12 @@
                                                 <br>
                                                 <label>Me ausentare</label><br>
                                                 <label>Desde: </label>
-                                                <input type="date" id="desde" name="trip-start"
-                                                    value="<?php echo date('Y-m-d');?>"
+                                                <input type="date" id="desde" 
+                                                    value="{{date('Y-m-d')}}"
                                                     min="2021-11-09" max="2050-12-31"><br>
                                                 <label>Hasta: </label>
-                                                <input type="date" id="hasta" name="trip-start"
-                                                    value="<?php echo date('Y-m-d');?>"
+                                                <input type="date" id="hasta" 
+                                                    value="{{date('Y-m-d')}}"
                                                     min="2021-11-09" max="2050-12-31">
                                             </div> 
                                             <div class="col-5">
@@ -137,55 +124,21 @@
                     </form>
                         <br>
                         <button type="button" class="btn btn-primary btn-lg dr" id="btnSolicitar">Solicitar</button>
-                    
+                        <div class="d-none">
+                            <button type="button" class="btn btn-primary btn-lg dr" id="btnSolicitar1">Archivo</button>
+                        </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="d-none">
+        <a href="/docentes/PDFs/imprimir" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="btnSolicitar2">
+            <i class="fas fa-print fa-sm text-white-50"></i> Imprimir
+        </a>
+    </div><br><br>
     @livewire('licencias-index',['user' => $user])
 </div>
 
-<!-- Modal1 -->
-<div class="modal fade" id="modalSOlicitud" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <img class="centrado" src="https://avam.es/wp-content/uploads/2020/01/icono-check.png">
-                <center><h1 class="modal-title text-success" id="exampleModalLabel">Envío Exitoso</h1></center>
-                <br>
-                <div class="col-14 p-2 ">
-                    <div class="card fondo-cards">
-                        <div class="table-responsive">
-                            <form action="">
-                                <table class="table table-sm " id="tableCodigo">
-                                    <tbody>
-                                        <tr>
-                                            <td>Código de solicitud</td>
-                                            <td class="dr">y7GAf5dg</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Fecha de envío:</td>
-                                            <td class="d">Jueves, 02/12/2021</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                    <center><p class="text-secondary">Te hemos enviado una copia de esta constancia a tu correo electrónico</p></center>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-outline-success " data-dismiss="modal">Aceptar</button>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- Modal2 -->
 <div class="modal fade bd-example-modal-lg" id="modalPDF" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -199,6 +152,7 @@
             <div class="modal-body" id="mostrarPDF" >
                 
             </div>
+            
             <div class="modal-footer">
                 <!--<button type="button" class="btn btn-outline-danger " data-dismiss="modal">Denegar</button>-->
                 <button type="button" class="btn btn-outline-primary " data-dismiss="modal">Aceptar</button>
@@ -221,101 +175,161 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         let idMot=0;
-        let desde=new Date($('#desde').val());
-        let hasta=new Date($('#hasta').val());
+        let desde=new Date($('#desde').val()).getTime();
+        let hasta=new Date($('#hasta').val()).getTime();
         let ndias=0;
-        let date = new Date();
-        const months = ["Enero", "Febrero", "Marzo","Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-        const days = ["Lunes", "Martes", "Miercoles","Jueves", "Viernes", "Sabado", "Domingo"];
         Dropzone.options.myAwesomeDropzone = { // camelized version of the `id`
             headers:{
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 //'X-CSRF-TOKEN':"{{csrf_token()}}"
                 //'X-CSRF-TOKEN': window.CSRF_TOKEN// <--- aquí el token
             },
+            autoProcessQueue: false,
             paramName: "file", // The name that will be used to transfer the file
             maxFilesize: 10, // MB
             maxFiles: 5,
-            addRemoveLinks: true, // Don't show remove links on dropzone itself.
-            dictDefaultMessage: "Arrastra los archivos aquí para subirlos",/*dictCancelUpload: true,//cancelar archivo al subir
-            accept: function(file, done) {
-            if (file.name == "justinbieber.jpg") {
-                done("Naha, you don't.");
-            }
-            else { done(); }
-            }
+            addRemoveLinks: false, // Don't show remove links on dropzone itself.
+            dictDefaultMessage: "Arrastra los archivos aquí para subirlos",
             
-	        dictCancelUploadConfirmation: true,//confirma la cancelacion
-	        dictRemoveFile: 'Remove.'*/
+            init: function () {
+                var submitButton = document.querySelector("#btnSolicitar1");
+                var wrapperThis = this;
+
+                submitButton.addEventListener("click", function () {
+                    wrapperThis.processQueue();
+                });
+
+                this.on("addedfile", function (file) {
+
+                    // Create the remove button
+                    var removeButton = Dropzone.createElement("<button class='btn btn-lg dark'>"
+                    +"<i class='fa fa-trash' aria-hidden='true'></i>Eliminar</button>");
+
+                    // Listen to the click event
+                    removeButton.addEventListener("click", function (e) {
+                        // Make sure the button click doesn't submit the form:
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        // Remove the file preview.
+                        wrapperThis.removeFile(file);
+                        // If you want to the delete the file on the server as well,
+                        // you can do the AJAX request here.
+                    });
+
+                    // Add the button to the file preview element.
+                    file.previewElement.appendChild(removeButton);
+                });
+
+                this.on('sendingmultiple', function (data, xhr, formData) {
+                    formData.append("idMot", idMot);
+                });
+            }
+
         };
-        
         $(function() {
-            $('#reincorporar').html(devolverFechaLab(desde));
+            $('#reincorporar').html(formatoFecha(devolverFechaLab(hasta)));
             $('#desde').change(function() {
                 desde = new Date($(this).val()).getTime();
                 ndias = (hasta-desde)/(1000*60*60*24);
                 $('#dias').html(ndias+" dias");
             });
             $('#hasta').change(function() {
-                date = new Date($(this).val())
-                hasta = date.getTime();
+                hasta = new Date($(this).val()).getTime();
                 ndias = (hasta-desde)/(1000*60*60*24);
                 $('#dias').html(ndias+" dias");
-                $('#reincorporar').html(devolverFechaLab(date));
+                $('#reincorporar').html(formatoFecha(devolverFechaLab($(this).val())));
             });
             $("#btnSolicitar").click(function(){
-                desde = new Date($('#desde').val())
-                hasta = new Date($('#hasta').val())
+                ini = $('#desde').val();
+                fin = $('#hasta').val();
                 let txtareajus=$('#txtareajus').val();
-                let dias=$('#dias').val();
-                let reincorporar=$('#reincorporar').val();
+                let dias=ndias;
+                let reincorporar=devolverFechaLab(hasta);
                 let txtCodigoFirma=$('#txtCodigoFirma').val();
+                let fEODe='1';
                 $.ajax({
-                    route: 'licencias.store',
+                    url: '/docentes/licencias/dato',
                     method: 'POST',
                     data: {
                         _token: $('input[name="_token"]').val(),
-                        Motivo: idMot,
-                        Justificacion: txtareajus,
-                        Fdesde: desde,
-                        Fhasta: hasta,
-                        Ndias: dias
+                        dt: txtCodigoFirma
                     }
-                }).done(function(res) {
-                    const swalWithBootstrapButtons = Swal.mixin({
-                        customClass: {
-                            confirmButton: 'btn btn-outline-success'
-                        },
-                        buttonsStyling: false
-                    })
-                    swalWithBootstrapButtons.fire({
-                        title: '<strong>ENVÍO EXITOSO</strong>',
-                        icon: 'success',
-                        html:
-                            "<div class='col-14 p-2 '>"
-                                +"<div class='card fondo-cards'>"
-                                    +"<div class='table-responsive'>"
-                                        +"<table class='table table-sm ' id='tableCodigo'>"
-                                            +"<tbody>"
-                                                +"<tr>"
-                                                    +"<td>Código de solicitud</td>"
-                                                    +"<td class='dr'>"+res.codSoli+"</td>"
-                                                +"</tr>"
-                                                +"<tr>"
-                                                    +"<td>Fecha de envío:</td>"
-                                                    +"<td class='d'>"+res.fecha+" "+res.hora+"</td>"
-                                                +"</tr>"
-                                            +" </tbody>"
-                                        +"</table>"
+                }).done(function(msg) {
+                    if(msg==='1'){
+                        $.ajax({
+                            route: 'docentes/licencias/store',
+                            method: 'POST',
+                            data: {
+                                _token: $('input[name="_token"]').val(),
+                                Motivo: idMot,
+                                Justificacion: txtareajus,
+                                Fdesde: ini,
+                                Fhasta: fin,
+                                Ndias: dias,
+                                reinc: reincorporar,
+                                idTf: fEODe
+                            }
+                        }).done(function(res) {
+                            document.getElementById("btnSolicitar1").click();
+                            document.getElementById("btnSolicitar2").click();
+                            const swalWithBootstrapButtons = Swal.mixin({
+                                customClass: {
+                                    confirmButton: 'btn btn-outline-success'
+                                },
+                                buttonsStyling: false
+                            })
+                            swalWithBootstrapButtons.fire({
+                                title: '<strong>ENVÍO EXITOSO</strong>',
+                                icon: 'success',
+                                html:
+                                    "<div class='col-14 p-2 '>"
+                                        +"<div class='card fondo-cards'>"
+                                            +"<div class='table-responsive'>"
+                                                +"<table class='table table-sm ' id='tableCodigo'>"
+                                                    +"<tbody>"
+                                                        +"<tr>"
+                                                            +"<td>Código de solicitud</td>"
+                                                            +"<td class='dr'>"+res.codSoli+"</td>"
+                                                        +"</tr>"
+                                                        +"<tr>"
+                                                            +"<td>Fecha de envío:</td>"
+                                                            +"<td class='d'>"+res.fecha+" "+res.hora+"</td>"
+                                                        +"</tr>"
+                                                    +" </tbody>"
+                                                +"</table>"
+                                            +"</div>"
+                                        +"</div>"
                                     +"</div>"
-                                +"</div>"
-                            +"</div>"
-                            +"<center><p class='text-secondary'>Te hemos enviado una copia de esta constancia a tu correo institucional</p></center>",
-                        confirmButtonText:'Aceptar'
-                    })
-                    
+                                    +"<center><p class='text-secondary'>Te hemos enviado una copia de esta constancia a tu correo institucional</p></center>",
+                                confirmButtonText:'Aceptar'
+                            }).then((result) => {
+                                /* Read more about isConfirmed, isDenied below */
+                                if (result.isConfirmed) {
+                                    location.reload();
+                                }
+                            })
+                            
+                        }).fail(function(msg) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Algo salio mal!'
+                            })
+                        });
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'La contraseña no es Correcta!'
+                        })
+                    }
                 }).fail(function(msg) {
-                    alert("error");
+                    Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Algo salio mal!...'
+                        })
                 });
             });
         });
@@ -373,7 +387,6 @@
                     addElement1('p','*Especifique', 'Nota1',id,'Seleccionar Motivo');
             }
         }
-
         function addElement1(tipo,texto, lugar,val,ele){
             document.getElementById(''+lugar).innerHTML="";
             var lbb = document.createElement(''+tipo); 
@@ -413,28 +426,34 @@
             //event.preventDefault();
             //idp=id;
         }
-        function formatDate(date){
-            let formatted_date = days[date.getDay()] +", "+date.getDate() + " de " + months[date.getMonth()] + " de " + date.getFullYear();
+        function formatoFecha(dato){
+            dato=dato.toString();
+            date=new Date(dato);
+            const months = ["Enero", "Febrero", "Marzo","Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+            const days = ["Lunes", "Martes", "Miercoles","Jueves", "Viernes", "Sabado", "Domingo"];
+            let fecha=dato.split("-");
+            let formatted_date = days[date.getDay()] +", "+fecha[2] + " de " + months[parseInt(fecha[1])-1] + " de " + date.getFullYear();
             return formatted_date;
         }
         function devolverFechaLab(d){
-            switch (d.getDay()) {
+            let ds=new Date(d);
+            switch (ds.getDay()) {
                 case 4://Viernes
-                    d.setDate(d.getDate()+3);
+                    ds.setDate(ds.getDate()+3);
                     console.log('caso->'+d);
                     break;
                 case 5://Sabado
-                    d.setDate(d.getDate()+2);
+                    ds.setDate(ds.getDate()+2);
                     console.log('caso->'+d);
                     break;
                 case 6://Domingo
-                    d.setDate(d.getDate()+1);
+                    ds.setDate(ds.getDate()+1);
                     console.log('caso->'+d);
                     break;
                 default:
-                    d.setDate(d.getDate());
+                    ds=new Date(d);
             }
-            return ''+formatDate(d);
+            return ds.toISOString().slice(0,10);
         }
     </script>
     <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
