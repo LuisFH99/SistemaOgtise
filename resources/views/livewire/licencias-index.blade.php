@@ -4,6 +4,13 @@
             <div class="card fondo-cards">
                 <div class="col-14 card-body ">
                     <h2>Mis Licencias:</h2>
+                    <div class="input-group rounded col-6">
+                        <input wire:model="search" type="search" class="form-control rounded" placeholder="Buscar" aria-label="Search"
+                        aria-describedby="search-addon" />
+                        <span class="input-group-text border-0" id="search-addon">
+                          <i class="fas fa-search"></i>
+                        </span>
+                    </div>
                     @if ($aux==0||$solicitudes->count()==0)
                         <div class="card-body">
                             <center><strong>No hay Licencias a Mostrar</strong></center>

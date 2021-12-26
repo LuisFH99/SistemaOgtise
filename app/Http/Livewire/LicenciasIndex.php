@@ -8,7 +8,6 @@ use App\Models\User;
 use App\Models\Persona;
 use App\Models\Docente;
 use App\Models\Solicitud;
-use App\Models\DetAdjunto;
 use App\Models\Adjunto;
 use Livewire\WithPagination;
 use Spatie\Permission\Models\Role;
@@ -31,7 +30,10 @@ class LicenciasIndex extends Component
         if(isset($docente)){
             $solicitudes=DB::table('solicitudes')
             ->join('estadosolicitudes', 'solicitudes.fk_idEstadoSolicitudes', '=', 'estadosolicitudes.idEstadoSolicitudes')
-            ->select('solicitudes.*','estadosolicitudes.estadoSol')->where('fk_idDocentes',$docente->idDocentes)->orderBy('idSolicitudes', 'desc')->get();
+            ->select('solicitudes.*','estadosolicitudes.estadoSol')->where('fk_idDocentes',$docente->idDocentes)
+            ->where('codigo','LIKE','%'.$this->search.'%')->orWhere('fech_solicitud','LIKE','%'.$this->search.'%')
+            ->orWhere('estadoSol','LIKE','%'.$this->search.'%')
+            ->orderBy('idSolicitudes', 'desc')->get();
             $aux=1;
         }else{
             $solicitudes=[['idSolicitudes'=>0]];$aux=0;

@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ContactanosController;
 use App\Http\Livewire\Admin\UsersIndex;
 use App\Http\Livewire\LicenciasIndex;
+use App\Http\Livewire\ValidarSalidasIndex;
 use App\Mail\ContactanosMailable;
 use Illuminate\Support\Facades\Mail;
 
@@ -36,7 +37,9 @@ Auth::routes();
 Route::get('/Admin/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])/*->middleware('can:admin.home')*/->name('home');
 
 //Route::get('/docentes/licencias', [LicenciasController::class, 'index'])/*->middleware('can:licencia')*/->name('licencias');
-Route::get('/departamento/ValidaSalida', [ValidaSalidaController::class, 'index'])->name('ValidaSalida');
+Route::resource('/departamento/ValidaSalida', ValidaSalidaController::class)->names([
+    'index'=>'ValidaSalida'
+]);
 
 Route::get('docentes/entrada', [EntradaController::class, 'index'])/*->middleware('can:asistencia.Entrada')*/->name('entrada');
 Route::get('docentes/salida', [SalidaController::class, 'index'])/*->middleware('can:asistencia.Salida')*/->name('salida');
@@ -48,12 +51,6 @@ Route::post('/docentes/salida/registrar', [SalidaController::class, 'store'])->n
 
 Route::get('/departamento/docentes', [DocentesController::class, 'index'])->name('docentes');
 Route::get('/departamento/creardocente', [DocentesController::class, 'create'])->name('creardocente');
-
-
-
-
-
-
 
 //CRUD 
 Route::resource('/Admin/files', App\Http\Controllers\Admin\FileController::class)->names([
@@ -87,3 +84,6 @@ Route::resource('/contactanos', App\Http\Controllers\ContactanosController::clas
     'store' => 'contactanos.store'
 ]);
 Route::post('/licencia/index/datos', [LicenciasIndex::class, 'datos'])->name('datos1');
+
+Route::post('/Departamento/index/validando', [ValidarSalidasIndex::class, 'validando'])->name('validando');
+Route::post('/Departamento/ValidaSalida/dato', [ValidaSalidaController::class, 'dato'])->name('ValidaSalida.dato');

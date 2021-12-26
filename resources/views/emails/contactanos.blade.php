@@ -12,6 +12,6 @@
     <p><strong>Codigo de la Solicitud:</strong>{{$contacto["codSoli"]}}</p>
     <p><strong>Fecha:</strong>{{$contacto["fecha"]}}</p>
     <p><strong>Hora:</strong>{{$contacto["hora"]}}</p>
-    <p><strong>Hora:</strong>{{$contacto["nombreDoc"]}}</p>
+    <p><strong>Nombre:</strong>{{$contacto["nombreDoc"]}}</p>
 </body>
 </html>
