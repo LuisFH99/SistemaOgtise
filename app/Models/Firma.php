@@ -14,4 +14,5 @@ class Firma extends Model
         'estado', 
         'fk_idTipFirmas',
     ];
+    protected $table = 'firmas';
 }

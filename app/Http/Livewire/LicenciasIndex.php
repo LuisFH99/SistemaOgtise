@@ -8,7 +8,6 @@ use App\Models\User;
 use App\Models\Persona;
 use App\Models\Docente;
 use App\Models\Solicitud;
-use App\Models\DetAdjunto;
 use App\Models\Adjunto;
 use Livewire\WithPagination;
 use Spatie\Permission\Models\Role;
@@ -27,13 +26,24 @@ class LicenciasIndex extends Component
         $docente = DB::table('docentes')
             ->join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
             ->select('idDocentes')->where('correo',$this->user->email)->first();
-        $solicitudes=DB::table('solicitudes')
+            $aux=-1;
+        if(isset($docente)){
+            $solicitudes=DB::table('solicitudes')
             ->join('estadosolicitudes', 'solicitudes.fk_idEstadoSolicitudes', '=', 'estadosolicitudes.idEstadoSolicitudes')
-            ->select('solicitudes.*','estadosolicitudes.estado')->where('fk_idDocentes',$docente->idDocentes)->get();
-        return view('livewire.licencias-index',compact('solicitudes'));
+            ->select('solicitudes.*','estadosolicitudes.estadoSol')->where('fk_idDocentes',$docente->idDocentes)
+            ->where('codigo','LIKE','%'.$this->search.'%')->orWhere('fech_solicitud','LIKE','%'.$this->search.'%')
+            ->orWhere('estadoSol','LIKE','%'.$this->search.'%')
+            ->orderBy('idSolicitudes', 'desc')->get();
+            $aux=1;
+        }else{
+            $solicitudes=[['idSolicitudes'=>0]];$aux=0;
+            //$solicitudes=['idSolicitudes'=>1,'fech_solicitud'=>'1','hor_solicitud'=>'1','estado'=>'1'];
+            //return view('livewire.licencias-index')->with('info','No hay Solicitudes a mostrar');
+        }
+        return view('livewire.licencias-index',compact('solicitudes','aux'));
     }
     public function datos(Request $request){
-        $soli=DB::table('solicitudes')->where('idSolicitudes',1)->first();
+        $soli=DB::table('solicitudes')->where('idSolicitudes',$request->dt)->first();
         return $soli;
         
     }

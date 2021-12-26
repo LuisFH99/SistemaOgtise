@@ -1,8 +1,11 @@
 <div>
     <div class="card">
-        <div class="card-header">
-            <input wire:model="search" class="form-control" placeholder="ingrese el nombre o el correo">
-            
+        <div class="input-group rounded col-6">
+            <input wire:model="search" type="search" class="form-control rounded" placeholder="Buscar" aria-label="Search"
+            aria-describedby="search-addon" />
+            <span class="input-group-text border-0" id="search-addon">
+              <i class="fas fa-search"></i>
+            </span>
         </div>
         @if($users->count())
             <div class="card-body">

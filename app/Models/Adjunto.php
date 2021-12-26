@@ -11,5 +11,7 @@ class Adjunto extends Model
     protected $fillable = [
         'docs',
         'estado',
+        'fk_idSolicitudes',
     ];
+    protected $table = 'adjuntos';
 }
