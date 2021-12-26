@@ -133,6 +133,10 @@
 #tableDocentes .fa-eye {
     color: rgb(8, 51, 179);
 }
+#tableDocentes .fa-calendar-alt {
+    color: rgb(8, 51, 179);
+}
+
 #tableDocentes .fa-trash-alt {
     color: rgb(236, 48, 48);
 }

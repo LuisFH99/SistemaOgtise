@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EntradaController extends Controller
 {
@@ -18,8 +19,16 @@ class EntradaController extends Controller
 
     public function index()
     {
+        $iddocente=DB::table('docentes')
+        ->join('personas', 'docentes.fk_idpersonas', '=', 'personas.idpersonas')
+        ->select('docentes.idDocentes')->where('personas.correo',auth()->user()->email)->get();
+
+        //$query="select CONCAT(ELT(WEEKDAY(curdate()) + 1, 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo')) as dia,Date_format(curdate(),'%d %M %Y') as fecha,curtime() as hora;";
+
+        //$datos=DB::select(DB::raw($query));
         $var=2;
-        return view('docentes.entrada',compact('var'));
+         
+        return view('docentes.entrada',compact('var','iddocente'));
     }
 
     /**

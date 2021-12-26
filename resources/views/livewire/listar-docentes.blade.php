@@ -1,11 +1,13 @@
 <div class="row">
     {{-- {{ $docentes }} --}}
     <a href="{{ route('creardocente') }}" class="btn btn-primary my-2">Registar Docente</a>
+  
     <table id="tableDocentes" class="table table-sm shadow-lg">
         <thead class="text-white">
             <tr>
                 <th scope="col">N°</th>
                 <th scope="col">Apellidos y Nombres</th>
+                <th scope="col">DNI</th>
                 <th scope="col">Correo</th>
                 <th scope="col">Celular</th>
                 <th scope="col">Facultad</th>
@@ -24,6 +26,7 @@
                 <tr>
                     <td>{{$num++}}</td>
                     <td>{{$docente->nombres}}</td>
+                    <td>{{$docente->dni}}</td>
                     <td>{{$docente->correo}}</td>
                     <td>{{$docente->telefono}}</td>
                     <td>{{$docente->nomfac}}</td>
@@ -32,8 +35,9 @@
                     <td>{{$docente->nomcat}}</td>
                     <td>{{$docente->nomdedi}}</td>
                     <td>
-                        <span><i class="fas fa-eye mr-2" onclick="saludo({{$docente->iddocentes}})"></i></span>
-                        <span><i class="far fa-trash-alt" onclick="saludo({{$docente->iddocentes}})"></i></span>
+                        <span><i class="fas fa-eye mr-1" onclick="MostarModal({{$docente->idpersonas}})"></i></span>
+                        <span><i class="far fa-calendar-alt mr-1"></i></span>
+                        <span><i class="far fa-trash-alt" onclick="EliminarDocente({{$docente->dni}},{{$docente->id}},{{$docente->idpersonas}})"></i></span>
                     </td>
                 </tr>
             @endforeach

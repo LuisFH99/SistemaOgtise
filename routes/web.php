@@ -49,6 +49,11 @@ Route::get('/departamento/docentes', [DocentesController::class, 'index'])->name
 Route::get('/departamento/creardocente', [DocentesController::class, 'create'])->name('creardocente');
 Route::post('/departamento/docentes/store',[DocentesController::class,'store'])->name('docentes.store');
 
+Route::post('/departamento/docentes/edit',[DocentesController::class,'edit'])->name('docentes.edit');
+Route::post('/departamento/docentes/dpto',[DocentesController::class,'dpto']);
+Route::post('/departamento/docentes/update',[DocentesController::class,'update']);
+Route::post('/departamento/docentes/delete',[DocentesController::class,'destroy']);
+
 
 
 

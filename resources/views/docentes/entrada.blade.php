@@ -7,7 +7,10 @@
 @stop
 
 @section('content')
-<div class="container">
+<div class="container"> 
+    {{$iddocente}}
+    {{$var}}
+
     <div class="row">
         <div class="col-lg-6 p-2">
             <div class="card fondo-cards">

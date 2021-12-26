@@ -32,4 +32,5 @@ class CrearDocentes extends Component
         $this->depacademicos = DB::table('depacademicos')->where('fk_idFacultades', '=', $idfacultad)->get();
         // $this->depacademicos = DepAcademico::where('fk_idFacultades',$idfacultad);
     }
+    
 }
