@@ -10,9 +10,11 @@ use App\Http\Controllers\ValidaSalidaController;
 use App\Http\Controllers\LicenciasController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ContactanosController;
+use App\Http\Controllers\ValidaLicenciaController;
 use App\Http\Livewire\Admin\UsersIndex;
 use App\Http\Livewire\LicenciasIndex;
 use App\Http\Livewire\ValidarSalidasIndex;
+use App\Http\Livewire\ValidaLicenciaIndex;
 use App\Mail\ContactanosMailable;
 use Illuminate\Support\Facades\Mail;
 
@@ -68,7 +70,7 @@ Route::resource('/docentes/licencias', App\Http\Controllers\LicenciasController:
 Route::post('/docentes/licencias/store', [LicenciasController::class, 'store'])->name('licencias.store');
 Route::post('/docentes/licencias/file', [LicenciasController::class, 'file'])->name('licencias.file');
 Route::post('/docentes/licencias/dato', [LicenciasController::class, 'dato'])->name('licencias.dato');
-Route::get('/docentes/PDFs/imprimir', [LicenciasController::class, 'imprimir'])->name('licencias.imprimir');
+Route::post('/docentes/PDFs/imprimir', [LicenciasController::class, 'imprimir'])->name('licencias.imprimir');
 
 Route::resource('users', App\Http\Controllers\Admin\UserController::class)->names([
     'index' => 'Users',
@@ -87,3 +89,10 @@ Route::post('/licencia/index/datos', [LicenciasIndex::class, 'datos'])->name('da
 
 Route::post('/Departamento/index/validando', [ValidarSalidasIndex::class, 'validando'])->name('validando');
 Route::post('/Departamento/ValidaSalida/dato', [ValidaSalidaController::class, 'dato'])->name('ValidaSalida.dato');
+
+Route::resource('/departamento/ValidaLicencia', ValidaLicenciaController::class)->names([
+    'index'=>'ValidaLicencia',
+    'store'=>'ValidaLicencia.store'
+]);
+Route::post('/departamento/ValidaLicencia/store', [ValidaLicenciaController::class, 'store'])->name('licencias.store');
+Route::post('/departamento/ValidaLicencia/datos', [ValidaLicenciaController::class, 'datos'])->name('ValidaLicencia.datos');

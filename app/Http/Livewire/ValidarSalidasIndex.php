@@ -45,7 +45,7 @@ class ValidarSalidasIndex extends Component
                  'dedicaciones.nomDedi','depacademicos.nomdep','facultades.nomFac')
         ->where('personas.estado',1)->where('fk_idDepAcademicos',$idDep)->where('fecha',date('Y-m-d'))  
         ->where(DB::raw('CONCAT(apellPat," ",apellMat," ",nombres)'),'LIKE','%'.$this->search.'%')
-        ->orWhere('fecha','LIKE','%'.$this->search.'%')->orWhere('asistencias.observacion','LIKE','%'.$this->search.'%')
+        ->Where('fecha','LIKE','%'.$this->search.'%')->Where('asistencias.observacion','LIKE','%'.$this->search.'%')
         //->orderBy('idSolicitudes', 'desc')
         ->get();
         return view('livewire.validar-salidas-index',compact('Salidas'));

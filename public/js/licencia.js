@@ -1,4 +1,5 @@
 let idMot = 0;
+let idSoli = 0;
 let desde = new Date($('#desde').val()).getTime();
 let hasta = new Date($('#hasta').val()).getTime();
 let ndias = 0;
@@ -21,6 +22,7 @@ Dropzone.options.myAwesomeDropzone = { // camelized version of the `id`
 
         submitButton.addEventListener("click", function() {
             wrapperThis.processQueue();
+            console.log('file subido');
         });
 
         this.on("addedfile", function(file) {
@@ -46,7 +48,7 @@ Dropzone.options.myAwesomeDropzone = { // camelized version of the `id`
         });
 
         this.on('sendingmultiple', function(data, xhr, formData) {
-            formData.append("idMot", idMot);
+            formData.append("idSol", idSoli);
         });
     }
 
@@ -65,6 +67,7 @@ $(function() {
         $('#dias').html(ndias + " dias");
         $('#reincorporar').html(formatoFecha(devolverFechaLab($(this).val())));
     });
+
     $("#btnSolicitar").click(function() {
         ini = $('#desde').val();
         fin = $('#hasta').val();
@@ -84,7 +87,7 @@ $(function() {
             }).done(function(msg) {
                 if (msg === '1') {
                     $.ajax({
-                        route: 'docentes/licencias/store',
+                        url: 'docentes/licencias/store',
                         method: 'POST',
                         data: {
                             _token: $('input[name="_token"]').val(),
@@ -97,8 +100,30 @@ $(function() {
                             idTf: fEODe
                         }
                     }).done(function(res) {
+                        idSoli = res.idSoli;
                         document.getElementById("btnSolicitar1").click();
                         document.getElementById("btnSolicitar2").click();
+                        // $('#mostrarCod').html("<div class='col-14 p-2 '>" +
+                        //     "<div class='card fondo-cards'>" +
+                        //     "<div class='table-responsive'>" +
+                        //     "<table class='table table-sm ' id='tableCodigo'>" +
+                        //     "<tbody>" +
+                        //     "<tr>" +
+                        //     "<td>Código de solicitud</td>" +
+                        //     "<td class='dr'>" + res.codSoli + "</td>" +
+                        //     "</tr>" +
+                        //     "<tr>" +
+                        //     "<td>Fecha de envío:</td>" +
+                        //     "<td class='d'>" + res.fecha + " " + res.hora + "</td>" +
+                        //     "</tr>" +
+                        //     " </tbody>" +
+                        //     "</table>" +
+                        //     "</div>" +
+                        //     "</div>" +
+                        //     "</div>" +
+                        //     "<center><p class='text-secondary'>Te hemos enviado una copia de esta " +
+                        //     "constancia a tu correo institucional</p></center>");
+                        // $('#modalCod').modal('show');
                         const swalWithBootstrapButtons = Swal.mixin({
                             customClass: {
                                 confirmButton: 'btn btn-outline-success'
@@ -157,6 +182,24 @@ $(function() {
                 })
             });
         }
+    });
+    $('#btnSolicitar2').click(function() {
+        $.ajax({
+            url: '/docentes/PDFs/imprimir',
+            method: 'POST',
+            data: {
+                _token: $('input[name="_token"]').val(),
+                idSol: idSoli
+            }
+        }).done(function(msg) {
+            console.log('correcto: ' + msg);
+        }).fail(function(msg) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Algo salio mal!...'
+            })
+        });
     });
 });
 
@@ -257,7 +300,7 @@ function selectId(id) {
     //idp=id;
 }
 
-function formatoFecha(dato) {
+function formatoFecha(dato) { //2021-12-09
     dato = dato.toString();
     date = new Date(dato);
     const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
