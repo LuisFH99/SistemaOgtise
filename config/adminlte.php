@@ -297,6 +297,19 @@ return [
             'route'  => 'docentes',
         ],
 
+        ['header' => 'UND. REGISTRO Y CONTROL'],
+        [
+            'text' => 'Parte Diario',
+            'icon' => 'fas fa-clipboard-list',
+            'route'  => 'partediario',
+        ],
+        [
+            'text' => 'Reporte General',
+            'icon' => 'fas fa-file-alt',
+            //'route'  => '#',
+        ],
+
+
         ['header' => 'CONFIGIRACION DE CUENTA'],
         [
             'text' => 'profile',
