@@ -10,25 +10,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
-class Solicitud extends Model
+
+class FirmaHasSolicitud extends Model
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
     protected $fillable = [
-        'fech_solicitud',
-        'hor_solicitud',
-        'fech_inicio',
-        'fech_fin', 
-        'justificacion',
-        'num_dias',
-        'reemplazo',
-        'firm_reemplazo',
-        'url_doc',
-        'observacion',
-        'estado',
-        'fk_idMotivoSolicitudes',
-        'fk_idEstadoSolicitudes', 
-        'fk_idDocentes',
+        'fk_idFirmas',
+        'fk_idSolicitudes', 
+        'fk_idPersonas',
     ];
 
-    protected $table = 'solicitudes';
+    protected $table = 'FirmaHasSolicitudes';
 }
