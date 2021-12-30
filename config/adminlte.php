@@ -292,10 +292,28 @@ return [
             'route'  => 'ValidaSalida',
         ],
         [
+            'text' => 'Validar Licencias',
+            'icon' => 'fas fa-tasks',
+            'route'  => 'ValidaLicencia',
+        ],
+        [
             'text' => 'Docentes',
             'icon' => 'fas fa-user-tie',
             'route'  => 'docentes',
         ],
+
+        ['header' => 'UND. REGISTRO Y CONTROL'],
+        [
+            'text' => 'Parte Diario',
+            'icon' => 'fas fa-clipboard-list',
+            'route'  => 'partediario',
+        ],
+        [
+            'text' => 'Reporte General',
+            'icon' => 'fas fa-file-alt',
+            //'route'  => '#',
+        ],
+
 
         ['header' => 'CONFIGIRACION DE CUENTA'],
         [
@@ -450,7 +468,7 @@ return [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@11',
                 ],
             ],
         ],

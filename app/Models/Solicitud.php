@@ -17,17 +17,19 @@ class Solicitud extends Model
         'fech_solicitud',
         'hor_solicitud',
         'fech_inicio',
-        'fech_fin', 
+        'fech_fin',
+        'fech_retorno',
         'justificacion',
         'num_dias',
         'reemplazo',
         'firm_reemplazo',
         'url_doc',
         'observacion',
+        'codigo',
         'estado',
         'fk_idMotivoSolicitudes',
-        'fk_idEstadoSolicitudes', 
-        'fk_idDocentes',
+        'fk_idEstadoSolicitudes',
+        'fk_idDocentes'
     ];
 
     protected $table = 'solicitudes';

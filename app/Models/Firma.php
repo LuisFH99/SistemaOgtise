@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Firma extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'firma', 
+        'token', 
+        'estado', 
+        'fk_idTipFirmas',
+    ];
+    protected $table = 'firmas';
 }

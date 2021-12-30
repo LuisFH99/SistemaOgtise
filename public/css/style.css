@@ -1,9 +1,16 @@
+
+/* estilos para la modulo asistencia */
 .fondo-cards {
     background-color: #e6e7e9;
 }
 
 .fondo-table {
     background-color: #003260;
+}
+.fondo-table th {
+    color: #ffff;
+    text-align: center;
+    font-weight: normal;
 }
 
 .fondo-table td {
@@ -14,6 +21,15 @@
 .bg-tr {
     background-color: #b4b6bc;
     color: #ffff;
+}
+
+.titulo_pregunta_1 {
+    /* font-family: Quicksand; */
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 19px;
+    color: #03529c;
 }
 
 .checkbox-custom {
@@ -58,8 +74,20 @@
     text-align: center;
 }
 
+
+
 .dropdown-menu {
     max-height: 150px;
+    overflow-y: auto;
+}
+
+.scroll-3a {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.scroll-3b {
+    max-height: 100px;
     overflow-y: auto;
 }
 
@@ -94,3 +122,38 @@
     width: 10px;
     height: 10px;
 }
+
+/* estilos modulo Docentes */
+
+#tableDocentes thead {
+    background-color: #003E78;
+    font-size: 14px;
+    text-align: center;
+}
+#tableDocentes tbody {
+
+    font-size: 13px;
+    
+}
+#tableDocentes tbody td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+#tableDocentes .fa-eye {
+    color: rgb(8, 51, 179);
+}
+#tableDocentes .fa-calendar-alt {
+    color: rgb(8, 51, 179);
+}
+
+#tableDocentes .fa-trash-alt {
+    color: rgb(236, 48, 48);
+}
+
+#divEntrada .fa-camera{
+    color: rgb(8, 51, 179);
+    margin-left: 5px;
+}
+
+

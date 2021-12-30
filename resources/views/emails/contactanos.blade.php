@@ -7,10 +7,11 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Correo electronico</h1>
-    <p>Primer correo por laravel</p>
-    <p><strong>Nombre:</strong>{{$contacto["name"]}}</p>
-    <p><strong>Correo:</strong>{{$contacto["correo"]}}</p>
-    <p><strong>Mensaje:</strong>{{$contacto["mensaje"]}}</p>
+    <h1>Solicitud de Licencia</h1>
+    <p>La solicitud se envio satisfactoriamente</p>
+    <p><strong>Codigo de la Solicitud:</strong>{{$contacto["codSoli"]}}</p>
+    <p><strong>Fecha:</strong>{{$contacto["fecha"]}}</p>
+    <p><strong>Hora:</strong>{{$contacto["hora"]}}</p>
+    <p><strong>Nombre:</strong>{{$contacto["nombreDoc"]}}</p>
 </body>
 </html>

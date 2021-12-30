@@ -10,9 +10,13 @@ use App\Http\Controllers\ValidaSalidaController;
 use App\Http\Controllers\LicenciasController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ContactanosController;
+use App\Http\Controllers\ValidaLicenciaController;
 use App\Http\Livewire\Admin\UsersIndex;
 use App\Http\Livewire\LicenciasIndex;
+use App\Http\Livewire\ValidarSalidasIndex;
+use App\Http\Livewire\ValidaLicenciaIndex;
 use App\Mail\ContactanosMailable;
+use App\Http\Controllers\ParteDiarioController;
 use Illuminate\Support\Facades\Mail;
 
 /*
@@ -36,24 +40,31 @@ Auth::routes();
 Route::get('/Admin/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])/*->middleware('can:admin.home')*/->name('home');
 
 //Route::get('/docentes/licencias', [LicenciasController::class, 'index'])/*->middleware('can:licencia')*/->name('licencias');
-Route::get('/departamento/ValidaSalida', [ValidaSalidaController::class, 'index'])->name('ValidaSalida');
+Route::resource('/departamento/ValidaSalida', ValidaSalidaController::class)->names([
+    'index'=>'ValidaSalida'
+]);
 
 Route::get('docentes/entrada', [EntradaController::class, 'index'])/*->middleware('can:asistencia.Entrada')*/->name('entrada');
-Route::get('docentes/salida', [SalidaController::class, 'index'])/*->middleware('can:asistencia.Salida')*/->name('salida');
-Route::post('docentes/entrada/registrar', [EntradaxController::class, 'store'])->name('docentes.entrada.registrar');
-
-
+//Route::get('docentes/salida', [SalidaController::class, 'index'])/*->middleware('can:asistencia.Salida')*/->name('salida');
+//Route::post('docentes/entrada/registrar', [EntradaxController::class, 'store'])->name('docentes.entrada.registrar');
+Route::post('/docentes/registros/asistencia/All', [EntradaController::class, 'allregistros']);
+Route::post('/docentes/registros/asistencia/Detalle', [EntradaController::class, 'detalleregisñtro']);
 Route::post('/docentes/entrada/registrar', [EntradaController::class, 'store'])->name('registrar');
-Route::post('/docentes/salida/registrar', [SalidaController::class, 'store'])->name('registrar.salida');
+Route::post('/docentes/salida/registrar', [EntradaController::class, 'registrarsalida'])->name('registrar.salida');
+Route::post('/docentes/salida/file', [EntradaController::class, 'evidenciafile'])->name('evidencia.file');
+//Route::post('/docentes/salida/registrar', [SalidaController::class, 'store'])->name('registrar.salida');
+
+Route::get('/URyC/ParteDiario', [ParteDiarioController::class, 'index'])->name('partediario');
+
 
 Route::get('/departamento/docentes', [DocentesController::class, 'index'])->name('docentes');
 Route::get('/departamento/creardocente', [DocentesController::class, 'create'])->name('creardocente');
+Route::post('/departamento/docentes/store',[DocentesController::class,'store'])->name('docentes.store');
 
-
-
-
-
-
+Route::post('/departamento/docentes/edit',[DocentesController::class,'edit'])->name('docentes.edit');
+Route::post('/departamento/docentes/dpto',[DocentesController::class,'dpto']);
+Route::post('/departamento/docentes/update',[DocentesController::class,'update']);
+Route::post('/departamento/docentes/delete',[DocentesController::class,'destroy']);
 
 //CRUD 
 Route::resource('/Admin/files', App\Http\Controllers\Admin\FileController::class)->names([
@@ -66,10 +77,12 @@ Route::resource('/Admin/files', App\Http\Controllers\Admin\FileController::class
 Route::resource('/docentes/licencias', App\Http\Controllers\LicenciasController::class)->names([
     'index' => 'licencias',
     'create' => 'licencias.create',
-    'show' => 'licencias.show',
-    'store' => 'licencias.store'
+    'show' => 'licencias.show'
 ]);
+Route::post('/docentes/licencias/store', [LicenciasController::class, 'store'])->name('licencias.store');
 Route::post('/docentes/licencias/file', [LicenciasController::class, 'file'])->name('licencias.file');
+Route::post('/docentes/licencias/dato', [LicenciasController::class, 'dato'])->name('licencias.dato');
+Route::post('/docentes/PDFs/imprimir', [LicenciasController::class, 'imprimir'])->name('licencias.imprimir');
 
 Route::resource('users', App\Http\Controllers\Admin\UserController::class)->names([
     'index' => 'Users',
@@ -85,3 +98,13 @@ Route::resource('/contactanos', App\Http\Controllers\ContactanosController::clas
     'store' => 'contactanos.store'
 ]);
 Route::post('/licencia/index/datos', [LicenciasIndex::class, 'datos'])->name('datos1');
+
+Route::post('/Departamento/index/validando', [ValidarSalidasIndex::class, 'validando'])->name('validando');
+Route::post('/Departamento/ValidaSalida/dato', [ValidaSalidaController::class, 'dato'])->name('ValidaSalida.dato');
+
+Route::resource('/departamento/ValidaLicencia', ValidaLicenciaController::class)->names([
+    'index'=>'ValidaLicencia',
+    'store'=>'ValidaLicencia.store'
+]);
+Route::post('/departamento/ValidaLicencia/store', [ValidaLicenciaController::class, 'store'])->name('licencias.store');
+Route::post('/departamento/ValidaLicencia/datos', [ValidaLicenciaController::class, 'datos'])->name('ValidaLicencia.datos');
