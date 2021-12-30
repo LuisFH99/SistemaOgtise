@@ -15,7 +15,7 @@ class CreateAsistenciasTable extends Migration
     {
         Schema::create('Asistencias', function (Blueprint $table) {
             $table->id('idAsistencias');
-            $table->mediumText('observacion');
+            $table->mediumText('observacion')->nullable();;
             $table->string('estado');
             $table->unsignedBigInteger('fk_idAsistenciaSalidas')->unique();
             $table->foreign('fk_idAsistenciaSalidas')->references('idAsistenciaSalidas')->on('AsistenciaSalidas');
