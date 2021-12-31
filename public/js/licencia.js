@@ -87,7 +87,7 @@ $(function() {
             }).done(function(msg) {
                 if (msg === '1') {
                     $.ajax({
-                        url: 'docentes/licencias/store',
+                        url: '/docentes/licencias/store',
                         method: 'POST',
                         data: {
                             _token: $('input[name="_token"]').val(),
@@ -102,34 +102,14 @@ $(function() {
                     }).done(function(res) {
                         idSoli = res.idSoli;
                         document.getElementById("btnSolicitar1").click();
-                        document.getElementById("btnSolicitar2").click();
-                        // $('#mostrarCod').html("<div class='col-14 p-2 '>" +
-                        //     "<div class='card fondo-cards'>" +
-                        //     "<div class='table-responsive'>" +
-                        //     "<table class='table table-sm ' id='tableCodigo'>" +
-                        //     "<tbody>" +
-                        //     "<tr>" +
-                        //     "<td>Código de solicitud</td>" +
-                        //     "<td class='dr'>" + res.codSoli + "</td>" +
-                        //     "</tr>" +
-                        //     "<tr>" +
-                        //     "<td>Fecha de envío:</td>" +
-                        //     "<td class='d'>" + res.fecha + " " + res.hora + "</td>" +
-                        //     "</tr>" +
-                        //     " </tbody>" +
-                        //     "</table>" +
-                        //     "</div>" +
-                        //     "</div>" +
-                        //     "</div>" +
-                        //     "<center><p class='text-secondary'>Te hemos enviado una copia de esta " +
-                        //     "constancia a tu correo institucional</p></center>");
-                        // $('#modalCod').modal('show');
+
                         const swalWithBootstrapButtons = Swal.mixin({
                             customClass: {
                                 confirmButton: 'btn btn-outline-success'
                             },
                             buttonsStyling: false
-                        })
+                        });
+                        document.getElementById("btnSolicitar2").click();
                         swalWithBootstrapButtons.fire({
                             title: '<strong>ENVÍO EXITOSO</strong>',
                             icon: 'success',

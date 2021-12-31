@@ -15,6 +15,7 @@ class CreateFirmaHasSolicitudesTable extends Migration
     {
         Schema::create('FirmaHasSolicitudes', function (Blueprint $table) {
             $table->id('idFirmaHasSolicitudes');
+            $table->dateTime('fechaFirma');
             $table->unsignedBigInteger('fk_idFirmas');
             $table->foreign('fk_idFirmas')->references('idFirmas')->on('Firmas');
             $table->unsignedBigInteger('fk_idsolicitudes');

@@ -15,6 +15,7 @@ class FirmaHasSolicitud extends Model
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
     protected $fillable = [
+        'fechaFirma',
         'fk_idFirmas',
         'fk_idSolicitudes', 
         'fk_idPersonas',

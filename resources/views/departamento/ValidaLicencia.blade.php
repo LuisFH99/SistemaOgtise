@@ -130,7 +130,8 @@
                             data: {
                                 _token: $('input[name="_token"]').val(),
                                 idSol: idlic,
-                                dt: dto
+                                dt: dto,
+                                idTf: 1,
                             }
                         }).done(function(msg) {
                             console.log('correcto: ' + msg);
