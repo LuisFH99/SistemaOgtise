@@ -1,4 +1,5 @@
 let idMot = 0;
+let idSoli = 0;
 let desde = new Date($('#desde').val()).getTime();
 let hasta = new Date($('#hasta').val()).getTime();
 let ndias = 0;
@@ -21,6 +22,7 @@ Dropzone.options.myAwesomeDropzone = { // camelized version of the `id`
 
         submitButton.addEventListener("click", function() {
             wrapperThis.processQueue();
+            console.log('file subido');
         });
 
         this.on("addedfile", function(file) {
@@ -46,7 +48,7 @@ Dropzone.options.myAwesomeDropzone = { // camelized version of the `id`
         });
 
         this.on('sendingmultiple', function(data, xhr, formData) {
-            formData.append("idMot", idMot);
+            formData.append("idSol", idSoli);
         });
     }
 
@@ -65,6 +67,7 @@ $(function() {
         $('#dias').html(ndias + " dias");
         $('#reincorporar').html(formatoFecha(devolverFechaLab($(this).val())));
     });
+
     $("#btnSolicitar").click(function() {
         ini = $('#desde').val();
         fin = $('#hasta').val();
@@ -84,7 +87,7 @@ $(function() {
             }).done(function(msg) {
                 if (msg === '1') {
                     $.ajax({
-                        route: 'docentes/licencias/store',
+                        url: '/docentes/licencias/store',
                         method: 'POST',
                         data: {
                             _token: $('input[name="_token"]').val(),
@@ -97,14 +100,16 @@ $(function() {
                             idTf: fEODe
                         }
                     }).done(function(res) {
+                        idSoli = res.idSoli;
                         document.getElementById("btnSolicitar1").click();
-                        document.getElementById("btnSolicitar2").click();
+
                         const swalWithBootstrapButtons = Swal.mixin({
                             customClass: {
                                 confirmButton: 'btn btn-outline-success'
                             },
                             buttonsStyling: false
-                        })
+                        });
+                        document.getElementById("btnSolicitar2").click();
                         swalWithBootstrapButtons.fire({
                             title: '<strong>ENVÍO EXITOSO</strong>',
                             icon: 'success',
@@ -157,6 +162,24 @@ $(function() {
                 })
             });
         }
+    });
+    $('#btnSolicitar2').click(function() {
+        $.ajax({
+            url: '/docentes/PDFs/imprimir',
+            method: 'POST',
+            data: {
+                _token: $('input[name="_token"]').val(),
+                idSol: idSoli
+            }
+        }).done(function(msg) {
+            console.log('correcto: ' + msg);
+        }).fail(function(msg) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Algo salio mal!...'
+            })
+        });
     });
 });
 
@@ -257,7 +280,7 @@ function selectId(id) {
     //idp=id;
 }
 
-function formatoFecha(dato) {
+function formatoFecha(dato) { //2021-12-09
     dato = dato.toString();
     date = new Date(dato);
     const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];

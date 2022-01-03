@@ -86,6 +86,11 @@
     overflow-y: auto;
 }
 
+.scroll-3b {
+    max-height: 100px;
+    overflow-y: auto;
+}
+
 .dr {
     float: right;
     font-weight: bold;
@@ -145,3 +150,10 @@
 #tableDocentes .fa-trash-alt {
     color: rgb(236, 48, 48);
 }
+
+#divEntrada .fa-camera{
+    color: rgb(8, 51, 179);
+    margin-left: 5px;
+}
+
+

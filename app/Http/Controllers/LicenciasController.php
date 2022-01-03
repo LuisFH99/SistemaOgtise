@@ -4,44 +4,53 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+
 use App\Models\User;
 use App\Models\Persona;
 use App\Models\Docente;
 use App\Models\Solicitud;
 use App\Models\MotivoSolicitud;
+use App\Models\FirmaHasSolicitud;
 use App\Models\Adjunto;
 use App\Models\Firma;
 
 use App\Mail\ContactanosMailable;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Storage;
+
 use PDF;
+
 class LicenciasController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
     }
-    public function imprimir(){
+    public function imprimir(Request $request){
         $user=auth()->user();
+        $idso=$request->idSol;
         $solicitudes=Solicitud:://DB::table('solicitudes')
             join('estadosolicitudes', 'solicitudes.fk_idEstadoSolicitudes', '=', 'estadosolicitudes.idEstadoSolicitudes')
-            ->join('firmas', 'solicitudes.fk_idFirmas', '=', 'firmas.idFirmas')
-            ->join('tipfirmas', 'firmas.fk_idTipFirmas', '=', 'tipfirmas.idTipFirmas')
             ->join('motivosolicitudes', 'solicitudes.fk_idMotivoSolicitudes', '=', 'motivosolicitudes.idMotivoSolicitudes')
             ->join('docentes', 'solicitudes.fk_idDocentes', '=', 'docentes.idDocentes')
             ->join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
             ->join('depacademicos', 'docentes.fk_idDepAcademicos', '=', 'depacademicos.idDepAcademicos')
             ->join('facultades', 'depacademicos.fk_idFacultades', '=', 'facultades.id_Facultades')
-            ->select('solicitudes.*','estadosolicitudes.estadoSol','firmas.token','firmas.firma','tipfirmas.tipo',
+            ->select('solicitudes.*','estadosolicitudes.estadoSol',
                     'motivosolicitudes.motivo','personas.*','depacademicos.nomdep','facultades.nomFac')
             ->where('personas.correo',$user->email)->latest('idSolicitudes')->first();
+        $Firmas=FirmaHasSolicitud::join('personas', 'firmahassolicitudes.fk_idPersonas', '=', 'personas.idPersonas')
+            ->join('solicitudes', 'firmahassolicitudes.fk_idsolicitudes', '=', 'solicitudes.idSolicitudes')
+            ->join('firmas', 'firmahassolicitudes.fk_idFirmas', '=', 'firmas.idFirmas')
+            ->join('tipfirmas', 'firmas.fk_idTipFirmas', '=', 'tipfirmas.idTipFirmas')
+            ->where('fk_idSolicitudes',$solicitudes->idSolicitudes)->orderBy('idFirmaHasSolicitudes')->get();
         $DocsAd=Adjunto::where('fk_idSolicitudes',$solicitudes->idSolicitudes)->get();
         $aux=0;
         $url='storage/Archivos/'.$solicitudes->fech_solicitud.'_'.$solicitudes->codigo.'.pdf';
         //$Sol=Solicitud::where('idSolicitudes', $solicitudes->idSolicitudes)->update(array('url_doc' => $url));
-        $pdf = PDF :: loadView ( 'docentes.PDFs.reporteSolicitud' , compact('solicitudes','DocsAd','aux'));
-        return  $pdf->save($url)/*->stream()*/;
+        $pdf = PDF :: loadView ( 'docentes.PDFs.reporteSolicitud' , compact('solicitudes','DocsAd','Firmas','aux'));
+        /*return  */$pdf->save($url)/*->stream()*/;
+        return /*view('docentes.licencias',compact('user','Motivos'))*/$url;
     }
     public function index()
     {
@@ -63,15 +72,11 @@ class LicenciasController extends Controller
         $fecha=date('Y-m-d'); 
         $hora=date("H:i:s"); 
         $user=auth()->user();
-        $url="xdxd.pdf";
+        $url="";
         $Motivos=MotivoSolicitud::all();
         $Docente=Docente::join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
                          ->where('correo',$user->email)->first();
-        $nombreDoc=''.$Docente->nombres.' '.$Docente->apellPat.' '.$Docente->apellMat;
         
-        $arrayInfo=['codSoli'=>$codSoli,'fecha'=>$fecha,'hora'=>$hora,'nombreDoc'=>$nombreDoc];
-        $correo=new ContactanosMailable($arrayInfo);
-        Mail::to($user->email)->send($correo);
         Firma::create([
             'firma'=>$ips, 
             'token'=>$toke, 
@@ -94,28 +99,25 @@ class LicenciasController extends Controller
             'observacion'       =>'',
             'codigo'            =>$codSoli,
             'estado'            =>1,
-            'fk_idFirmas'       =>$ultFirma->idFirmas,
+            //'fk_idFirmas'       =>$ultFirma->idFirmas,
             'fk_idMotivoSolicitudes'=>$request->Motivo,
             'fk_idEstadoSolicitudes'=>1,
             'fk_idDocentes'     =>$Docente->idDocentes
         ]);
-        // $solicitudes=Solicitud:://DB::table('solicitudes')
-        //     join('estadosolicitudes', 'solicitudes.fk_idEstadoSolicitudes', '=', 'estadosolicitudes.idEstadoSolicitudes')
-        //     ->join('firmas', 'solicitudes.fk_idFirmas', '=', 'firmas.idFirmas')
-        //     ->join('tipfirmas', 'firmas.fk_idTipFirmas', '=', 'tipfirmas.idTipFirmas')
-        //     ->join('motivosolicitudes', 'solicitudes.fk_idMotivoSolicitudes', '=', 'motivosolicitudes.idMotivoSolicitudes')
-        //     ->join('docentes', 'solicitudes.fk_idDocentes', '=', 'docentes.idDocentes')
-        //     ->join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
-        //     ->join('depacademicos', 'docentes.fk_idDepAcademicos', '=', 'depacademicos.idDepAcademicos')
-        //     ->join('facultades', 'depacademicos.fk_idFacultades', '=', 'facultades.id_Facultades')
-        //     ->select('solicitudes.*','estadosolicitudes.estadoSol','firmas.token','firmas.firma','tipfirmas.tipo',
-        //             'motivosolicitudes.motivo','personas.*','depacademicos.nomdep','facultades.nomFac')
-        //     ->where('personas.correo',$user->email)->latest('idSolicitudes')->first();
-        // $DocsAd=Adjunto::where('fk_idSolicitudes',$solicitudes->idSolicitudes)->get();
-        // $aux=0;
-        // //$Sol=Solicitud::where('idSolicitudes', $solicitudes->idSolicitudes)->update(array('url_doc' => $url));
-        // $pdf = PDF :: loadView ('docentes.PDFs.reporteSolicitud' , compact('solicitudes','DocsAd','aux'));
-        // $pdf->save($url);
+        $idSol=Docente::join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
+            ->join('solicitudes', 'docentes.idDocentes', '=', 'solicitudes.fk_idDocentes')
+            ->select('idSolicitudes')->where('correo',$user->email)
+            ->latest('idSolicitudes')->first();
+        FirmaHasSolicitud::create([
+            'fechaFirma'        =>$fecha.' '.$hora,
+            'fk_idFirmas'       =>$ultFirma->idFirmas,
+            'fk_idSolicitudes'  =>$idSol->idSolicitudes, 
+            'fk_idPersonas'     =>$Docente->idPersonas,
+        ]);
+        $nombreDoc=''.$Docente->nombres.' '.$Docente->apellPat.' '.$Docente->apellMat;
+        $arrayInfo=['codSoli'=>$codSoli,'fecha'=>$fecha,'hora'=>$hora,'nombreDoc'=>$nombreDoc,'idSoli'=>$idSol->idSolicitudes];
+        $correo=new ContactanosMailable($arrayInfo);
+        Mail::to($user->email)->send($correo);
         return $arrayInfo;
     }
     public function dato(Request $request){
@@ -124,12 +126,8 @@ class LicenciasController extends Controller
     }
     public function file(Request $request)
     {
+        
         $user=auth()->user();
-        // $docente = DB::table('docentes')
-        //     ->join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
-        //     ->where('correo',$user->email)->first();
-        // $solicitud=DB::table('solicitudes')->where('fk_idDocentes',$docente->idDocentes)
-        //     ->orderBy('idSolicitudes', 'desc')->limit(1)->get();
         $idSol=Docente::join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
             ->join('solicitudes', 'docentes.idDocentes', '=', 'solicitudes.fk_idDocentes')
             ->select('idSolicitudes')->where('correo',$user->email)
@@ -146,7 +144,6 @@ class LicenciasController extends Controller
             'estado'=>1,
             'fk_idSolicitudes'=>$idSol->idSolicitudes
         ]);
-        // $ultArchivo=Adjunto::orderBy('id', 'desc')->first();
         return $url;
     }
     /**
