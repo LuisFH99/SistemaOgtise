@@ -292,6 +292,11 @@ return [
             'route'  => 'ValidaSalida',
         ],
         [
+            'text' => 'Validar Licencias',
+            'icon' => 'fas fa-tasks',
+            'route'  => 'ValidaLicencia',
+        ],
+        [
             'text' => 'Docentes',
             'icon' => 'fas fa-user-tie',
             'route'  => 'docentes',

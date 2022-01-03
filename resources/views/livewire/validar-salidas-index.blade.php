@@ -11,31 +11,37 @@
                           <i class="fas fa-search"></i>
                         </span>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table table-sm" id="idtableSalidas">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Docente</th>
-                                    <th scope="col">Tipo</th>
-                                    <th scope="col">Hora de Salida</th>
-                                    <th scope="col">Observación</th>
-                                    <th scope="col">Ver</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($Salidas as $Salida)
+                    @if ($Salidas->count())
+                        <div class="table-responsive">
+                            <table class="table table-sm" id="idtableSalidas">
+                                <thead>
                                     <tr>
-                                        <td>{{$Salida->apellPat.' '.$Salida->apellMat.' '.$Salida->nombres}}</td>
-                                        <td>{{strtoupper(substr($Salida->nomCat, ($Salida->nomCat=='Auxiliar')?2:0,1)).substr($Salida->nomDedi, 0, 1).substr(strstr($Salida->nomDedi, ' '), 1, 1)}}</td>
-                                        <td>{{$Salida->fecha.','.$Salida->hor_salida}}</td>
-                                        <td>{{$Salida->observacion}}</td>
-                                        <td><a href="#"
-                                            onclick="selecId({{$Salida->idAsistenciaSalidas}})"><i class="far fa-eye"></i></a></td>
+                                        <th scope="col">Docente</th>
+                                        <th scope="col">Tipo</th>
+                                        <th scope="col">Hora de Salida</th>
+                                        <th scope="col">Observación</th>
+                                        <th scope="col">Ver</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                                </thead>
+                                <tbody>
+                                    @foreach ($Salidas as $Salida)
+                                        <tr>
+                                            <td>{{$Salida->apellPat.' '.$Salida->apellMat.' '.$Salida->nombres}}</td>
+                                            <td>{{strtoupper(substr($Salida->nomCat, ($Salida->nomCat=='Auxiliar')?2:0,1)).substr($Salida->nomDedi, 0, 1).substr(strstr($Salida->nomDedi, ' '), 1, 1)}}</td>
+                                            <td>{{$Salida->fecha.','.$Salida->hor_salida}}</td>
+                                            <td>{{$Salida->observacion}}</td>
+                                            <td><a href="#"
+                                                onclick="selecId({{$Salida->idAsistenciaSalidas}})"><i class="far fa-eye"></i></a></td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @else
+                        <div class="card-body">
+                            <strong>No hay Salidas a Validar</strong>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

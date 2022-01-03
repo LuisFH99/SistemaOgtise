@@ -132,13 +132,34 @@
         </div>
     </div>
     <div class="d-none">
-        <a href="/docentes/PDFs/imprimir" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="btnSolicitar2">
+        <a href="#"
+            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="btnSolicitar2">
             <i class="fas fa-print fa-sm text-white-50"></i> Imprimir
         </a>
     </div><br><br>
     @livewire('licencias-index',['user' => $user])
 </div>
-
+<!-- Modal1 -->
+<div class="modal fade bd-example-modal-lg" id="modalCod" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="labelPDF">Licencia pedida el 06/12/21 15:27:12</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="mostrarCod">
+                
+            </div>
+            
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-outline-danger " data-dismiss="modal">Denegar</button>-->
+                <button type="button" class="btn btn-outline-success " data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>  
 <!-- Modal2 -->
 <div class="modal fade bd-example-modal-lg" id="modalPDF" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

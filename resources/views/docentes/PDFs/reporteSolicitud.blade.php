@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    @php
+        function devolverFecha($dt){
+            $año=implode('-', array_slice(explode('-', $dt),0,1));
+            $mes=implode('-', array_slice(explode('-', $dt),1,1));
+            $dia=implode('-', array_slice(explode('-', $dt),2,1));
+            $nMes=array('Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Nombiembre','Diciembre');
+            return $dia.' de '.$nMes[$mes-1].' de '.$año;
+        }
+    @endphp
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -35,17 +44,20 @@
             <p>-> {{$solicitudes->justificacion}}</p> 
             <p>Me ausentare desde el  <b>{{$solicitudes->fech_inicio}}</b>  hasta el  <b>{{$solicitudes->fech_fin}}</b> 
                  cuyo total en número de dias calendario es  <b> {{$solicitudes->num_dias}}</b>  y la fecha de reincorporación es 
-                <b>{{$solicitudes->fech_retorno}}</b> </p><br>
+                <b>{{$solicitudes->fech_retorno}}</b> </p>
+            <p style="text-align: right;">Huaraz, {{devolverFecha($solicitudes->fech_solicitud).' a horas '.$solicitudes->hor_solicitud}}</p>
             <div class="Row">
-                <div class="Column"></div>
-                <div class="Column">
-                    <p style="display: inline">Firmado el dia <b>{{$solicitudes->fech_solicitud.' '.$solicitudes->hor_solicitud}}</b></p><br>
-                    <p style="display: inline">via firma <b>{{$solicitudes->tipo}}</b></p><br>
-                    <p style="display: inline">Razón: <b>{{$solicitudes->token}}</b></p><br>
-                    <p style="display: inline">Ubicación: <b>{{$solicitudes->firma}}</b></p><br>
-                    <p style="display: inline">Nombre: <b>{{$solicitudes->nombres.' '.$solicitudes->apellPat.' '.$solicitudes->apellMat}}</b></p><br> 
-                    <p style="display: inline">DNI N° <b>{{$solicitudes->DNI}}</b></p>
-                </div>
+                @foreach ($Firmas as $Firma)
+                    <div class="Column">
+                        <p style="display: inline">Firmado el dia <b>{{$Firma->fechaFirma}}</b></p><br>
+                        <p style="display: inline">via firma <b>{{$Firma->tipo}}</b></p><br>
+                        <p style="display: inline">Razón: <b>{{$Firma->token}}</b></p><br>
+                        <p style="display: inline">Ubicación: <b>{{$Firma->firma}}</b></p><br>
+                        <p style="display: inline">Nombre: <b>{{$Firma->nombres.' '.$Firma->apellPat.' '.$Firma->apellMat}}</b></p><br> 
+                        <p style="display: inline">DNI N° <b>{{$Firma->DNI}}</b></p>
+                    </div>
+                @endforeach
+                
             </div>
             <p>Contiene <b>{{$DocsAd->count()}}</b> archivo(s) adjunto(s): </p>
                 @if ($DocsAd->count()>0)

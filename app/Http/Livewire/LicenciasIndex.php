@@ -31,8 +31,8 @@ class LicenciasIndex extends Component
             $solicitudes=DB::table('solicitudes')
             ->join('estadosolicitudes', 'solicitudes.fk_idEstadoSolicitudes', '=', 'estadosolicitudes.idEstadoSolicitudes')
             ->select('solicitudes.*','estadosolicitudes.estadoSol')->where('fk_idDocentes',$docente->idDocentes)
-            ->where('codigo','LIKE','%'.$this->search.'%')->orWhere('fech_solicitud','LIKE','%'.$this->search.'%')
-            ->orWhere('estadoSol','LIKE','%'.$this->search.'%')
+            ->where('codigo','LIKE','%'.$this->search.'%')->Where('fech_solicitud','LIKE','%'.$this->search.'%')
+            ->Where('estadoSol','LIKE','%'.$this->search.'%')
             ->orderBy('idSolicitudes', 'desc')->get();
             $aux=1;
         }else{

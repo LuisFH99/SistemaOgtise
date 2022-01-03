@@ -27,7 +27,6 @@ class Solicitud extends Model
         'observacion',
         'codigo',
         'estado',
-        'fk_idFirmas',
         'fk_idMotivoSolicitudes',
         'fk_idEstadoSolicitudes',
         'fk_idDocentes'
