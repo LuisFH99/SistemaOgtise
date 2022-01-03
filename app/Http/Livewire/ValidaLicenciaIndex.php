@@ -20,7 +20,7 @@ use Illuminate\Http\Request;
 class ValidaLicenciaIndex extends Component
 {
     use WithPagination;
-    public $search; public $user; public $estado;
+    public $search; public $user; public $estado; public $bdr;
     //public $var=1; 
     protected $paginationTheme = "bootstrap";
     public function updatingSearch(){
@@ -28,20 +28,30 @@ class ValidaLicenciaIndex extends Component
     }
     public function render()
     {
+        if ($this->bdr==0) {
+            $Dpto = Docente::join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
+                ->join('depacademicos', 'docentes.fk_idDepAcademicos', '=', 'depacademicos.idDepAcademicos')
+                ->join('facultades', 'depacademicos.fk_idFacultades', '=', 'facultades.id_Facultades')
+                ->select('idDepAcademicos')->where('personas.correo',$this->user->email)->first();
+            $licencias=Solicitud::join('estadosolicitudes', 'solicitudes.fk_idEstadoSolicitudes', '=', 'estadosolicitudes.idEstadoSolicitudes')
+                ->join('motivosolicitudes', 'solicitudes.fk_idMotivoSolicitudes', '=', 'motivosolicitudes.idMotivoSolicitudes')
+                ->join('docentes', 'solicitudes.fk_idDocentes', '=', 'docentes.idDocentes')
+                ->join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
+                ->join('depacademicos', 'docentes.fk_idDepAcademicos', '=', 'depacademicos.idDepAcademicos')
+                ->select('solicitudes.*','estadosolicitudes.estadoSol','motivosolicitudes.motivo',
+                    'personas.*','depacademicos.nomdep')
+                ->where('idDepAcademicos',$Dpto->idDepAcademicos)->where('estadoSol',$this->estado)->get();
+        } else {
+            $licencias=Solicitud::join('estadosolicitudes', 'solicitudes.fk_idEstadoSolicitudes', '=', 'estadosolicitudes.idEstadoSolicitudes')
+                ->join('motivosolicitudes', 'solicitudes.fk_idMotivoSolicitudes', '=', 'motivosolicitudes.idMotivoSolicitudes')
+                ->join('docentes', 'solicitudes.fk_idDocentes', '=', 'docentes.idDocentes')
+                ->join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
+                ->join('depacademicos', 'docentes.fk_idDepAcademicos', '=', 'depacademicos.idDepAcademicos')
+                ->select('solicitudes.*','estadosolicitudes.estadoSol','motivosolicitudes.motivo',
+                    'personas.*','depacademicos.nomdep')->where('estadoSol',$this->estado)->get();
+        }
         
-        $Dpto = Docente::join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
-            ->join('depacademicos', 'docentes.fk_idDepAcademicos', '=', 'depacademicos.idDepAcademicos')
-            ->join('facultades', 'depacademicos.fk_idFacultades', '=', 'facultades.id_Facultades')
-            ->select('idDepAcademicos')->where('personas.correo',$this->user->email)->first();
-        $licencias=Solicitud::join('estadosolicitudes', 'solicitudes.fk_idEstadoSolicitudes', '=', 'estadosolicitudes.idEstadoSolicitudes')
-            ->join('firmas', 'solicitudes.fk_idFirmas', '=', 'firmas.idFirmas')
-            ->join('motivosolicitudes', 'solicitudes.fk_idMotivoSolicitudes', '=', 'motivosolicitudes.idMotivoSolicitudes')
-            ->join('docentes', 'solicitudes.fk_idDocentes', '=', 'docentes.idDocentes')
-            ->join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
-            ->join('depacademicos', 'docentes.fk_idDepAcademicos', '=', 'depacademicos.idDepAcademicos')
-            ->select('solicitudes.*','estadosolicitudes.estadoSol','motivosolicitudes.motivo',
-                'personas.*','depacademicos.nomdep')
-            ->where('idDepAcademicos',$Dpto->idDepAcademicos)->where('estadoSol',$this->estado)->get();
+        
 
         return view('livewire.valida-licencia-index',compact('licencias'));
     }

@@ -9,13 +9,13 @@
 @section('content')
 <div class="container">
     {{-- @can('valida.licencia') --}}
-        @livewire('valida-licencia-index',['user' => $user,'estado'=>'Enviado'])
+        @livewire('valida-licencia-index',['user' => $user,'estado'=>'Enviado','bdr'=>0])
     {{-- @endcan --}}
     {{-- @can('valida.licencia1') --}}
-        {{-- @livewire('valida-licencia-index',['user' => $user,'estado'=>'Proceso']) --}}
+        {{-- @livewire('valida-licencia-index',['user' => $user,'estado'=>'Proceso','bdr'=>0]) --}}
     {{-- @endcan --}}
     {{-- @can('valida.licencia2') --}}
-        {{-- @livewire('valida-licencia-index',['user' => $user,'estado'=>'Visto Bueno']) --}}
+        {{-- @livewire('valida-licencia-index',['user' => $user,'estado'=>'Visto Bueno','bdr'=>1]) --}}
     {{-- @endcan --}}
 </div> 
 
@@ -130,11 +130,22 @@
                             data: {
                                 _token: $('input[name="_token"]').val(),
                                 idSol: idlic,
-                                dt: dto
+                                dt: dto,
+                                idTf: 1,
                             }
                         }).done(function(msg) {
                             console.log('correcto: ' + msg);
-                            location.reload();
+                            Swal.fire({
+                                title: (dto==='Denegado')?'Solicitud Denegada':'Solicitud '+dto,
+                                icon: (dto==='Denegado')?'warning':'success',
+                                confirmButtonText: 'Aceptar!'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.reload();
+                                }
+                                
+                            })
+                            $('#modal2').modal('hide');
                         }).fail(function(msg) {
                             Swal.fire({
                                 icon: 'error',

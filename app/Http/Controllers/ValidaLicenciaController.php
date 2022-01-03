@@ -12,6 +12,7 @@ use App\Models\Docente;
 use App\Models\Solicitud;
 use App\Models\MotivoSolicitud;
 use App\Models\EstadoSolicitud;
+use App\Models\FirmaHasSolicitud;
 use App\Models\Adjunto;
 use App\Models\Firma;
 
@@ -59,26 +60,45 @@ class ValidaLicenciaController extends Controller
     {
         $user=auth()->user();
         //$dto=$request->all();
-
+        $toke=bin2hex(random_bytes(8));
+        $ips=request()->ip();
+        $fecha=date('Y-m-d H:i:s'); 
         $idEst=EstadoSolicitud::where('estadoSol',$request->dt)->first();
         $Sol=Solicitud::where('idSolicitudes', $request->idSol)->update(array('fk_idEstadoSolicitudes' => $idEst->idEstadoSolicitudes));
+        $Persona=Persona::where('correo',$user->email)->first();
+        Firma::create([
+            'firma'=>$ips, 
+            'token'=>$toke, 
+            'estado'=>1, 
+            'fk_idTipFirmas'=>$request->idTf,
+        ]);
+        $ultFirma=Firma::latest('idFirmas')->first();
+        FirmaHasSolicitud::create([
+            'fechaFirma'        =>$fecha,
+            'fk_idFirmas'       =>$ultFirma->idFirmas,
+            'fk_idSolicitudes'  =>$request->idSol, 
+            'fk_idPersonas'     =>$Persona->idPersonas,
+        ]);
         $solicitudes=Solicitud:://DB::table('solicitudes')
             join('estadosolicitudes', 'solicitudes.fk_idEstadoSolicitudes', '=', 'estadosolicitudes.idEstadoSolicitudes')
-            ->join('firmas', 'solicitudes.fk_idFirmas', '=', 'firmas.idFirmas')
-            ->join('tipfirmas', 'firmas.fk_idTipFirmas', '=', 'tipfirmas.idTipFirmas')
             ->join('motivosolicitudes', 'solicitudes.fk_idMotivoSolicitudes', '=', 'motivosolicitudes.idMotivoSolicitudes')
             ->join('docentes', 'solicitudes.fk_idDocentes', '=', 'docentes.idDocentes')
             ->join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
             ->join('depacademicos', 'docentes.fk_idDepAcademicos', '=', 'depacademicos.idDepAcademicos')
             ->join('facultades', 'depacademicos.fk_idFacultades', '=', 'facultades.id_Facultades')
-            ->select('solicitudes.*','estadosolicitudes.estadoSol','firmas.token','firmas.firma','tipfirmas.tipo',
+            ->select('solicitudes.*','estadosolicitudes.estadoSol',
                     'motivosolicitudes.motivo','personas.*','depacademicos.nomdep','facultades.nomFac')
             ->where('idSolicitudes',$request->idSol)->first();
+        $Firmas=FirmaHasSolicitud::join('personas', 'firmahassolicitudes.fk_idPersonas', '=', 'personas.idPersonas')
+            ->join('solicitudes', 'firmahassolicitudes.fk_idsolicitudes', '=', 'solicitudes.idSolicitudes')
+            ->join('firmas', 'firmahassolicitudes.fk_idFirmas', '=', 'firmas.idFirmas')
+            ->join('tipfirmas', 'firmas.fk_idTipFirmas', '=', 'tipfirmas.idTipFirmas')
+            ->where('fk_idSolicitudes',$solicitudes->idSolicitudes)->orderBy('idFirmaHasSolicitudes')->get();
         $DocsAd=Adjunto::where('fk_idSolicitudes',$request->idSol)->get();
         $aux=0;
         $url='storage/Archivos/'.$solicitudes->fech_solicitud.'_'.$solicitudes->codigo.'.pdf';
         
-        $pdf = PDF :: loadView ( 'docentes.PDFs.reporteSolicitud' , compact('solicitudes','DocsAd','aux'));
+        $pdf = PDF :: loadView ( 'docentes.PDFs.reporteSolicitud' , compact('solicitudes','DocsAd','Firmas','aux'));
         /*return  */$pdf->save($url)/*->stream()*/;
         return /*view('docentes.licencias',compact('user','Motivos'))*/$url;
     }
