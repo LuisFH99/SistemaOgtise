@@ -48,8 +48,9 @@ class DatabaseSeeder extends Seeder
         $this->call(DedicacionSeeder::class);
         $this->call(SemanaSeeder::class);
         $this->call(TipoFirmasSeeder::class);
-         php artisan db:seed --class=CondicionSeeder
-
+        $this->call(EstadoSoliSeeder::class);
+        $this->call(EstadoasisSeeder::class);
+         
 
 
 
