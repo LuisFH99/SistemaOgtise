@@ -32,7 +32,8 @@ class ValidaSalidaController extends Controller
     public function index()
     {
         $user=auth()->user();
-        return view('departamento.ValidaSalida',compact('user'));
+        $fecha=date('Y-m-d');
+        return view('departamento.ValidaSalida',compact('user','fecha'));
     }
     public function create()
     {

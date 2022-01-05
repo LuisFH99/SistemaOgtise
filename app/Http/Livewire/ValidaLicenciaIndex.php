@@ -28,11 +28,12 @@ class ValidaLicenciaIndex extends Component
     }
     public function render()
     {
+        $user=auth()->user();
         if ($this->bdr==0) {
             $Dpto = Docente::join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
                 ->join('depacademicos', 'docentes.fk_idDepAcademicos', '=', 'depacademicos.idDepAcademicos')
                 ->join('facultades', 'depacademicos.fk_idFacultades', '=', 'facultades.id_Facultades')
-                ->select('idDepAcademicos')->where('personas.correo',$this->user->email)->first();
+                ->select('idDepAcademicos')->where('personas.correo',$user->email)->first();
             $licencias=Solicitud::join('estadosolicitudes', 'solicitudes.fk_idEstadoSolicitudes', '=', 'estadosolicitudes.idEstadoSolicitudes')
                 ->join('motivosolicitudes', 'solicitudes.fk_idMotivoSolicitudes', '=', 'motivosolicitudes.idMotivoSolicitudes')
                 ->join('docentes', 'solicitudes.fk_idDocentes', '=', 'docentes.idDocentes')
@@ -40,7 +41,16 @@ class ValidaLicenciaIndex extends Component
                 ->join('depacademicos', 'docentes.fk_idDepAcademicos', '=', 'depacademicos.idDepAcademicos')
                 ->select('solicitudes.*','estadosolicitudes.estadoSol','motivosolicitudes.motivo',
                     'personas.*','depacademicos.nomdep')
-                ->where('idDepAcademicos',$Dpto->idDepAcademicos)->where('estadoSol',$this->estado)->get();
+                ->where('idDepAcademicos',$Dpto->idDepAcademicos)->where('estadoSol',$this->estado)
+                ->where(function ($query) {
+                    $query->orWhere(DB::raw('CONCAT(apellPat," ",apellMat," ",nombres)'),'LIKE','%'.$this->search.'%')
+                          ->orWhere('estadosolicitudes.estadoSol','LIKE','%'.$this->search.'%')
+                          ->orWhere('motivosolicitudes.motivo','LIKE','%'.$this->search.'%')
+                          ->orWhere('fech_solicitud','LIKE','%'.$this->search.'%')
+                          ->orWhere('fech_retorno','LIKE','%'.$this->search.'%')
+                          ->orWhere('codigo','LIKE','%'.$this->search.'%');
+                })
+                ->get();
         } else {
             $licencias=Solicitud::join('estadosolicitudes', 'solicitudes.fk_idEstadoSolicitudes', '=', 'estadosolicitudes.idEstadoSolicitudes')
                 ->join('motivosolicitudes', 'solicitudes.fk_idMotivoSolicitudes', '=', 'motivosolicitudes.idMotivoSolicitudes')
@@ -48,7 +58,16 @@ class ValidaLicenciaIndex extends Component
                 ->join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
                 ->join('depacademicos', 'docentes.fk_idDepAcademicos', '=', 'depacademicos.idDepAcademicos')
                 ->select('solicitudes.*','estadosolicitudes.estadoSol','motivosolicitudes.motivo',
-                    'personas.*','depacademicos.nomdep')->where('estadoSol',$this->estado)->get();
+                    'personas.*','depacademicos.nomdep')->where('estadoSol',$this->estado)
+                ->where(function ($query) {
+                    $query->orWhere(DB::raw('CONCAT(apellPat," ",apellMat," ",nombres)'),'LIKE','%'.$this->search.'%')
+                            ->orWhere('estadosolicitudes.estadoSol','LIKE','%'.$this->search.'%')
+                            ->orWhere('motivosolicitudes.motivo','LIKE','%'.$this->search.'%')
+                            ->orWhere('fech_solicitud','LIKE','%'.$this->search.'%')
+                            ->orWhere('fech_retorno','LIKE','%'.$this->search.'%')
+                            ->orWhere('codigo','LIKE','%'.$this->search.'%');
+                })
+                ->paginate();
         }
         
         

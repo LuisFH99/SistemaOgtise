@@ -36,7 +36,7 @@
                     <td>{{$docente->nomdedi}}</td>
                     <td>
                         <span><i class="fas fa-eye mr-1" onclick="MostarModal({{$docente->idpersonas}})"></i></span>
-                        <span><i class="far fa-calendar-alt mr-1"></i></span>
+                        <a href="{{route('docentes.editSemana',$docente->iddocentes)}}"><i class="far fa-calendar-alt mr-1"></i></a>
                         <span><i class="far fa-trash-alt" onclick="EliminarDocente({{$docente->dni}},{{$docente->id}},{{$docente->idpersonas}})"></i></span>
                     </td>
                 </tr>

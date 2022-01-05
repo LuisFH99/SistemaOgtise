@@ -1,6 +1,10 @@
 console.log('Hi!');
 let idsali = 0;
 $(function() {
+    $('#buscaFecha').val("{{date('Y-m-d')}}");
+    $('#chkCodigoFirma').prop("checked", false);
+    $('#chkDNIE').prop("checked", false);
+    MostarFirma();
     $("#btnAceptar").click(function() {
         let Firma = $("#txtCodigoFirma").val();
         if (validarEntradas()) {
@@ -54,6 +58,37 @@ $(function() {
         }
     });
 });
+// $('.datepicker').datepicker({
+//   inline: true
+// });
+function MostarFirma() {
+
+    $('#chkCodigoFirma').on("click", function() {
+        if ($(this).is(":checked")) {
+            $('#chkDNIE').prop("checked", false);
+            $("#formclave").removeClass("d-none");
+            $("#formbtn").removeClass("d-none");
+            $("#formclave").addClass("d-flex");
+            $("#formbtn").addClass("d-flex");
+
+        } else {
+            $("#formclave").removeClass("d-flex");
+            $("#formbtn").removeClass("d-flex");
+            $("#formclave").addClass("d-none");
+            $("#formbtn").addClass("d-none");
+        }
+    });
+
+    $('#chkDNIE').on("click", function() {
+        if ($(this).is(":checked")) {
+            $('#chkCodigoFirma').prop("checked", false);
+            $("#formclave").removeClass("d-flex");
+            $("#formbtn").removeClass("d-flex");
+            $("#formclave").addClass("d-none");
+            $("#formbtn").addClass("d-none");
+        }
+    });
+}
 
 function validarEntradas() {
     let bdr = false;
@@ -96,7 +131,7 @@ function validarEntradas() {
     return bdr;
 }
 
-function selecId(id) {
+function selecId(id, nombre, fecha, hora, informe) {
     //document.getElementById('exampleModalLabel').innerHTML=""+nombre;
     idsali = id;
     $.ajax({
@@ -108,10 +143,12 @@ function selecId(id) {
         }
     }).done(function(msg) {
 
-        $("#nombret").html('Docente: ' + msg.Salida.apellPat + ' ' + msg.Salida.apellMat + ' ' + msg.Salida.nombres);
-        $("#fecha").html(formatoFecha(msg.Salida.fecha) + " - " + msg.Salida.hor_salida);
-        $("#justificacion").html(msg.Salida.informe);
-
+        // $("#nombret").html('Docente: ' + msg.Salida.apellPat + ' ' + msg.Salida.apellMat + ' ' + msg.Salida.nombres);
+        // $("#fecha").html(formatoFecha(msg.Salida.fecha) + " - " + msg.Salida.hor_salida);
+        // $("#justificacion").html(msg.Salida.informe);
+        $("#nombret").html('Docente: ' + nombre);
+        $("#fecha").html(formatoFecha(fecha) + " - " + hora);
+        $("#justificacion").html(informe);
         let ArrayE = msg.evi;
         let mj = "";
         ArrayE.forEach(function(element) {
