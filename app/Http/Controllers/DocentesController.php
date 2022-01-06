@@ -8,6 +8,8 @@ use App\Models\Persona;
 use App\Models\Docente;
 use App\Models\Facultad;
 use App\Models\User;
+use App\Models\Semana;
+use App\Models\DetSemana;
 
 class DocentesController extends Controller
 {
@@ -157,7 +159,19 @@ class DocentesController extends Controller
 
         return compact('docente', 'facultades', 'dptos', 'condiciones', 'categorias', 'dedicaciones');
     }
-
+    public function editSemana($id)
+    {
+        $DetSemanas=DetSemana::where('fk_idDocentes',$id)->get();
+        $Persona=Docente::join('personas', 'docentes.fk_idpersonas', '=', 'personas.idpersonas')
+                    ->select('idDocentes','personas.nombres', 'personas.apellPat', 'personas.apellMat')
+                    ->where('idDocentes',$id)->first();
+        $msg="0";
+        foreach($DetSemanas as $DetSemana):
+            $msg=$msg.','.$DetSemana->fk_idSemanas;
+        endforeach;
+        $Semanas=Semana::all();
+        return view('departamento.DocentesSemanaEdit',compact('DetSemanas','Persona','Semanas','msg'));
+    }
     public function dpto(Request $request)
     {
         $dptos = DB::table('depacademicos')->where('fk_idfacultades', $request->idfac)
@@ -178,7 +192,26 @@ class DocentesController extends Controller
         $respuesta = DB::select('call p_crear_docente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [$request->ev, $request->dni, $request->nombre, $request->appat, $request->apmat, $request->fnac, $request->cel, $request->clv, $request->idcnd, $request->idcat, $request->iddedi, $request->iddep, $request->idper, bcrypt($request->dni), $request->idusu, $request->correo]);
         return $respuesta;
     }
-
+    public function updateSemana(Request $request,$id)
+    {
+        //$user->roles()->sync($request->roles);
+        $respuesta =DetSemana::where('fk_idDocentes', $id)->delete();
+        $Persona=Docente::join('personas', 'docentes.fk_idpersonas', '=', 'personas.idpersonas')
+                    ->select('personas.nombres', 'personas.apellPat', 'personas.apellMat')
+                    ->where('idDocentes',$id)->first();
+        
+        $prueba="0";
+        for ($i=1; $i <=5 ; $i++) { 
+            if($request->has('cbox'.$i)){
+                $prueba=$prueba.','.$request->get('cbox'.$i);
+                DetSemana::create([
+                    'fk_idDocentes' =>$id,
+                    'fk_idSemanas'  =>$request->get('cbox'.$i)
+                ]);
+            }
+        }
+        return view('departamento.docentes')->with('info','Se asignó los dias laborables al Docente: '.$Persona->apellPat.' '.$Persona->apellMat.' '.$Persona->nombres);
+    }
     /**
      * Remove the specified resource from storage.
      *
