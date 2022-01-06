@@ -9,6 +9,17 @@
 @stop
 
 @section('content')
+    @if (session('info'))
+    <script>
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: '{{session('info')}}',
+            showConfirmButton: false,
+            timer: 2500
+        })
+    </script>
+    @endif
     <div class="container">
         {{-- <div class="row">
             <a href="{{ route('creardocente') }}" class="btn btn-primary my-2">Registar Docente</a>
@@ -390,7 +401,22 @@
             })
 
         }
+        function EditarSemanaDocente(id) {
+            
+            $.ajax({
+                url: '/departamento/docentes/editSemana',
+                method: 'POST',
+                data: {
+                    _token: $('input[name="_token"]').val(),
+                    iddoc: id
+                }
+            }).done(function(res) {
+                alert(res);
 
+            }).fail(function() {
+                alert("error");
+            });
+        }
         function Limpiar() {
             $('#facultad').empty();
             $('#dptoacademico').empty();

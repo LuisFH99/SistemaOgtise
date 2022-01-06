@@ -33,7 +33,7 @@ class LicenciasIndex extends Component
             ->select('solicitudes.*','estadosolicitudes.estadoSol')->where('fk_idDocentes',$docente->idDocentes)
             ->where('codigo','LIKE','%'.$this->search.'%')->Where('fech_solicitud','LIKE','%'.$this->search.'%')
             ->Where('estadoSol','LIKE','%'.$this->search.'%')
-            ->orderBy('idSolicitudes', 'desc')->get();
+            ->orderBy('idSolicitudes', 'desc')->paginate();
             $aux=1;
         }else{
             $solicitudes=[['idSolicitudes'=>0]];$aux=0;

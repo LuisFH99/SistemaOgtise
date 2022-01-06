@@ -8,7 +8,7 @@
 
 @section('content')
 <div class="container">
-    @livewire('validar-salidas-index',['user' => $user])
+    @livewire('validar-salidas-index',['sdate'=>$fecha])
 </div> 
 
 <!-- Modal -->
@@ -72,7 +72,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-12 d-flex justify-content-center">
+                                    <div class="col-12 d-none justify-content-center" id="formclave">
                                         <div class="col-8">
                                             <label class="mt-1 text-sm-right ">Ingrese clave</label>
                                             <div class="input-group ">
@@ -123,6 +123,7 @@
 @stop
 
 @section('js')
-    <script src="ValidaSalida.js"></script>
+    <script src="/js/ValidaSalida.js">
+    </script>
     @livewireScripts
 @stop

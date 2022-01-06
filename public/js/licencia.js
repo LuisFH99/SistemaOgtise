@@ -55,6 +55,9 @@ Dropzone.options.myAwesomeDropzone = { // camelized version of the `id`
 };
 
 $(function() {
+    $('#chkCodigoFirma').prop("checked", false);
+    $('#chkDNIE').prop("checked", false);
+    MostarFirma();
     $('#reincorporar').html(formatoFecha(devolverFechaLab(hasta)));
     $('#desde').change(function() {
         desde = new Date($(this).val()).getTime();
@@ -182,6 +185,35 @@ $(function() {
         });
     });
 });
+
+function MostarFirma() {
+
+    $('#chkCodigoFirma').on("click", function() {
+        if ($(this).is(":checked")) {
+            $('#chkDNIE').prop("checked", false);
+            $("#formclave").removeClass("d-none");
+            $("#formbtn").removeClass("d-none");
+            $("#formclave").addClass("d-flex");
+            $("#formbtn").addClass("d-flex");
+
+        } else {
+            $("#formclave").removeClass("d-flex");
+            $("#formbtn").removeClass("d-flex");
+            $("#formclave").addClass("d-none");
+            $("#formbtn").addClass("d-none");
+        }
+    });
+
+    $('#chkDNIE').on("click", function() {
+        if ($(this).is(":checked")) {
+            $('#chkCodigoFirma').prop("checked", false);
+            $("#formclave").removeClass("d-flex");
+            $("#formbtn").removeClass("d-flex");
+            $("#formclave").addClass("d-none");
+            $("#formbtn").addClass("d-none");
+        }
+    });
+}
 
 function selecMotivo(id) {
     console.log('->' + id);

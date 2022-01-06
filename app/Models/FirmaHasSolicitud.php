@@ -17,6 +17,7 @@ class FirmaHasSolicitud extends Model
     protected $fillable = [
         'fechaFirma',
         'fk_idFirmas',
+        'fechaFirma',
         'fk_idSolicitudes', 
         'fk_idPersonas',
     ];
