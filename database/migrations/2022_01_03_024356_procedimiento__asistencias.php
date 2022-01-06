@@ -59,7 +59,7 @@ class ProcedimientoAsistencias extends Migration
      */
     public function down()
     {
-        $procedimiento="DROP FUNCTION IF EXISTS p_asistencia";
+        $procedimiento="DROP PROCEDURE IF EXISTS p_asistencia";
         DB::unprepared( $procedimiento);
     }
 }

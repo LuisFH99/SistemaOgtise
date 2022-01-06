@@ -19,7 +19,7 @@ class FuncionExisteLicencias extends Migration
     BEGIN
     DECLARE rst boolean DEFAULT false;
     if(select count(*) from solicitudes where fk_idDocentes=idd)>0 then 
-     if(select count(*) from solicitudes where idEstadoSolicitudes=2 and fk_idDocentes=idd)>0 then 
+     if(select count(*) from solicitudes where fk_idEstadoSolicitudes=4 and fk_idDocentes=idd)>0 then 
       if (select count(*) from solicitudes where curdate()   BETWEEN  fech_inicio and fech_fin and fk_idDocentes=idd)=1 then
        SET rst = true;
       end if;

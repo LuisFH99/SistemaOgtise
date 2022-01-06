@@ -84,7 +84,7 @@ class ProcedimientoCursorAsistencias extends Migration
      */
     public function down()
     {
-        $procedimiento="DROP FUNCTION IF EXISTS P_cursor_Asistencias";
+        $procedimiento="DROP PROCEDURE IF EXISTS P_cursor_Asistencias";
         DB::unprepared( $procedimiento);
     }
 }
