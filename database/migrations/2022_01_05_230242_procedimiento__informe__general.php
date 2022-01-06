@@ -13,7 +13,7 @@ class ProcedimientoInformeGeneral extends Migration
      */
     public function up()
     {
-        $procedimiento="CREATE DEFINER=`root`@`localhost` PROCEDURE `P_InformeGeneral`( dia date)
+        $procedimiento="CREATE PROCEDURE `P_InformeGeneral`( dia date)
         BEGIN
         select id_facultades, nomfac,
             (
