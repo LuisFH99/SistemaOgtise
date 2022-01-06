@@ -13,11 +13,191 @@
 
         {{-- {{ $Datos }}
         {{ $estado }}
-        {{ $registros }} --}}
+        {{ $registros}} --}}
         <div class="row">
             <div class="col-lg-6 p-2">
                 <div class="card fondo-cards">
-                    @if ($estado->hor_salida != '00:00:00')
+                    @switch($estado->fk_idestadoasistencias)
+                        @case(1)
+                            @if ($estado->hor_salida != '00:00:00')
+                                <div class="card-body">
+                                    <h1>Su Asistencia ya fue Registrada</h1>
+                                </div>
+                            @else
+                                <div class="card-body">
+                                    <h4 class="">Registro de Salida</h4>
+                                    <div class="row">
+
+                                        <!-- <div id="divSalida"> -->
+                                        <div class="col-12">
+                                            <input type="hidden" value="{{ $estado->fk_idestadoasistencias }}" id="aux">
+                                            <label class="form-label text-black">Hora de Salida:
+                                                {{ $Datos->hora }}</label>
+                                        </div>
+                                        <div class="col-12">
+                                            <h6>Detalle de actividad realizada:</h6>
+                                            <textarea class="form-control" aria-label="With textarea"
+                                                id="actividad"></textarea>
+                                        </div>
+                                        <div class="col-12 mt-2">
+                                            <h6>Cargar Evidencia <p class="opcional">* La carga de Archivos es
+                                                    Opcional
+                                                </p>
+                                            </h6>
+
+                                            <div class="custom-file">
+                                                <div action="{{ route('evidencia.file') }}" method="POST"
+                                                    class="dropzone scroll-3a" id="my-awesome-dropzone">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- </div> -->
+
+                                        <div class="col-12 text-center">
+                                            <h4 class="titulo_pregunta_1 my-2">¿Con qué deseas firmar?</h4>
+                                        </div>
+                                        <div class="col-12 d-flex justify-content-center">
+                                            <div class="d-inline-flex my-1">
+                                                <div class="checkbox-custom mr-4">
+                                                    <label>
+                                                        <input type="checkbox" id="chkDNIE">
+                                                        <b></b>
+                                                        <span>DNIe</span>
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox-custom">
+                                                    <label>
+                                                        <input type="checkbox" id="chkCodigoFirma">
+                                                        <b></b>
+                                                        <span>Clave de Firma Electronica</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 d-none justify-content-center" id="formclave">
+                                            <div class="col-8">
+                                                <label class="mt-1 text-sm-right ">Ingrese clave</label>
+                                                <div class="input-group">
+                                                    <input id="txtCodigoFirma" type="Password" Class="form-control">
+                                                    @csrf
+                                                    <div class="input-group-append">
+                                                        <button style="background-color:#28AECE;border-color:#28AECE"
+                                                            id="show_password" class="btn btn-primary" type="button"
+                                                            onclick="mostrarPassword()">
+                                                            <span class="fa fa-eye-slash icon"></span>
+                                                    </div>
+                                                    <input type="hidden" name="hh" id="dtohora" value="{{ $Datos->hora }}">
+                                                    <input type="hidden" name="docente" id="docente"
+                                                        value="{{ $Datos->idDocentes }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 d-none justify-content-center pt-3" id="formbtn">
+
+                                            <button type="button" class="btn btn-primary" id="Guardar"> Marcar
+                                                Asistencia</button>
+                                            <div class="d-none">
+                                                <button type="button" class="btn btn-primary btn-lg dr"
+                                                    id="btnenviar">Archivo</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
+                        @break
+                        @case(2)
+                            <div class="card-body">
+                                <h4 class="">Registro de Salida</h4>
+                                <div class="row">
+                                    <div id="divEntrada">
+                                        <div class="col-12">
+                                            <input type="hidden" value="{{ $estado->fk_idestadoasistencias }}" id="aux">
+                                            <label class="form-label text-black">Hora de Entrada: {{ $Datos->hora }}
+                                            </label>
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label text-black">Camara:</label><i class="fas fa-camera"></i>
+                                            <div class="row">
+                                                <div class="col-sm-6 col-12">
+                                                    <video id="video" class="img-responsive" width="200"></video>
+                                                </div>
+                                                <div class="col-sm-6 col-12">
+                                                    <canvas id="canvas" width="200" class="img-responsive"></canvas>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="foto" id="txt">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 text-center">
+                                        <h4 class="titulo_pregunta_1 my-2">¿Con qué deseas firmar?</h4>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-center">
+                                        <div class="d-inline-flex my-1">
+                                            <div class="checkbox-custom mr-4">
+                                                <label>
+                                                    <input type="checkbox" id="chkDNIE">
+                                                    <b></b>
+                                                    <span>DNIe</span>
+                                                </label>
+                                            </div>
+                                            <div class="checkbox-custom">
+                                                <label>
+                                                    <input type="checkbox" id="chkCodigoFirma">
+                                                    <b></b>
+                                                    <span>Clave de Firma Electronica</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 d-none justify-content-center" id="formclave">
+                                        <div class="col-8">
+                                            <label class="mt-1 text-sm-right ">Ingrese clave</label>
+                                            <div class="input-group">
+                                                <input id="txtCodigoFirma" type="Password" Class="form-control">
+                                                @csrf
+                                                <div class="input-group-append">
+                                                    <button style="background-color:#28AECE;border-color:#28AECE"
+                                                        id="show_password" class="btn btn-primary" type="button"
+                                                        onclick="mostrarPassword()">
+                                                        <span class="fa fa-eye-slash icon"></span>
+                                                </div>
+                                                <input type="hidden" name="hh" id="dtohora" value="{{ $Datos->hora }}">
+                                                <input type="hidden" name="docente" id="docente"
+                                                    value="{{ $Datos->idDocentes }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 d-none justify-content-center pt-3" id="formbtn">
+                                        <button type="button" class="btn btn-primary" id="grabar"> Marcar
+                                            Asistencia</button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        @break
+                        @case(4)
+                            <div class="card-body">
+                                <h1>De Licencia</h1>
+                            </div>
+                        @break
+                        @case(5)
+                            <div class="card-body">
+                                <h1>El dia de Hoy es no Laborable</h1>
+                            </div>
+                        @break
+                        @default
+                        <div class="card-body">
+                            <h1>No puede Registrar Asistencia...Contactese con el Administrador</h1>
+                        </div>
+
+                    @endswitch
+
+                    {{-- @if ($estado->hor_salida != '00:00:00')
                         <div class="card-body">
                             <h1>Su Asistencia ya fue Registrada</h1>
                         </div>
@@ -63,7 +243,8 @@
                                             id="actividad"></textarea>
                                     </div>
                                     <div class="col-12 mt-2">
-                                        <h6>Cargar Evidencia <p class="opcional">* La carga de Archivos es Opcional</p>
+                                        <h6>Cargar Evidencia <p class="opcional">* La carga de Archivos es Opcional
+                                            </p>
                                         </h6>
 
                                         <div class="custom-file">
@@ -116,11 +297,14 @@
                                 </div>
                                 <div class="col-12 d-none justify-content-center pt-3" id="formbtn">
                                     @if ($estado->fk_idestadoasistencias == 2)
-                                        <button type="button" class="btn btn-primary" id="grabar"> Marcar Asistencia</button>
+                                        <button type="button" class="btn btn-primary" id="grabar"> Marcar
+                                            Asistencia</button>
                                     @else
-                                        <button type="button" class="btn btn-primary" id="Guardar"> Marcar Asistencia</button>
+                                        <button type="button" class="btn btn-primary" id="Guardar"> Marcar
+                                            Asistencia</button>
                                         <div class="d-none">
-                                            <button type="button" class="btn btn-primary btn-lg dr" id="btnenviar">Archivo</button>
+                                            <button type="button" class="btn btn-primary btn-lg dr"
+                                                id="btnenviar">Archivo</button>
                                         </div>
                                     @endif
 
@@ -128,7 +312,7 @@
 
                             </div>
                         </div>
-                    @endif
+                    @endif --}}
                 </div>
             </div>
 
@@ -180,15 +364,15 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($registros as $registro)
-                                    <tr>
-                                        <td>{{$registro->Dia}}</td>
-                                        <td>{{$registro->hor_entrada}}</td>
-                                        <td>{{$registro->hor_salida}}</td>
-                                        <td>{{$registro->observacion}}</td>
-                                    </tr>
-                                        
+                                        <tr>
+                                            <td>{{ $registro->Dia }}</td>
+                                            <td>{{ $registro->hor_entrada }}</td>
+                                            <td>{{ $registro->hor_salida }}</td>
+                                            <td>{{ $registro->observacion }}</td>
+                                        </tr>
+
                                     @endforeach
-                                    
+
                                 </tbody>
                             </table>
                         </div>
@@ -229,105 +413,105 @@
                             <table class="table table-sm  table-bordered" id="table">
                                 <thead class="fondo-table">
                                     <!-- <tr>
-                                                            <th>MI</th>
-                                                            <th>JU</th>
-                                                            <th>VI</th>
-                                                            <th>SA</th>
-                                                            <th>DO</th>
-                                                            <th>LU</th>
-                                                            <th>MA</th>
-                                                            <th>MI</th>
-                                                            <th>JU</th>
-                                                            <th>VI</th>
-                                                            <th>SA</th>
-                                                            <th>DO</th>
-                                                            <th>LU</th>
-                                                            <th>MA</th>
-                                                            <th>MI</th>
-                                                            <th>JU</th>
-                                                            <th>VI</th>
-                                                            <th>SA</th>
-                                                            <th>DO</th>
-                                                            <th>LU</th>
-                                                            <th>MA</th>
-                                                            <th>MI</th>
-                                                            <th>JU</th>
-                                                            <th>VI</th>
-                                                            <th>SA</th>
-                                                            <th>DO</th>
-                                                            <th>LU</th>
-                                                            <th>MA</th>
-                                                            <th>MI</th>
-                                                            <th>JU</th>
-                                                            <th>VI</th>
-                                                        </tr> -->
+                                                                                                                <th>MI</th>
+                                                                                                                <th>JU</th>
+                                                                                                                <th>VI</th>
+                                                                                                                <th>SA</th>
+                                                                                                                <th>DO</th>
+                                                                                                                <th>LU</th>
+                                                                                                                <th>MA</th>
+                                                                                                                <th>MI</th>
+                                                                                                                <th>JU</th>
+                                                                                                                <th>VI</th>
+                                                                                                                <th>SA</th>
+                                                                                                                <th>DO</th>
+                                                                                                                <th>LU</th>
+                                                                                                                <th>MA</th>
+                                                                                                                <th>MI</th>
+                                                                                                                <th>JU</th>
+                                                                                                                <th>VI</th>
+                                                                                                                <th>SA</th>
+                                                                                                                <th>DO</th>
+                                                                                                                <th>LU</th>
+                                                                                                                <th>MA</th>
+                                                                                                                <th>MI</th>
+                                                                                                                <th>JU</th>
+                                                                                                                <th>VI</th>
+                                                                                                                <th>SA</th>
+                                                                                                                <th>DO</th>
+                                                                                                                <th>LU</th>
+                                                                                                                <th>MA</th>
+                                                                                                                <th>MI</th>
+                                                                                                                <th>JU</th>
+                                                                                                                <th>VI</th>
+                                                                                                            </tr> -->
                                 </thead>
                                 <tbody>
                                     <tr class="bg-tr">
                                         <!-- <td>1</td>
-                                                            <td>2</td>
-                                                            <td>3</td>
-                                                            <td>4</td>
-                                                            <td>5</td>
-                                                            <td>6</td>
-                                                            <td>7</td>
-                                                            <td>8</td>
-                                                            <td>9</td>
-                                                            <td>10</td>
-                                                            <td>11</td>
-                                                            <td>12</td>
-                                                            <td>13</td>
-                                                            <td>14</td>
-                                                            <td>15</td>
-                                                            <td>16</td>
-                                                            <td>17</td>
-                                                            <td>18</td>
-                                                            <td>19</td>
-                                                            <td>20</td>
-                                                            <td>21</td>
-                                                            <td>22</td>
-                                                            <td>23</td>
-                                                            <td>24</td>
-                                                            <td>25</td>
-                                                            <td>26</td>
-                                                            <td>27</td>
-                                                            <td>28</td>
-                                                            <td>29</td>
-                                                            <td>30</td>
-                                                            <td>31</td> -->
+                                                                                                                <td>2</td>
+                                                                                                                <td>3</td>
+                                                                                                                <td>4</td>
+                                                                                                                <td>5</td>
+                                                                                                                <td>6</td>
+                                                                                                                <td>7</td>
+                                                                                                                <td>8</td>
+                                                                                                                <td>9</td>
+                                                                                                                <td>10</td>
+                                                                                                                <td>11</td>
+                                                                                                                <td>12</td>
+                                                                                                                <td>13</td>
+                                                                                                                <td>14</td>
+                                                                                                                <td>15</td>
+                                                                                                                <td>16</td>
+                                                                                                                <td>17</td>
+                                                                                                                <td>18</td>
+                                                                                                                <td>19</td>
+                                                                                                                <td>20</td>
+                                                                                                                <td>21</td>
+                                                                                                                <td>22</td>
+                                                                                                                <td>23</td>
+                                                                                                                <td>24</td>
+                                                                                                                <td>25</td>
+                                                                                                                <td>26</td>
+                                                                                                                <td>27</td>
+                                                                                                                <td>28</td>
+                                                                                                                <td>29</td>
+                                                                                                                <td>30</td>
+                                                                                                                <td>31</td> -->
                                     </tr>
                                     <tr id="Aux">
                                         <!-- <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt="" onclick="AbrirModal('a')"></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt="" onclick="AbrirModal('a')"></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt="" onclick="AbrirModal('a')"></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/falto.svg" alt="" onclick="AbrirModal('f')"></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/libre.svg" alt=""></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/justificado.svg" alt="" onclick="AbrirModal('j')"></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
-                                                            <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td> -->
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt="" onclick="AbrirModal('a')"></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt="" onclick="AbrirModal('a')"></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/falto.svg" alt="" onclick="AbrirModal('f')"></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/libre.svg" alt=""></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/justificado.svg" alt="" onclick="AbrirModal('j')"></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td>
+                                                                                                                <td><img src="/vendor/adminlte/dist/img/asistio.svg" alt=""></td> -->
                                     </tr>
                                 </tbody>
                             </table>
@@ -350,23 +534,21 @@
                 </div>
                 <div class="modal-body">
                     <div class="container" id="Asistencia">
-                        <h5 id="fechreg">Fecha de Registro: 30 de Diciembre del 2021</h5>
+                        <h5 id="fechreg"></h5>
                         <div class="row">
                             <div class="col-6">
-                                <h6 id="entrada">Hora de Entrada: 07:01:52</h6>
+                                <h6 id="entrada"></h6>
                                 <h6>Captura de Imagen</h6>
                                 <img id="foto" src="/vendor/adminlte/dist/img/image.png" width="197" height="197">
                             </div>
                             <div class="col-6">
-                                <h6 id="salida">Hora de Salida: 17:02:52</h6>
+                                <h6 id="salida"></h6>
                                 <h6>Detalle de Actividad</h6>
-                                <p id="actividad">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam facere laborum quia
-                                    doloribus perferendis sed assumenda consectetur rerum quod tempore sit ullam, velit odio
-                                    ut. Eveniet debitis tempore harum officia?</p>
+                                <h6 id="informe">hola saludos</h6>
                             </div>
                             <div class="12">
-                                <h6 id="tkentrada">Codigo de Registro de Entrada: db0fc5bbb7719a014672 </h6>
-                                <h6 id="tksalida">Codigo de Registro de Salida: 4e613785df62a95961252 </h6>
+                                <h6 id="tkentrada"> </h6>
+                                <h6 id="tksalida"> </h6>
 
                             </div>
                         </div>
@@ -403,7 +585,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"
         integrity="sha512-oQq8uth41D+gIH/NJvSJvVB85MFk1eWpMK6glnkg6I7EdMqC1XVkW7RxLheXwmFdG03qScCM7gKS/Cx3FYt7Tg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
+
     <script src="/js/asistencia.js"></script>
 
- @stop
+@stop

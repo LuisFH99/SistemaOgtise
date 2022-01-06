@@ -48,13 +48,16 @@ Route::get('docentes/entrada', [EntradaController::class, 'index'])/*->middlewar
 //Route::get('docentes/salida', [SalidaController::class, 'index'])/*->middleware('can:asistencia.Salida')*/->name('salida');
 //Route::post('docentes/entrada/registrar', [EntradaxController::class, 'store'])->name('docentes.entrada.registrar');
 Route::post('/docentes/registros/asistencia/All', [EntradaController::class, 'allregistros']);
-Route::post('/docentes/registros/asistencia/Detalle', [EntradaController::class, 'detalleregisñtro']);
+Route::post('/docentes/registros/asistencia/Detalle', [EntradaController::class, 'detalleregistro']);
 Route::post('/docentes/entrada/registrar', [EntradaController::class, 'store'])->name('registrar');
 Route::post('/docentes/salida/registrar', [EntradaController::class, 'registrarsalida'])->name('registrar.salida');
 Route::post('/docentes/salida/file', [EntradaController::class, 'evidenciafile'])->name('evidencia.file');
 //Route::post('/docentes/salida/registrar', [SalidaController::class, 'store'])->name('registrar.salida');
 
 Route::get('/URyC/ParteDiario', [ParteDiarioController::class, 'index'])->name('partediario');
+Route::get('/URyC/ParteDiario/general/{fecha}', [ParteDiarioController::class, 'reportegeneral'])->name('reportegeneral');
+// Route::post('/URyC/ParteDiario/reporte', [ParteDiarioController::class, 'reportedocente']);
+Route::get('/URyC/ParteDiario/reporte/{id}/{mes}/{aa}', [ParteDiarioController::class, 'reportedocente']);
 
 
 Route::get('/departamento/docentes', [DocentesController::class, 'index'])->name('docentes');
@@ -62,6 +65,8 @@ Route::get('/departamento/creardocente', [DocentesController::class, 'create'])-
 Route::post('/departamento/docentes/store',[DocentesController::class,'store'])->name('docentes.store');
 
 Route::post('/departamento/docentes/edit',[DocentesController::class,'edit'])->name('docentes.edit');
+Route::get('/departamento/docentes/editSemana/{id}',[DocentesController::class,'editSemana'])->name('docentes.editSemana');
+Route::put('/departamento/docentes/updateSemana/{id}',[DocentesController::class,'updateSemana'])->name('docentes.updateSemana');
 Route::post('/departamento/docentes/dpto',[DocentesController::class,'dpto']);
 Route::post('/departamento/docentes/update',[DocentesController::class,'update']);
 Route::post('/departamento/docentes/delete',[DocentesController::class,'destroy']);

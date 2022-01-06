@@ -15,6 +15,7 @@
                         <table class="table table-sm" id="idtableSalidas">
                             <thead>
                                 <tr>
+                                    <th scope="col">Código</th>
                                     <th scope="col">Docente</th>
                                     <th scope="col">Fecha</th>
                                     <th scope="col">Motivo</th>
@@ -26,6 +27,7 @@
                             <tbody>
                                 @foreach ($licencias as $licencia)
                                     <tr>
+                                        <td>{{$licencia->codigo}}</td>
                                         <td>{{$licencia->apellPat.' '.$licencia->apellMat.' '.$licencia->nombres}}</td>
                                         <td>{{$licencia->fech_solicitud}}</td>
                                         <td>{{$licencia->motivo}}</td>
