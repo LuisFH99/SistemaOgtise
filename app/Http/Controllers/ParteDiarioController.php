@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Asistencia;
 use App\Models\Facultad;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use PDF;
 
 
@@ -29,34 +31,57 @@ class ParteDiarioController extends Controller
      */
     public function index()
     {
-        return view('URC.partediario');
+        $docentes = DB::table('docentes')
+            ->join('personas', 'docentes.fk_idpersonas', '=', 'personas.idpersonas')
+            ->join('depacademicos', 'docentes.fk_idDepAcademicos', '=', 'depacademicos.iddepacademicos')
+            ->join('facultades', 'depacademicos.fk_idfacultades', '=', 'facultades.id_facultades')
+            ->join('condiciones', 'docentes.fk_idcondiciones', '=', 'condiciones.idcondiciones')
+            ->join('categorias', 'docentes.fk_idcategorias', '=', 'categorias.idcategorias')
+            ->join('dedicaciones', 'docentes.fk_iddedicaciones', '=', 'dedicaciones.iddedicaciones')
+            ->join('users', 'personas.correo', '=', 'users.email')
+            ->select('personas.idpersonas', 'personas.dni', 'docentes.iddocentes', DB::raw('concat_ws(" ",personas.apellpat,personas.apellmat,personas.nombres) as nombres'), 'personas.correo', 'personas.telefono', 'facultades.nomfac', 'depacademicos.nomdep', 'condiciones.nomcondi', 'categorias.nomcat', 'dedicaciones.nomdedi', 'users.id', 'docentes.iddocentes')->where('docentes.estado', 1)->where('personas.estado', 1)->get();
+        return view('URC.partediario', compact('docentes'));
     }
 
-    public function reportegeneral()
+    public function reportegeneral($fecha)
     {
 
-        /*$datos=Asistencia::join('docentes as a','asistencias.fk_iddocentes','=','a.iddocentes')
-       ->join('personas as p','a.fk_idpersonas','=','p.idpersonas')
-       ->join('depacademicos as d','a.fk_idDepAcademicos','=','d.iddepacademicos')
-       ->join('facultades as f','d.fk_idfacultades','=','f.id_facultades')
-       ->join('condiciones as c','a.fk_idcondiciones','=','c.idcondiciones')
-       ->join('categorias as t','a.fk_idcategorias','=','t.idcategorias')
-       ->join('dedicaciones as i','a.fk_iddedicaciones','=','i.iddedicaciones')
-       ->join('fechasistencias as h','asistencias.fk_idfechasistencias','=','h.idfechasistencias')
-       ->join('asistenciaentradas as n','asistencias.fk_idasistenciaentradas','=','n.idasistenciaentradas')
-       ->join('asistenciasalidas as s','asistencias.fk_idasistenciasalidas','=','s.idasistenciasalidas')
-       ->join('firmas as b','n.fk_idfirmas','=','b.idfirmas')
-       ->join('firmas as g','s.fk_idfirmas','=','g.idfirmas')
-
-       ->select('f.nomfac', 'd.nomdep', DB::raw("concat_ws(' ', p.apellpat,p.apellmat,p.nombres) as nombres"), 'c.nomcondi','t.nomcat','i.nomdedi','b.firma as fentrada','n.hor_entrada','b.token as tkentrada', 'g.firma as fsalida','s.hor_salida', 'g.token as tksalida')->where('a.estado',1)->where('p.estado',1)->where('h.fecha','2021-12-28')->get();*/
-
-        $datos = DB::select('call P_InformeGeneral(?)', ['2021-12-27']);
-        //return view('URC.Reportes.reportegeneral',compact('datos'));
-
-
-
-        $pdf = PDF::loadView('URC.Reportes.reportegeneral', compact('datos'));
+        $datos = DB::select('call P_InformeGeneral(?)', [$fecha]);
+        $pdf = PDF::loadView('URC.Reportes.reportegeneral', compact('datos', 'fecha'));
         $pdf->setPaper("A4", "portrait");
         return  $pdf->stream();
+    }
+
+    public function reportedocente($id, $mes, $aa)
+    {
+        // reportedocente($id, $mes, $aa)
+        // Request $request
+        /*$datos = Asistencia::join('asistenciaentradas', 'asistencias.fk_idasistenciaentradas', '=', 'asistenciaentradas.idasistenciaentradas')
+            ->join('asistenciasalidas', 'asistencias.fk_idasistenciasalidas', '=', 'asistenciasalidas.idasistenciasalidas')
+            ->join('firmas as m', 'asistenciaentradas.fk_idfirmas', '=', 'm.idfirmas')
+            ->join('firmas as t', 'asistenciasalidas.fk_idfirmas', '=', 't.idfirmas')
+            ->join('fechasistencias', 'asistencias.fk_idfechasistencias', '=', 'fechasistencias.idfechasistencias')
+            ->select(DB::raw("concat_ws(', ', CONCAT(ELT(WEEKDAY(fechasistencias.fecha) + 1, 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo')),DATE_FORMAT(fechasistencias.fecha,'%d/%m/%Y')) as Dia"), 'asistencias.fk_idestadoAsistencias', 'asistenciaentradas.hor_entrada', 'asistenciaentradas.url_foto as foto', 'm.token as tkentrada', 'asistenciasalidas.hor_salida', 't.token as tksalida')->where('asistencias.fk_iddocentes', '=' ,$request->iddoc)->where(DB::raw('month(fechasistencias.fecha)'),'=', $request->mes)->where(DB::raw('year(fechasistencias.fecha)'), '=',$request->year)->get();*/
+
+        $datos = Asistencia::join('asistenciaentradas', 'asistencias.fk_idasistenciaentradas', '=', 'asistenciaentradas.idasistenciaentradas')
+            ->join('asistenciasalidas', 'asistencias.fk_idasistenciasalidas', '=', 'asistenciasalidas.idasistenciasalidas')
+            ->join('firmas as m', 'asistenciaentradas.fk_idfirmas', '=', 'm.idfirmas')
+            ->join('firmas as t', 'asistenciasalidas.fk_idfirmas', '=', 't.idfirmas')
+            ->join('fechasistencias', 'asistencias.fk_idfechasistencias', '=', 'fechasistencias.idfechasistencias')
+            ->select(DB::raw("concat_ws(', ', CONCAT(ELT(WEEKDAY(fechasistencias.fecha) + 1, 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo')),DATE_FORMAT(fechasistencias.fecha,'%d/%m/%Y')) as Dia"), 'asistencias.fk_idestadoAsistencias', 'asistenciaentradas.hor_entrada', 'asistenciaentradas.url_foto as foto','m.firma as fentrada' ,'m.token as tkentrada', 'asistenciasalidas.hor_salida', 't.firma as fsalida' ,'t.token as tksalida')->where('asistencias.fk_iddocentes', '=' ,$id)->where(DB::raw('month(fechasistencias.fecha)'),'=', $mes)->where(DB::raw('year(fechasistencias.fecha)'), '=',$aa)->get();
+
+        $docentes = DB::table('docentes')
+            ->join('personas', 'docentes.fk_idpersonas', '=', 'personas.idpersonas')
+            ->join('depacademicos', 'docentes.fk_idDepAcademicos', '=', 'depacademicos.iddepacademicos')
+            ->join('facultades', 'depacademicos.fk_idfacultades', '=', 'facultades.id_facultades')
+            ->join('condiciones', 'docentes.fk_idcondiciones', '=', 'condiciones.idcondiciones')
+            ->join('categorias', 'docentes.fk_idcategorias', '=', 'categorias.idcategorias')
+            ->join('dedicaciones', 'docentes.fk_iddedicaciones', '=', 'dedicaciones.iddedicaciones')
+            ->select('personas.idpersonas', 'personas.dni', 'docentes.iddocentes', DB::raw('concat_ws(" ",personas.apellpat,personas.apellmat,personas.nombres) as nombres'), 'personas.correo', 'personas.telefono', 'facultades.nomfac', 'depacademicos.nomdep', 'condiciones.nomcondi', 'categorias.nomcat', 'dedicaciones.nomdedi', 'docentes.iddocentes')->where('docentes.iddocentes', $id)->first();
+
+         $pdf = PDF::loadView('URC.Reportes.reportedocentes', compact('id', 'mes', 'aa', 'datos','docentes'));
+         $pdf->setPaper("A4", "portrait");
+         return $pdf->stream();
+        // return $datos;
     }
 }

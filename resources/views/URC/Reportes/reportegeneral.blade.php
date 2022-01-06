@@ -38,7 +38,7 @@
 
         #titulo {
             text-align: center;
-            background-color: blue;
+            /* background-color: blue; */
             /* margin-top: 100px; */
         }
         #tableIden{
@@ -82,15 +82,10 @@
 </head>
 
 <body>
-    {{-- <div id="header">
-        <img src="Uploads/Frame.jpg" alt="">
-    </div> --}}
+
     <div class="header">
         <img src="Uploads/Frame.jpg" alt="">
-        {{-- hola --}}
     </div>
-
-    {{-- <div> --}}
         @php
         $aux="";
         @endphp
@@ -115,11 +110,11 @@
                             <tr>
                                 <td>{{ $dato->nomfac }}</td>
                                 <td>{{ $departamento->dep }}</td>
-                                <td>17/02/2021</td>
+                                <td>{{$fecha}}</td>
                             </tr>
                         </tbody>
                     </table>
-                    
+                    <br>
                     <table id="table">
                         <thead>
                             <tr>
@@ -143,61 +138,103 @@
                                 $cont=1;
                             @endphp
                     @if ($departamento->docentes != null)
-                        @foreach ($departamento->docentes as $docente)
-                            {{-- <table id="table">
-                            <thead>
-                                <tr>
-                                    <th rowspan="2">N°</th>
-                                    <th rowspan="2">Apellidos y Nombres</th>
-                                    <th rowspan="2">CAT</th>
-                                    <th colspan="3">Entrada</th>
-                                    <th colspan="2">Salida</th>
-                
-                                </tr>
-                                <tr>
-                                    <th>Foto</th>
-                                    <th>Hora</th>
-                                    <th>Firma</th>
-                                    <th>Hora</th>
-                                    <th>Firma</th>
-                                </tr>
-                            </thead> --}}
-                            
-                            {{-- {{ $docente->nombres }} <br> --}}
-                            
+                        @foreach ($departamento->docentes as $docente)                            
                             @if ($docente->datoasistencias != null)
                                 @foreach ($docente->datoasistencias as $asistencia)
-                                
-                                    {{-- <tbody> --}}
-                                        <tr>
-                                            <td scope="row">{{$cont++}}</td>
-                                            <td>{{ $docente->nombres }}</td>
-                                            <td>{{strtoupper(substr($docente->categoria, ($docente->categoria=='Auxiliar')?2:0,1)).substr($docente->dedicacion, 0, 1).substr(strstr($docente->dedicacion, ' '), 1, 1)}}</td>
-                                            <td>Otto</td>
-                                            <td>{{ $asistencia->entrada }}</td>
-                                            <td>{{ $asistencia->firmae }}</td>
-                                            <td>{{ $asistencia->salida }}</td>
-                                            <td>{{ $asistencia->firmas }}</td>
-                                        </tr>
-                                    {{-- </tbody> --}}
-                                    
-                                    {{-- {{ $asistencia->tkentrada }} <br>
-                                    {{ $asistencia->tksalida }} <br> --}}
+                                    @switch($asistencia->estado)
+                                        @case(1)
+                                            <tr>
+                                                <td scope="row" style="text-align: center">{{$cont++}}</td>
+                                                <td>{{ $docente->nombres }}</td>
+                                                <td style="text-align: ce nter">{{strtoupper(substr($docente->condicion, 0, 1).'-'.substr($docente->categoria, ($docente->categoria=='Auxiliar')?2:0,1)).substr($docente->dedicacion, 0, 1).substr(strstr($docente->dedicacion, ' '), 1, 1)}}</td>
+                                                <td style="text-align: center"> <img src=".{{$asistencia->foto}}" width="55"> </td>
+                                                <td style="text-align: center">{{ substr($asistencia->entrada,0,8) }}</td>
+                                                <td style="font-size: 6px"> <p style="display: inline"> Firmado por:{{ $docente->nombres }} </p><br>
+                                                    <p style="display: inline"> DNI:{{ $docente->dni }} </p><br>
+                                                    <p style="display: inline">Motivo: Registro asistencia</p><br>
+                                                    <p style="display: inline">{{ $asistencia->firmae }}</p><br>
+                                                    <p style="display: inline">{{ $asistencia->tkentrada }}</p> </td>
+                                                @if (substr($asistencia->salida,0,8) != "00:00:00")
+                                                    <td style="text-align: center">{{ substr($asistencia->salida,0,8) }}</td>
+                                                    <td style="font-size: 6px"><p style="display: inline"> Firmado por:{{ $docente->nombres }} </p>
+                                                    <p style="display: inline"> DNI:{{ $docente->dni }} </p><br>
+                                                    <p style="display: inline">Motivo: Registro asistencia</p><br>
+                                                    <p style="display: inline">{{ $asistencia->firmas }}</p><br>
+                                                    <p style="display: inline">{{ $asistencia->tksalida }}</p></td>
+                                                @else
+                                                    <td colspan="2">No hay registro</td>
+                                                @endif     
+                                                
+                                            </tr>
+                                            @break
+                                        @case(2)
+                                            <tr>
+                                                <td scope="row">{{$cont++}}</td>
+                                                <td>{{ $docente->nombres }}</td>
+                                                <td>{{strtoupper(substr($docente->condicion, 0, 1).'-'.substr($docente->categoria, ($docente->categoria=='Auxiliar')?2:0,1)).substr($docente->dedicacion, 0, 1).substr(strstr($docente->dedicacion, ' '), 1, 1)}}</td>
+                                                <td colspan="5">No Registro su Asistencia</td>
+                                            </tr>
+                                            @break
+                                        @case(4)
+                                            <tr>
+                                                <td scope="row">{{$cont++}}</td>
+                                                <td>{{ $docente->nombres }}</td>
+                                                <td>{{strtoupper(substr($docente->condicion, 0, 1).'-'.substr($docente->categoria, ($docente->categoria=='Auxiliar')?2:0,1)).substr($docente->dedicacion, 0, 1).substr(strstr($docente->dedicacion, ' '), 1, 1)}}</td>
+                                                <td colspan="5">Licencia Aprobada</td>
+                                            </tr>
+                                            @break
+                                        @case(5)
+                                            <tr>
+                                                <td scope="row">{{$cont++}}</td>
+                                                <td>{{ $docente->nombres }}</td>
+                                                <td>{{strtoupper(substr($docente->condicion, 0, 1).'-'.substr($docente->categoria, ($docente->categoria=='Auxiliar')?2:0,1)).substr($docente->dedicacion, 0, 1).substr(strstr($docente->dedicacion, ' '), 1, 1)}}</td>
+                                                <td colspan="5">Dia Laborable</td>
+                                            </tr>
+                                            @break
+                                        @default
+                                            
+                                    @endswitch
+                                        {{-- @if(substr($asistencia->entrada,0,8) != "00:00:00")
+                                            <tr>
+                                                <td scope="row" style="text-align: center">{{$cont++}}</td>
+                                                <td>{{ $docente->nombres }}</td>
+                                                <td style="text-align: ce nter">{{strtoupper(substr($docente->categoria, ($docente->categoria=='Auxiliar')?2:0,1)).substr($docente->dedicacion, 0, 1).substr(strstr($docente->dedicacion, ' '), 1, 1)}}</td>
+                                                <td style="text-align: center"> <img src=".{{$asistencia->foto}}" width="55"> </td>
+                                                <td style="text-align: center">{{ substr($asistencia->entrada,0,8) }}</td>
+                                                <td style="font-size: 6px"> <p style="display: inline"> Firmado por:{{ $docente->nombres }} </p><br>
+                                                    <p style="display: inline"> DNI:{{ $docente->dni }} </p><br>
+                                                    <p style="display: inline">Motivo: Registro asistencia</p><br>
+                                                    <p style="display: inline">{{ $asistencia->firmae }}</p><br>
+                                                    <p style="display: inline">{{ $asistencia->tkentrada }}</p> </td>
+                                                @if (substr($asistencia->salida,0,8) != "00:00:00")
+                                                    <td style="text-align: center">{{ substr($asistencia->salida,0,8) }}</td>
+                                                    <td style="font-size: 6px"><p style="display: inline"> Firmado por:{{ $docente->nombres }} </p>
+                                                    <p style="display: inline"> DNI:{{ $docente->dni }} </p><br>
+                                                    <p style="display: inline">Motivo: Registro asistencia</p><br>
+                                                    <p style="display: inline">{{ $asistencia->firmas }}</p><br>
+                                                    <p style="display: inline">{{ $asistencia->tksalida }}</p></td>
+                                                @else
+                                                    <td colspan="2">No hay registro</td>
+                                                @endif     
+                                                
+                                            </tr>
+                                        @else
+                                            <tr>
+                                                <td scope="row">{{$cont++}}</td>
+                                                <td>{{ $docente->nombres }}</td>
+                                                <td>{{strtoupper(substr($docente->categoria, ($docente->categoria=='Auxiliar')?2:0,1)).substr($docente->dedicacion, 0, 1).substr(strstr($docente->dedicacion, ' '), 1, 1)}}</td>
+                                                <td colspan="5">No Registro su Asistencia</td>
+                                            </tr>
+                                        @endif --}}
                                 @endforeach
-                                {{-- </tbody>
-                                </table> --}}
+
                             @else
-                                {{-- <h5>No hay Registro de Asistenica</h5> --}}
-                                {{-- <tbody> --}}
                                     <tr>
                                         <td scope="row">{{$cont++}}</td>
                                         <td>{{ $docente->nombres }}</td>
-                                        <td>{{strtoupper(substr($docente->categoria, ($docente->categoria=='Auxiliar')?2:0,1)).substr($docente->dedicacion, 0, 1).substr(strstr($docente->dedicacion, ' '), 1, 1)}}</td>
-                                        <td colspan="5">No hay Registro de Asistenica</td>
-                                        {{-- <td>{{ $asistencia->entrada }}</td>
-                                        <td>{{ $asistencia->firmae }}</td>
-                                        <td>{{ $asistencia->salida }}</td>
-                                        <td>{{ $asistencia->firmas }}</td> --}}
+                                        <td>{{strtoupper(substr($docente->condicion, 0, 1).'-'.substr($docente->categoria, ($docente->categoria=='Auxiliar')?2:0,1)).substr($docente->dedicacion, 0, 1).substr(strstr($docente->dedicacion, ' '), 1, 1)}}</td>
+                                        <td colspan="5">Puede que tenga un Cargo o no Trabaje ese dia</td>
+
                                     </tr>
                             @endif
                             
@@ -205,39 +242,19 @@
                         </tbody>
                         </table>
                     @else
-                        {{-- <tbody> --}}
                             <tr>
                                 <td colspan="8">No existen Docentes Registrados</td>
-                                {{-- <td>{{ $docente->nombres }}</td>
-                                <td>{{strtoupper(substr($docente->categoria, ($docente->categoria=='Auxiliar')?2:0,1)).substr($docente->dedicacion, 0, 1).substr(strstr($docente->dedicacion, ' '), 1, 1)}}</td>
-                                <td>Otto</td>
-                                <td>{{ $asistencia->entrada }}</td>
-                                <td>{{ $asistencia->firmae }}</td>
-                                <td>{{ $asistencia->salida }}</td>
-                                <td>{{ $asistencia->firmas }}</td> --}}
                             </tr>
                         </tbody>
                         </table>
-                        {{-- <h5>Docentes no registrados</h5> --}}
+
                     @endif
                 @endforeach
                 </div>
             @else
                 <h3 id="titulo">Parte Diario de Asistencia</h3>
-                {{-- Faculdad: {{ $dato->nomfac }} --}}
                 <h5>No hyay deptos</h5>
             @endif
         @endforeach
-
-    {{-- </div> --}}
-
-    <div class="page_break">
-        <h3>Esto ya sería una nueva página</h3>
-        ...
-    </div>
-
-
-
 </body>
-
 </html>

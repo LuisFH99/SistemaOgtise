@@ -55,7 +55,9 @@ Route::post('/docentes/salida/file', [EntradaController::class, 'evidenciafile']
 //Route::post('/docentes/salida/registrar', [SalidaController::class, 'store'])->name('registrar.salida');
 
 Route::get('/URyC/ParteDiario', [ParteDiarioController::class, 'index'])->name('partediario');
-Route::get('/URyC/ParteDiario/general', [ParteDiarioController::class, 'reportegeneral'])->name('reportegeneral');
+Route::get('/URyC/ParteDiario/general/{fecha}', [ParteDiarioController::class, 'reportegeneral'])->name('reportegeneral');
+// Route::post('/URyC/ParteDiario/reporte', [ParteDiarioController::class, 'reportedocente']);
+Route::get('/URyC/ParteDiario/reporte/{id}/{mes}/{aa}', [ParteDiarioController::class, 'reportedocente']);
 
 
 Route::get('/departamento/docentes', [DocentesController::class, 'index'])->name('docentes');
