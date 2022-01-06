@@ -29,7 +29,7 @@ class ProcedimientoAsistencias extends Migration
        URL_foto=url_f,created_at=now() where idasistenciaentradas=(select fk_idasistenciaentradas from asistencias 
        where fk_idfechasistencias=idfech and fk_iddocentes=idd);
        -- editar estado de asistencia
-       update asistencias set fk_idestadoasistencias=1, created_at=now()where fk_iddocentes=idd and fk_idfechasistencias=idfech;
+       update asistencias set fk_idestadoasistencias=6, created_at=now()where fk_iddocentes=idd and fk_idfechasistencias=idfech;
        when 2 then -- registrar salida
        -- editar firma
        update firmas set firma=firm, token=tk, fk_idtipfirmas=idtf 
