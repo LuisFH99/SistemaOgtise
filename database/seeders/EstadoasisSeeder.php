@@ -18,21 +18,26 @@ class EstadoasisSeeder extends Seeder
         $estado1-> estado='Asistio';
         $estado1->save();
 
-         $estado2=new EstadoAsistencia();
+        $estado2=new EstadoAsistencia();
         $estado2-> estado='Falto';
         $estado2->save();
 
-         $estado3=new EstadoAsistencia();
+        $estado3=new EstadoAsistencia();
         $estado3-> estado='Justificado';
         $estado3->save();
 
-         $estado4=new EstadoAsistencia();
+        $estado4=new EstadoAsistencia();
         $estado4-> estado='Licencia';
         $estado4->save();
 
-         $estado5=new EstadoAsistencia();
+        $estado5=new EstadoAsistencia();
         $estado5-> estado='No laborable';
         $estado5->save();
+
+        $estado6=new EstadoAsistencia();
+        $estado6-> estado='Entrada';
+        $estado6->save();
+
 
         //
     }
