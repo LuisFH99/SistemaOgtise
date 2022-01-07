@@ -88,8 +88,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12 d-none justify-content-center pt-3" id="formbtn">
-                                        <button type="button" class="btn btn-primary" id="grabar"> Marcar
-                                            Asistencia</button>
+                                        <button type="button" class="btn btn-primary" id="grabar"> Registar Entrada</button>
                                     </div>
 
                                 </div>
@@ -177,8 +176,7 @@
                                     </div>
                                     <div class="col-12 d-none justify-content-center pt-3" id="formbtn">
 
-                                        <button type="button" class="btn btn-primary" id="Guardar"> Marcar
-                                            Asistencia</button>
+                                        <button type="button" class="btn btn-primary" id="Guardar"> Registrar Salida</button>
                                         <div class="d-none">
                                             <button type="button" class="btn btn-primary btn-lg dr"
                                                 id="btnenviar">Archivo</button>
