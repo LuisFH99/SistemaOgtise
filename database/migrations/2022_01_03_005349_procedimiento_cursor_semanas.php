@@ -44,7 +44,7 @@ class ProcedimientoCursorSemanas extends Migration
      */
     public function down()
     {
-        $procedimiento="DROP FUNCTION IF EXISTS cursor_semanas";
+        $procedimiento="DROP PROCEDURE IF EXISTS cursor_semanas";
         DB::unprepared( $procedimiento);
     }
 }
