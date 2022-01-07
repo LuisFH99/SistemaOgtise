@@ -19,15 +19,15 @@ class ProcedimientoCrearDocentes extends Migration
         BEGIN
         
         declare iddoc integer;
-        
+        declare iper integer;
         case ev
         when 1 then 
             insert into personas(DNI, nombres, apellPat, apellMat, fechNacimiento,correo , telefono, estado, created_at)
             values(ident,nom,app,apm,fch_nac,cor,tel,1,now());
-            set @iper=(select idpersonas from personas where DNI=ident);
+            set iper=(select idpersonas from personas where DNI=ident);
             insert into docentes(clave, estado, fk_idPersonas, fk_idCategorias, fk_idCondiciones, fk_idDedicaciones, fk_idDepAcademicos, created_at) 
-            values(clav,1,@iper,idcat,idcon,idded,iddep,now());   
-            set iddoc= (select idDocentes from docentes where fk_idPersonas=@iper);
+            values(clav,1,iper,idcat,idcon,idded,iddep,now());   
+            set iddoc= (select idDocentes from docentes where fk_idPersonas=iper);
              call cursor_semanas(iddoc);
           
         when 2 then -- editar docente
