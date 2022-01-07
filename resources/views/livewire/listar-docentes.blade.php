@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row table-responsive">
     {{-- {{ $docentes }} --}}
     <a href="{{ route('creardocente') }}" class="btn btn-primary my-2">Registar Docente</a>
   

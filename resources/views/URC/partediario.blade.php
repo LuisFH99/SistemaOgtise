@@ -69,7 +69,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card fondo-cards">
-                    <div class="card-body">
+                    <div class="card-body table-responsive">
 
                         <table id="tableURCT" class="table table-sm shadow-lg">
                             <thead class="text-white">

@@ -58,9 +58,14 @@ $(function() {
         CapturarDocente();
     }
     //selectanio(new Date().getFullYear());
-
-    $('#chkCodigoFirma').prop("checked",false);
     $('#chkDNIE').prop("checked",false);
+    $('#chkCodigoFirma').prop("checked",true);
+    $("#formclave").removeClass("d-none");
+    $("#formbtn").removeClass("d-none");
+    $("#formclave").addClass("d-flex");
+    $("#formbtn").addClass("d-flex");
+
+
 
     IncioRep(new Date().getMonth()+1,new Date().getFullYear());
 
@@ -80,7 +85,7 @@ $(function() {
 
     $('#Guardar').on('click',function(){
         //document.getElementById("btnenviar").click();
-        if($('#txtCodigoFirma').val().trim != ''){
+        if($('#actividad').val().length>1){
             $.ajax({
                 url: '/docentes/salida/registrar', 
                 method: 'POST',
@@ -119,7 +124,7 @@ $(function() {
                 Swal.fire('Falla en la envio de Datos', '', 'error');
             });
         }else{
-            Swal.fire('Falta Actividad Realizada', '', 'error');
+            Swal.fire('Detallar Actividad Realizada', '', 'info');
         }
        
     });
@@ -282,7 +287,6 @@ function IncioRep(dto1,dto2){
 
 }
 
-//let th=""; let td=""; let td2="";
 
 function mostrarPassword() {
     var cambio = document.getElementById("txtCodigoFirma");
@@ -334,6 +338,9 @@ function AbrirModal(dto,dia) {
         case '2':
             ModalFalto(dia);
             break;
+        case '6':
+            ModalAsistio(dia)
+            break;   
         /*case '3':
             ModalJusticado(dia);
             break;

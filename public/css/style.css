@@ -171,9 +171,16 @@
     font-size: 17px;
 }
 
-#divEntrada .fa-camera{
+#divEntrada .foto, #divEntrada .camara {
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.fa-camera{
     color: rgb(8, 51, 179);
     margin-left: 5px;
+    font-size: 20px;;
 }
 
 
