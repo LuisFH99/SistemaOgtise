@@ -10,6 +10,7 @@ use App\Models\Facultad;
 use App\Models\User;
 use App\Models\Semana;
 use App\Models\DetSemana;
+use Illuminate\Auth\Events\Validated;
 
 class DocentesController extends Controller
 {
@@ -41,6 +42,19 @@ class DocentesController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+           'dni' => 'required',
+           'nombres' => 'required',
+           'apepat' => 'required',
+           'apemat' => 'required',
+           'fnacimiento' => 'required',
+           'numcel' => 'required',
+           'condicion' => 'required',
+           'categoria' => 'required',
+           'dedicacion' => 'required',
+           'dptoacademico' => 'required',
+           'email' => 'required'  
+        ]);
 
         $existe1 = DB::table('personas')->where('dni', $request->dni)->where('estado', 1)->count();
         $existe2 = DB::table('personas')->where('dni', $request->dni)->where('estado', 0)->count();
@@ -49,20 +63,20 @@ class DocentesController extends Controller
         if ($existe1 == 0 && $existe2 == 0) {
             DB::insert('call p_crear_docente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [1, $request->dni, $request->nombres, $request->apepat, $request->apemat, $request->fnacimiento, $request->numcel, bin2hex(random_bytes(4)), $request->condicion, $request->categoria, $request->dedicacion, $request->dptoacademico, 0, '0', 0, $request->email]);
             User::create([
-                'name' => $request->nombres,
+                'name' => $request->nombres.' '.$request->apepat.' '.$request->apemat,
                 'email' => $request->email,
                 'password' => bcrypt($request->dni)
             ])->assignRole('Docente');
-            return view('departamento.docentes');
+            return redirect()->route('docentes');
         } else {
             if ($existe2 > 0) {
                 DB::insert('call p_crear_docente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [4, $request->dni, $request->nombres, $request->apepat, $request->apemat, $request->fnacimiento, $request->numcel, bin2hex(random_bytes(4)), $request->condicion, $request->categoria, $request->dedicacion, $request->dptoacademico, 0, '0', 0, $request->email]);
                 User::create([
-                    'name' => $request->nombres,
+                    'name' => $request->nombres.' '.$request->apepat.' '.$request->apemat,
                     'email' => $request->email,
                     'password' => bcrypt($request->dni)
                 ])->assignRole('Docente');
-                return view('departamento.docentes');
+                return redirect()->route('docentes');
             } else {
                 return redirect()->route('creardocente')->with('info', 'El docente con DNI: ' . $request->dni . ' ya esta registrado')->withInput();
             }

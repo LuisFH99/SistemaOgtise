@@ -38,8 +38,6 @@ class DatabaseSeeder extends Seeder
         
         User::factory(9)->create();
 
-        
-        // llenando datos y asi...
         $this->call(MotivoSeeder::class);
         $this->call(FacultadSeeder::class);
         $this->call(DepAcademicoSeeder::class);

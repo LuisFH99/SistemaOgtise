@@ -152,9 +152,37 @@
     color: rgb(236, 48, 48);
 }
 
-#divEntrada .fa-camera {
+#tableURCT thead {
+    background-color: #003E78;
+    font-size: 16px;
+    text-align: center;
+}
+
+#tableURCT tbody {
+    font-size: 14px;
+}
+
+#tableURCT tbody td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+#tableURCT .fa-address-book {
+    color: rgb(7, 47, 133);
+    font-size: 17px;
+}
+
+#divEntrada .foto,
+#divEntrada .camara {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.fa-camera {
     color: rgb(8, 51, 179);
     margin-left: 5px;
+    font-size: 20px;
+    ;
 }
 
 #idtablelicencia .danger {

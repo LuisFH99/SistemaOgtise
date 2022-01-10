@@ -58,9 +58,14 @@ $(function() {
         CapturarDocente();
     }
     //selectanio(new Date().getFullYear());
-
-    $('#chkCodigoFirma').prop("checked",false);
     $('#chkDNIE').prop("checked",false);
+    $('#chkCodigoFirma').prop("checked",true);
+    $("#formclave").removeClass("d-none");
+    $("#formbtn").removeClass("d-none");
+    $("#formclave").addClass("d-flex");
+    $("#formbtn").addClass("d-flex");
+
+
 
     IncioRep(new Date().getMonth()+1,new Date().getFullYear());
 
@@ -80,7 +85,7 @@ $(function() {
 
     $('#Guardar').on('click',function(){
         //document.getElementById("btnenviar").click();
-        if($('#txtCodigoFirma').val().trim != ''){
+        if($('#actividad').val().length>1){
             $.ajax({
                 url: '/docentes/salida/registrar', 
                 method: 'POST',
@@ -119,7 +124,7 @@ $(function() {
                 Swal.fire('Falla en la envio de Datos', '', 'error');
             });
         }else{
-            Swal.fire('Falta Actividad Realizada', '', 'error');
+            Swal.fire('Detallar Actividad Realizada', '', 'info');
         }
        
     });
@@ -144,6 +149,7 @@ function formatoFecha(dato) {
 }
 
 function CapturarDocente(){
+    let tf=0;
 navigator.mediaDevices.getUserMedia({
     audio: false,
     video: true
@@ -154,13 +160,14 @@ navigator.mediaDevices.getUserMedia({
         video.onloadedmetadata = (ev) => video.play();
         var canvas = document.getElementById('canvas');
         $('.fa-camera').on('click',function(){
-            canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight,0, 0, 198, 150);
-             //var data = canvas.toDataURL('image/png');
+            tf++;
+            canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight,0, 0, 200, 150);
+             
         });
 
         $('#grabar').click(function() {
-            //canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight,0, 0, 198, 150);
-             var data = canvas.toDataURL('image/png');
+            if(tf>0){
+             var data = canvas.toDataURL("image/jpeg");
              Swal.fire({
                 title: 'Confirme el registro de su Asistencia',
                 //text: 'Verifique antes, si ya registro su asistencia con el tema correspondiente!',
@@ -203,7 +210,13 @@ navigator.mediaDevices.getUserMedia({
                     Swal.fire('No se realizó ningún cambio', '', 'info')
                 }
             })
-            
+            }else{
+                Swal.fire({
+                    icon: 'info',
+                    title: 'No se tomo la foto',
+                    text: 'Dar click en icono de la camara'
+                  })
+            }
         });
     }
 }).catch((err) => {
@@ -274,7 +287,6 @@ function IncioRep(dto1,dto2){
 
 }
 
-//let th=""; let td=""; let td2="";
 
 function mostrarPassword() {
     var cambio = document.getElementById("txtCodigoFirma");
@@ -326,6 +338,9 @@ function AbrirModal(dto,dia) {
         case '2':
             ModalFalto(dia);
             break;
+        case '6':
+            ModalAsistio(dia)
+            break;   
         /*case '3':
             ModalJusticado(dia);
             break;
@@ -347,20 +362,20 @@ function ModalAsistio(dia) {
             year: $('#selectyyyy').val()
         }
     }).done(function(res) {
-        console.log(res);
-        $('#tituloModal').text('Detalle Registro de Asistencia');
-        $('#Asistencia').css('display', 'block');
-        $('#Jusficacion').css('display', 'none');
-        $('#AsisteciaModal').modal('show');
+        console.log(res.informe);
         
         $('#fechreg').text('Fecha de Registro: '+formatoFecha(res.fecha));
         $('#entrada').text('Hora de Entrada: '+res.hor_entrada);
         $('#salida').text('Hora de Salida: '+res.hor_salida);
-        $('#actividad').text(''+res.informe);
+        $('#informe').text(''+res.informe);
         $('#foto').attr("src",res.URL_foto);
         $('#tkentrada').text('Codigo de Registro de Entrada: '+res.tkentrada);
         $('#tksalida').text('Codigo de Registro de Salida: '+res.tksalida);
-       
+
+        $('#tituloModal').text('Detalle Registro de Asistencia');
+        $('#Asistencia').css('display', 'block');
+        $('#Jusficacion').css('display', 'none');
+        $('#AsisteciaModal').modal('show');
     }).fail(function() {
         Swal.fire('Falla en la envio de Datos', '', 'error');
     });
@@ -400,13 +415,14 @@ function RegistroMensual(mes,aa){
         limpiar();
         let th=""; let td=""; let td2="";
         //let dtito="<img src='/vendor/adminlte/dist/img/asistio.svg' onclick=AbrirModal('a')>";
-        var diasMes = new Date(2021, mes, 0).getDate();
+        var diasMes = new Date(aa, mes, 0).getDate();
         var diasSemana = ['D0', 'LU', 'MA', 'MI', 'JU', 'VI', 'SA'];
-        console.log(res);
+        // console.log(res);
+        // console.log(aa);
 
         if(res.length > 0){
             for (var dia=1; dia <= diasMes;dia++){
-            var indice = new Date(2021, mes - 1, dia).getDay();
+            var indice = new Date(aa, mes - 1, dia).getDay();
             th+="<th>"+diasSemana[indice]+"</th>";
             td+="<td>"+dia+"</td>";
             let dto = res.find(fecha => fecha.dia == dia);
@@ -419,7 +435,7 @@ function RegistroMensual(mes,aa){
             
         }else{
             for (var dia=1; dia <= diasMes;dia++){
-                var indice = new Date(2021, mes - 1, dia).getDay();
+                var indice = new Date(aa, mes - 1, dia).getDay();
                 th+="<th>"+diasSemana[indice]+"</th>";
                 td+="<td>"+dia+"</td>";
                 td2+="<td><img src='/vendor/adminlte/dist/img/libre.svg'></td>";
