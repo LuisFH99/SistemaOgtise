@@ -85,6 +85,7 @@ Route::post('/docentes/licencias/store', [LicenciasController::class, 'store'])-
 Route::post('/docentes/licencias/file', [LicenciasController::class, 'file'])->name('licencias.file');
 Route::post('/docentes/licencias/dato', [LicenciasController::class, 'dato'])->name('licencias.dato');
 Route::post('/docentes/PDFs/imprimir', [LicenciasController::class, 'imprimir'])->name('licencias.imprimir');
+Route::post('/docentes/licencias/eliminar', [LicenciasController::class, 'eliminar'])->name('licencias.eliminar');
 
 Route::resource('users', App\Http\Controllers\Admin\UserController::class)->names([
     'index' => 'Users',
@@ -110,3 +111,4 @@ Route::resource('/departamento/ValidaLicencia', ValidaLicenciaController::class)
 ]);
 Route::post('/departamento/ValidaLicencia/store', [ValidaLicenciaController::class, 'store'])->name('licencias.store');
 Route::post('/departamento/ValidaLicencia/datos', [ValidaLicenciaController::class, 'datos'])->name('ValidaLicencia.datos');
+Route::post('/departamento/ValidaLicencia/imprimir', [ValidaLicenciaController::class, 'imprimir'])->name('ValidaLicencia.imprimir');

@@ -1,4 +1,4 @@
-
+{{-- 
 <div class="modal-content">
     {!! Form::model($user,['route' => ['Admin.users.update',$user],'method'=>'put']) !!}
     <div class="modal-header">
@@ -11,10 +11,9 @@
         <div class="card">
             <div class="card-body">
                 <input id="prodId" name="prodId" type="hidden">
-                <p class="h5">Nombre:</p>
+                <p class="h5">Nombree:</p>
                 <p class="form-control">{{$user->name}}</p>
                 <h5>Listado de Roles:</h5>
-                
                     @foreach ($roles as $role)
                         <div>
                             <label>
@@ -30,7 +29,7 @@
     <div class="modal-footer">
         <!--<button type="button" class="btn btn-outline-danger " data-dismiss="modal">Denegar</button>-->
         {{-- <button type="button" class="btn btn-outline-primary " data-dismiss="modal">Aceptar</button> --}}
-        {!! Form::submit('Asignar Rol', ['class'=>'btn btn-primary mt-2','data-dismiss'=>'modal']) !!}                
-        {!! Form::close() !!} 
+        {{-- {!! Form::submit('Asignar Rol', ['class'=>'btn btn-primary mt-2','data-dismiss'=>'modal']) !!}                
+        {!! Form::close() !!}  --}}
     </div>
-</div>
+</div> --}}

@@ -3,6 +3,8 @@ let idSoli = 0;
 let desde = new Date($('#desde').val()).getTime();
 let hasta = new Date($('#hasta').val()).getTime();
 let ndias = 0;
+let fech = ($('#fechs').val()).split(',');
+let fechita = new Date($('#desde').val());
 Dropzone.options.myAwesomeDropzone = { // camelized version of the `id`
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -57,17 +59,27 @@ Dropzone.options.myAwesomeDropzone = { // camelized version of the `id`
 $(function() {
     $('#chkCodigoFirma').prop("checked", false);
     $('#chkDNIE').prop("checked", false);
+
     MostarFirma();
     $('#reincorporar').html(formatoFecha(devolverFechaLab(hasta)));
     $('#desde').change(function() {
         desde = new Date($(this).val()).getTime();
-        ndias = (hasta - desde) / (1000 * 60 * 60 * 24);
-        $('#dias').html(ndias + " dias");
+        ndias = (((hasta - desde) / (1000 * 60 * 60 * 24)) + 1);
+
+        let bdr1 = " dias"
+        if (ndias === 1) {
+            bdr1 = " dia";
+        }
+        $('#dias').html(ndias + "" + bdr1);
     });
     $('#hasta').change(function() {
         hasta = new Date($(this).val()).getTime();
-        ndias = (hasta - desde) / (1000 * 60 * 60 * 24);
-        $('#dias').html(ndias + " dias");
+        ndias = (((hasta - desde) / (1000 * 60 * 60 * 24)) + 1);
+        let bdr1 = " dias"
+        if (ndias === 1) {
+            bdr1 = " dia";
+        }
+        $('#dias').html(ndias + "" + bdr1);
         $('#reincorporar').html(formatoFecha(devolverFechaLab($(this).val())));
     });
 
@@ -112,7 +124,7 @@ $(function() {
                             },
                             buttonsStyling: false
                         });
-                        document.getElementById("btnSolicitar2").click();
+                        //document.getElementById("btnSolicitar2").click();
                         swalWithBootstrapButtons.fire({
                             title: '<strong>ENVÍO EXITOSO</strong>',
                             icon: 'success',
@@ -166,24 +178,24 @@ $(function() {
             });
         }
     });
-    $('#btnSolicitar2').click(function() {
-        $.ajax({
-            url: '/docentes/PDFs/imprimir',
-            method: 'POST',
-            data: {
-                _token: $('input[name="_token"]').val(),
-                idSol: idSoli
-            }
-        }).done(function(msg) {
-            console.log('correcto: ' + msg);
-        }).fail(function(msg) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Algo salio mal!...'
-            })
-        });
-    });
+    // $('#btnSolicitar2').click(function() {
+    //     $.ajax({
+    //         url: '/docentes/PDFs/imprimir',
+    //         method: 'POST',
+    //         data: {
+    //             _token: $('input[name="_token"]').val(),
+    //             idSol: idSoli
+    //         }
+    //     }).done(function(msg) {
+    //         console.log('correcto: ' + msg);
+    //     }).fail(function(msg) {
+    //         Swal.fire({
+    //             icon: 'error',
+    //             title: 'Oops...',
+    //             text: 'Algo salio mal!...'
+    //         })
+    //     });
+    // });
 });
 
 function MostarFirma() {
@@ -192,15 +204,15 @@ function MostarFirma() {
         if ($(this).is(":checked")) {
             $('#chkDNIE').prop("checked", false);
             $("#formclave").removeClass("d-none");
-            $("#formbtn").removeClass("d-none");
+            $("#btnSolicitar").removeClass("d-none");
             $("#formclave").addClass("d-flex");
-            $("#formbtn").addClass("d-flex");
+            $("#btnSolicitar").addClass("d-flex");
 
         } else {
             $("#formclave").removeClass("d-flex");
-            $("#formbtn").removeClass("d-flex");
+            $("#btnSolicitar").removeClass("d-flex");
             $("#formclave").addClass("d-none");
-            $("#formbtn").addClass("d-none");
+            $("#btnSolicitar").addClass("d-none");
         }
     });
 
@@ -208,9 +220,9 @@ function MostarFirma() {
         if ($(this).is(":checked")) {
             $('#chkCodigoFirma').prop("checked", false);
             $("#formclave").removeClass("d-flex");
-            $("#formbtn").removeClass("d-flex");
+            $("#btnSolicitar").removeClass("d-flex");
             $("#formclave").addClass("d-none");
-            $("#formbtn").addClass("d-none");
+            $("#btnSolicitar").addClass("d-none");
         }
     });
 }
@@ -224,49 +236,91 @@ function selecMotivo(id) {
             console.log('caso->' + id);
             addElement1('p', '* Con documento Sustentatorio <br>' +
                 '* No debera exceder los 30 dias calendario', 'Nota1', id, 'Comisión de Servicio');
+            $("#desde").attr("min", fech[0]);
+            $("#hasta").attr("min", fech[0]);
+            fechita = new Date(fech[0]);
             break;
         case 2: //a cuenta de vacaciones
             console.log('caso->' + id);
             addElement1('p', '* Art. 110 (c) D.S. 005-90-PCM <br>' +
                 '* Por Matrimonio <br>' +
                 '* Por enfermedad Grave del Cónyuge, padres o hijos', 'Nota1', id, 'A cuenta de Vacaciones');
+            $("#desde").attr("min", fech[0]);
+            $("#hasta").attr("min", fech[0]);
+            fechita = new Date(fech[0]);
             break;
         case 3: //Asuntos Particulares
             console.log('caso->' + id);
             addElement1('p', '* Sin goce de haber', 'Nota1', id, 'Asuntos Particulares');
+            $("#desde").attr("min", fech[0]);
+            $("#hasta").attr("min", fech[0]);
+            fechita = new Date(fech[0]);
             break;
         case 4: //Enfermedad
             addElement1('p', '* Certificado médico', 'Nota1', id, 'Enfermedad');
+            $("#desde").attr("min", fech[1]);
+            $("#hasta").attr("min", fech[1]);
+            fechita = new Date(fech[1]);
             break;
         case 5: //Vacaciones
             addElement1('p', '* Ninguno', 'Nota1', id, 'Vacaciones');
+            $("#desde").attr("min", fech[0]);
+            $("#hasta").attr("min", fech[0]);
+            fechita = new Date(fech[0]);
             break;
         case 6: //Compensación
             addElement1('p', '* Ninguno', 'Nota1', id, 'Compensación');
+            $("#desde").attr("min", fech[0]);
+            $("#hasta").attr("min", fech[0]);
+            fechita = new Date(fech[0]);
             break;
         case 7: //Capacitación
             addElement1('p', '* Ninguno', 'Nota1', id, 'Capacitación');
+            $("#desde").attr("min", fech[0]);
+            $("#hasta").attr("min", fech[0]);
+            fechita = new Date(fech[0]);
             break;
         case 8: //Gravidez
             addElement1('p', '* Ninguno', 'Nota1', id, 'Gravidez');
+            $("#desde").attr("min", fech[1]);
+            $("#hasta").attr("min", fech[1]);
+            fechita = new Date(fech[1]);
             break;
         case 9: //Onomástico
             addElement1('p', '* Ninguno', 'Nota1', id, 'Onomástico');
+            $("#desde").attr("min", fech[0]);
+            $("#hasta").attr("min", fech[0]);
+            fechita = new Date(fech[0]);
             break;
         case 10: //Sepelio y luto
             addElement1('p', '*Ninguno', 'Nota1', id, 'Sepelio y Luto');
+            $("#desde").attr("min", fech[1]);
+            $("#hasta").attr("min", fech[1]);
+            fechita = new Date(fech[1]);
             break;
         case 11: //Citas Médicas
             addElement1('p', '*Ninguno', 'Nota1', id, 'Cítas Médicas');
+            $("#desde").attr("min", fech[0]);
+            $("#hasta").attr("min", fech[0]);
+            fechita = new Date(fech[0]);
             break;
         case 12: //Paternidad
             addElement1('p', '* DS N°014-2010-TR (Reglamento ley N° 29409)', 'Nota1', id, 'Paternidad');
+            $("#desde").attr("min", fech[1]);
+            $("#hasta").attr("min", fech[1]);
+            fechita = new Date(fech[1]);
             break;
         case 13: //Oncologia
             addElement1('p', '* Ley N° 30012', 'Nota1', id, 'Oncología');
+            $("#desde").attr("min", fech[0]);
+            $("#hasta").attr("min", fech[0]);
+            fechita = new Date(fech[0]);
             break;
         default:
             addElement1('p', '*Especifique', 'Nota1', id, 'Seleccionar Motivo');
+            $("#desde").attr("min", fech[0]);
+            $("#hasta").attr("min", fech[0]);
+            fechita = new Date(fech[0]);
     }
 }
 
@@ -312,6 +366,93 @@ function selectId(id) {
     //idp=id;
 }
 
+function selectId1(fech, hra, url) {
+
+    $('#labelPDF').html('Licencia pedida el ' + fech + ' a horas: ' + hra);
+    $('#mostrarPDF').html("<embed src='" + url + "' frameborder='0'" +
+        " width='100%' height='400px'>");
+    $('#modalPDF').modal('show');
+
+}
+
+function imprimir(idS, fech, hra) {
+    $.ajax({
+        url: '/docentes/PDFs/imprimir',
+        method: 'POST',
+        data: {
+            _token: $('input[name="_token"]').val(),
+            idSol: idS
+        }
+    }).done(function(url) {
+        console.log('correcto: ' + url);
+        selectId1(fech, hra, url);
+    }).fail(function(msg) {
+        console.log(msg);
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Algo salio mal!...'
+        })
+    });
+}
+
+function eliminar(id) {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-danger mr-1',
+            cancelButton: 'btn btn-secondary mr-1'
+        },
+        buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+        title: 'Estas Seguro?',
+        text: "Esta accion es Irreversible!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Eliminar!',
+        cancelButtonText: 'Cancelar!',
+        reverseButtons: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '/docentes/licencias/eliminar',
+                method: 'POST',
+                data: {
+                    _token: $('input[name="_token"]').val(),
+                    idSol: id
+                }
+            }).done(function(msg) {
+                if (parseInt(msg) === 1) {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Solicitud ELIMINADA ',
+                        showConfirmButton: false,
+                        timer: 4500
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Solicitud La solicitus esta en revisión, no se puede eliminar',
+                        showConfirmButton: false,
+                        timer: 4500
+                    });
+                }
+
+                location.reload();
+            }).fail(function(msg) {
+                console.log(msg);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Algo salio mal!...'
+                })
+            });
+
+        }
+    })
+}
+
 function formatoFecha(dato) { //2021-12-09
     dato = dato.toString();
     date = new Date(dato);
@@ -324,27 +465,31 @@ function formatoFecha(dato) { //2021-12-09
 
 function devolverFechaLab(d) {
     let ds = new Date(d);
-    switch (ds.getDay()) {
-        case 4: //Viernes
-            ds.setDate(ds.getDate() + 3);
-            console.log('caso->' + d);
-            break;
-        case 5: //Sabado
-            ds.setDate(ds.getDate() + 2);
-            console.log('caso->' + d);
-            break;
-        case 6: //Domingo
-            ds.setDate(ds.getDate() + 1);
-            console.log('caso->' + d);
-            break;
-        default:
-            ds = new Date(d);
-    }
+    ds.setDate(ds.getDate() + 1);
+    // switch (ds.getDay()) {
+    //     case 4: //Viernes
+    //         ds.setDate(ds.getDate() + 3);
+    //         console.log('caso->' + d);
+    //         break;
+    //     case 5: //Sabado
+    //         ds.setDate(ds.getDate() + 2);
+    //         console.log('caso->' + d);
+    //         break;
+    //     case 6: //Domingo
+    //         ds.setDate(ds.getDate() + 1);
+    //         console.log('caso->' + d);
+    //         break;
+    //     default:
+    //         ds = new Date(ds);
+    // }
     return ds.toISOString().slice(0, 10);
 }
 
 function validarEntradas() {
     let bdr = false;
+    let fech1 = new Date(fechita);
+    let fech2 = new Date($('#desde').val());
+    let fech3 = new Date($('#hasta').val());
     if (idMot > 0) {
         if ($('#txtareajus').val() === '') {
             Swal.fire({
@@ -354,33 +499,51 @@ function validarEntradas() {
             })
             $("#txtareajus").focus();
         } else {
-            if (ndias >= 0) {
-                if ($('#chkCodigoFirma').is(":checked")) {
-                    if ($('#txtCodigoFirma').val() != '') {
-                        bdr = true;
+            if (ndias > 0) {
+                if ((+fech1 < +fech2)) {
+                    if ((+fech1 < +fech3)) {
+                        if ($('#chkCodigoFirma').is(":checked")) {
+                            if ($('#txtCodigoFirma').val() != '') {
+                                bdr = true;
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Debe escribir la clave para validar su Solicitud'
+                                })
+                                $("#txtCodigoFirma").focus();
+                            }
+                        } else {
+                            if ($('#chkDNIE').is(":checked")) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'No cuentas con el software instalado'
+                                })
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Debe elegir una forma de Validacion para su firma'
+                                })
+                            }
+                            $("#chkCodigoFirma").focus();
+                        }
                     } else {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            text: 'Debe escribir la clave para validar su Solicitud'
+                            text: 'La licencia no se puede pedir en la fecha escrita'
                         })
-                        $("#txtCodigoFirma").focus();
+                        $("#desde").focus();
                     }
                 } else {
-                    if ($('#chkDNIE').is(":checked")) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'No cuentas con el software instalado'
-                        })
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Debe elegir una forma de Validacion para su firma'
-                        })
-                    }
-                    $("#chkCodigoFirma").focus();
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'La licencia no se puede pedir en la fecha escrita'
+                    })
+                    $("#desde").focus();
                 }
             } else {
                 Swal.fire({

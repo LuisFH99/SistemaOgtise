@@ -1,5 +1,5 @@
 <div>
-    <div class="card">
+    <div class="card"><br>
         <div class="input-group rounded col-6">
             <input wire:model="search" type="search" class="form-control rounded" placeholder="Buscar" aria-label="Search"
             aria-describedby="search-addon" />
@@ -7,6 +7,7 @@
               <i class="fas fa-search"></i>
             </span>
         </div>
+        
         @if($users->count())
             <div class="card-body">
                 <table class="table table-striped">
