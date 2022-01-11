@@ -21,30 +21,14 @@ class EntradaController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    // , $fecha, $hora;
-
-    private $fecha;
-    private $hora;
+    
 
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    // public function DarValor($id,$f,$h){
-    //     $this -> iddocente=$id;
-    //     $this -> fecha=$f;
-    //     $this -> hora=$h;
-    // }
-    // public function getiddocente(){
-    //     return $this -> iddocente;
-    // }
-    // public function getfecha(){
-    //     return $this -> fecha;
-    // }
-    // public function gethora(){
-    //     return $this -> hora;
-    // }
+ 
 
     public function getidDocente(){
         $Datos = Docente::join('personas', 'docentes.fk_idpersonas', '=', 'personas.idpersonas')
@@ -91,6 +75,7 @@ class EntradaController extends Controller
         $allregistros= Asistencia::join('fechasistencias', 'asistencias.fk_idfechasistencias', '=', 'fechasistencias.idfechasistencias')
         ->select('asistencias.fk_idestadoAsistencias as estado', DB::raw("date_format(fechasistencias.fecha,'%d') as dia "))->where('asistencias.fk_iddocentes',$this->getidDocente())->where(DB::raw('month(fechasistencias.fecha)'),$request->mes)->where(DB::raw('year(fechasistencias.fecha)'),$request->year)->get();
         return $allregistros;
+        //return $request;
     }
 
     /**
@@ -187,7 +172,7 @@ class EntradaController extends Controller
             ->join('asistenciasalidas', 'asistencias.fk_idasistenciasalidas', '=', 'asistenciasalidas.idasistenciasalidas')
             ->join('firmas as m', 'asistenciaentradas.fk_idfirmas', '=', 'm.idfirmas')
             ->join('firmas as t', 'asistenciasalidas.fk_idfirmas', '=', 't.idfirmas')
-            ->select('fechasistencias.fecha', 'asistenciaentradas.hor_entrada', 'asistenciaentradas.URL_foto','m.token as tkentrada' ,'asistenciasalidas.hor_salida','asistenciasalidas.informe','t.token as tksalida')->where('asistencias.fk_iddocentes', $this->getidDocente())->where('fechasistencias.fecha', $fecha)->first();
+            ->select('fechasistencias.fecha', 'asistenciaentradas.hor_entrada', 'asistenciaentradas.URL_foto','m.token as tkentrada' ,'asistenciasalidas.hor_salida','asistenciasalidas.informe','t.token as tksalida','asistencias.observacion')->where('asistencias.fk_iddocentes', $this->getidDocente())->where('fechasistencias.fecha', $fecha)->first();
         return $detregistro;
     }
 

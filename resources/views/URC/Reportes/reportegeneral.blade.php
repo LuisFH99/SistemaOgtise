@@ -51,8 +51,7 @@
             padding: 8px;
         }
 
-        #table th,
-        #tableResumen th {
+        #table th {
             padding-top: 3px;
             padding-bottom: 3px;
             background-color: #003E78;
@@ -60,16 +59,27 @@
             font-size: 13px;
         }
 
-        #table td,
-        #tableResumen td {
+
+        #table td {
             font-size: 12px;
         }
 
-        #divresumen{
-            margin-top: 10px; 
+        #tableResumen th {
+
+            background-color: #003E78;
+            color: #ffff;
+            font-size: 10px;
         }
 
-        #tableResumen{
+        #tableResumen td {
+            font-size: 10px;
+        }
+
+        #divresumen {
+            margin-top: 10px;
+        }
+
+        #tableResumen {
             border-collapse: collapse;
         }
 
@@ -196,7 +206,8 @@
                                                     <tr>
                                                         <td scope="row">{{ $cont++ }}</td>
                                                         <td>{{ $docente->nombres }}</td>
-                                                        <td style="text-align: center">{{ strtoupper(substr($docente->condicion, 0, 1) . '-' . substr($docente->categoria, $docente->categoria == 'Auxiliar' ? 2 : 0, 1)) . substr($docente->dedicacion, 0, 1) . substr(strstr($docente->dedicacion, ' '), 1, 1) }}
+                                                        <td style="text-align: center">
+                                                            {{ strtoupper(substr($docente->condicion, 0, 1) . '-' . substr($docente->categoria, $docente->categoria == 'Auxiliar' ? 2 : 0, 1)) . substr($docente->dedicacion, 0, 1) . substr(strstr($docente->dedicacion, ' '), 1, 1) }}
                                                         </td>
                                                         <td colspan="5">No Registro su Asistencia</td>
                                                     </tr>
@@ -206,17 +217,19 @@
                                                     <tr>
                                                         <td scope="row">{{ $cont++ }}</td>
                                                         <td>{{ $docente->nombres }}</td>
-                                                        <td style="text-align: center">{{ strtoupper(substr($docente->condicion, 0, 1) . '-' . substr($docente->categoria, $docente->categoria == 'Auxiliar' ? 2 : 0, 1)) . substr($docente->dedicacion, 0, 1) . substr(strstr($docente->dedicacion, ' '), 1, 1) }}
+                                                        <td style="text-align: center">
+                                                            {{ strtoupper(substr($docente->condicion, 0, 1) . '-' . substr($docente->categoria, $docente->categoria == 'Auxiliar' ? 2 : 0, 1)) . substr($docente->dedicacion, 0, 1) . substr(strstr($docente->dedicacion, ' '), 1, 1) }}
                                                         </td>
                                                         <td colspan="5">Inasistencia Justificada</td>
                                                     </tr>
                                                 @break
                                                 @case(4)
-                                                    {{$cantLicencia++}}
+                                                    {{ $cantLicencia++ }}
                                                     <tr>
                                                         <td scope="row">{{ $cont++ }}</td>
                                                         <td>{{ $docente->nombres }}</td>
-                                                        <td style="text-align: center">{{ strtoupper(substr($docente->condicion, 0, 1) . '-' . substr($docente->categoria, $docente->categoria == 'Auxiliar' ? 2 : 0, 1)) . substr($docente->dedicacion, 0, 1) . substr(strstr($docente->dedicacion, ' '), 1, 1) }}
+                                                        <td style="text-align: center">
+                                                            {{ strtoupper(substr($docente->condicion, 0, 1) . '-' . substr($docente->categoria, $docente->categoria == 'Auxiliar' ? 2 : 0, 1)) . substr($docente->dedicacion, 0, 1) . substr(strstr($docente->dedicacion, ' '), 1, 1) }}
                                                         </td>
                                                         <td colspan="5">Licencia Aprobada</td>
                                                     </tr>
@@ -225,7 +238,8 @@
                                                     <tr>
                                                         <td scope="row">{{ $cont++ }}</td>
                                                         <td>{{ $docente->nombres }}</td>
-                                                        <td style="text-align: center">{{ strtoupper(substr($docente->condicion, 0, 1) . '-' . substr($docente->categoria, $docente->categoria == 'Auxiliar' ? 2 : 0, 1)) . substr($docente->dedicacion, 0, 1) . substr(strstr($docente->dedicacion, ' '), 1, 1) }}
+                                                        <td style="text-align: center">
+                                                            {{ strtoupper(substr($docente->condicion, 0, 1) . '-' . substr($docente->categoria, $docente->categoria == 'Auxiliar' ? 2 : 0, 1)) . substr($docente->dedicacion, 0, 1) . substr(strstr($docente->dedicacion, ' '), 1, 1) }}
                                                         </td>
                                                         <td colspan="5">Dia Laborable</td>
                                                     </tr>
@@ -260,14 +274,29 @@
                                         @endforeach
 
                                     @else
-                                        <tr>
-                                            <td scope="row">{{ $cont++ }}</td>
-                                            <td>{{ $docente->nombres }}</td>
-                                            <td style="text-align: center">{{ strtoupper(substr($docente->condicion, 0, 1) . '-' . substr($docente->categoria, $docente->categoria == 'Auxiliar' ? 2 : 0, 1)) . substr($docente->dedicacion, 0, 1) . substr(strstr($docente->dedicacion, ' '), 1, 1) }}
-                                            </td>
-                                            <td colspan="5">Puede que tenga un Cargo o no Trabaje ese dia</td>
+                                        @if ($docente->cargo != null)
+                                            <tr>
+                                                <td scope="row">{{ $cont++ }}</td>
+                                                <td>{{ $docente->nombres }}</td>
+                                                <td style="text-align: center">
+                                                    {{ strtoupper(substr($docente->condicion, 0, 1) . '-' . substr($docente->categoria, $docente->categoria == 'Auxiliar' ? 2 : 0, 1)) . substr($docente->dedicacion, 0, 1) . substr(strstr($docente->dedicacion, ' '), 1, 1) }}
+                                                </td>
+                                                <td colspan="5">{{ $docente->cargo }}</td>
 
-                                        </tr>
+                                            </tr>
+                                        @else
+                                            <tr>
+                                                <td scope="row">{{ $cont++ }}</td>
+                                                <td>{{ $docente->nombres }}</td>
+                                                <td style="text-align: center">
+                                                    {{ strtoupper(substr($docente->condicion, 0, 1) . '-' . substr($docente->categoria, $docente->categoria == 'Auxiliar' ? 2 : 0, 1)) . substr($docente->dedicacion, 0, 1) . substr(strstr($docente->dedicacion, ' '), 1, 1) }}
+                                                </td>
+                                                <td colspan="5">Dia No Laborable del Docente</td>
+
+                                            </tr>
+
+                                        @endif
+
                                     @endif
 
                                 @endforeach
@@ -294,7 +323,7 @@
                                     <td>{{ $cantLicencia }}</td>
                                 </tr>
                             </tbody>
-                        </table>  
+                        </table>
                     </div>
                 @else
                     <tr>

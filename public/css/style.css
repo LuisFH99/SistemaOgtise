@@ -69,10 +69,24 @@
     font-size: 11px;
 }
 
+#divEntrada .foto, #divEntrada .camara {
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.fa-camera{
+    color: rgb(8, 51, 179);
+    margin-left: 5px;
+    font-size: 20px;;
+}
+
 #tituloModal {
     font-weight: bold;
     text-align: center;
 }
+
+/* Fin estilos para la modulo asistencia */
 
 
 
@@ -151,6 +165,9 @@
     color: rgb(236, 48, 48);
 }
 
+/* Fin estilos modulo Docentes */
+
+/* Estilos modulo URCT-RRHH */
 #tableURCT thead {
     background-color: #003E78;
     font-size: 16px;
@@ -171,16 +188,33 @@
     font-size: 17px;
 }
 
-#divEntrada .foto, #divEntrada .camara {
-    margin-left: auto;
-    margin-right: auto;
+#tableURCT .fa-calendar-alt {
+    color: #272971;
+    font-size: 17px;
+}
+/* Fin Estilos modulo URCT-RRHH */
 
+/* Estilos modulo Asignar Dias Laborles */
+
+#cargos thead {
+    background-color: #003260;
+    text-align: center;
 }
 
-.fa-camera{
-    color: rgb(8, 51, 179);
-    margin-left: 5px;
-    font-size: 20px;;
+#cargos .fa-clipboard-check{
+    color: #003E78;
+    font-size: 18px;
 }
+#cargos .fa-trash-alt{
+    color: #ED3237;
+}
+.fa-backspace{
+    color: #ED3237;
+    font-size: 35px;
+}
+
+
+
+
 
 

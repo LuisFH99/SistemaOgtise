@@ -10,6 +10,8 @@ use App\Models\Facultad;
 use App\Models\User;
 use App\Models\Semana;
 use App\Models\DetSemana;
+use App\Models\autoridad;
+use App\Models\cargo;
 use Illuminate\Auth\Events\Validated;
 
 class DocentesController extends Controller
@@ -43,17 +45,17 @@ class DocentesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-           'dni' => 'required',
-           'nombres' => 'required',
-           'apepat' => 'required',
-           'apemat' => 'required',
-           'fnacimiento' => 'required',
-           'numcel' => 'required',
-           'condicion' => 'required',
-           'categoria' => 'required',
-           'dedicacion' => 'required',
-           'dptoacademico' => 'required',
-           'email' => 'required'  
+            'dni' => 'required',
+            'nombres' => 'required',
+            'apepat' => 'required',
+            'apemat' => 'required',
+            'fnacimiento' => 'required',
+            'numcel' => 'required',
+            'condicion' => 'required',
+            'categoria' => 'required',
+            'dedicacion' => 'required',
+            'dptoacademico' => 'required',
+            'email' => 'required'
         ]);
 
         $existe1 = DB::table('personas')->where('dni', $request->dni)->where('estado', 1)->count();
@@ -63,7 +65,7 @@ class DocentesController extends Controller
         if ($existe1 == 0 && $existe2 == 0) {
             DB::insert('call p_crear_docente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [1, $request->dni, $request->nombres, $request->apepat, $request->apemat, $request->fnacimiento, $request->numcel, bin2hex(random_bytes(4)), $request->condicion, $request->categoria, $request->dedicacion, $request->dptoacademico, 0, '0', 0, $request->email]);
             User::create([
-                'name' => $request->nombres.' '.$request->apepat.' '.$request->apemat,
+                'name' => $request->nombres . ' ' . $request->apepat . ' ' . $request->apemat,
                 'email' => $request->email,
                 'password' => bcrypt($request->dni)
             ])->assignRole('Docente');
@@ -72,7 +74,7 @@ class DocentesController extends Controller
             if ($existe2 > 0) {
                 DB::insert('call p_crear_docente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [4, $request->dni, $request->nombres, $request->apepat, $request->apemat, $request->fnacimiento, $request->numcel, bin2hex(random_bytes(4)), $request->condicion, $request->categoria, $request->dedicacion, $request->dptoacademico, 0, '0', 0, $request->email]);
                 User::create([
-                    'name' => $request->nombres.' '.$request->apepat.' '.$request->apemat,
+                    'name' => $request->nombres . ' ' . $request->apepat . ' ' . $request->apemat,
                     'email' => $request->email,
                     'password' => bcrypt($request->dni)
                 ])->assignRole('Docente');
@@ -81,45 +83,6 @@ class DocentesController extends Controller
                 return redirect()->route('creardocente')->with('info', 'El docente con DNI: ' . $request->dni . ' ya esta registrado')->withInput();
             }
         }
-
-        //if (($existe1 == 0) && ($existe2 == 0)) {
-
-        /*$persona = new Persona;
-            $persona->dni = $request->dni;
-            $persona->nombres = $request->nombres;
-            $persona->apellPat = $request->apepat;
-            $persona->apellMat = $request->apemat;
-            $persona->fechNacimiento = $request->fnacimiento;
-            $persona->correo = $request->email;
-            $persona->telefono = $request->numcel;
-            $persona->estado = 1;
-            $persona->save();
-
-            $docente = new Docente;
-            $docente->clave = bin2hex(random_bytes(4));
-            $docente->estado = 1;
-            $docente->fk_idPersonas = DB::table('personas')->where('dni', $request->dni)->pluck('idpersonas')->first();
-            $docente->fk_idCategorias = $request->categoria;
-            $docente->fk_idCondiciones = $request->condicion;
-            $docente->fk_idDedicaciones = $request->dedicacion;
-            $docente->fk_idDepAcademicos = $request->dptoacademico;
-            $docente->save();*/
-
-        /* $respuesta = DB::select('call p_crear_docente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [1, $request->dni, $request->nombres, $request->apepat, $request->apemat, $request->fnacimiento, $request->numcel, bin2hex(random_bytes(4)), $request->condicion, $request->categoria, $request->dedicacion, $request->dptoacademico, 0, 0, 0, $request->email]);
-           
-            if ($respuesta[0]->rpta == 1) {
-                User::create([
-                    'name' => $request->nombres,
-                    'email' => $request->email,
-                    'password' => bcrypt($request->dni)
-                ])->assignRole('Docente');
-
-                //return view('departamento.docentes');
-            }
-        } else {
-            //return redirect()->route('creardocente')->with('info', 'El docente con DNI: ' . $request->dni . ' ya esta registrado')->withInput();
-            // return 'El docente con DNI: ' . $request->dni . ' ya esta registrado';
-        }*/
     }
 
 
@@ -175,16 +138,21 @@ class DocentesController extends Controller
     }
     public function editSemana($id)
     {
-        $DetSemanas=DetSemana::where('fk_idDocentes',$id)->get();
-        $Persona=Docente::join('personas', 'docentes.fk_idpersonas', '=', 'personas.idpersonas')
-                    ->select('idDocentes','personas.nombres', 'personas.apellPat', 'personas.apellMat')
-                    ->where('idDocentes',$id)->first();
-        $msg="0";
-        foreach($DetSemanas as $DetSemana):
-            $msg=$msg.','.$DetSemana->fk_idSemanas;
+        $DetSemanas = DetSemana::where('fk_idDocentes', $id)->get();
+        $Persona = Docente::join('personas', 'docentes.fk_idpersonas', '=', 'personas.idpersonas')
+            ->select('idDocentes', 'personas.nombres', 'personas.apellPat', 'personas.apellMat')
+            ->where('idDocentes', $id)->first();
+        $msg = "0";
+        foreach ($DetSemanas as $DetSemana) :
+            $msg = $msg . ',' . $DetSemana->fk_idSemanas;
         endforeach;
-        $Semanas=Semana::all();
-        return view('departamento.DocentesSemanaEdit',compact('DetSemanas','Persona','Semanas','msg'));
+        $Semanas = Semana::all();
+        $cargoDocente = autoridad::join('cargos', 'autoridades.fk_idcargos', '=', 'cargos.idcargos')
+            ->select('cargos.idcargos', 'cargos.cargo')
+            ->where('fk_iddocentes', $id)->first();
+        $cargos = cargo::all();
+
+        return view('departamento.DocentesSemanaEdit', compact('DetSemanas', 'Persona', 'Semanas', 'msg', 'cargoDocente', 'cargos'));
     }
     public function dpto(Request $request)
     {
@@ -206,26 +174,74 @@ class DocentesController extends Controller
         $respuesta = DB::select('call p_crear_docente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [$request->ev, $request->dni, $request->nombre, $request->appat, $request->apmat, $request->fnac, $request->cel, $request->clv, $request->idcnd, $request->idcat, $request->iddedi, $request->iddep, $request->idper, bcrypt($request->dni), $request->idusu, $request->correo]);
         return $respuesta;
     }
-    public function updateSemana(Request $request,$id)
+    public function updateSemana(Request $request, $id)
     {
         //$user->roles()->sync($request->roles);
-        $respuesta =DetSemana::where('fk_idDocentes', $id)->delete();
-        $Persona=Docente::join('personas', 'docentes.fk_idpersonas', '=', 'personas.idpersonas')
-                    ->select('personas.nombres', 'personas.apellPat', 'personas.apellMat')
-                    ->where('idDocentes',$id)->first();
+        if ($request->id != 0) {
+            if (DB::table('autoridades')->where('fk_idDocentes', $id)->exists()) {
+                $eliminar = autoridad::where("fk_idDocentes", $id)->delete();
+                autoridad::create([
+                    'fk_idDocentes' => $id,
+                    'fk_idCargos' => $request->id
+                ]);
+            }else{
+                autoridad::create([
+                    'fk_idDocentes' => $id,
+                    'fk_idCargos' => $request->id
+                ]);
+            }
+        }else{
+            if (DB::table('autoridades')->where('fk_idDocentes', $id)->exists()) {
+                $eliminar = autoridad::where("fk_idDocentes", $id)->delete();
+            }
+        }
         
-        $prueba="0";
-        for ($i=1; $i <=5 ; $i++) { 
-            if($request->has('cbox'.$i)){
-                $prueba=$prueba.','.$request->get('cbox'.$i);
+
+        $respuesta = DetSemana::where('fk_idDocentes', $id)->delete();
+        $Persona = Docente::join('personas', 'docentes.fk_idpersonas', '=', 'personas.idpersonas')
+            ->select('personas.nombres', 'personas.apellPat', 'personas.apellMat')
+            ->where('idDocentes', $id)->first();
+
+        $prueba = "0";
+        for ($i = 1; $i <= 5; $i++) {
+            if ($request->has('cbox' . $i)) {
+                $prueba = $prueba . ',' . $request->get('cbox' . $i);
                 DetSemana::create([
-                    'fk_idDocentes' =>$id,
-                    'fk_idSemanas'  =>$request->get('cbox'.$i)
+                    'fk_idDocentes' => $id,
+                    'fk_idSemanas'  => $request->get('cbox' . $i)
                 ]);
             }
         }
-        return view('departamento.docentes')->with('info','Se asignó los dias laborables al Docente: '.$Persona->apellPat.' '.$Persona->apellMat.' '.$Persona->nombres);
+        return view('departamento.docentes')->with('info', 'Se asignó los dias laborables al Docente: ' . $Persona->apellPat . ' ' . $Persona->apellMat . ' ' . $Persona->nombres);
     }
+
+    public function CrearCargo($cargo)
+    {
+        if (DB::table('cargos')->where('cargo', $cargo)->doesntExist()) {
+            cargo::create([
+                'cargo' => $cargo,
+            ]);
+            return 1;
+        } else {
+            return 2;
+        }
+    }
+    public function EliminarCargo(Request $request)
+    {
+        $rpta = 0;
+        if ($request->ev == 1) {
+            if (DB::table('autoridades')->where('fk_idCargos', $request->idcargo)->exists()) {
+                $rpta = 0;
+            } else {
+                $rpta = cargo::where("idCargos", $request->idcargo)->delete();
+            }
+        } else {
+            $rpta = autoridad::where("fk_idCargos", $request->idcargo)->delete();
+            $rpta = cargo::where("idCargos", $request->idcargo)->delete();
+        }
+        return $rpta;
+    }
+
     /**
      * Remove the specified resource from storage.
      *
