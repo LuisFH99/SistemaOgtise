@@ -8,15 +8,18 @@
 
 @section('content')
 <div class="container">
-    {{-- @can('valida.licencia') --}}
-        @livewire('valida-licencia-index',['estado'=>'Enviado','bdr'=>0])
-    {{-- @endcan --}}
-    {{-- @can('valida.licencia1') --}}
-        {{-- @livewire('valida-licencia-index',['user' => $user,'estado'=>'Proceso','bdr'=>0]) --}}
-    {{-- @endcan --}}
-    {{-- @can('valida.licencia2') --}}
-        {{-- @livewire('valida-licencia-index',['user' => $user,'estado'=>'Visto Bueno','bdr'=>1]) --}}
-    {{-- @endcan --}}
+    @can('valida.licencia')
+        @livewire('valida-licencia-index',['estado'=>'Enviada','bdr'=>0])
+    @endcan
+    @can('valida.licencia1')
+        @livewire('valida-licencia-index',['user' => $user,'estado'=>'Procesada','bdr'=>0])
+    @endcan
+    @can('valida.licencia2')
+        @livewire('valida-licencia-index',['user' => $user,'estado'=>'Visto Bueno','bdr'=>1])
+    @endcan
+    @can('valida.licencia3') --}}
+        @livewire('valida-licencia-index',['user' => $user,'estado'=>'Admitida','bdr'=>1])
+    @endcan
 </div> 
 
 <!-- Modal2 -->
@@ -73,15 +76,18 @@
             </div>
             <div class="modal-footer">
                     <button type="button" id="btnDenied"class="btn btn-outline-danger">Rechazar</button>
-                {{-- @can('valida.licencia') --}}
+                @can('valida.licencia')
                     <button type="button" id="btnAcepted" class="btn btn-outline-success">Validar</button>
-                {{-- @endcan --}}
-                {{-- @can('valida.licencia1') --}}
-                    {{-- <button type="button" id="btnAceptedDec" class="btn btn-outline-success">Validar</button> --}}
-                {{-- @endcan --}}
-                {{-- @can('valida.licencia2') --}}
-                    {{-- <button type="button" id="btnAceptedURyC" class="btn btn-outline-success">Validar</button> --}}
-                {{-- @endcan --}}
+                @endcan
+                @can('valida.licencia1')
+                    <button type="button" id="btnAceptedDec" class="btn btn-outline-success">Validar</button>
+                @endcan
+                @can('valida.licencia2')
+                    <button type="button" id="btnAceptedURyC" class="btn btn-outline-success">Validar</button>
+                @endcan
+                @can('valida.licencia3')
+                    <button type="button" id="btnAceptedDRRHH" class="btn btn-outline-success">Validar</button>
+                @endcan
             </div>
         </div>
     </div>

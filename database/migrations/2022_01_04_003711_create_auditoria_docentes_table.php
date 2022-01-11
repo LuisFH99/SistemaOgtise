@@ -18,10 +18,11 @@ class CreateAuditoriaDocentesTable extends Migration
             $table->integer('iddocente');
             $table->integer('idpersona');
             $table->string('clave',150);
-            $table->string('categoria',45);
-           $table->string('condicion',45);
-           $table->string('dedicacion',45);
-           $table->string('depacademico',85);
+            $table->string('categoria',100);
+           $table->string('condicion',100);
+           $table->string('dedicacion',100);
+           $table->string('depacademico',250);
+           $table->string('estado',45);
            $table->string('usuario',85);
            $table->string('accion',45);
             $table->timestamps();

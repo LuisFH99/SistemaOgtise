@@ -41,7 +41,7 @@ class ValidaLicenciaIndex extends Component
                 ->join('depacademicos', 'docentes.fk_idDepAcademicos', '=', 'depacademicos.idDepAcademicos')
                 ->select('solicitudes.*','estadosolicitudes.estadoSol','motivosolicitudes.motivo',
                     'personas.*','depacademicos.nomdep')
-                ->where('idDepAcademicos',$Dpto->idDepAcademicos)->where('estadoSol',$this->estado)
+                ->where('idDepAcademicos',$Dpto->idDepAcademicos)->where('estadoSol',$this->estado)->where('solicitudes.estado',1)
                 ->where(function ($query) {
                     $query->orWhere(DB::raw('CONCAT(apellPat," ",apellMat," ",nombres)'),'LIKE','%'.$this->search.'%')
                           ->orWhere('estadosolicitudes.estadoSol','LIKE','%'.$this->search.'%')
@@ -50,7 +50,7 @@ class ValidaLicenciaIndex extends Component
                           ->orWhere('fech_retorno','LIKE','%'.$this->search.'%')
                           ->orWhere('codigo','LIKE','%'.$this->search.'%');
                 })
-                ->get();
+                ->paginate();
         } else {
             $licencias=Solicitud::join('estadosolicitudes', 'solicitudes.fk_idEstadoSolicitudes', '=', 'estadosolicitudes.idEstadoSolicitudes')
                 ->join('motivosolicitudes', 'solicitudes.fk_idMotivoSolicitudes', '=', 'motivosolicitudes.idMotivoSolicitudes')
@@ -58,7 +58,7 @@ class ValidaLicenciaIndex extends Component
                 ->join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
                 ->join('depacademicos', 'docentes.fk_idDepAcademicos', '=', 'depacademicos.idDepAcademicos')
                 ->select('solicitudes.*','estadosolicitudes.estadoSol','motivosolicitudes.motivo',
-                    'personas.*','depacademicos.nomdep')->where('estadoSol',$this->estado)
+                    'personas.*','depacademicos.nomdep')->where('estadoSol',$this->estado)->where('solicitudes.estado',1)
                 ->where(function ($query) {
                     $query->orWhere(DB::raw('CONCAT(apellPat," ",apellMat," ",nombres)'),'LIKE','%'.$this->search.'%')
                             ->orWhere('estadosolicitudes.estadoSol','LIKE','%'.$this->search.'%')

@@ -1,5 +1,5 @@
-
 /* estilos para la modulo asistencia */
+
 .fondo-cards {
     background-color: #e6e7e9;
 }
@@ -7,6 +7,7 @@
 .fondo-table {
     background-color: #003260;
 }
+
 .fondo-table th {
     color: #ffff;
     text-align: center;
@@ -137,6 +138,7 @@
     height: 10px;
 }
 
+
 /* estilos modulo Docentes */
 
 #tableDocentes thead {
@@ -144,11 +146,11 @@
     font-size: 14px;
     text-align: center;
 }
-#tableDocentes tbody {
 
+#tableDocentes tbody {
     font-size: 13px;
-    
 }
+
 #tableDocentes tbody td {
     text-align: center;
     vertical-align: middle;
@@ -157,6 +159,7 @@
 #tableDocentes .fa-eye {
     color: rgb(8, 51, 179);
 }
+
 #tableDocentes .fa-calendar-alt {
     color: rgb(8, 51, 179);
 }
@@ -173,11 +176,11 @@
     font-size: 16px;
     text-align: center;
 }
-#tableURCT tbody {
 
+#tableURCT tbody {
     font-size: 14px;
-    
 }
+
 #tableURCT tbody td {
     text-align: center;
     vertical-align: middle;
@@ -213,8 +216,30 @@
     font-size: 35px;
 }
 
+#divEntrada .foto,
+#divEntrada .camara {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.fa-camera {
+    color: rgb(8, 51, 179);
+    margin-left: 5px;
+    font-size: 20px;
+    ;
+}
+
+.dangerito {
+    color: rgb(231, 43, 43);
+}
 
 
 
 
 
+.abs-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+}

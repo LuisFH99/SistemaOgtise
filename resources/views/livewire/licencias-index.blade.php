@@ -17,14 +17,14 @@
                         </div>
                     @else
                         <div class="table-responsive">
-                            <table class="table table-sm " id="idtablelicencia">
+                            <table class="table table-striped" id="idtablelicencia">
                                 <thead>
                                     <tr>
                                         <th scope="col">Código de licencia</th>
                                         <th scope="col">Fecha</th>
                                         <th scope="col">Hora</th>
                                         <th scope="col">Estado</th>
-                                        <th scope="col">Ver</th>
+                                        <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -34,11 +34,15 @@
                                         <td>{{$solicitud->fech_solicitud}}</td>
                                         <td>{{$solicitud->hor_solicitud}}</td>
                                         <td>{{$solicitud->estadoSol}}</td>
-                                        <td><a href="#" onclick="selectId({{$solicitud->idSolicitudes}})"><i class="far fa-eye"></i></a></td>
+                                        <td><a href="#" onclick="imprimir({{$solicitud->idSolicitudes.',\''.$solicitud->fech_solicitud.'\',\''.$solicitud->hor_solicitud.'\''}})"><i class="far fa-eye mr-1"></i></a>
+                                            <a href="#" onclick="eliminar({{$solicitud->idSolicitudes}})"><i class="far fa-trash-alt dangerito" aria-hidden="true"></i></a></td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="card-footer">
+                            {{$solicitudes->links()}}
                         </div>
                     @endif
                 </div>

@@ -17,7 +17,7 @@ class CreateAsistenciaSalidasTable extends Migration
             $table->id('idAsistenciaSalidas');
             $table->time('hor_salida');
             $table->mediumText('informe');
-            $table->string('estado');
+            $table->integer('estado');
             $table->unsignedBigInteger('fk_idFirmas')->unique();
             $table->foreign('fk_idFirmas')->references('idFirmas')->on('Firmas');
 

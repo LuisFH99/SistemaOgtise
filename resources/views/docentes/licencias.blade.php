@@ -70,17 +70,18 @@
                                                 <label>Me ausentare</label><br>
                                                 <label>Desde: </label>
                                                 <input type="date" id="desde" 
-                                                    value="{{date('Y-m-d')}}"
-                                                    min="2021-12-01" max="2050-12-31"><br>
+                                                    value="{{$fechaMin}}"
+                                                    min="{{$fechaMin}}" max="2050-12-31"><br>
                                                 <label>Hasta: </label>
                                                 <input type="date" id="hasta" 
-                                                    value="{{date('Y-m-d')}}"
-                                                    min="2021-12-01" max="2050-12-31">
+                                                    value="{{$fechaMin}}"
+                                                    min="{{$fechaMin}}" max="2050-12-31">
+                                                <input id="fechs" name="fechs" type="hidden" value="{{$fechaMin.','.$fechaExc}}">
                                             </div> 
                                             <div class="col-5">
                                                 <br>
                                                 <label>N° de dias: </label>
-                                                <span id="dias">0 dias</span><br>
+                                                <span id="dias">1 dia</span><br>
                                                 <label>Fecha de Reincorporación:</label>
                                                 <span id="reincorporar">Miercoles, 01/12/2021</span>
                                             </div>
@@ -123,7 +124,7 @@
                         </div>
                     </form>
                         <br>
-                        <button type="button" class="btn btn-primary btn-lg dr" id="btnSolicitar">Solicitar</button>
+                        <button type="button" class="btn btn-primary btn-lg dr d-none" id="btnSolicitar">Solicitar</button>
                         <div class="d-none">
                             <button type="button" class="btn btn-primary btn-lg dr" id="btnSolicitar1">Archivo</button>
                         </div>

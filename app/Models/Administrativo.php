@@ -10,17 +10,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
-class Docente extends Model
+
+class Administrativo extends Model
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
     protected $fillable = [
-        'clave',
-        'estado',
-        'fk_idPersonas',
-        'fk_idCategorias',
-        'fk_idCondiciones',
-        'fk_idDedicaciones',
-        'fk_idDepAcademicos',
+        'clave', 
+        'estado', 
+        'fk_idPersonas', 
+        'fk_idRoles'
     ];
-    protected $table = 'Docentes';
+    protected $table = 'Administrativos';
 }

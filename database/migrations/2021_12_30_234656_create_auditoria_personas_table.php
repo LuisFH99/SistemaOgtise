@@ -16,10 +16,11 @@ class CreateAuditoriaPersonasTable extends Migration
         Schema::create('auditoriaPersonas', function (Blueprint $table) {
             $table->id('idauditoriaPersonas');
             $table->integer('idpersona');
-            $table->string('persona',150);
-            $table->string('dni',8);
-           $table->string('telefono',9);
-           $table->string('correo',80);
+            $table->string('persona',300);
+            $table->string('dni',45);
+           $table->string('telefono',45);
+           $table->string('correo',150);
+           $table->string('estado',45);
            $table->string('usuario',150);
            $table->string('accion',45);
            $table->timestamps();

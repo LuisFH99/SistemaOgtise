@@ -12,6 +12,8 @@
             <div class="card-body">
                 <p class="h5">Nombre:</p>
                 <p class="form-control">{{$user->name}}</p>
+                {{-- @livewire('admin.users-edit',['user1'=>$user->id])  --}}
+                       
                 <h5>Listado de Roles:</h5>
                 {!! Form::model($user,['route' => ['Admin.users.update',$user],'method'=>'put']) !!}
                     @foreach ($roles as $role)

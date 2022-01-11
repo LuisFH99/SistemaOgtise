@@ -122,12 +122,12 @@ return [
     */
 
     'classes_body' => '',
-    'classes_brand' => 'bg-dark',
+    'classes_brand' => 'bg-primary',
     'classes_brand_text' => '',
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-3',
+    'classes_sidebar' => 'sidebar-light-primary elevation-3',
     'classes_sidebar_nav' => '',
     'classes_topnav' => 'navbar-white navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
@@ -237,27 +237,27 @@ return [
         ],
 
         // Sidebar items:
-        [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
-        ],
-        [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog'
-        ],
+        // [
+        //     'type' => 'sidebar-menu-search',
+        //     'text' => 'search',
+        // ],
+        // [
+        //     'text' => 'blog',
+        //     'url'  => 'admin/blog',
+        //     'can'  => 'manage-blog'
+        // ],
                
         [
             'text'        => 'Inicio',
             'route'         => 'home',
             'icon'        => 'fas fa-home',
-            //'can'  => 'admin.home'
+            'can'  => 'admin.home'
         ],
         [
             'text'        => 'Usuarios',
             'route'         => 'Users',
             'icon'        => 'fas fa-users',
-           // 'can'  => 'admin.users.index'
+            'can'  => 'admin.users.index'
         ],
         ['header' => 'DOCENTES'],
 
@@ -265,6 +265,7 @@ return [
             'text'      => 'Registrar Asistencia',
             'icon'      => 'far fa-address-card',
             'route'     => 'entrada',
+            'can'  => 'asistencia.Entrada'
             // 'submenu'   => [
             //     [
             //         'text'  => 'Registrar Entrada',
@@ -283,23 +284,26 @@ return [
             'text' => 'Licencias',
             'icon'      => 'fas fa-file-upload',
             'route'  => 'licencias',
-            //'can'  => 'licencia'
+            'can'  => 'licencia'
         ],
         ['header' => 'DPTO. ACADÉMINCO'],
         [
             'text' => 'Validar Salidas',
             'icon' => 'fas fa-user-check',
             'route'  => 'ValidaSalida',
+            'can'  => 'valida.Salida'
         ],
         [
             'text' => 'Validar Licencias',
             'icon' => 'fas fa-tasks',
             'route'  => 'ValidaLicencia',
+            'can'  => 'valida.licencia|valida.licencia1|valida.licencia2|valida.licencia3'
         ],
         [
             'text' => 'Docentes',
             'icon' => 'fas fa-user-tie',
             'route'  => 'docentes',
+            'can'  => 'gestion.docente'
         ],
 
         ['header' => 'UND. REGISTRO Y CONTROL'],
@@ -307,79 +311,15 @@ return [
             'text' => 'Parte Diario',
             'icon' => 'fas fa-clipboard-list',
             'route'  => 'partediario',
+            'can'  => 'reportes.parteDiario'
         ],
         [
             'text' => 'Reporte General',
             'icon' => 'fas fa-file-alt',
+            'can'  => 'reportes.parteDiario'
             //'route'  => '#',
         ],
 
-
-        ['header' => 'CONFIGIRACION DE CUENTA'],
-        [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-                [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-            ],
-        ],
-        ['header' => 'labels'],
-        [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
-        ],
     ],
 
     /*

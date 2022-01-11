@@ -16,8 +16,8 @@ class CreateAsistenciaEntradasTable extends Migration
         Schema::create('AsistenciaEntradas', function (Blueprint $table) {
             $table->id('idAsistenciaEntradas');
             $table->time('hor_entrada');
-            $table->string('URL_foto',200);
-            $table->string('estado');
+            $table->mediumText('URL_foto');
+            $table->integer('estado');
             $table->unsignedBigInteger('fk_idFirmas')->unique();
             $table->foreign('fk_idFirmas')->references('idFirmas')->on('Firmas');
             $table->timestamps();
