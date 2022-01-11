@@ -51,14 +51,14 @@
                     <div class="card-body">
                         <div class="row">
 
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <label class="form-label">Fecha de Reporte (*)</label>
                                 <input type="date" id="freporte" name="freporte" class="form-control" tabindex="3">
                             </div>
 
-                            <div class="col-md-6 mt-4 d-flex align-items-center justify-content-center">
-                                <button type="button" class="btn btn-outline-primary" id="InfGeneral">Informe
-                                    General</button>
+                            <div class="col-md-7 mt-4 d-flex align-items-center justify-content-center">
+                                <button type="button" class="btn btn-outline-primary mr-2" id="InfGeneral">Parte Diario</button>
+                                <button type="button" class="btn btn-outline-danger" id="InfGeneral">Informe de Faltas</button>
                             </div>
 
                         </div>
@@ -69,7 +69,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card fondo-cards">
-                    <div class="card-body">
+                    <div class="card-body table-responsive">
 
                         <table id="tableURCT" class="table table-sm shadow-lg">
                             <thead class="text-white">
@@ -152,20 +152,7 @@
 
         function GenerarReporte($id) {
             window.open('/URyC/ParteDiario/reporte/'+ $id+'/'+ $('#meses').val()+'/'+$('#year').val(), '_blank');
-            /*$.ajax({
-                url: '/URyC/ParteDiario/reporte',
-                method: 'POST',
-                data: {
-                    _token: $('input[name="_token"]').val(),
-                    mes: $('#meses').val(),
-                    year: $('#year').val(),
-                    iddoc: $id
-                }
-            }).done(function(res) {
-                console.log(res);
-            }).fail(function() {
-                Swal.fire('Falla en la envio de Datos', '', 'error');
-            });*/
+
         }
     </script>
 @stop

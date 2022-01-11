@@ -110,7 +110,7 @@
                 <embed src="#" frameborder="0" width="100%" height="400px">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-primary">Aceptar</button>
+                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Aceptar</button>
             </div>
         </div>
     </div>

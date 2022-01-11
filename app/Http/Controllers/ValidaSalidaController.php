@@ -48,7 +48,10 @@ class ValidaSalidaController extends Controller
         return $dt;
     }
     public function dato(Request $request){
-        $Valor=Docente::where('clave','=',''.$request->dt.'')->count();
+        $user=auth()->user();
+        $iddoc=Docente::join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
+        ->select('idDocentes')->where('correo',$user->email)->first();
+        $Valor=Docente::where('clave','=',''.$request->dt.'')->where('idDocentes',$iddoc->idDocentes)->count();
         return $Valor;
     }
     

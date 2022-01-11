@@ -39,7 +39,32 @@
             <p>YO: <b>{{$solicitudes->nombres.' '.$solicitudes->apellPat.' '.$solicitudes->apellMat}}</b> identificado con el DNI N° 
                 <b>{{$solicitudes->DNI}}</b> perteneciente al <b>{{$solicitudes->nomdep}}</b>, <b>{{$solicitudes->nomFac}}</b>.</p>
             <p>Solicito licencia por el siguiente motivo:</p>
-            <p style="text-align: center;"><b>{{$solicitudes->motivo}}</b></p>
+                <div class="Row">
+                    <div class="Column">
+                        @foreach ($Motivos as $Motivo)
+                            @if ($Motivo->idMotivoSolicitudes<8)
+                                @if ($Motivo->motivo==$solicitudes->motivo)
+                                    <input type="checkbox" checked> <label style="display: inline"><b>{{$solicitudes->motivo}}</b></label><br>
+                                @else
+                                    <input type="checkbox" ><label style="display: inline">{{$Motivo->motivo}}</label><br>
+                                @endif
+                            @endif
+                        @endforeach
+                    </div>
+                    <div class="Column">
+                        @foreach ($Motivos as $Motivo)
+                            @if ($Motivo->idMotivoSolicitudes>7)
+                                @if ($Motivo->motivo==$solicitudes->motivo)
+                                    <input type="checkbox" checked> <label style="display: inline"><b>{{$solicitudes->motivo}}</b></label><br>
+                                @else
+                                    <input type="checkbox" ><label style="display: inline">{{$Motivo->motivo}}</label><br>
+                                @endif
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+               
+            
             <p>Bajo la siguiente Justificación:</p>
             <p>-> {{$solicitudes->justificacion}}</p> 
             <p>Me ausentare desde el  <b>{{$solicitudes->fech_inicio}}</b>  hasta el  <b>{{$solicitudes->fech_fin}}</b> 

@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col-md-2 col-sm-6">
         <label class="form-label">DNI:</label>
-        <input type="text" class="form-control" id="dni" name="dni" placeholder="Ingrese el N° DNI" tabindex="1">
+        <input type="text" class="form-control" id="dni" name="dni" placeholder="Ingrese el N° DNI" tabindex="1" maxlength="8" onkeypress="return SoloNumeros(event)">
     </div>
     <div class="col-md-2 col-sm-6">
         <label class="form-label">Apellidos Paterno:</label>

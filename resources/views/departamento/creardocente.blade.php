@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    
+
     <div class="container">
         <div class="card">
             <div class="card-header">
@@ -138,27 +138,28 @@
 @section('js')
     @livewireScripts
     @if (session('info'))
-    <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: "{{session('info')}}",
-            
-        })
-    </script>
-@endif
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "{{ session('info') }}",
+
+            })
+        </script>
+    @endif
 
     <script>
         $(document).ready(function() {
             // $('.nav-link').click();
             $('#email').focus(function() {
-                $(this).val("" + generaremail($('#nombres').val(), $('#apepat').val(), $('#apemat').val()));
+                $(this).val("" + generaremail($('#nombres').val().trim(), $('#apepat').val().trim(), $(
+                    '#apemat').val().trim()));
             });
             // Swal.fire({
             //     icon: 'error',
             //     title: 'Oops...',
             //     text: 'Something went wrong!',
-                
+
             // })
 
         });
@@ -166,6 +167,14 @@
         function generaremail(nom, ap, am) {
             let dto = nom.charAt(0) + ap + am.charAt(0) + "@unasam.edu.pe";
             return dto.toLowerCase();
+        }
+
+        function SoloNumeros(e) {
+            var key = Window.Event ? e.which : e.keyCode;
+            if (key < 48 || key > 57) {
+
+                e.preventDefault();
+            }
         }
     </script>
 @stop

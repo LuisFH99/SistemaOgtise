@@ -4,16 +4,19 @@ $(function() {
     $('#chkDNIE').prop("checked", false);
     MostarFirma();
     $("#btnAcepted").click(function() {
-        AcepDene('Proceso');
+        AcepDene('Procesada');
     });
     $("#btnDenied").click(function() {
-        AcepDene('Denegado');
+        AcepDene('Denegada');
     });
     $("#btnAceptedDec").click(function() {
         AcepDene('Visto Bueno');
     });
     $("#btnAceptedURyC").click(function() {
-        AcepDene('Aprobado');
+        AcepDene('Admitida');
+    });
+    $("#btnAceptedDRRHH").click(function() {
+        AcepDene('Aprobada');
     });
 });
 
@@ -57,6 +60,7 @@ function AcepDene(dto) {
             dt: txtCodigoFirma
         }
     }).done(function(msg) {
+
         if (msg === '1') {
             $.ajax({
                 url: '/departamento/ValidaLicencia/store',
@@ -64,14 +68,14 @@ function AcepDene(dto) {
                 data: {
                     _token: $('input[name="_token"]').val(),
                     idSol: idlic,
-                    dt: dto,
+                    dt1: dto,
                     idTf: 1,
                 }
             }).done(function(msg) {
                 console.log('correcto: ' + msg);
                 Swal.fire({
-                    title: (dto === 'Denegado') ? 'Solicitud Denegada' : 'Solicitud ' + dto,
-                    icon: (dto === 'Denegado') ? 'warning' : 'success',
+                    title: (dto === 'Denegada') ? 'Solicitud Denegada' : 'Solicitud ' + dto,
+                    icon: (dto === 'Denegada') ? 'warning' : 'success',
                     confirmButtonText: 'Aceptar!'
                 }).then((result) => {
                     if (result.isConfirmed) {
@@ -104,14 +108,34 @@ function AcepDene(dto) {
     //}
 }
 
-function selecId(id, dir, fecha, hr, nomb) {
+function selecId(id, fecha, hr, nomb) {
     idlic = id;
-    $('#titVerArchivos').html('Licencia pedida el ' + formatoFecha(fecha) + ' a horas: ' + hr);
-    $('#nombre').html('Docente: <b>' + nomb + '</b>');
-    $('#verArchivos').html("<embed src='" + dir + "' frameborder='0'" +
-        " width='100%' height='350px'>");
-    $('#modal2').modal('show');
+    $.ajax({
+        url: '/departamento/ValidaLicencia/imprimir',
+        method: 'POST',
+        data: {
+            _token: $('input[name="_token"]').val(),
+            idSol: id
+        }
+    }).done(function(url) {
+        console.log('correcto: ' + url);
+        $('#titVerArchivos').html('Licencia pedida el ' + formatoFecha(fecha) + ' a horas: ' + hr);
+        $('#nombre').html('Docente: <b>' + nomb + '</b>');
+        $('#verArchivos').html("<embed src='" + url + "' frameborder='0'" +
+            " width='100%' height='350px'>");
+        $('#modal2').modal('show');
+    }).fail(function(msg) {
+        console.log(msg);
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Algo salio mal!...'
+        })
+    });
+
+
 }
+
 
 function selecEvi(id) {
     console.log(id);
