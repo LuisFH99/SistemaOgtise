@@ -188,3 +188,10 @@
 #idtablelicencia .danger {
     color: rgb(231, 43, 43);
 }
+
+.abs-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}

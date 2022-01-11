@@ -535,7 +535,7 @@ function validarEntradas() {
                             title: 'Oops...',
                             text: 'La licencia no se puede pedir en la fecha escrita'
                         })
-                        $("#desde").focus();
+                        $("#hasta").focus();
                     }
                 } else {
                     Swal.fire({

@@ -1,15 +1,21 @@
 <div>
-    <div class="card"><br>
-        <div class="input-group rounded col-6">
-            <input wire:model="search" type="search" class="form-control rounded" placeholder="Buscar" aria-label="Search"
-            aria-describedby="search-addon" />
-            <span class="input-group-text border-0" id="search-addon">
-              <i class="fas fa-search"></i>
-            </span>
+    <div class="card">
+        <div class="card-body">
+            <div>
+                <p class="h5 mr-1"> <b> Lista de Usuarios:</b></p>
+            </div>
         </div>
-        
+        <div class="card-body">
+            <div class="input-group rounded col-6">
+                <input wire:model="search" type="search" class="form-control rounded" placeholder="Buscar" aria-label="Search"
+                    aria-describedby="search-addon" />
+                <span class="input-group-text border-0" id="search-addon">
+                    <i class="fas fa-search"></i>
+                </span>
+            </div>
+        </div>
         @if($users->count())
-            <div class="card-body">
+            <div class="card-body  mt-n4">
                 <table class="table table-striped">
                     <thead>
                         <tr>

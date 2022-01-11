@@ -93,6 +93,7 @@ Route::post('/docentes/licencias/eliminar', [LicenciasController::class, 'elimin
 Route::resource('users', App\Http\Controllers\Admin\UserController::class)->names([
     'index' => 'Users',
     'edit' => 'Admin.users.edit',
+    'store'=> 'Admin.users.store',
     'update'=> 'Admin.users.update'
 ]);
 
