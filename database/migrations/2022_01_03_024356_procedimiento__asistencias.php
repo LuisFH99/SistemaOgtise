@@ -13,7 +13,7 @@ class ProcedimientoAsistencias extends Migration
      */
     public function up()
     {
-        $procedimiento="CREATE  PROCEDURE `p_asistencia`(ev int, url_f varchar(100),ff date,hh time,firm varchar(100),tk varchar(45), idd int,idtf int, evid mediumtext, infor mediumtext,obs mediumtext)
+        $procedimiento="CREATE PROCEDURE `p_asistencia`(ev int, url_f varchar(100),ff date,hh time,firm varchar(100),tk varchar(45), idd int,idtf int, evid mediumtext, infor mediumtext,obs mediumtext)
         BEGIN
         declare idfech int;
         set idfech=(select idfechasistencias  from fechasistencias where fecha=ff);
@@ -36,7 +36,7 @@ class ProcedimientoAsistencias extends Migration
         (select fk_idasistenciasalidas from asistencias where fk_idfechasistencias=idfech and fk_iddocentes=idd));
         -- editar asistencia salida
         update asistenciasalidas set hor_salida=hh,
-        informe=infor, created_at=now() where idasistenciasalidas=
+        informe=infor where idasistenciasalidas=
         (select fk_idasistenciasalidas from asistencias where fk_idfechasistencias=idfech and fk_iddocentes=idd);
         -- editar estado de asistencia
         update asistencias set fk_idestadoasistencias=1 where fk_iddocentes=idd and fk_idfechasistencias=idfech;
