@@ -35,7 +35,7 @@
                                         <td>{{$solicitud->hor_solicitud}}</td>
                                         <td>{{$solicitud->estadoSol}}</td>
                                         <td><a href="#" onclick="imprimir({{$solicitud->idSolicitudes.',\''.$solicitud->fech_solicitud.'\',\''.$solicitud->hor_solicitud.'\''}})"><i class="far fa-eye mr-1"></i></a>
-                                            <a href="#" onclick="eliminar({{$solicitud->idSolicitudes}})"><i class="far fa-trash-alt danger" aria-hidden="true"></i></a></td>
+                                            <a href="#" onclick="eliminar({{$solicitud->idSolicitudes}})"><i class="far fa-trash-alt dangerito" aria-hidden="true"></i></a></td>
                                     </tr>
                                     @endforeach
                                 </tbody>

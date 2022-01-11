@@ -15,6 +15,7 @@ use App\Models\EstadoSolicitud;
 use App\Models\FirmaHasSolicitud;
 use App\Models\Adjunto;
 use App\Models\Firma;
+use App\Models\Administrativo;
 
 use PDF;
 
@@ -81,9 +82,29 @@ class ValidaLicenciaController extends Controller
     }
     public function datos(Request $request){
         $user=auth()->user();
-        $iddoc=Docente::join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
-        ->select('idDocentes')->where('correo',$user->email)->first();
-        $Valor=Docente::where('clave','=',''.$request->dt.'')->where('idDocentes',$iddoc->idDocentes)->count();
+        $Roles=$user->getRoleNames();
+        $Role=0;$Valor=0;
+        foreach ($Roles as $value) {
+            switch($value) {
+                case('URyC'):
+                    $Role=1;
+                    break;
+                case('Director RRHH'):
+                    $Role=1;
+                    break;
+                default:
+                    $Role=0;
+            }
+        }
+        if($Role==0){
+            $iddoc=Docente::join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
+            ->select('idDocentes')->where('correo',$user->email)->first();
+            $Valor=Docente::where('clave','=',''.$request->dt.'')->where('idDocentes',$iddoc->idDocentes)->count();
+        }
+        if($Role==1){
+            $idper=Persona::select('idPersonas')->where('correo',$user->email)->first();
+            $Valor=Administrativo::where('clave','=',''.$request->dt.'')->where('fk_idPersonas',$idper->idPersonas)->count();
+        }
         return $Valor;
     }
     public function store(Request $request)

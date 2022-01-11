@@ -60,7 +60,7 @@ function AcepDene(dto) {
             dt: txtCodigoFirma
         }
     }).done(function(msg) {
-
+        //alert(msg);
         if (msg === '1') {
             $.ajax({
                 url: '/departamento/ValidaLicencia/store',

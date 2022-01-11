@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 use App\Models\User;
+use App\Models\Persona;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Spatie\Permission\Models\Role;
@@ -20,8 +21,10 @@ class UsersIndex extends Component
     {   
         $roles=Role::all();
         //$us=User::where('id','=',1)->first();
-        $users=User::where('name','LIKE','%'.$this->search.'%')->orWhere('email','LIKE','%'.$this->search.'%')->paginate();
-        return view('livewire.admin.users-index',compact('users','roles',));
+        $users=User::where('name','LIKE','%'.$this->search.'%')
+                   ->orWhere('email','LIKE','%'.$this->search.'%')
+                   ->paginate();
+        return view('livewire.admin.users-index',compact('users','roles'));
     }
     public function datos(Request $request){
         $this->var=$request->dt;

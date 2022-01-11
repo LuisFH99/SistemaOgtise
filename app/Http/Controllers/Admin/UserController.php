@@ -22,7 +22,10 @@ class UserController extends Controller
         $this->middleware(['can:admin.users.index'])->only('index');
         $this->middleware(['can:admin.users.edit'])->only('edit','update');
     }*/
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $cargos=Role::where('id','>',4)->pluck('name','id');
@@ -86,13 +89,18 @@ class UserController extends Controller
                 ]);
             }else{
                 $idMsg='info1';
-                $Mensaje='El email ya existe, debe crear uno diferente';
+                $Mensaje='El email: '.$request->email.' ya existe, debe crear uno diferente';
             }
         }else{
             Persona::where('DNI', $request->dni)->update(array('estado' => 1));
+            User::create([
+                'name' => $Mensaje,
+                'email' => $request->email,
+                'password' => bcrypt($request->dni)
+            ])->assignRole($cargo->name);
+            $idper=Persona::select('idPersonas')->where('DNI',$request->dni)->first();
+            Administrativo::where('fk_idPersonas', $idper->idPersonas)->update(array('fk_idRoles' => $request->cargo));
         }
-
-        
         $cargos=Role::where('id','>',4)->pluck('name','id');
         return redirect()->route('Users',compact('cargos'))->with($idMsg,$Mensaje);
     }
@@ -143,6 +151,13 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+    }
+    public function eliminar(Request $request)
+    {
+        $us = User::find($request->idu);
+        $us->delete();
+        $pe=Persona::where('correo', $request->correo)->update(array('estado' => 0));
+        return $pe;
     }
 }

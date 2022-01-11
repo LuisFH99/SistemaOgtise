@@ -113,9 +113,9 @@
                                     {{ Form::label('Cargo:', null, ['class' => 'control-label']) }}
                                     <div class="input-group">
                                         {!! Form::select('cargo', $cargos, null, ['placeholder' => 'Seleccione...','class'=>'form-control']) !!}
-                                        <div class="input-group-append">
+                                        {{-- <div class="input-group-append">
                                             <button id="addcargo" class="btn btn-primary" type="button"><span class="fa fa-plus"></span>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     @error('cargo')
                                         <small class="text-danger">{{$message}}</small>
@@ -124,7 +124,7 @@
                             </div>
                             <div class="d-flex align-items-center col-md-3 col-sm-6 my-3">
                                 {{-- <button type="submit" class="d-flex btn btn-secondary mt-auto ml-auto" href="#">Crear Usuarios</button> --}}
-                                {!! Form::submit('Crear Usuarios', ['class'=>'d-flex btn btn-secondary mt-auto ml-auto']) !!}
+                                {!! Form::submit('Crear Usuarios', ['class'=>'btn btn-secondary mt-auto ml-auto']) !!}
                             </div>
                         </div>
                     {!! Form::close() !!}    
@@ -142,16 +142,14 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="stylesheet" href="/css/style.css">
     @livewireStyles 
 @stop
 
 @section('js')
     <script> let idp=0; console.log('Hi!'); 
-    // $(function() {
-    //     (idp!=0)?$('#modalEdit').modal('show');:$('#modalEdit').$('#modalEdit').modal('toggle');
-    // });
     </script>
-    @livewireScripts
+    
     <script>
         
         $(function() {
@@ -216,6 +214,65 @@
                 alert("error");
             });
         }
+        
+        function eliminar(id,email) {
+            console.log(id+" - " +email);
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-danger mr-1',
+                    cancelButton: 'btn btn-secondary mr-1'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Estas Seguro?',
+                text: "Esta accion es Irreversible!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Eliminar!',
+                cancelButtonText: 'Cancelar!',
+                reverseButtons: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/users/eliminar',
+                        method: 'POST',
+                        data: {
+                            _token: $('input[name="_token"]').val(),
+                            idu: id,
+                            correo: email
+                        }
+                    }).done(function(msg) {
+                        if (parseInt(msg) === 1) {
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Usuario ELIMINADO ',
+                                showConfirmButton: false,
+                                timer: 4500
+                            });
+                            location.reload();
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'No podemos eliminar al usuario',
+                                showConfirmButton: false,
+                                timer: 4500
+                            });
+                            location.reload();
+                        }
+                    }).fail(function(msg) {
+                        console.log(msg);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Algo salio mal!...'
+                        })
+                    });
+
+                }
+            })
+        }
 
         function listAllProperties(o) {
             var objectToInspect;
@@ -238,4 +295,5 @@
             }
         };
     </script>
+    @livewireScripts
 @stop

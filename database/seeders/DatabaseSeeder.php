@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
        $this->call(RoleSeeder::class);
          User::create([
             'name'=>'David Maturana',
-            'email'=>'davi1905m@gmail.com',
+            'email'=>'davis@gmail.com',
             'password'=>bcrypt('1234')
         ])->assignRole('Admin');
         User::create([
@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
             'password'=>bcrypt('1234')
         ])->assignRole('Admin');
         
-        User::factory(9)->create();
+        //User::factory(9)->create();
 
         $this->call(MotivoSeeder::class);
         $this->call(FacultadSeeder::class);
