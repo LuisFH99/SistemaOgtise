@@ -13,7 +13,7 @@ class ProcedimientoInformeGeneralFaltas extends Migration
      */
     public function up()
     {
-       $rocedimiento="CREATE PROCEDURE `P_InformeGeneralFaltas`(dia date)
+       $procedimiento="CREATE PROCEDURE `P_InformeGeneralFaltas`(dia date)
        BEGIN
        select id_facultades, nomfac,
                    (
