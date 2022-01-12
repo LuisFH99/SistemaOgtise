@@ -193,7 +193,24 @@
     <script>
         $(document).ready(function() {
 
-            $('#tableURCT').DataTable();
+            $('#tableURCT').DataTable({
+                "language": {
+                    "processing": "Procesando...",
+                    "lengthMenu": "Mostrar _MENU_ registros",
+                    "zeroRecords": "No se encontraron resultados",
+                    "info":"Mostrando la página _PAGE_ de _PAGES_",
+                    "emptyTable": "Ningún dato disponible en esta tabla",
+                    "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "search": "Buscar:",
+                    "infoThousands": ",",
+                    "loadingRecords": "Cargando...",
+                    "paginate": {
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            });
             selectanio(new Date().getFullYear());
 
 

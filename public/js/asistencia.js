@@ -204,7 +204,7 @@ navigator.mediaDevices.getUserMedia({
                         
                     }
                     }).fail(function() {
-                        Swal.fire('Falla en la envio de Datos', '', 'error');
+                        Swal.fire('Falla en el envio de Datos', '', 'error');
                     });
                     
                 } else if (result.isDenied) {
@@ -256,7 +256,7 @@ navigator.mediaDevices.getUserMedia({
                     
                 }
                 }).fail(function() {
-                    Swal.fire('Falla en la envio de Datos', '', 'error');
+                    Swal.fire('Falla en el envio de Datos', '', 'error');
                 });
                 
             } else if (result.isDenied) {
@@ -379,7 +379,7 @@ function ModalAsistio(dia) {
         $('#Jusficacion').css('display', 'none');
         $('#AsisteciaModal').modal('show');
     }).fail(function() {
-        Swal.fire('Falla en la envio de Datos', '', 'error');
+        Swal.fire('Falla en el envio de Datos', '', 'error');
     });
     
     
@@ -447,7 +447,7 @@ function RegistroMensual(mes,aa){
         $('.bg-tr').append(td);
         $('#Aux').append(td2);
     }).fail(function() {
-        Swal.fire('Falla en la envio de Datos', '', 'error');
+        Swal.fire('Falla en el envio de Datos', '', 'error');
     });
 
 }

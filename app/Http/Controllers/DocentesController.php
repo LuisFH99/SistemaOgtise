@@ -13,6 +13,8 @@ use App\Models\DetSemana;
 use App\Models\autoridad;
 use App\Models\cargo;
 use Illuminate\Auth\Events\Validated;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CredencialesMailable;
 
 class DocentesController extends Controller
 {
@@ -48,7 +50,6 @@ class DocentesController extends Controller
             'dni' => 'required',
             'nombres' => 'required',
             'apepat' => 'required',
-            'apemat' => 'required',
             'fnacimiento' => 'required',
             'numcel' => 'required',
             'condicion' => 'required',
@@ -60,24 +61,35 @@ class DocentesController extends Controller
 
         $existe1 = DB::table('personas')->where('dni', $request->dni)->where('estado', 1)->count();
         $existe2 = DB::table('personas')->where('dni', $request->dni)->where('estado', 0)->count();
+        $clave = bin2hex(random_bytes(4));
 
 
         if ($existe1 == 0 && $existe2 == 0) {
-            DB::insert('call p_crear_docente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [1, $request->dni, $request->nombres, $request->apepat, $request->apemat, $request->fnacimiento, $request->numcel, bin2hex(random_bytes(4)), $request->condicion, $request->categoria, $request->dedicacion, $request->dptoacademico, 0, '0', 0, $request->email]);
+            DB::insert('call p_crear_docente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [1, $request->dni, $request->nombres, $request->apepat, $request->apemat, $request->fnacimiento, $request->numcel, $clave, $request->condicion, $request->categoria, $request->dedicacion, $request->dptoacademico, 0, '0', 0, $request->email]);
             User::create([
                 'name' => $request->nombres . ' ' . $request->apepat . ' ' . $request->apemat,
                 'email' => $request->email,
                 'password' => bcrypt($request->dni)
             ])->assignRole('Docente');
+
+            $arrayInfo = ['user' => $request->email, 'docente' => $request->nombres . ' ' . $request->apepat . ' ' . $request->apemat, 'contra' => $request->dni, 'clave' => $clave];
+            $correo = new CredencialesMailable($arrayInfo);
+            Mail::to($request->email)->send($correo);
+
             return redirect()->route('docentes');
         } else {
             if ($existe2 > 0) {
-                DB::insert('call p_crear_docente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [4, $request->dni, $request->nombres, $request->apepat, $request->apemat, $request->fnacimiento, $request->numcel, bin2hex(random_bytes(4)), $request->condicion, $request->categoria, $request->dedicacion, $request->dptoacademico, 0, '0', 0, $request->email]);
+                DB::insert('call p_crear_docente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [4, $request->dni, $request->nombres, $request->apepat, $request->apemat, $request->fnacimiento, $request->numcel, $clave, $request->condicion, $request->categoria, $request->dedicacion, $request->dptoacademico, 0, '0', 0, $request->email]);
                 User::create([
                     'name' => $request->nombres . ' ' . $request->apepat . ' ' . $request->apemat,
                     'email' => $request->email,
                     'password' => bcrypt($request->dni)
                 ])->assignRole('Docente');
+
+                $arrayInfo = ['user' => $request->email, 'docente' => $request->nombres . ' ' . $request->apepat . ' ' . $request->apemat, 'contra' => $request->dni, 'clave' => $clave];
+                $correo = new CredencialesMailable($arrayInfo);
+                Mail::to($request->email)->send($correo);
+
                 return redirect()->route('docentes');
             } else {
                 return redirect()->route('creardocente')->with('info', 'El docente con DNI: ' . $request->dni . ' ya esta registrado')->withInput();
@@ -172,6 +184,7 @@ class DocentesController extends Controller
     public function update(Request $request)
     {
         $respuesta = DB::select('call p_crear_docente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [$request->ev, $request->dni, $request->nombre, $request->appat, $request->apmat, $request->fnac, $request->cel, $request->clv, $request->idcnd, $request->idcat, $request->iddedi, $request->iddep, $request->idper, bcrypt($request->dni), $request->idusu, $request->correo]);
+      
         return $respuesta;
     }
     public function updateSemana(Request $request, $id)
@@ -184,18 +197,18 @@ class DocentesController extends Controller
                     'fk_idDocentes' => $id,
                     'fk_idCargos' => $request->id
                 ]);
-            }else{
+            } else {
                 autoridad::create([
                     'fk_idDocentes' => $id,
                     'fk_idCargos' => $request->id
                 ]);
             }
-        }else{
+        } else {
             if (DB::table('autoridades')->where('fk_idDocentes', $id)->exists()) {
                 $eliminar = autoridad::where("fk_idDocentes", $id)->delete();
             }
         }
-        
+
 
         $respuesta = DetSemana::where('fk_idDocentes', $id)->delete();
         $Persona = Docente::join('personas', 'docentes.fk_idpersonas', '=', 'personas.idpersonas')

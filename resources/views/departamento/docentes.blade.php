@@ -10,15 +10,15 @@
 
 @section('content')
     @if (session('info'))
-    <script>
-        Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: '{{session('info')}}',
-            showConfirmButton: false,
-            timer: 2500
-        })
-    </script>
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: '{{ session('info') }}',
+                showConfirmButton: false,
+                timer: 2500
+            })
+        </script>
     @endif
     <div class="container">
         @livewire('listar-docentes')
@@ -28,7 +28,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Editar Docente</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -156,7 +156,24 @@
     <script>
         $(document).ready(function() {
 
-            $('#tableDocentes').DataTable();
+            $('#tableDocentes').DataTable({
+                "language": {
+                    "processing": "Procesando...",
+                    "lengthMenu": "Mostrar _MENU_ registros",
+                    "zeroRecords": "No se encontraron resultados",
+                    "info":"Mostrando la página _PAGE_ de _PAGES_",
+                    "emptyTable": "Ningún dato disponible en esta tabla",
+                    "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "search": "Buscar:",
+                    "infoThousands": ",",
+                    "loadingRecords": "Cargando...",
+                    "paginate": {
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            });
             $("#modalEdit").on('hidden.bs.modal', function() {
                 Limpiar();
             });
@@ -288,7 +305,7 @@
         }
 
         function EliminarDocente(dni, usu, idper) {
-            
+
             Swal.fire({
                 title: 'El docente se Eliminara de forma Permanente',
                 text: "No se podrá revertir esta accion!",
@@ -327,8 +344,9 @@
             })
 
         }
+
         function EditarSemanaDocente(id) {
-            
+
             $.ajax({
                 url: '/departamento/docentes/editSemana',
                 method: 'POST',
@@ -343,12 +361,13 @@
                 alert("error");
             });
         }
+
         function Limpiar() {
             $('#facultad').empty();
             $('#dptoacademico').empty();
             $('#condicion').empty();
             $('#categoria').empty();
             $('#dedicacion').empty();
-         }
+        }
     </script>
 @stop

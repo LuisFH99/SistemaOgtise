@@ -212,7 +212,7 @@
                         @endswitch
                     @else
                         <div class="card-body">
-                            <h1>Hoy no registras Asistenicia</h1>
+                            <h1>Hoy no registras Asistencia</h1>
                         </div>
                     @endif
                 </div>

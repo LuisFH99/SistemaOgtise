@@ -6,28 +6,28 @@
     <div class="col-md-2 col-sm-6">
         <label class="form-label">DNI:</label>
         <input type="text" class="form-control" id="dni" name="dni" placeholder="Ingrese el N° DNI" tabindex="1"
-            maxlength="8" onkeypress="return SoloNumeros(event)">
+            maxlength="8" onkeypress="return SoloNumeros(event)" autocomplete="off">
         @error('dni')
             <small class="text-danger">{{ $message }}</small>
         @enderror
     </div>
     <div class="col-md-2 col-sm-6">
         <label class="form-label">Apellidos Paterno:</label>
-        <input type="text" id="apepat" name="apepat" class="form-control" placeholder="" tabindex="2">
+        <input type="text" id="apepat" name="apepat" class="form-control" placeholder="" tabindex="2" autocomplete="off">
         @error('apepat')
             <small class="text-danger">{{ $message }}</small>
         @enderror
     </div>
     <div class="col-md-2 col-sm-6">
         <label class="form-label">Apellidos Materno:</label>
-        <input type="text" id="apemat" name="apemat" class="form-control" placeholder="" tabindex="3">
+        <input type="text" id="apemat" name="apemat" class="form-control" placeholder="" tabindex="3" autocomplete="off">
         @error('apemat')
             <small class="text-danger">{{ $message }}</small>
         @enderror
     </div>
     <div class="col-md-3 col-sm-6">
         <label class="form-label">Nombres:</label>
-        <input type="text" id="nombres" name="nombres" class="form-control" placeholder="" tabindex="4">
+        <input type="text" id="nombres" name="nombres" class="form-control" placeholder="" tabindex="4" autocomplete="off">
         @error('nombres')
             <small class="text-danger">{{ $message }}</small>
         @enderror
@@ -42,7 +42,7 @@
     <div class="col-md-3 col-sm-6 my-3">
         <label class="form-label">Celular:</label>
         <input type="text" id="numcel" name="numcel" class="form-control" placeholder="Ingrese N° celular"
-            tabindex="6">
+            tabindex="6" autocomplete="off">
         @error('numcel')
             <small class="text-danger">{{ $message }}</small>
         @enderror
@@ -50,7 +50,7 @@
     <div class="col-md-3 col-sm-6 my-3">
         <label class="form-label">Correo Institucional:</label>
         <input type="email" id="email" name="email" class="form-control" placeholder="correo@unasam.edu.pe"
-            tabindex="7">
+            tabindex="7" autocomplete="off">
         @error('email')
             <small class="text-danger">{{ $message }}</small>
         @enderror
