@@ -54,30 +54,30 @@ Route::post('/docentes/salida/registrar', [EntradaController::class, 'registrars
 Route::post('/docentes/salida/file', [EntradaController::class, 'evidenciafile'])->middleware('can:asistencia.Salida')->name('evidencia.file');
 //Route::post('/docentes/salida/registrar', [SalidaController::class, 'store'])->name('registrar.salida');
 
-Route::get('/URyC/ParteDiario', [ParteDiarioController::class, 'index'])->name('partediario');
-Route::post('/URyC/docentes/registros/asistencia', [ParteDiarioController::class, 'allAsistencias']);
-Route::post('/URyC/docentes/registros/asistencia/justificar', [ParteDiarioController::class, 'justificarAsistencia']);
-Route::get('/URyC/ParteDiario/general/{fecha}', [ParteDiarioController::class, 'reportegeneral'])->name('reportegeneral');
-Route::get('/URyC/ParteDiario/general/faltas/{fecha}', [ParteDiarioController::class, 'reportegeneralfaltas'])->name('reportegeneralfaltas');
-Route::get('/URyC/ParteDiario/reporte/{id}/{mes}/{aa}', [ParteDiarioController::class, 'reportedocente']);
 Route::get('/URyC/ParteDiario', [ParteDiarioController::class, 'index'])->middleware('can:reportes.parteDiario')->name('partediario');
+Route::post('/URyC/docentes/registros/asistencia', [ParteDiarioController::class, 'allAsistencias'])->middleware('can:reportes.parteDiario');
+Route::post('/URyC/docentes/registros/asistencia/justificar', [ParteDiarioController::class, 'justificarAsistencia'])->middleware('can:reportes.parteDiario');
 Route::get('/URyC/ParteDiario/general/{fecha}', [ParteDiarioController::class, 'reportegeneral'])->middleware('can:reportes.parteDiario')->name('reportegeneral');
-// Route::post('/URyC/ParteDiario/reporte', [ParteDiarioController::class, 'reportedocente']);
+Route::get('/URyC/ParteDiario/general/faltas/{fecha}', [ParteDiarioController::class, 'reportegeneralfaltas'])->middleware('can:reportes.parteDiario')->name('reportegeneralfaltas');
 Route::get('/URyC/ParteDiario/reporte/{id}/{mes}/{aa}', [ParteDiarioController::class, 'reportedocente'])->middleware('can:reportes.parteDiario');
+// Route::get('/URyC/ParteDiario', [ParteDiarioController::class, 'index'])->middleware('can:reportes.parteDiario')->name('partediario');
+// Route::get('/URyC/ParteDiario/general/{fecha}', [ParteDiarioController::class, 'reportegeneral'])->middleware('can:reportes.parteDiario')->name('reportegeneral');
+//Route::post('/URyC/ParteDiario/reporte', [ParteDiarioController::class, 'reportedocente']);
+// Route::get('/URyC/ParteDiario/reporte/{id}/{mes}/{aa}', [ParteDiarioController::class, 'reportedocente'])->middleware('can:reportes.parteDiario');
 
 
 Route::get('/departamento/docentes', [DocentesController::class, 'index'])->middleware('can:gestion.docente')->name('docentes');
 Route::get('/departamento/creardocente', [DocentesController::class, 'create'])->middleware('can:gestion.docente')->name('creardocente');
 Route::post('/departamento/docentes/store',[DocentesController::class,'store'])->middleware('can:gestion.docente')->name('docentes.store');
 
-Route::post('/departamento/docentes/edit',[DocentesController::class,'edit'])->name('docentes.edit');
-Route::get('/departamento/docentes/editSemana/{id}',[DocentesController::class,'editSemana'])->name('docentes.editSemana');
-Route::get('/departamento/docentes/cargo/{id}',[DocentesController::class,'CrearCargo'])->name('docentes.crear.cargo');
-Route::post('/departamento/docentes/cargo/eliminar',[DocentesController::class,'EliminarCargo'])->name('docentes.eliminar.cargo');
-Route::put('/departamento/docentes/updateSemana/{id}',[DocentesController::class,'updateSemana'])->name('docentes.updateSemana');
 Route::post('/departamento/docentes/edit',[DocentesController::class,'edit'])->middleware('can:gestion.docente')->name('docentes.edit');
 Route::get('/departamento/docentes/editSemana/{id}',[DocentesController::class,'editSemana'])->middleware('can:gestion.docente')->name('docentes.editSemana');
+Route::get('/departamento/docentes/cargo/{id}',[DocentesController::class,'CrearCargo'])->middleware('can:gestion.docente')->name('docentes.crear.cargo');
+Route::post('/departamento/docentes/cargo/eliminar',[DocentesController::class,'EliminarCargo'])->middleware('can:gestion.docente')->name('docentes.eliminar.cargo');
 Route::put('/departamento/docentes/updateSemana/{id}',[DocentesController::class,'updateSemana'])->middleware('can:gestion.docente')->name('docentes.updateSemana');
+// Route::post('/departamento/docentes/edit',[DocentesController::class,'edit'])->middleware('can:gestion.docente')->name('docentes.edit');
+// Route::get('/departamento/docentes/editSemana/{id}',[DocentesController::class,'editSemana'])->middleware('can:gestion.docente')->name('docentes.editSemana');
+// Route::put('/departamento/docentes/updateSemana/{id}',[DocentesController::class,'updateSemana'])->middleware('can:gestion.docente')->name('docentes.updateSemana');
 Route::post('/departamento/docentes/dpto',[DocentesController::class,'dpto']);
 Route::post('/departamento/docentes/update',[DocentesController::class,'update']);
 Route::post('/departamento/docentes/delete',[DocentesController::class,'destroy']);
