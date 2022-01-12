@@ -195,3 +195,23 @@
     justify-content: center;
     min-height: 50vh;
 }
+
+.single-line {
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: pre;
+}
+
+.sammy-wrap {
+    border-radius: 6px;
+    background-color: aliceblue;
+    border: 2px dashed gray;
+    max-width: 70%;
+    padding: 1em;
+    margin-bottom: .4em;
+}
+
+.alicb {
+    vertical-align: -2px;
+}

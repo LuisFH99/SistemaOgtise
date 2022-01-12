@@ -1,0 +1,83 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url('https://abcnoticias.pe/wp-content/uploads/2019/04/AULAS-PNG-1024x683.png');
+    width: 100%;
+    background-size: cover;
+    font-family: sans-serif;
+    height: 100vh;
+}
+
+.login-bok {
+    width: 320px;
+    height: 350px;
+    background: #fff;
+    color: #fff;
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    padding: 70px 30px;
+}
+
+.login-bok .avatar {
+    border: 1px solid #232323;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: absolute;
+    top: -50px;
+    left: calc(50% - 50px);
+}
+
+.login-bok h1 {
+    margin: 0;
+    padding: 0 0 20px;
+    text-align: center;
+    font-size: 22px;
+}
+
+.login-bok label {
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    display: block;
+}
+
+.login-bok input {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.login-bok input[type="text"],
+.login-bok input[type="password"],
+.login-bok input[type="email"] {
+    border: none;
+    border-bottom: 1px solid #0066ff;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: #000000;
+    font-size: 16px;
+}
+
+.btn11 {
+    border: none;
+    outline: none;
+    height: 40px;
+    background: #3a3a3a;
+    /*color de boton login*/
+    color: #fff;
+    font-size: 18px;
+    border-radius: 20px;
+}
+
+.btn11:hover {
+    background: #848484;
+}
+
+.alicb {
+    vertical-align: -2px;
+}
