@@ -121,7 +121,7 @@ Route::post('/licencia/index/datos', [LicenciasIndex::class, 'datos'])->name('da
 Route::post('/Departamento/index/validando', [ValidarSalidasIndex::class, 'validando'])->middleware('can:valida.Salida')->name('validando');
 Route::post('/Departamento/ValidaSalida/dato', [ValidaSalidaController::class, 'dato'])->middleware('can:valida.Salida')->name('ValidaSalida.dato');
 
-Route::resource('/departamento/ValidaLicencia', ValidaLicenciaController::class)->middleware('can:valida.licencia|valida.licencia1|valida.licencia2|valida.licencia3')->names([
+Route::resource('/departamento/ValidaLicencia', ValidaLicenciaController::class)->names([
     'index'=>'ValidaLicencia',
     'store'=>'ValidaLicencia.store'
 ]);
