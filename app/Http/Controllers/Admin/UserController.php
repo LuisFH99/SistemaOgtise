@@ -9,6 +9,9 @@ use App\Models\Administrativo;
 use App\Models\Persona;
 use App\Models\cargo;
 use Spatie\Permission\Models\Role;
+use Illuminate\Auth\Events\Validated;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CredencialesMailable;
 
 class UserController extends Controller
 {
@@ -62,6 +65,8 @@ class UserController extends Controller
         ]);
         $idMsg='info';
         $Mensaje='Se creó el usuario: '.$request->nombres.' '.$request->apepat.' '.$request->apemat;
+        $clave=bin2hex(random_bytes(4));
+        $arrayInfo = ['user' => $request->email, 'docente' => $request->nombres . ' ' . $request->apepat . ' ' . $request->apemat, 'contra' => $request->dni, 'clave' => $clave];
         if(Persona::where('DNI', $request->dni)->doesntExist()){
             if(Persona::where('correo', $request->email)->doesntExist()){
                 Persona::create([
@@ -82,11 +87,13 @@ class UserController extends Controller
                 ])->assignRole($cargo->name);
                 $idper=Persona::select('idPersonas')->where('DNI',$request->dni)->first();
                 Administrativo::create([
-                    'clave'         =>bin2hex(random_bytes(4)), 
+                    'clave'         =>$clave, 
                     'estado'        =>1, 
                     'fk_idPersonas' =>$idper->idPersonas, 
                     'fk_idRoles'   =>$request->cargo
                 ]);
+                $correo = new CredencialesMailable($arrayInfo);
+                Mail::to($request->email)->send($correo);
                 
             }else{
                 $idMsg='info1';
@@ -101,6 +108,8 @@ class UserController extends Controller
             ])->assignRole($cargo->name);
             $idper=Persona::select('idPersonas')->where('DNI',$request->dni)->first();
             Administrativo::where('fk_idPersonas', $idper->idPersonas)->update(array('fk_idRoles' => $request->cargo));
+            $correo = new CredencialesMailable($arrayInfo);
+            Mail::to($request->email)->send($correo);
         }
 
         $cargos=Role::where('id','>',4)->pluck('name','id');

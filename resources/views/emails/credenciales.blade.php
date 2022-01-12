@@ -13,10 +13,10 @@
 </head>
 <body>
     <h3>Credenciales de Acceso al Sistema de Gestion de Asistencia Docente</h3>
-    <p>Estimado docente  {{$credenciales["docente"]}} de la UNIVERSIDAD NACIONAL SANTIAGO ANTUNEZ DE MAYOLO, mediante la presente se le hace entrega de sus credenciales para el Acceso al Sistema de Gestión de Asistencia Docente:</p>
+    <p>Estimado(a) Sr(a):  {{$credenciales["docente"]}} de la UNIVERSIDAD NACIONAL SANTIAGO ANTUNEZ DE MAYOLO, mediante la presente se le hace entrega de sus credenciales para el Acceso al Sistema de Gestión de Asistencia Docente:</p>
     <p><strong>Usuario: </strong>{{$credenciales["user"]}}</p>
     <p><strong>Contraseña: </strong>{{$credenciales["contra"]}}</p>
     <p><strong>Clave: </strong>{{$credenciales["clave"]}}</p>
-    <p>El credencial Clave, servirá para realizar su registro de asistencia en el sistema.</p>
+    <p>La credencial Clave, servirá para realizar su registro de asistencia en el sistema.</p>
 </body>
 </html>
