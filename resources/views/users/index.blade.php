@@ -158,6 +158,11 @@
                 $(this).val("" + generaremail($('#nombres').val().trim(), $('#apepat').val().trim().replace(/ /g, ""), 
                     $('#apemat').val().trim()));
             });
+
+            // $("input[name='email']").focus(function() {
+            //     $(this).val("" + generaremail($("input[name='nombres']").val().trim(), $("input[name='apepat']").val().trim().replace(/ /g, ""), 
+            //         $("input[name='apemat']").val().trim()));
+            //     });
         });
 
         function generaremail(nom, ap, am) {

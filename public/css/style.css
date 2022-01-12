@@ -70,16 +70,17 @@
     font-size: 11px;
 }
 
-#divEntrada .foto, #divEntrada .camara {
+#divEntrada .foto,
+#divEntrada .camara {
     margin-left: auto;
     margin-right: auto;
-
 }
 
-.fa-camera{
+.fa-camera {
     color: rgb(8, 51, 179);
     margin-left: 5px;
-    font-size: 20px;;
+    font-size: 20px;
+    ;
 }
 
 #tituloModal {
@@ -87,9 +88,8 @@
     text-align: center;
 }
 
+
 /* Fin estilos para la modulo asistencia */
-
-
 
 .dropdown-menu {
     max-height: 150px;
@@ -168,9 +168,12 @@
     color: rgb(236, 48, 48);
 }
 
+
 /* Fin estilos modulo Docentes */
 
+
 /* Estilos modulo URCT-RRHH */
+
 #tableURCT thead {
     background-color: #003E78;
     font-size: 16px;
@@ -195,7 +198,10 @@
     color: #272971;
     font-size: 17px;
 }
+
+
 /* Fin Estilos modulo URCT-RRHH */
+
 
 /* Estilos modulo Asignar Dias Laborles */
 
@@ -204,14 +210,16 @@
     text-align: center;
 }
 
-#cargos .fa-clipboard-check{
+#cargos .fa-clipboard-check {
     color: #003E78;
     font-size: 18px;
 }
-#cargos .fa-trash-alt{
+
+#cargos .fa-trash-alt {
     color: #ED3237;
 }
-.fa-backspace{
+
+.fa-backspace {
     color: #ED3237;
     font-size: 35px;
 }
@@ -233,13 +241,29 @@
     color: rgb(231, 43, 43);
 }
 
-
-
-
-
 .abs-center {
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 50vh;
+}
+
+.single-line {
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: pre;
+}
+
+.sammy-wrap {
+    border-radius: 6px;
+    background-color: aliceblue;
+    border: 2px dashed gray;
+    max-width: 70%;
+    padding: 1em;
+    margin-bottom: .4em;
+}
+
+.alicb {
+    vertical-align: -2px;
 }

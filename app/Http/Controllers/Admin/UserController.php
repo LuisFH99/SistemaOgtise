@@ -9,6 +9,9 @@ use App\Models\Administrativo;
 use App\Models\Persona;
 use App\Models\cargo;
 use Spatie\Permission\Models\Role;
+use Illuminate\Auth\Events\Validated;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CredencialesMailable;
 
 class UserController extends Controller
 {
@@ -53,7 +56,7 @@ class UserController extends Controller
         $request->validate([
             'dni' => 'required|integer',
             'apepat' => 'required',
-            'apemat' => 'required',
+            
             'nombres'=> 'required',
             'fnacimiento'=> 'required|date',
             'numcel'=> 'required|integer',
@@ -61,7 +64,9 @@ class UserController extends Controller
             'cargo'=> 'required|integer',
         ]);
         $idMsg='info';
-        $Mensaje='Se creo el usuario: '.$request->nombres.' '.$request->apepat.' '.$request->apemat;
+        $Mensaje='Se creó el usuario: '.$request->nombres.' '.$request->apepat.' '.$request->apemat;
+        $clave=bin2hex(random_bytes(4));
+        $arrayInfo = ['user' => $request->email, 'docente' => $request->nombres . ' ' . $request->apepat . ' ' . $request->apemat, 'contra' => $request->dni, 'clave' => $clave];
         if(Persona::where('DNI', $request->dni)->doesntExist()){
             if(Persona::where('correo', $request->email)->doesntExist()){
                 Persona::create([
@@ -76,17 +81,20 @@ class UserController extends Controller
                 ]);
                 $cargo=Role::where('id',$request->cargo)->first();
                 User::create([
-                    'name' => $Mensaje,
+                    'name' => $request->nombres.' '.$request->apepat.' '.$request->apemat,
                     'email' => $request->email,
                     'password' => bcrypt($request->dni)
                 ])->assignRole($cargo->name);
                 $idper=Persona::select('idPersonas')->where('DNI',$request->dni)->first();
                 Administrativo::create([
-                    'clave'         =>bin2hex(random_bytes(4)), 
+                    'clave'         =>$clave, 
                     'estado'        =>1, 
                     'fk_idPersonas' =>$idper->idPersonas, 
                     'fk_idRoles'   =>$request->cargo
                 ]);
+                $correo = new CredencialesMailable($arrayInfo);
+                Mail::to($request->email)->send($correo);
+                
             }else{
                 $idMsg='info1';
                 $Mensaje='El email: '.$request->email.' ya existe, debe crear uno diferente';
@@ -94,13 +102,16 @@ class UserController extends Controller
         }else{
             Persona::where('DNI', $request->dni)->update(array('estado' => 1));
             User::create([
-                'name' => $Mensaje,
+                'name' => $request->nombres.' '.$request->apepat.' '.$request->apemat,
                 'email' => $request->email,
                 'password' => bcrypt($request->dni)
             ])->assignRole($cargo->name);
             $idper=Persona::select('idPersonas')->where('DNI',$request->dni)->first();
             Administrativo::where('fk_idPersonas', $idper->idPersonas)->update(array('fk_idRoles' => $request->cargo));
+            $correo = new CredencialesMailable($arrayInfo);
+            Mail::to($request->email)->send($correo);
         }
+
         $cargos=Role::where('id','>',4)->pluck('name','id');
         return redirect()->route('Users',compact('cargos'))->with($idMsg,$Mensaje);
     }
@@ -138,9 +149,59 @@ class UserController extends Controller
      */
     public function update(Request $request,User $user)
     {
-        $user->roles()->sync($request->roles);
+        $request->validate([
+            'dni' => 'required|integer',
+            'apepat' => 'required',
+            
+            'nombres'=> 'required',
+            'fnacimiento'=> 'required|date',
+            'numcel'=> 'required|integer',
+            'email'=> 'required|email',
+            'idper'=> 'integer',
+            'bdr'=> 'integer',
+        ]);
+        $idMsg='info';
+        $Mensaje='Se editó el usuario: '.$request->nombres.' '.$request->apepat.' '.$request->apemat;
+        if ($request->bdr==0) {
+            $user->roles()->sync($request->roles);
+            $Mensaje='Se asignó un rol al usuario: '.$request->nombres.' '.$request->apepat.' '.$request->apemat;
+        } else {
+            if($request->bdr==1){
+                if(Persona::where('correo', $request->email)->count()<2){
+                    Persona::where('idPersonas', $request->idper)->update(array(
+                        'DNI'           =>$request->dni,
+                        'nombres'       =>$request->nombres,
+                        'apellPat'      =>$request->apepat,
+                        'apellMat'      =>$request->apemat,
+                        'fechNacimiento'=>$request->fnacimiento,
+                        'correo'        =>$request->email,
+                        'telefono'      =>$request->numcel,
+                        'estado'        =>1
+                    ));
+                    User::where('id', $user->id)->update(array(
+                        'name' => $request->nombres.' '.$request->apepat.' '.$request->apemat,
+                        'email' => $request->email,
+                        'password' => bcrypt($request->dni)
+                    ));
+                    $valor=0;
+                    foreach ($request->roles as $value) {
+                        $valor=$value;
+                    }
+                    Administrativo::where('fk_idPersonas', $request->idper)->update(array(
+                        'fk_idRoles'   =>$valor
+                    ));
+                    $user->roles()->sync($request->roles);
+                }else{
+                    $idMsg='info1';
+                    $Mensaje='El email: '.$request->email.' ya existe, debe crear uno diferente';
+                }
+            }else{
+                $idMsg='info1';
+                $Mensaje='No se puede editar';
+            }
+        }
         $cargos=Role::where('id','>',4)->pluck('name','id');
-        return redirect()->route('Users',compact('cargos'))->with('info','Se asignó un rol al usuario: '.$user->name);
+        return redirect()->route('Users',compact('cargos'))->with($idMsg,$Mensaje);
     }
 
     /**

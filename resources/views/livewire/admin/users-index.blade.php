@@ -35,7 +35,7 @@
                                 <td>{{$user->name}}</td>
                                 <td>{{$user->email}}</td>
                                 <td width="100px">
-                                    <a class="btn btn-primary btn-sm mr-1" href="{{route('Admin.users.edit',$user)}}">Roles</a>
+                                    <a class="mr-1" href="{{route('Admin.users.edit',$user)}}"><i class="fas fa-user-edit"></i></a>
                                     <a href="#" onclick="eliminar({{$user->id}},'{{$user->email}}')"><i class="far fa-trash-alt dangerito" aria-hidden="true"></i></a>
                                 </td>
                             </tr>
