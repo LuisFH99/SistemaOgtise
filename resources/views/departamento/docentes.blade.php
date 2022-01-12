@@ -10,90 +10,17 @@
 
 @section('content')
     @if (session('info'))
-    <script>
-        Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: '{{session('info')}}',
-            showConfirmButton: false,
-            timer: 2500
-        })
-    </script>
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: '{{ session('info') }}',
+                showConfirmButton: false,
+                timer: 2500
+            })
+        </script>
     @endif
     <div class="container">
-        {{-- <div class="row">
-            <a href="{{ route('creardocente') }}" class="btn btn-primary my-2">Registar Docente</a>
-            <table id="tableDocentes" class="table table-sm shadow-lg">
-                <thead class="text-white">
-                    <tr>
-                        <th scope="col">N°</th>
-                        <th scope="col">Apellidos y Nombres</th>
-                        <th scope="col">Correo</th>
-                        <th scope="col">Celular</th>
-                        <th scope="col">Facultad</th>
-                        <th scope="col">Depatameto Académico</th>
-                        <th scope="col">Condición</th>
-                        <th scope="col">Categoria</th>
-                        <th scope="col">Dedicación</th>
-                        <th scope="col">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>01</td>
-                        <td>Miriam Lucero Gonzales de la Puerta</td>
-                        <td>mlucerop@unasam.edu.pe</td>
-                        <td>987456321</td>
-                        <td>Ciencias</td>
-                        <td>Ingenieria de Sistemas y Telecomunicaciones</td>
-                        <td>Nombrado</td>
-                        <td>Principal</td>
-                        <td>Dedicacion Exclusiva</td>
-                        <td>
-                            <div class="centrado">
-                                <span><i class="fas fa-eye mr-2"></i></span>
-                                <span><i class="far fa-trash-alt"></i></span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>02</td>
-                        <td>Cesar Manuel Gregorio Davila Paredes</td>
-                        <td>cdavilap@unasam.edu.pe</td>
-                        <td>987456321</td>
-                        <td>Ciencias</td>
-                        <td>Matematica</td>
-                        <td>Contradado</td>
-                        <td>Auxiliar</td>
-                        <td>Tiempo Completo</td>
-                        <td>
-                            <div class="centrado">
-                                <span><i class="fas fa-eye mr-2"></i></span>
-                                <span><i class="far fa-trash-alt"></i></span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>03</td>
-                        <td>Kiko Feliz Depaz Celi</td>
-                        <td>kdepazc@unasam.edu.pe</td>
-                        <td>987456321</td>
-                        <td>Ingenieria Civil</td>
-                        <td>Arquitectura</td>
-                        <td>Contratado</td>
-                        <td>Auxiliar</td>
-                        <td>Tiempo Parcial</td>
-                        <td>
-                            <div class="centrado">
-                                <span><i class="fas fa-eye mr-2"></i></span>
-                                <span><i class="far fa-trash-alt"></i></span>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-        </div> --}}
         @livewire('listar-docentes')
     </div>
     <div class="modal fade bd-example-modal-lg" id="modalEdit" tabindex="-1" role="dialog"
@@ -101,7 +28,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Editar Docente</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -229,7 +156,24 @@
     <script>
         $(document).ready(function() {
 
-            $('#tableDocentes').DataTable();
+            $('#tableDocentes').DataTable({
+                "language": {
+                    "processing": "Procesando...",
+                    "lengthMenu": "Mostrar _MENU_ registros",
+                    "zeroRecords": "No se encontraron resultados",
+                    "info":"Mostrando la página _PAGE_ de _PAGES_",
+                    "emptyTable": "Ningún dato disponible en esta tabla",
+                    "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "search": "Buscar:",
+                    "infoThousands": ",",
+                    "loadingRecords": "Cargando...",
+                    "paginate": {
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            });
             $("#modalEdit").on('hidden.bs.modal', function() {
                 Limpiar();
             });
@@ -243,7 +187,6 @@
                         idfac: $(this).val()
                     }
                 }).done(function(res) {
-                    console.log(res)
                     $('#dptoacademico').empty();
                     //$('#dptoacademico').append("<option>Seleccione...</option>");
                     for (let i = 0; i < res.dptos.length; i++) {
@@ -362,7 +305,7 @@
         }
 
         function EliminarDocente(dni, usu, idper) {
-            
+
             Swal.fire({
                 title: 'El docente se Eliminara de forma Permanente',
                 text: "No se podrá revertir esta accion!",
@@ -401,8 +344,9 @@
             })
 
         }
+
         function EditarSemanaDocente(id) {
-            
+
             $.ajax({
                 url: '/departamento/docentes/editSemana',
                 method: 'POST',
@@ -417,12 +361,13 @@
                 alert("error");
             });
         }
+
         function Limpiar() {
             $('#facultad').empty();
             $('#dptoacademico').empty();
             $('#condicion').empty();
             $('#categoria').empty();
             $('#dedicacion').empty();
-         }
+        }
     </script>
 @stop
