@@ -1,7 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container ">
+
+    <div class="login-bok">
+        <img class="avatar" src="/vendor/adminlte/dist/img/Logo2.png" alt="" >
+        <h5>BIENVENIDO AL
+            SISTEMA DE GESTIÓN ASISTENCIA DOCENTE</h5>
+        <form method="POST" action="{{ route('login') }}">
+            @csrf
+            <!--USERNAME-->
+            <label for=" email">E-Mail</label>
+            <input id="email" type="email" name="email" placeholder="Ingresar e-mail" value="{{ old('email') }}">
+            @error('email')
+                <small class="danger"> {{ $message }}</small>
+            @enderror
+            <!--PASSWORD-->
+            <label for="password">Password</label>
+            <input id="password" type="password" placeholder="Ingresar su password" name="password">
+            @error('password')
+                <small class="danger"> {{ $message }}</small>
+
+            @enderror
+            <center><button type="submit" id="bto1" class="btn11">Login</button></center>
+        </form>
+    </div>
+
+    {{-- <div class="container ">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="col-md-8 justify-content-right">
@@ -46,7 +70,7 @@
                                 </div>
                             </div>
 
-                            {{-- <div class="row mb-3">
+                            <div class="row mb-3">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
@@ -56,7 +80,7 @@
                                     </label>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
 
                             <div class="row mb-0">
                                 <div class="col-md-8 offset-md-4">
@@ -64,11 +88,11 @@
                                         {{ __('Login') }}
                                     </button>
 
-                                    {{-- @if (Route::has('password.request'))
+                                    @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
-                                @endif --}}
+                                @endif
                                 </div>
                             </div>
                         </form>
@@ -76,5 +100,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
