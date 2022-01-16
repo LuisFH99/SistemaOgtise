@@ -125,6 +125,6 @@ Route::resource('/departamento/ValidaLicencia', ValidaLicenciaController::class)
     'index'=>'ValidaLicencia',
     'store'=>'ValidaLicencia.store'
 ]);
-Route::post('/departamento/ValidaLicencia/store', [ValidaLicenciaController::class, 'store'])->middleware('can:valida.licencia|valida.licencia1|valida.licencia2|valida.licencia3')->name('licencias.store');
-Route::post('/departamento/ValidaLicencia/datos', [ValidaLicenciaController::class, 'datos'])->middleware('can:valida.licencia|valida.licencia1|valida.licencia2|valida.licencia3')->name('ValidaLicencia.datos');
-Route::post('/departamento/ValidaLicencia/imprimir', [ValidaLicenciaController::class, 'imprimir'])->middleware('can:valida.licencia|valida.licencia1|valida.licencia2|valida.licencia3')->name('ValidaLicencia.imprimir');
+Route::post('/departamento/ValidaLicencia/store', [ValidaLicenciaController::class, 'store'])->name('licencias.store');
+Route::post('/departamento/ValidaLicencia/datos', [ValidaLicenciaController::class, 'datos'])->name('ValidaLicencia.datos');
+Route::post('/departamento/ValidaLicencia/imprimir', [ValidaLicenciaController::class, 'imprimir'])->name('ValidaLicencia.imprimir');

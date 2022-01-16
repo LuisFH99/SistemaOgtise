@@ -26,7 +26,7 @@
                                 </div>
                             @break
                             @case(2)
-                                @if ($Datos->hora > '12:10:00' && $Datos->hora < '23:50:00')
+                                @if ($Datos->hora > '00:00:00' && $Datos->hora < '23:59:59')
                                     <div class="card-body">
                                         <h4 class="">Registro de Entrada</h4>
                                         <div class="row">
@@ -116,7 +116,7 @@
                                 </div>
                             @break
                             @case(6)
-                                @if ($Datos->hora > '12:25:00' && $Datos->hora < '23:50:00')
+                                @if ($Datos->hora > '00:00:00' && $Datos->hora < '23:59:59')
                                     <div class="card-body">
                                         <h4 class="">Registro de Salida</h4>
                                         <div class="row">
