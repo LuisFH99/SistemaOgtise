@@ -141,6 +141,13 @@
 
 /* estilos modulo Docentes */
 
+.create-docente .form-control{
+    border: none;
+    border-bottom: 1px solid #003E78;
+    border-radius: 0px;
+    
+}
+
 #tableDocentes thead {
     background-color: #003E78;
     font-size: 14px;

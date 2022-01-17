@@ -20,6 +20,24 @@
             })
         </script>
     @endif
+    <div class="container create-docente">
+        <div class="card">
+            {{-- <div class="card-header">
+                <h4 class="">Crear Docentes</h4>
+            </div> --}}
+            <div class="card-body">
+                <form action="{{ route('docentes.store') }}" method="POST">
+                    <div class="col-12">
+                        @csrf
+                        @livewire('crear-docentes')
+                      
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
     <div class="container">
         @livewire('listar-docentes')
     </div>
@@ -36,52 +54,51 @@
                 <div class="modal-body">
                     <form>
                         <div class="col-12">
-                            @csrf
+                            {{-- @csrf --}}
                             <div class="row">
                                 <div class="col-md-4 col-sm-6">
                                     <label class="form-label">DNI:</label>
-                                    <input type="text" class="form-control" id="dni" name="dni"
+                                    <input type="text" class="form-control" id="dniEdit" 
                                         placeholder="Ingrese el N° DNI" tabindex="1">
                                 </div>
                                 <div class="col-md-4 col-sm-6">
                                     <label class="form-label">Apellidos Paterno:</label>
-                                    <input type="text" id="apepat" name="apepat" class="form-control" placeholder=""
+                                    <input type="text" id="apepatEdit" class="form-control" placeholder=""
                                         tabindex="2">
                                 </div>
                                 <div class="col-md-4 col-sm-6">
                                     <label class="form-label">Apellidos Materno:</label>
-                                    <input type="text" id="apemat" name="apemat" class="form-control" placeholder=""
+                                    <input type="text" id="apematEdit"  class="form-control" placeholder=""
                                         tabindex="3">
                                 </div>
                                 <div class="col-md-4 col-sm-6">
                                     <label class="form-label">Nombres:</label>
-                                    <input type="text" id="nombres" name="nombres" class="form-control" placeholder=""
+                                    <input type="text" id="nombresEdit"  class="form-control" placeholder=""
                                         tabindex="4">
                                 </div>
                                 <div class="col-md-4 col-sm-6">
                                     <label class="form-label">Fecha de Nacimiento</label>
-                                    <input type="date" id="fnacimiento" name="fnacimiento" class="form-control"
+                                    <input type="date" id="fnacimientoEdit"  class="form-control"
                                         tabindex="5">
                                 </div>
                                 <div class="col-md-4 col-sm-6">
                                     <label class="form-label">Celular:</label>
-                                    <input type="text" id="numcel" name="numcel" class="form-control"
+                                    <input type="text" id="numcelEdit"  class="form-control"
                                         placeholder="Ingrese N° celular" tabindex="6">
                                 </div>
                                 <div class="col-md-4 col-sm-6">
                                     <label class="form-label">Correo Institucional:</label>
-                                    <input type="email" id="email" name="email" class="form-control"
+                                    <input type="email" id="emailEdit"  class="form-control"
                                         placeholder="correo@unasam.edu.pe" tabindex="7">
-                                    <input type="hidden" name="idpersona" id="idpersona" value="0">
-                                    <input type="hidden" name="clave" id="clave" value="0">
-                                    <input type="hidden" name="idusu" id="idusu" value="0">
+                                    <input type="hidden"  id="idpersonaEdit" value="0">
+                                    <input type="hidden"  id="claveEdit" value="0">
+                                    <input type="hidden"  id="idusuEdit" value="0">
                                 </div>
                                 <div class="col-md-4 col-sm-6 ">
                                     <label class="form-label">Facultad:</label>
                                     <div class="input-group">
-                                        <select id="facultad" name="facultad" class="form-control" tabindex="8">
-                                            {{-- <option>Seleccione...</option> --}}
-
+                                        <select id="facultadEdit"  class="form-control" tabindex="8">
+                                           
                                         </select>
 
                                     </div>
@@ -90,8 +107,8 @@
                                 <div class="col-md-4 col-sm-6 ">
                                     <label for="" class="form-label">Departamento Academico:</label>
                                     <div class="input-group">
-                                        <select class="form-control" id="dptoacademico" name="dptoacademico" tabindex="9">
-                                            {{-- <option selected>Seleccione...</option> --}}
+                                        <select class="form-control" id="dptoacademicoEdit"  tabindex="9">
+                                           
 
                                         </select>
 
@@ -101,8 +118,8 @@
                                 <div class="col-md-4 col-sm-6 ">
                                     <label for="" class="form-label">Condición:</label>
                                     <div class="input-group">
-                                        <select class="form-control" id="condicion" name="condicion" tabindex="10">
-                                            {{-- <option>Seleccione...</option> --}}
+                                        <select class="form-control" id="condicionEdit"  tabindex="10">
+                                            
 
                                         </select>
 
@@ -112,8 +129,8 @@
                                 <div class="col-md-4 col-sm-6 ">
                                     <label for="" class="form-label">Categoría:</label>
                                     <div class="input-group">
-                                        <select class="form-control" id="categoria" name="categoria" tabindex="11">
-                                            {{-- <option>Seleccione...</option> --}}
+                                        <select class="form-control" id="categoriaEdit"  tabindex="11">
+
 
                                         </select>
 
@@ -123,8 +140,8 @@
                                 <div class="col-md-4 col-sm-6 ">
                                     <label for="" class="form-label">Dedicación:</label>
                                     <div class="input-group">
-                                        <select class="form-control" id="dedicacion" name="dedicacion" tabindex="12">
-                                            {{-- <option>Seleccione...</option> --}}
+                                        <select class="form-control" id="dedicacionEdit"  tabindex="12">
+
 
                                         </select>
 
@@ -137,7 +154,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="editar">Editar</button>
-                    {{-- <button type="button" class="btn btn-danger" id="eliminar">Eliminar</button> --}}
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 
                 </div>
@@ -216,47 +232,47 @@
                     idper: dto
                 }
             }).done(function(res) {
-                $('#dni').val(res.docente[0].dni);
-                $('#apepat').val(res.docente[0].apellpat);
-                $('#apemat').val(res.docente[0].apellmat);
-                $('#nombres').val(res.docente[0].nombres);
-                $('#fnacimiento').val(res.docente[0].fechNacimiento);
-                $('#numcel').val(res.docente[0].telefono);
-                $('#email').val(res.docente[0].correo);
-                $('#idpersona').val(res.docente[0].idpersonas);
-                $('#clave').val(res.docente[0].clave);
-                $('#idusu').val(res.docente[0].id);
+                $('#dniEdit').val(res.docente[0].dni);
+                $('#apepatEdit').val(res.docente[0].apellpat);
+                $('#apematEdit').val(res.docente[0].apellmat);
+                $('#nombresEdit').val(res.docente[0].nombres);
+                $('#fnacimientoEdit').val(res.docente[0].fechNacimiento);
+                $('#numcelEdit').val(res.docente[0].telefono);
+                $('#emailEdit').val(res.docente[0].correo);
+                $('#idpersonaEdit').val(res.docente[0].idpersonas);
+                $('#claveEdit').val(res.docente[0].clave);
+                $('#idusuEdit').val(res.docente[0].id);
 
                 for (let i = 0; i < res.facultades.length; i++) {
-                    $('#facultad').append("<option value='" + res.facultades[i].id_facultades + "'>" + res
+                    $('#facultadEdit').append("<option value='" + res.facultades[i].id_facultades + "'>" + res
                         .facultades[i].nomfac + "</option>");
                 }
-                $('#facultad > option[value="' + res.docente[0].id_facultades + '"]').attr('selected', 'selected');
+                $('#facultadEdit > option[value="' + res.docente[0].id_facultades + '"]').attr('selected', 'selected');
 
                 for (let i = 0; i < res.dptos.length; i++) {
-                    $('#dptoacademico').append("<option value='" + res.dptos[i].idDepAcademicos + "'>" + res.dptos[
+                    $('#dptoacademicoEdit').append("<option value='" + res.dptos[i].idDepAcademicos + "'>" + res.dptos[
                         i].nomdep + "</option>");
                 }
-                $('#dptoacademico > option[value="' + res.docente[0].idDepAcademicos + '"]').attr('selected',
+                $('#dptoacademicoEdit > option[value="' + res.docente[0].idDepAcademicos + '"]').attr('selected',
                     'selected');
 
                 for (let i = 0; i < res.condiciones.length; i++) {
-                    $('#condicion').append("<option value='" + res.condiciones[i].idcondiciones + "'>" + res
+                    $('#condicionEdit').append("<option value='" + res.condiciones[i].idcondiciones + "'>" + res
                         .condiciones[i].nomcondi + "</option>");
                 }
-                $('#condicion > option[value="' + res.docente[0].idCondiciones + '"]').attr('selected', 'selected');
+                $('#condicionEdit > option[value="' + res.docente[0].idCondiciones + '"]').attr('selected', 'selected');
 
                 for (let i = 0; i < res.categorias.length; i++) {
-                    $('#categoria').append("<option value='" + res.categorias[i].idcategorias + "'>" + res
+                    $('#categoriaEdit').append("<option value='" + res.categorias[i].idcategorias + "'>" + res
                         .categorias[i].nomcat + "</option>");
                 }
-                $('#categoria > option[value="' + res.docente[0].idCategorias + '"]').attr('selected', 'selected');
+                $('#categoriaEdit > option[value="' + res.docente[0].idCategorias + '"]').attr('selected', 'selected');
 
                 for (let i = 0; i < res.dedicaciones.length; i++) {
-                    $('#dedicacion').append("<option value='" + res.dedicaciones[i].iddedicaciones + "'>" + res
+                    $('#dedicacionEdit').append("<option value='" + res.dedicaciones[i].iddedicaciones + "'>" + res
                         .dedicaciones[i].nomdedi + "</option>");
                 }
-                $('#dedicacion > option[value="' + res.docente[0].iddedicaciones + '"]').attr('selected',
+                $('#dedicacionEdit > option[value="' + res.docente[0].iddedicaciones + '"]').attr('selected',
                     'selected');
                 // location.reload();
             }).fail(function() {
@@ -271,20 +287,20 @@
                 method: 'POST',
                 data: {
                     _token: $('input[name="_token"]').val(),
-                    dni: $('#dni').val(),
-                    nombre: $('#nombres').val(),
-                    appat: $('#apepat').val(),
-                    apmat: $('#apemat').val(),
-                    fnac: $('#fnacimiento').val(),
-                    cel: $('#numcel').val(),
-                    clv: $('#clave').val(),
-                    idcnd: $('#condicion').val(),
-                    idcat: $('#categoria').val(),
-                    iddedi: $('#dedicacion').val(),
-                    iddep: $('#dptoacademico').val(),
-                    idper: $('#idpersona').val(),
-                    idusu: $('#idusu').val(),
-                    correo: $('#email').val(),
+                    dni: $('#dniEdit').val(),
+                    nombre: $('#nombresEdit').val(),
+                    appat: $('#apepatEdit').val(),
+                    apmat: $('#apematEdit').val(),
+                    fnac: $('#fnacimientoEdit').val(),
+                    cel: $('#numcelEdit').val(),
+                    clv: $('#claveEdit').val(),
+                    idcnd: $('#condicionEdit').val(),
+                    idcat: $('#categoriaEdit').val(),
+                    iddedi: $('#dedicacionEdit').val(),
+                    iddep: $('#dptoacademicoEdit').val(),
+                    idper: $('#idpersonaEdit').val(),
+                    idusu: $('#idusuEdit').val(),
+                    correo: $('#emailEdit').val(),
                     ev: 2
                 }
             }).done(function(res) {

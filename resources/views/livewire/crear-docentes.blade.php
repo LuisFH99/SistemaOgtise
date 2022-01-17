@@ -13,21 +13,21 @@
     </div>
     <div class="col-md-2 col-sm-6">
         <label class="form-label">Apellidos Paterno:</label>
-        <input type="text" id="apepat" name="apepat" class="form-control" placeholder="" tabindex="2" autocomplete="off">
+        <input type="text" id="apepat" name="apepat" class="form-control" placeholder="Apellido parteno" tabindex="2" autocomplete="off">
         @error('apepat')
             <small class="text-danger">{{ $message }}</small>
         @enderror
     </div>
     <div class="col-md-2 col-sm-6">
         <label class="form-label">Apellidos Materno:</label>
-        <input type="text" id="apemat" name="apemat" class="form-control" placeholder="" tabindex="3" autocomplete="off">
+        <input type="text" id="apemat" name="apemat" class="form-control" placeholder="Apellido Materno" tabindex="3" autocomplete="off">
         @error('apemat')
             <small class="text-danger">{{ $message }}</small>
         @enderror
     </div>
     <div class="col-md-3 col-sm-6">
         <label class="form-label">Nombres:</label>
-        <input type="text" id="nombres" name="nombres" class="form-control" placeholder="" tabindex="4" autocomplete="off">
+        <input type="text" id="nombres" name="nombres" class="form-control" placeholder="Nombres" tabindex="4" autocomplete="off">
         @error('nombres')
             <small class="text-danger">{{ $message }}</small>
         @enderror
