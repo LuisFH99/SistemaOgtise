@@ -155,6 +155,11 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'numcel' => 'celular',
+        'fnacimiento' => 'fecha nacimiento',
+        'apepat' => 'apellido paterno',
+        'dptoacademico' => 'departamento academico'
+    ],
 
 ];

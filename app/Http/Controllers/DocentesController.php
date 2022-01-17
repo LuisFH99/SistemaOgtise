@@ -47,16 +47,16 @@ class DocentesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'dni' => 'required',
+            'dni' => 'required|integer',
             'nombres' => 'required',
             'apepat' => 'required',
-            'fnacimiento' => 'required',
-            'numcel' => 'required',
-            'condicion' => 'required',
-            'categoria' => 'required',
-            'dedicacion' => 'required',
-            'dptoacademico' => 'required',
-            'email' => 'required'
+            'fnacimiento' => 'required|date',
+            'numcel' => 'required|integer',
+            'condicion' => 'required|integer',
+            'categoria' => 'required|integer',
+            'dedicacion' => 'required|integer',
+            'dptoacademico' => 'required|integer',
+            'email' => 'required|email'
         ]);
 
         $existe1 = DB::table('personas')->where('dni', $request->dni)->where('estado', 1)->count();
@@ -92,7 +92,7 @@ class DocentesController extends Controller
 
                 return redirect()->route('docentes');
             } else {
-                return redirect()->route('creardocente')->with('info', 'El docente con DNI: ' . $request->dni . ' ya esta registrado')->withInput();
+                return redirect()->route('docentes')->with('info', 'El docente con DNI: ' . $request->dni . ' ya esta registrado')->withInput();
             }
         }
     }

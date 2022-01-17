@@ -119,7 +119,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Asistencias de Docente</h5>
+                    <h4 id="nomdoc"><strong></strong></h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -128,7 +128,7 @@
                     <div class="col-12 p-2">
                         <div class="card">
                             <div class="card-body">
-                                <h4><strong>Mis Registros de Asistencia Mensual:</strong></h4>
+                                <h5><strong>Registro de Asistencia Mensual:</strong></h5>
                                 <input type="hidden" id="iddoc">
                                 @csrf
                                 <div class="mb-2 row">
@@ -182,7 +182,7 @@
         </div>
     </div>
 
-   
+
 @stop
 
 @section('css')
@@ -198,7 +198,7 @@
                     "processing": "Procesando...",
                     "lengthMenu": "Mostrar _MENU_ registros",
                     "zeroRecords": "No se encontraron resultados",
-                    "info":"Mostrando la página _PAGE_ de _PAGES_",
+                    "info": "Mostrando la página _PAGE_ de _PAGES_",
                     "emptyTable": "Ningún dato disponible en esta tabla",
                     "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
                     "infoFiltered": "(filtrado de un total de _MAX_ registros)",
@@ -302,16 +302,14 @@
                     idd: id
                 }
             }).done(function(res) {
-                console.log(res);
+                //console.log(res);
                 limpiar();
                 let th = "";
                 let td = "";
                 let td2 = "";
-                //let dtito="<img src='/vendor/adminlte/dist/img/asistio.svg' onclick=AbrirModal('a')>";
+
                 var diasMes = new Date(aa, mes, 0).getDate();
                 var diasSemana = ['D0', 'LU', 'MA', 'MI', 'JU', 'VI', 'SA'];
-                // console.log(res);
-                // console.log(aa);
 
                 if (res.length > 0) {
                     for (var dia = 1; dia <= diasMes; dia++) {
@@ -350,6 +348,11 @@
             $('#iddoc').val(iddoc);
             IncioRep(new Date().getMonth() + 1, new Date().getFullYear(), $('#iddoc').val());
 
+            $("table tbody tr").click(function() {
+                $('#nomdoc').text("Docente: "+$(this).find("td:eq(1)").text());
+                
+            });
+
             $('#InfoAsistencias').modal('show');
         }
 
@@ -357,11 +360,11 @@
             if (dto == 2) {
                 ModalJustificacion(dia, mes, aa, id)
             }
-           
+
         }
 
         function ModalJustificacion(dia, mes, aa, id) {
-            
+
             Swal.fire({
                 title: 'Confirme Justificacion de Falta',
                 text: "Justificara la Falta del docente",
@@ -389,7 +392,7 @@
                                 'success'
                             )
                             RegistroMensual(mes, aa, id);
-                        }else{
+                        } else {
                             Swal.fire(
                                 'Uups!',
                                 'Ocurrio un error no se guardó los cambios',

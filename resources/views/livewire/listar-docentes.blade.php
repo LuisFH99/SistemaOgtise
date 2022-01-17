@@ -1,6 +1,6 @@
 <div class="row table-responsive">
     {{-- {{ $docentes }} --}}
-    <a href="{{ route('creardocente') }}" class="btn btn-primary my-2">Registar Docente</a>
+    {{-- <a href="{{ route('creardocente') }}" class="btn btn-primary my-2">Registar Docente</a> --}}
   
     <table id="tableDocentes" class="table table-sm shadow-lg">
         <thead class="text-white">

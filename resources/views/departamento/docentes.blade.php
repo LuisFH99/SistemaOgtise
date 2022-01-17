@@ -30,7 +30,7 @@
                     <div class="col-12">
                         @csrf
                         @livewire('crear-docentes')
-                      
+
                     </div>
                 </form>
             </div>
@@ -58,47 +58,43 @@
                             <div class="row">
                                 <div class="col-md-4 col-sm-6">
                                     <label class="form-label">DNI:</label>
-                                    <input type="text" class="form-control" id="dniEdit" 
-                                        placeholder="Ingrese el N° DNI" tabindex="1">
+                                    <input type="text" class="form-control" id="dniEdit" placeholder="Ingrese el N° DNI"
+                                        tabindex="1">
                                 </div>
                                 <div class="col-md-4 col-sm-6">
                                     <label class="form-label">Apellidos Paterno:</label>
-                                    <input type="text" id="apepatEdit" class="form-control" placeholder=""
-                                        tabindex="2">
+                                    <input type="text" id="apepatEdit" class="form-control" placeholder="" tabindex="2">
                                 </div>
                                 <div class="col-md-4 col-sm-6">
                                     <label class="form-label">Apellidos Materno:</label>
-                                    <input type="text" id="apematEdit"  class="form-control" placeholder=""
-                                        tabindex="3">
+                                    <input type="text" id="apematEdit" class="form-control" placeholder="" tabindex="3">
                                 </div>
                                 <div class="col-md-4 col-sm-6">
                                     <label class="form-label">Nombres:</label>
-                                    <input type="text" id="nombresEdit"  class="form-control" placeholder=""
-                                        tabindex="4">
+                                    <input type="text" id="nombresEdit" class="form-control" placeholder="" tabindex="4">
                                 </div>
                                 <div class="col-md-4 col-sm-6">
                                     <label class="form-label">Fecha de Nacimiento</label>
-                                    <input type="date" id="fnacimientoEdit"  class="form-control"
-                                        tabindex="5">
+                                    <input type="date" id="fnacimientoEdit" class="form-control" tabindex="5">
                                 </div>
                                 <div class="col-md-4 col-sm-6">
                                     <label class="form-label">Celular:</label>
-                                    <input type="text" id="numcelEdit"  class="form-control"
+                                    <input type="text" id="numcelEdit" class="form-control"
                                         placeholder="Ingrese N° celular" tabindex="6">
                                 </div>
                                 <div class="col-md-4 col-sm-6">
                                     <label class="form-label">Correo Institucional:</label>
-                                    <input type="email" id="emailEdit"  class="form-control"
+                                    <input type="email" id="emailEdit" class="form-control"
                                         placeholder="correo@unasam.edu.pe" tabindex="7">
-                                    <input type="hidden"  id="idpersonaEdit" value="0">
-                                    <input type="hidden"  id="claveEdit" value="0">
-                                    <input type="hidden"  id="idusuEdit" value="0">
+                                    <input type="hidden" id="idpersonaEdit" value="0">
+                                    <input type="hidden" id="claveEdit" value="0">
+                                    <input type="hidden" id="idusuEdit" value="0">
                                 </div>
                                 <div class="col-md-4 col-sm-6 ">
                                     <label class="form-label">Facultad:</label>
                                     <div class="input-group">
-                                        <select id="facultadEdit"  class="form-control" tabindex="8">
-                                           
+                                        <select id="facultadEdit" class="form-control" tabindex="8">
+
                                         </select>
 
                                     </div>
@@ -107,8 +103,8 @@
                                 <div class="col-md-4 col-sm-6 ">
                                     <label for="" class="form-label">Departamento Academico:</label>
                                     <div class="input-group">
-                                        <select class="form-control" id="dptoacademicoEdit"  tabindex="9">
-                                           
+                                        <select class="form-control" id="dptoacademicoEdit" tabindex="9">
+
 
                                         </select>
 
@@ -118,8 +114,8 @@
                                 <div class="col-md-4 col-sm-6 ">
                                     <label for="" class="form-label">Condición:</label>
                                     <div class="input-group">
-                                        <select class="form-control" id="condicionEdit"  tabindex="10">
-                                            
+                                        <select class="form-control" id="condicionEdit" tabindex="10">
+
 
                                         </select>
 
@@ -129,7 +125,7 @@
                                 <div class="col-md-4 col-sm-6 ">
                                     <label for="" class="form-label">Categoría:</label>
                                     <div class="input-group">
-                                        <select class="form-control" id="categoriaEdit"  tabindex="11">
+                                        <select class="form-control" id="categoriaEdit" tabindex="11">
 
 
                                         </select>
@@ -140,7 +136,7 @@
                                 <div class="col-md-4 col-sm-6 ">
                                     <label for="" class="form-label">Dedicación:</label>
                                     <div class="input-group">
-                                        <select class="form-control" id="dedicacionEdit"  tabindex="12">
+                                        <select class="form-control" id="dedicacionEdit" tabindex="12">
 
 
                                         </select>
@@ -169,6 +165,16 @@
 
 @section('js')
     @livewireScripts
+    @if (session('info'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "{{ session('info') }}",
+
+            })
+        </script>
+    @endif
     <script>
         $(document).ready(function() {
 
@@ -177,7 +183,7 @@
                     "processing": "Procesando...",
                     "lengthMenu": "Mostrar _MENU_ registros",
                     "zeroRecords": "No se encontraron resultados",
-                    "info":"Mostrando la página _PAGE_ de _PAGES_",
+                    "info": "Mostrando la página _PAGE_ de _PAGES_",
                     "emptyTable": "Ningún dato disponible en esta tabla",
                     "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
                     "infoFiltered": "(filtrado de un total de _MAX_ registros)",
@@ -190,6 +196,11 @@
                     }
                 }
             });
+            $('#email').focus(function() {
+                $(this).val("" + generaremail($('#nombres').val().trim(), $('#apepat').val().trim(), $(
+                    '#apemat').val().trim()));
+            });
+
             $("#modalEdit").on('hidden.bs.modal', function() {
                 Limpiar();
             });
@@ -247,11 +258,13 @@
                     $('#facultadEdit').append("<option value='" + res.facultades[i].id_facultades + "'>" + res
                         .facultades[i].nomfac + "</option>");
                 }
-                $('#facultadEdit > option[value="' + res.docente[0].id_facultades + '"]').attr('selected', 'selected');
+                $('#facultadEdit > option[value="' + res.docente[0].id_facultades + '"]').attr('selected',
+                    'selected');
 
                 for (let i = 0; i < res.dptos.length; i++) {
-                    $('#dptoacademicoEdit').append("<option value='" + res.dptos[i].idDepAcademicos + "'>" + res.dptos[
-                        i].nomdep + "</option>");
+                    $('#dptoacademicoEdit').append("<option value='" + res.dptos[i].idDepAcademicos + "'>" + res
+                        .dptos[
+                            i].nomdep + "</option>");
                 }
                 $('#dptoacademicoEdit > option[value="' + res.docente[0].idDepAcademicos + '"]').attr('selected',
                     'selected');
@@ -260,13 +273,15 @@
                     $('#condicionEdit').append("<option value='" + res.condiciones[i].idcondiciones + "'>" + res
                         .condiciones[i].nomcondi + "</option>");
                 }
-                $('#condicionEdit > option[value="' + res.docente[0].idCondiciones + '"]').attr('selected', 'selected');
+                $('#condicionEdit > option[value="' + res.docente[0].idCondiciones + '"]').attr('selected',
+                    'selected');
 
                 for (let i = 0; i < res.categorias.length; i++) {
                     $('#categoriaEdit').append("<option value='" + res.categorias[i].idcategorias + "'>" + res
                         .categorias[i].nomcat + "</option>");
                 }
-                $('#categoriaEdit > option[value="' + res.docente[0].idCategorias + '"]').attr('selected', 'selected');
+                $('#categoriaEdit > option[value="' + res.docente[0].idCategorias + '"]').attr('selected',
+                    'selected');
 
                 for (let i = 0; i < res.dedicaciones.length; i++) {
                     $('#dedicacionEdit').append("<option value='" + res.dedicaciones[i].iddedicaciones + "'>" + res
@@ -384,6 +399,19 @@
             $('#condicion').empty();
             $('#categoria').empty();
             $('#dedicacion').empty();
+        }
+
+        function generaremail(nom, ap, am) {
+            let dto = nom.charAt(0) + ap + am.charAt(0) + "@unasam.edu.pe";
+            return dto.toLowerCase();
+        }
+
+        function SoloNumeros(e) {
+            var key = Window.Event ? e.which : e.keyCode;
+            if (key < 48 || key > 57) {
+
+                e.preventDefault();
+            }
         }
     </script>
 @stop
