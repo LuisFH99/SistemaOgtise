@@ -54,12 +54,12 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'dni' => 'required|integer',
+            'dni' => 'required|min:8',
             'apepat' => 'required',
             
             'nombres'=> 'required',
             'fnacimiento'=> 'required|date',
-            'numcel'=> 'required|integer',
+            'numcel'=> 'required|integer|min:9',
             'email'=> 'required|email',
             'cargo'=> 'required|integer',
         ]);

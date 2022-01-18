@@ -47,11 +47,11 @@ class DocentesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'dni' => 'required|integer',
+            'dni' => 'required|min:8',
             'nombres' => 'required',
             'apepat' => 'required',
             'fnacimiento' => 'required|date',
-            'numcel' => 'required|integer',
+            'numcel' => 'required|integer|min:9',
             'condicion' => 'required|integer',
             'categoria' => 'required|integer',
             'dedicacion' => 'required|integer',

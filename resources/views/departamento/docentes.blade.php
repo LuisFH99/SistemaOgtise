@@ -204,7 +204,7 @@
             $("#modalEdit").on('hidden.bs.modal', function() {
                 Limpiar();
             });
-            $('#facultad').change(function() {
+            $('#facultadEdit').change(function() {
 
                 $.ajax({
                     url: '/departamento/docentes/dpto',
@@ -214,10 +214,10 @@
                         idfac: $(this).val()
                     }
                 }).done(function(res) {
-                    $('#dptoacademico').empty();
+                    $('#dptoacademicoEdit').empty();
                     //$('#dptoacademico').append("<option>Seleccione...</option>");
                     for (let i = 0; i < res.dptos.length; i++) {
-                        $('#dptoacademico').append($("<option>", {
+                        $('#dptoacademicoEdit').append($("<option>", {
                             value: res.dptos[i].idDepAcademicos,
                             text: res.dptos[i].nomdep
                         }));
@@ -394,11 +394,11 @@
         }
 
         function Limpiar() {
-            $('#facultad').empty();
-            $('#dptoacademico').empty();
-            $('#condicion').empty();
-            $('#categoria').empty();
-            $('#dedicacion').empty();
+            $('#facultadEdit').empty();
+            $('#dptoacademicoEdit').empty();
+            $('#condicionEdit').empty();
+            $('#categoriaEdit').empty();
+            $('#dedicacionEdit').empty();
         }
 
         function generaremail(nom, ap, am) {
