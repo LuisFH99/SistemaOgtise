@@ -43,5 +43,6 @@ class RoleSeeder extends Seeder
         Permission::create(['name'=>'reportes.parteDiario'])->syncRoles([$role1,$role5]);
 
         Permission::create(['name'=>'valida.licencia3'])->syncRoles([$role6]);
+        Permission::create(['name'=>'valida.licencia.general'])->syncRoles([$role3,$role4,$role5,$role6]);
     }
 }

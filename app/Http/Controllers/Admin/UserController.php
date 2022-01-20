@@ -67,6 +67,7 @@ class UserController extends Controller
         $Mensaje='Se creó el usuario: '.$request->nombres.' '.$request->apepat.' '.$request->apemat;
         $clave=bin2hex(random_bytes(4));
         $arrayInfo = ['user' => $request->email, 'docente' => $request->nombres . ' ' . $request->apepat . ' ' . $request->apemat, 'contra' => $request->dni, 'clave' => $clave];
+        $cargo=Role::where('id',$request->cargo)->first();
         if(Persona::where('DNI', $request->dni)->doesntExist()){
             if(Persona::where('correo', $request->email)->doesntExist()){
                 Persona::create([
@@ -79,7 +80,6 @@ class UserController extends Controller
                     'telefono'      =>$request->numcel,
                     'estado'        =>1
                 ]);
-                $cargo=Role::where('id',$request->cargo)->first();
                 User::create([
                     'name' => $request->nombres.' '.$request->apepat.' '.$request->apemat,
                     'email' => $request->email,
