@@ -100,16 +100,21 @@ class UserController extends Controller
                 $Mensaje='El email: '.$request->email.' ya existe, debe crear uno diferente';
             }
         }else{
-            Persona::where('DNI', $request->dni)->update(array('estado' => 1));
-            User::create([
-                'name' => $request->nombres.' '.$request->apepat.' '.$request->apemat,
-                'email' => $request->email,
-                'password' => bcrypt($request->dni)
-            ])->assignRole($cargo->name);
-            $idper=Persona::select('idPersonas')->where('DNI',$request->dni)->first();
-            Administrativo::where('fk_idPersonas', $idper->idPersonas)->update(array('fk_idRoles' => $request->cargo));
-            $correo = new CredencialesMailable($arrayInfo);
-            Mail::to($request->email)->send($correo);
+            if(User::where('name', $request->nombres.' '.$request->apepat.' '.$request->apemat)->where('email', $request->email)->doesntExist()){
+                Persona::where('DNI', $request->dni)->update(array('estado' => 1));
+                User::create([
+                    'name' => $request->nombres.' '.$request->apepat.' '.$request->apemat,
+                    'email' => $request->email,
+                    'password' => bcrypt($request->dni)
+                ])->assignRole($cargo->name);
+                $idper=Persona::select('idPersonas')->where('DNI',$request->dni)->first();
+                Administrativo::where('fk_idPersonas', $idper->idPersonas)->update(array('fk_idRoles' => $request->cargo));
+                $correo = new CredencialesMailable($arrayInfo);
+                Mail::to($request->email)->send($correo);
+            }else{
+                $idMsg='info1';
+                $Mensaje='El usuario '.$request->nombres.' '.$request->apepat.' '.$request->apemat.' ya existe, debe crear uno diferente'; 
+            }
         }
 
         $cargos=Role::where('id','>',4)->pluck('name','id');
