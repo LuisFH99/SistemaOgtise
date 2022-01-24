@@ -76,7 +76,7 @@ class UserController extends Controller
                 ]);
                 $cargo=Role::where('id',$request->cargo)->first();
                 User::create([
-                    'name' => $Mensaje,
+                    'name' => $request->nombres.' '.$request->apepat.' '.$request->apemat,
                     'email' => $request->email,
                     'password' => bcrypt($request->dni)
                 ])->assignRole($cargo->name);
@@ -94,7 +94,7 @@ class UserController extends Controller
         }else{
             Persona::where('DNI', $request->dni)->update(array('estado' => 1));
             User::create([
-                'name' => $Mensaje,
+                'name' =>$request->nombres.' '.$request->apepat.' '.$request->apemat,
                 'email' => $request->email,
                 'password' => bcrypt($request->dni)
             ])->assignRole($cargo->name);
