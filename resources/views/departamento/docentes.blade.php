@@ -10,90 +10,35 @@
 
 @section('content')
     @if (session('info'))
-    <script>
-        Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: '{{session('info')}}',
-            showConfirmButton: false,
-            timer: 2500
-        })
-    </script>
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: '{{ session('info') }}',
+                showConfirmButton: false,
+                timer: 2500
+            })
+        </script>
     @endif
-    <div class="container">
-        {{-- <div class="row">
-            <a href="{{ route('creardocente') }}" class="btn btn-primary my-2">Registar Docente</a>
-            <table id="tableDocentes" class="table table-sm shadow-lg">
-                <thead class="text-white">
-                    <tr>
-                        <th scope="col">N°</th>
-                        <th scope="col">Apellidos y Nombres</th>
-                        <th scope="col">Correo</th>
-                        <th scope="col">Celular</th>
-                        <th scope="col">Facultad</th>
-                        <th scope="col">Depatameto Académico</th>
-                        <th scope="col">Condición</th>
-                        <th scope="col">Categoria</th>
-                        <th scope="col">Dedicación</th>
-                        <th scope="col">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>01</td>
-                        <td>Miriam Lucero Gonzales de la Puerta</td>
-                        <td>mlucerop@unasam.edu.pe</td>
-                        <td>987456321</td>
-                        <td>Ciencias</td>
-                        <td>Ingenieria de Sistemas y Telecomunicaciones</td>
-                        <td>Nombrado</td>
-                        <td>Principal</td>
-                        <td>Dedicacion Exclusiva</td>
-                        <td>
-                            <div class="centrado">
-                                <span><i class="fas fa-eye mr-2"></i></span>
-                                <span><i class="far fa-trash-alt"></i></span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>02</td>
-                        <td>Cesar Manuel Gregorio Davila Paredes</td>
-                        <td>cdavilap@unasam.edu.pe</td>
-                        <td>987456321</td>
-                        <td>Ciencias</td>
-                        <td>Matematica</td>
-                        <td>Contradado</td>
-                        <td>Auxiliar</td>
-                        <td>Tiempo Completo</td>
-                        <td>
-                            <div class="centrado">
-                                <span><i class="fas fa-eye mr-2"></i></span>
-                                <span><i class="far fa-trash-alt"></i></span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>03</td>
-                        <td>Kiko Feliz Depaz Celi</td>
-                        <td>kdepazc@unasam.edu.pe</td>
-                        <td>987456321</td>
-                        <td>Ingenieria Civil</td>
-                        <td>Arquitectura</td>
-                        <td>Contratado</td>
-                        <td>Auxiliar</td>
-                        <td>Tiempo Parcial</td>
-                        <td>
-                            <div class="centrado">
-                                <span><i class="fas fa-eye mr-2"></i></span>
-                                <span><i class="far fa-trash-alt"></i></span>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="container create-docente">
+        <div class="card">
+            {{-- <div class="card-header">
+                <h4 class="">Crear Docentes</h4>
+            </div> --}}
+            <div class="card-body">
+                <form action="{{ route('docentes.store') }}" method="POST">
+                    <div class="col-12">
+                        @csrf
+                        @livewire('crear-docentes')
 
-        </div> --}}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
         @livewire('listar-docentes')
     </div>
     <div class="modal fade bd-example-modal-lg" id="modalEdit" tabindex="-1" role="dialog"
@@ -101,7 +46,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Editar Docente</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -109,51 +54,46 @@
                 <div class="modal-body">
                     <form>
                         <div class="col-12">
-                            @csrf
+                            {{-- @csrf --}}
                             <div class="row">
                                 <div class="col-md-4 col-sm-6">
                                     <label class="form-label">DNI:</label>
-                                    <input type="text" class="form-control" id="dni" name="dni"
-                                        placeholder="Ingrese el N° DNI" tabindex="1">
+                                    <input type="text" class="form-control" id="dniEdit" placeholder="Ingrese el N° DNI"
+                                        tabindex="1">
                                 </div>
                                 <div class="col-md-4 col-sm-6">
                                     <label class="form-label">Apellidos Paterno:</label>
-                                    <input type="text" id="apepat" name="apepat" class="form-control" placeholder=""
-                                        tabindex="2">
+                                    <input type="text" id="apepatEdit" class="form-control" placeholder="" tabindex="2">
                                 </div>
                                 <div class="col-md-4 col-sm-6">
                                     <label class="form-label">Apellidos Materno:</label>
-                                    <input type="text" id="apemat" name="apemat" class="form-control" placeholder=""
-                                        tabindex="3">
+                                    <input type="text" id="apematEdit" class="form-control" placeholder="" tabindex="3">
                                 </div>
                                 <div class="col-md-4 col-sm-6">
                                     <label class="form-label">Nombres:</label>
-                                    <input type="text" id="nombres" name="nombres" class="form-control" placeholder=""
-                                        tabindex="4">
+                                    <input type="text" id="nombresEdit" class="form-control" placeholder="" tabindex="4">
                                 </div>
                                 <div class="col-md-4 col-sm-6">
                                     <label class="form-label">Fecha de Nacimiento</label>
-                                    <input type="date" id="fnacimiento" name="fnacimiento" class="form-control"
-                                        tabindex="5">
+                                    <input type="date" id="fnacimientoEdit" class="form-control" tabindex="5">
                                 </div>
                                 <div class="col-md-4 col-sm-6">
                                     <label class="form-label">Celular:</label>
-                                    <input type="text" id="numcel" name="numcel" class="form-control"
+                                    <input type="text" id="numcelEdit" class="form-control"
                                         placeholder="Ingrese N° celular" tabindex="6">
                                 </div>
                                 <div class="col-md-4 col-sm-6">
                                     <label class="form-label">Correo Institucional:</label>
-                                    <input type="email" id="email" name="email" class="form-control"
+                                    <input type="email" id="emailEdit" class="form-control"
                                         placeholder="correo@unasam.edu.pe" tabindex="7">
-                                    <input type="hidden" name="idpersona" id="idpersona" value="0">
-                                    <input type="hidden" name="clave" id="clave" value="0">
-                                    <input type="hidden" name="idusu" id="idusu" value="0">
+                                    <input type="hidden" id="idpersonaEdit" value="0">
+                                    <input type="hidden" id="claveEdit" value="0">
+                                    <input type="hidden" id="idusuEdit" value="0">
                                 </div>
                                 <div class="col-md-4 col-sm-6 ">
                                     <label class="form-label">Facultad:</label>
                                     <div class="input-group">
-                                        <select id="facultad" name="facultad" class="form-control" tabindex="8">
-                                            {{-- <option>Seleccione...</option> --}}
+                                        <select id="facultadEdit" class="form-control" tabindex="8">
 
                                         </select>
 
@@ -163,8 +103,8 @@
                                 <div class="col-md-4 col-sm-6 ">
                                     <label for="" class="form-label">Departamento Academico:</label>
                                     <div class="input-group">
-                                        <select class="form-control" id="dptoacademico" name="dptoacademico" tabindex="9">
-                                            {{-- <option selected>Seleccione...</option> --}}
+                                        <select class="form-control" id="dptoacademicoEdit" tabindex="9">
+
 
                                         </select>
 
@@ -174,8 +114,8 @@
                                 <div class="col-md-4 col-sm-6 ">
                                     <label for="" class="form-label">Condición:</label>
                                     <div class="input-group">
-                                        <select class="form-control" id="condicion" name="condicion" tabindex="10">
-                                            {{-- <option>Seleccione...</option> --}}
+                                        <select class="form-control" id="condicionEdit" tabindex="10">
+
 
                                         </select>
 
@@ -185,8 +125,8 @@
                                 <div class="col-md-4 col-sm-6 ">
                                     <label for="" class="form-label">Categoría:</label>
                                     <div class="input-group">
-                                        <select class="form-control" id="categoria" name="categoria" tabindex="11">
-                                            {{-- <option>Seleccione...</option> --}}
+                                        <select class="form-control" id="categoriaEdit" tabindex="11">
+
 
                                         </select>
 
@@ -196,8 +136,8 @@
                                 <div class="col-md-4 col-sm-6 ">
                                     <label for="" class="form-label">Dedicación:</label>
                                     <div class="input-group">
-                                        <select class="form-control" id="dedicacion" name="dedicacion" tabindex="12">
-                                            {{-- <option>Seleccione...</option> --}}
+                                        <select class="form-control" id="dedicacionEdit" tabindex="12">
+
 
                                         </select>
 
@@ -210,7 +150,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="editar">Editar</button>
-                    {{-- <button type="button" class="btn btn-danger" id="eliminar">Eliminar</button> --}}
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 
                 </div>
@@ -226,14 +165,46 @@
 
 @section('js')
     @livewireScripts
+    @if (session('info'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "{{ session('info') }}",
+
+            })
+        </script>
+    @endif
     <script>
         $(document).ready(function() {
 
-            $('#tableDocentes').DataTable();
+            $('#tableDocentes').DataTable({
+                "language": {
+                    "processing": "Procesando...",
+                    "lengthMenu": "Mostrar _MENU_ registros",
+                    "zeroRecords": "No se encontraron resultados",
+                    "info": "Mostrando la página _PAGE_ de _PAGES_",
+                    "emptyTable": "Ningún dato disponible en esta tabla",
+                    "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "search": "Buscar:",
+                    "infoThousands": ",",
+                    "loadingRecords": "Cargando...",
+                    "paginate": {
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            });
+            $('#email').focus(function() {
+                $(this).val("" + generaremail($('#nombres').val().trim(), $('#apepat').val().trim(), $(
+                    '#apemat').val().trim()));
+            });
+
             $("#modalEdit").on('hidden.bs.modal', function() {
                 Limpiar();
             });
-            $('#facultad').change(function() {
+            $('#facultadEdit').change(function() {
 
                 $.ajax({
                     url: '/departamento/docentes/dpto',
@@ -243,11 +214,10 @@
                         idfac: $(this).val()
                     }
                 }).done(function(res) {
-                    console.log(res)
-                    $('#dptoacademico').empty();
+                    $('#dptoacademicoEdit').empty();
                     //$('#dptoacademico').append("<option>Seleccione...</option>");
                     for (let i = 0; i < res.dptos.length; i++) {
-                        $('#dptoacademico').append($("<option>", {
+                        $('#dptoacademicoEdit').append($("<option>", {
                             value: res.dptos[i].idDepAcademicos,
                             text: res.dptos[i].nomdep
                         }));
@@ -273,47 +243,51 @@
                     idper: dto
                 }
             }).done(function(res) {
-                $('#dni').val(res.docente[0].dni);
-                $('#apepat').val(res.docente[0].apellpat);
-                $('#apemat').val(res.docente[0].apellmat);
-                $('#nombres').val(res.docente[0].nombres);
-                $('#fnacimiento').val(res.docente[0].fechNacimiento);
-                $('#numcel').val(res.docente[0].telefono);
-                $('#email').val(res.docente[0].correo);
-                $('#idpersona').val(res.docente[0].idpersonas);
-                $('#clave').val(res.docente[0].clave);
-                $('#idusu').val(res.docente[0].id);
+                $('#dniEdit').val(res.docente[0].dni);
+                $('#apepatEdit').val(res.docente[0].apellpat);
+                $('#apematEdit').val(res.docente[0].apellmat);
+                $('#nombresEdit').val(res.docente[0].nombres);
+                $('#fnacimientoEdit').val(res.docente[0].fechNacimiento);
+                $('#numcelEdit').val(res.docente[0].telefono);
+                $('#emailEdit').val(res.docente[0].correo);
+                $('#idpersonaEdit').val(res.docente[0].idpersonas);
+                $('#claveEdit').val(res.docente[0].clave);
+                $('#idusuEdit').val(res.docente[0].id);
 
                 for (let i = 0; i < res.facultades.length; i++) {
-                    $('#facultad').append("<option value='" + res.facultades[i].id_facultades + "'>" + res
+                    $('#facultadEdit').append("<option value='" + res.facultades[i].id_facultades + "'>" + res
                         .facultades[i].nomfac + "</option>");
                 }
-                $('#facultad > option[value="' + res.docente[0].id_facultades + '"]').attr('selected', 'selected');
+                $('#facultadEdit > option[value="' + res.docente[0].id_facultades + '"]').attr('selected',
+                    'selected');
 
                 for (let i = 0; i < res.dptos.length; i++) {
-                    $('#dptoacademico').append("<option value='" + res.dptos[i].idDepAcademicos + "'>" + res.dptos[
-                        i].nomdep + "</option>");
+                    $('#dptoacademicoEdit').append("<option value='" + res.dptos[i].idDepAcademicos + "'>" + res
+                        .dptos[
+                            i].nomdep + "</option>");
                 }
-                $('#dptoacademico > option[value="' + res.docente[0].idDepAcademicos + '"]').attr('selected',
+                $('#dptoacademicoEdit > option[value="' + res.docente[0].idDepAcademicos + '"]').attr('selected',
                     'selected');
 
                 for (let i = 0; i < res.condiciones.length; i++) {
-                    $('#condicion').append("<option value='" + res.condiciones[i].idcondiciones + "'>" + res
+                    $('#condicionEdit').append("<option value='" + res.condiciones[i].idcondiciones + "'>" + res
                         .condiciones[i].nomcondi + "</option>");
                 }
-                $('#condicion > option[value="' + res.docente[0].idCondiciones + '"]').attr('selected', 'selected');
+                $('#condicionEdit > option[value="' + res.docente[0].idCondiciones + '"]').attr('selected',
+                    'selected');
 
                 for (let i = 0; i < res.categorias.length; i++) {
-                    $('#categoria').append("<option value='" + res.categorias[i].idcategorias + "'>" + res
+                    $('#categoriaEdit').append("<option value='" + res.categorias[i].idcategorias + "'>" + res
                         .categorias[i].nomcat + "</option>");
                 }
-                $('#categoria > option[value="' + res.docente[0].idCategorias + '"]').attr('selected', 'selected');
+                $('#categoriaEdit > option[value="' + res.docente[0].idCategorias + '"]').attr('selected',
+                    'selected');
 
                 for (let i = 0; i < res.dedicaciones.length; i++) {
-                    $('#dedicacion').append("<option value='" + res.dedicaciones[i].iddedicaciones + "'>" + res
+                    $('#dedicacionEdit').append("<option value='" + res.dedicaciones[i].iddedicaciones + "'>" + res
                         .dedicaciones[i].nomdedi + "</option>");
                 }
-                $('#dedicacion > option[value="' + res.docente[0].iddedicaciones + '"]').attr('selected',
+                $('#dedicacionEdit > option[value="' + res.docente[0].iddedicaciones + '"]').attr('selected',
                     'selected');
                 // location.reload();
             }).fail(function() {
@@ -328,20 +302,20 @@
                 method: 'POST',
                 data: {
                     _token: $('input[name="_token"]').val(),
-                    dni: $('#dni').val(),
-                    nombre: $('#nombres').val(),
-                    appat: $('#apepat').val(),
-                    apmat: $('#apemat').val(),
-                    fnac: $('#fnacimiento').val(),
-                    cel: $('#numcel').val(),
-                    clv: $('#clave').val(),
-                    idcnd: $('#condicion').val(),
-                    idcat: $('#categoria').val(),
-                    iddedi: $('#dedicacion').val(),
-                    iddep: $('#dptoacademico').val(),
-                    idper: $('#idpersona').val(),
-                    idusu: $('#idusu').val(),
-                    correo: $('#email').val(),
+                    dni: $('#dniEdit').val(),
+                    nombre: $('#nombresEdit').val(),
+                    appat: $('#apepatEdit').val(),
+                    apmat: $('#apematEdit').val(),
+                    fnac: $('#fnacimientoEdit').val(),
+                    cel: $('#numcelEdit').val(),
+                    clv: $('#claveEdit').val(),
+                    idcnd: $('#condicionEdit').val(),
+                    idcat: $('#categoriaEdit').val(),
+                    iddedi: $('#dedicacionEdit').val(),
+                    iddep: $('#dptoacademicoEdit').val(),
+                    idper: $('#idpersonaEdit').val(),
+                    idusu: $('#idusuEdit').val(),
+                    correo: $('#emailEdit').val(),
                     ev: 2
                 }
             }).done(function(res) {
@@ -362,7 +336,7 @@
         }
 
         function EliminarDocente(dni, usu, idper) {
-            
+
             Swal.fire({
                 title: 'El docente se Eliminara de forma Permanente',
                 text: "No se podrá revertir esta accion!",
@@ -401,8 +375,9 @@
             })
 
         }
+
         function EditarSemanaDocente(id) {
-            
+
             $.ajax({
                 url: '/departamento/docentes/editSemana',
                 method: 'POST',
@@ -417,12 +392,26 @@
                 alert("error");
             });
         }
+
         function Limpiar() {
-            $('#facultad').empty();
-            $('#dptoacademico').empty();
-            $('#condicion').empty();
-            $('#categoria').empty();
-            $('#dedicacion').empty();
-         }
+            $('#facultadEdit').empty();
+            $('#dptoacademicoEdit').empty();
+            $('#condicionEdit').empty();
+            $('#categoriaEdit').empty();
+            $('#dedicacionEdit').empty();
+        }
+
+        function generaremail(nom, ap, am) {
+            let dto = nom.charAt(0) + ap + am.charAt(0) + "@unasam.edu.pe";
+            return dto.toLowerCase();
+        }
+
+        function SoloNumeros(e) {
+            var key = Window.Event ? e.which : e.keyCode;
+            if (key < 48 || key > 57) {
+
+                e.preventDefault();
+            }
+        }
     </script>
 @stop

@@ -67,6 +67,7 @@ $(function() {
 
 
 
+
     IncioRep(new Date().getMonth()+1,new Date().getFullYear());
 
     $('#meses').on('change',function(){
@@ -203,7 +204,7 @@ navigator.mediaDevices.getUserMedia({
                         
                     }
                     }).fail(function() {
-                        Swal.fire('Falla en la envio de Datos', '', 'error');
+                        Swal.fire('Falla en el envio de Datos', '', 'error');
                     });
                     
                 } else if (result.isDenied) {
@@ -255,7 +256,7 @@ navigator.mediaDevices.getUserMedia({
                     
                 }
                 }).fail(function() {
-                    Swal.fire('Falla en la envio de Datos', '', 'error');
+                    Swal.fire('Falla en el envio de Datos', '', 'error');
                 });
                 
             } else if (result.isDenied) {
@@ -362,13 +363,14 @@ function ModalAsistio(dia) {
             year: $('#selectyyyy').val()
         }
     }).done(function(res) {
-        console.log(res.informe);
+        //console.log(res.observacion);
         
         $('#fechreg').text('Fecha de Registro: '+formatoFecha(res.fecha));
         $('#entrada').text('Hora de Entrada: '+res.hor_entrada);
         $('#salida').text('Hora de Salida: '+res.hor_salida);
         $('#informe').text(''+res.informe);
         $('#foto').attr("src",res.URL_foto);
+        $('#observacion').text('Observacion: '+res.observacion);
         $('#tkentrada').text('Codigo de Registro de Entrada: '+res.tkentrada);
         $('#tksalida').text('Codigo de Registro de Salida: '+res.tksalida);
 
@@ -377,7 +379,7 @@ function ModalAsistio(dia) {
         $('#Jusficacion').css('display', 'none');
         $('#AsisteciaModal').modal('show');
     }).fail(function() {
-        Swal.fire('Falla en la envio de Datos', '', 'error');
+        Swal.fire('Falla en el envio de Datos', '', 'error');
     });
     
     
@@ -445,20 +447,14 @@ function RegistroMensual(mes,aa){
         $('.bg-tr').append(td);
         $('#Aux').append(td2);
     }).fail(function() {
-        Swal.fire('Falla en la envio de Datos', '', 'error');
+        Swal.fire('Falla en el envio de Datos', '', 'error');
     });
 
-    
-    // let th=""; let td="";
-    /*for (var dia=1; dia <= diasMes;dia++){
-        var indice = new Date(2021, mes - 1, dia).getDay();
-        th+="<th>"+diasSemana[indice]+"</th>";
-        td+="<td>"+dia+"</td>";
-        
-        td2+="<td>"+dtito+"</td>";
-    }
-    $('.fondo-table').append("<tr>"+th+"</tr");
-    $('.bg-tr').append(td);
-    $('#Aux').append(td2);*/
+}
 
+function LimitarTexto(obs){
+    if(obs.length > 17){
+        obs=obs.substring(0,17)+"..."
+    }
+    return obs;
 }

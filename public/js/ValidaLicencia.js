@@ -87,7 +87,7 @@ function AcepDene(dto) {
             }).fail(function(msg) {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Oops...',
+                    title: 'Oops.',
                     text: 'Algo salio mal!'
                 })
             });

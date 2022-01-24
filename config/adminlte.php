@@ -127,7 +127,7 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-light-primary elevation-3',
+    'classes_sidebar' => 'sidebar-dark-primary elevation-3',
     'classes_sidebar_nav' => '',
     'classes_topnav' => 'navbar-white navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
@@ -297,13 +297,22 @@ return [
             'text' => 'Validar Licencias',
             'icon' => 'fas fa-tasks',
             'route'  => 'ValidaLicencia',
-            'can'  => 'valida.licencia|valida.licencia1|valida.licencia2|valida.licencia3'
+            'can'  => 'valida.licencia'
         ],
+                
         [
             'text' => 'Docentes',
             'icon' => 'fas fa-user-tie',
             'route'  => 'docentes',
             'can'  => 'gestion.docente'
+        ],
+
+        ['header' => 'DECANATURA'],
+        [
+            'text' => 'Validar Licencias',
+            'icon' => 'fas fa-tasks',
+            'route'  => 'ValidaLicencia',
+            'can'  => 'valida.licencia1'
         ],
 
         ['header' => 'UND. REGISTRO Y CONTROL'],
@@ -318,6 +327,19 @@ return [
             'icon' => 'fas fa-file-alt',
             'can'  => 'reportes.parteDiario'
             //'route'  => '#',
+        ],
+        [
+            'text' => 'Validar Licencias',
+            'icon' => 'fas fa-tasks',
+            'route'  => 'ValidaLicencia',
+            'can'  => 'valida.licencia2'
+        ],
+        ['header' => 'DIRECCION RR.HH'],
+        [
+            'text' => 'Validar Licencias',
+            'icon' => 'fas fa-tasks',
+            'route'  => 'ValidaLicencia',
+            'can'  => 'valida.licencia3'
         ],
 
     ],

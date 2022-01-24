@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Informe Asistenicia</title>
     <style>
         @page {
             margin: 0px 0px;
@@ -68,14 +68,37 @@
         #table th {
             padding-top: 3px;
             padding-bottom: 3px;
-            /* text-emphasis: left; */
             background-color: #003E78;
             color: #ffff;
             font-size: 13px;
         }
 
+        #tableResumen th {
+            
+            background-color: #003E78;
+            color: #ffff;
+            font-size: 10px;
+        }
+
         #table td {
             font-size: 12px;
+        }
+
+        #tableResumen td {
+            font-size: 10px;
+        }
+        #divresumen{
+            margin-top: 10px; 
+        }
+        #tableResumen{
+            border-collapse: collapse;
+        }
+
+        #tableResumen th,
+        #tableResumen td {
+            text-align: center;
+            border: 1px solid #ddd;
+            padding: 8px;
         }
 
     </style>
@@ -130,9 +153,16 @@
             </tr>
         </thead>
         <tbody>
+            @php
+                $cantpresente = 0;
+                $cantfalta = 0;
+                $cantjusti = 0;
+                $cantLicencia = 0;
+            @endphp
             @foreach ($datos as $dato)
                 @switch($dato->fk_idestadoAsistencias)
                     @case(1)
+                        {{$cantpresente++}}
                         <tr>
                             <td>{{ $dato->Dia }}</td>
                             <td style="text-align: center"><img src=".{{ $dato->foto }}" width="55"></td>
@@ -145,35 +175,32 @@
                                 <p style="display: inline">{{ $dato->tkentrada }}</p>
 
                             </td>
-                            @if ($dato->hor_salida != '00:00:00')
-
-                                <td style="text-align: center">{{ $dato->hor_salida }}</td>
-                                <td style="font-size: 6px">
-                                    <p style="display: inline"> Firmado por:{{ $docentes->nombres }} </p><br>
-                                    <p style="display: inline"> DNI:{{ $docentes->dni }} </p><br>
-                                    <p style="display: inline">Motivo: Registro asistencia</p><br>
-                                    <p style="display: inline">{{ $dato->fsalida }}</p><br>
-                                    <p style="display: inline">{{ $dato->tksalida }}</p>
-
-                                </td>
-                            @else
-                                <td colspan="2">No hay registro</td>
-                            @endif
+                            <td style="text-align: center">{{ $dato->hor_salida }}</td>
+                            <td style="font-size: 6px">
+                                <p style="display: inline"> Firmado por:{{ $docentes->nombres }} </p><br>
+                                <p style="display: inline"> DNI:{{ $docentes->dni }} </p><br>
+                                <p style="display: inline">Motivo: Registro asistencia</p><br>
+                                <p style="display: inline">{{ $dato->fsalida }}</p><br>
+                                <p style="display: inline">{{ $dato->tksalida }}</p>
+                            </td>
                         </tr>
                     @break
                     @case(2)
+                        {{$cantfalta++}}
                         <tr>
                             <td>{{ $dato->Dia }}</td>
                             <td colspan="5">No Registro Asistencia</td>
                         </tr>
                     @break
                     @case(3)
+                        {{$cantjusti++}}
                         <tr>
                             <td>{{ $dato->Dia }}</td>
                             <td colspan="5">Falta Justificada</td>
                         </tr>
                     @break
                     @case(4)
+                        {{$cantLicencia++}}
                         <tr>
                             <td>{{ $dato->Dia }}</td>
                             <td colspan="5">Licencia Aprobada</td>
@@ -185,6 +212,23 @@
                             <td colspan="5">Dia No Laborable</td>
                         </tr>
                     @break
+                    @case(6)
+                        {{$cantpresente++}}
+                        <tr>
+                            <td>{{ $dato->Dia }}</td>
+                            <td style="text-align: center"><img src=".{{ $dato->foto }}" width="55"></td>
+                            <td style="text-align: center">{{ $dato->hor_entrada }}</td>
+                            <td style="font-size: 6px">
+                                <p style="display: inline"> Firmado por:{{ $docentes->nombres }} </p><br>
+                                <p style="display: inline"> DNI:{{ $docentes->dni }} </p><br>
+                                <p style="display: inline">Motivo: Registro asistencia</p><br>
+                                <p style="display: inline">{{ $dato->fentrada }}</p><br>
+                                <p style="display: inline">{{ $dato->tkentrada }}</p>
+
+                            </td>
+                            <td colspan="2">No hay registro</td>
+                        </tr>
+                    @break
 
                 @endswitch
 
@@ -192,6 +236,30 @@
 
         </tbody>
     </table>
+
+    <div id="divresumen">
+        <table id="tableResumen">
+            <thead>
+                <tr>
+                    <th colspan="4">Resumen Informe de Asistencias</th>
+                </tr>
+                <tr>
+                    <th>Dias Presente</th>
+                    <th>Dias Ausentes</th>
+                    <th>Faltas Justificados</th>
+                    <th>Dias De Licencia</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ $cantpresente }}</td>
+                    <td>{{ $cantfalta }}</td>
+                    <td>{{ $cantjusti }}</td>
+                    <td>{{ $cantLicencia }}</td>
+                </tr>
+            </tbody>
+        </table>  
+    </div>
 
 
 </body>

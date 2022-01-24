@@ -55,9 +55,15 @@ Route::post('/docentes/salida/file', [EntradaController::class, 'evidenciafile']
 //Route::post('/docentes/salida/registrar', [SalidaController::class, 'store'])->name('registrar.salida');
 
 Route::get('/URyC/ParteDiario', [ParteDiarioController::class, 'index'])->middleware('can:reportes.parteDiario')->name('partediario');
+Route::post('/URyC/docentes/registros/asistencia', [ParteDiarioController::class, 'allAsistencias'])->middleware('can:reportes.parteDiario');
+Route::post('/URyC/docentes/registros/asistencia/justificar', [ParteDiarioController::class, 'justificarAsistencia'])->middleware('can:reportes.parteDiario');
 Route::get('/URyC/ParteDiario/general/{fecha}', [ParteDiarioController::class, 'reportegeneral'])->middleware('can:reportes.parteDiario')->name('reportegeneral');
-// Route::post('/URyC/ParteDiario/reporte', [ParteDiarioController::class, 'reportedocente']);
+Route::get('/URyC/ParteDiario/general/faltas/{fecha}', [ParteDiarioController::class, 'reportegeneralfaltas'])->middleware('can:reportes.parteDiario')->name('reportegeneralfaltas');
 Route::get('/URyC/ParteDiario/reporte/{id}/{mes}/{aa}', [ParteDiarioController::class, 'reportedocente'])->middleware('can:reportes.parteDiario');
+// Route::get('/URyC/ParteDiario', [ParteDiarioController::class, 'index'])->middleware('can:reportes.parteDiario')->name('partediario');
+// Route::get('/URyC/ParteDiario/general/{fecha}', [ParteDiarioController::class, 'reportegeneral'])->middleware('can:reportes.parteDiario')->name('reportegeneral');
+//Route::post('/URyC/ParteDiario/reporte', [ParteDiarioController::class, 'reportedocente']);
+// Route::get('/URyC/ParteDiario/reporte/{id}/{mes}/{aa}', [ParteDiarioController::class, 'reportedocente'])->middleware('can:reportes.parteDiario');
 
 
 Route::get('/departamento/docentes', [DocentesController::class, 'index'])->middleware('can:gestion.docente')->name('docentes');
@@ -66,7 +72,12 @@ Route::post('/departamento/docentes/store',[DocentesController::class,'store'])-
 
 Route::post('/departamento/docentes/edit',[DocentesController::class,'edit'])->middleware('can:gestion.docente')->name('docentes.edit');
 Route::get('/departamento/docentes/editSemana/{id}',[DocentesController::class,'editSemana'])->middleware('can:gestion.docente')->name('docentes.editSemana');
+Route::get('/departamento/docentes/cargo/{id}',[DocentesController::class,'CrearCargo'])->middleware('can:gestion.docente')->name('docentes.crear.cargo');
+Route::post('/departamento/docentes/cargo/eliminar',[DocentesController::class,'EliminarCargo'])->middleware('can:gestion.docente')->name('docentes.eliminar.cargo');
 Route::put('/departamento/docentes/updateSemana/{id}',[DocentesController::class,'updateSemana'])->middleware('can:gestion.docente')->name('docentes.updateSemana');
+// Route::post('/departamento/docentes/edit',[DocentesController::class,'edit'])->middleware('can:gestion.docente')->name('docentes.edit');
+// Route::get('/departamento/docentes/editSemana/{id}',[DocentesController::class,'editSemana'])->middleware('can:gestion.docente')->name('docentes.editSemana');
+// Route::put('/departamento/docentes/updateSemana/{id}',[DocentesController::class,'updateSemana'])->middleware('can:gestion.docente')->name('docentes.updateSemana');
 Route::post('/departamento/docentes/dpto',[DocentesController::class,'dpto']);
 Route::post('/departamento/docentes/update',[DocentesController::class,'update']);
 Route::post('/departamento/docentes/delete',[DocentesController::class,'destroy']);
@@ -110,10 +121,10 @@ Route::post('/licencia/index/datos', [LicenciasIndex::class, 'datos'])->name('da
 Route::post('/Departamento/index/validando', [ValidarSalidasIndex::class, 'validando'])->middleware('can:valida.Salida')->name('validando');
 Route::post('/Departamento/ValidaSalida/dato', [ValidaSalidaController::class, 'dato'])->middleware('can:valida.Salida')->name('ValidaSalida.dato');
 
-Route::resource('/departamento/ValidaLicencia', ValidaLicenciaController::class)->middleware('can:valida.licencia|valida.licencia1|valida.licencia2|valida.licencia3')->names([
+Route::resource('/departamento/ValidaLicencia', ValidaLicenciaController::class)->names([
     'index'=>'ValidaLicencia',
     'store'=>'ValidaLicencia.store'
 ]);
-Route::post('/departamento/ValidaLicencia/store', [ValidaLicenciaController::class, 'store'])->middleware('can:valida.licencia|valida.licencia1|valida.licencia2|valida.licencia3')->name('licencias.store');
-Route::post('/departamento/ValidaLicencia/datos', [ValidaLicenciaController::class, 'datos'])->middleware('can:valida.licencia|valida.licencia1|valida.licencia2|valida.licencia3')->name('ValidaLicencia.datos');
-Route::post('/departamento/ValidaLicencia/imprimir', [ValidaLicenciaController::class, 'imprimir'])->middleware('can:valida.licencia|valida.licencia1|valida.licencia2|valida.licencia3')->name('ValidaLicencia.imprimir');
+Route::post('/departamento/ValidaLicencia/store', [ValidaLicenciaController::class, 'store'])->name('licencias.store');
+Route::post('/departamento/ValidaLicencia/datos', [ValidaLicenciaController::class, 'datos'])->name('ValidaLicencia.datos');
+Route::post('/departamento/ValidaLicencia/imprimir', [ValidaLicenciaController::class, 'imprimir'])->name('ValidaLicencia.imprimir');

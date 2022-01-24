@@ -2,7 +2,7 @@ let idMot = 0;
 let idSoli = 0;
 let desde = new Date($('#desde').val()).getTime();
 let hasta = new Date($('#hasta').val()).getTime();
-let ndias = 0;
+let ndias = 1;
 let fech = ($('#fechs').val()).split(',');
 let fechita = new Date($('#desde').val());
 Dropzone.options.myAwesomeDropzone = { // camelized version of the `id`
@@ -500,8 +500,8 @@ function validarEntradas() {
             $("#txtareajus").focus();
         } else {
             if (ndias > 0) {
-                if ((+fech1 < +fech2)) {
-                    if ((+fech1 < +fech3)) {
+                if ((+fech1 <= +fech2)) {
+                    if ((+fech1 <= +fech3)) {
                         if ($('#chkCodigoFirma').is(":checked")) {
                             if ($('#txtCodigoFirma').val() != '') {
                                 bdr = true;

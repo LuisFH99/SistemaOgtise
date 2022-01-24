@@ -147,10 +147,11 @@ class ValidaLicenciaController extends Controller
             ->join('tipfirmas', 'firmas.fk_idTipFirmas', '=', 'tipfirmas.idTipFirmas')
             ->where('fk_idSolicitudes',$solicitudes->idSolicitudes)->orderBy('idFirmaHasSolicitudes')->get();
         $DocsAd=Adjunto::where('fk_idSolicitudes',$request->idSol)->get();
+        $Motivos=MotivoSolicitud::all();
         $aux=0;
         $url='storage/Archivos/'.$solicitudes->fech_solicitud.'_'.$solicitudes->codigo.'.pdf';
         
-        $pdf = PDF :: loadView ( 'docentes.PDFs.reporteSolicitud' , compact('solicitudes','DocsAd','Firmas','aux'));
+        $pdf = PDF :: loadView ( 'docentes.PDFs.reporteSolicitud' , compact('solicitudes','Motivos','DocsAd','Firmas','aux'));
         /*return  */$pdf->save($url)/*->stream()*/;
         return /*view('docentes.licencias',compact('user','Motivos'))*/$url;
     }

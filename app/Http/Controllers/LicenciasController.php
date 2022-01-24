@@ -80,7 +80,7 @@ class LicenciasController extends Controller
         $url="";
         $Motivos=MotivoSolicitud::all();
         $Docente=Docente::join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
-                        ->select('idDocentes','idPersonas',DB::raw('curdate() as dia'), DB::raw('curtime() as hora'))
+                        ->select('idDocentes','personas.*',DB::raw('curdate() as dia'), DB::raw('curtime() as hora'))
                         ->where('correo',$user->email)->first();
         
         Firma::create([
