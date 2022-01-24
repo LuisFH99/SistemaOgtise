@@ -59,6 +59,7 @@
             <small class="text-danger">{{ $message }}</small>
         @enderror
     </div>
+    
     <div class="col-md-3 col-sm-6 my-3">
         <label class="form-label">Facultad:</label>
 
@@ -68,7 +69,6 @@
                 <option value="{{ $facultad->id_Facultades }}">{{ $facultad->nomFac }}</option>
             @endforeach
         </select>
-
 
     </div>
 
@@ -89,7 +89,6 @@
         @enderror
 
     </div>
-
 
     <div class="col-md-4 col-sm-6 mb-3">
         <label for="" class="form-label">Condición:</label>
