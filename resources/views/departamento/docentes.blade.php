@@ -20,6 +20,8 @@
             })
         </script>
     @endif
+
+    
     <div class="container create-docente">
         <div class="card">
             {{-- <div class="card-header">
@@ -173,6 +175,18 @@
                 text: "{{ session('info') }}",
 
             })
+        </script>
+    @endif
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            location.reload();
         </script>
     @endif
     <script>
