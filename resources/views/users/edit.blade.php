@@ -39,7 +39,7 @@
 
 @section('js')
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
-    <script> console.log('Hi!');
+    <script>
         $(function() {
             $('#toggle-state').change(function() {
                 if(document.getElementById('toggle-state').checked){

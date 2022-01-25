@@ -263,8 +263,7 @@
 
                 for (let i = 0; i < res.dptos.length; i++) {
                     $('#dptoacademicoEdit').append("<option value='" + res.dptos[i].idDepAcademicos + "'>" + res
-                        .dptos[
-                            i].nomdep + "</option>");
+                        .dptos[i].nomdep + "</option>");
                 }
                 $('#dptoacademicoEdit > option[value="' + res.docente[0].idDepAcademicos + '"]').attr('selected',
                     'selected');

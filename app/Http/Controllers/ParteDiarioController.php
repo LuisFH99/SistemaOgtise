@@ -78,6 +78,15 @@ class ParteDiarioController extends Controller
         return  $pdf->stream();
     }
 
+    public function reportedpto($fecha,$idfac,$iddpto)
+    {
+
+        $datos = DB::select('call P_InformeDepto(?,?,?)', [$fecha,$idfac,$iddpto]);
+        $pdf = PDF::loadView('URC.Reportes.reportedepartamento', compact('datos', 'fecha'));
+        $pdf->setPaper("A4", "portrait");
+        return  $pdf->stream();
+    }
+
     public function reportedocente($id, $mes, $aa)
     {
 

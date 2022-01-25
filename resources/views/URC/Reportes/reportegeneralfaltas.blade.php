@@ -168,7 +168,7 @@
                                                     @case(2)
                                                         {{ $cantfalta++ }}
                                                         <tr>
-                                                            <td scope="row">{{ $cont++ }}</td>
+                                                            <td scope="row" style="text-align: center">{{ $cont++ }}</td>
                                                             <td>{{ $docente->nombres }}</td>
                                                             <td style="text-align: center">
                                                                 {{ strtoupper(substr($docente->condicion, 0, 1) . '-' . substr($docente->categoria, $docente->categoria == 'Auxiliar' ? 2 : 0, 1)) . substr($docente->dedicacion, 0, 1) . substr(strstr($docente->dedicacion, ' '), 1, 1) }}
@@ -179,7 +179,7 @@
                                                     @case(3)
                                                         {{ $cantjusti++ }}
                                                         <tr>
-                                                            <td scope="row">{{ $cont++ }}</td>
+                                                            <td scope="row" style="text-align: center">{{ $cont++ }}</td>
                                                             <td>{{ $docente->nombres }}</td>
                                                             <td style="text-align: center">
                                                                 {{ strtoupper(substr($docente->condicion, 0, 1) . '-' . substr($docente->categoria, $docente->categoria == 'Auxiliar' ? 2 : 0, 1)) . substr($docente->dedicacion, 0, 1) . substr(strstr($docente->dedicacion, ' '), 1, 1) }}
@@ -190,7 +190,7 @@
                                                     @case(4)
                                                         {{ $cantLicencia++ }}
                                                         <tr>
-                                                            <td scope="row">{{ $cont++ }}</td>
+                                                            <td scope="row" style="text-align: center">{{ $cont++ }}</td>
                                                             <td>{{ $docente->nombres }}</td>
                                                             <td style="text-align: center">
                                                                 {{ strtoupper(substr($docente->condicion, 0, 1) . '-' . substr($docente->categoria, $docente->categoria == 'Auxiliar' ? 2 : 0, 1)) . substr($docente->dedicacion, 0, 1) . substr(strstr($docente->dedicacion, ' '), 1, 1) }}
@@ -200,7 +200,7 @@
                                                     @break
                                                     @case(5)
                                                         <tr>
-                                                            <td scope="row">{{ $cont++ }}</td>
+                                                            <td scope="row" style="text-align: center">{{ $cont++ }}</td>
                                                             <td>{{ $docente->nombres }}</td>
                                                             <td style="text-align: center">
                                                                 {{ strtoupper(substr($docente->condicion, 0, 1) . '-' . substr($docente->categoria, $docente->categoria == 'Auxiliar' ? 2 : 0, 1)) . substr($docente->dedicacion, 0, 1) . substr(strstr($docente->dedicacion, ' '), 1, 1) }}
