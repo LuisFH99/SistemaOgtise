@@ -20,6 +20,8 @@
             })
         </script>
     @endif
+
+    
     <div class="container create-docente">
         <div class="card">
             {{-- <div class="card-header">
@@ -175,6 +177,18 @@
             })
         </script>
     @endif
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            location.reload();
+        </script>
+    @endif
     <script>
         $(document).ready(function() {
 
@@ -263,8 +277,7 @@
 
                 for (let i = 0; i < res.dptos.length; i++) {
                     $('#dptoacademicoEdit').append("<option value='" + res.dptos[i].idDepAcademicos + "'>" + res
-                        .dptos[
-                            i].nomdep + "</option>");
+                        .dptos[i].nomdep + "</option>");
                 }
                 $('#dptoacademicoEdit > option[value="' + res.docente[0].idDepAcademicos + '"]').attr('selected',
                     'selected');

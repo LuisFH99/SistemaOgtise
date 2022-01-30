@@ -194,8 +194,8 @@
                                                             <br>
                                                             <p style="display: inline">{{ $asistencia->firmas }}</p>
                                                             <br>
-                                                            {{-- <p style="display: inline">{{ $asistencia->tksalida }}
-                                                            </p> --}}
+                                                            {{-- <p style="display: inline">{{ $asistencia->tksalida }} --}}
+                                                            </p>
                                                         </td>
 
 
@@ -249,7 +249,7 @@
                                                     <tr>
                                                         <td scope="row" style="text-align: center">{{ $cont++ }}</td>
                                                         <td>{{ $docente->nombres }}</td>
-                                                        <td style="text-align: center">
+                                                        <td style="text-align: ce nter">
                                                             {{ strtoupper(substr($docente->condicion, 0, 1) . '-' . substr($docente->categoria, $docente->categoria == 'Auxiliar' ? 2 : 0, 1)) . substr($docente->dedicacion, 0, 1) . substr(strstr($docente->dedicacion, ' '), 1, 1) }}
                                                         </td>
                                                         <td style="text-align: center"> <img

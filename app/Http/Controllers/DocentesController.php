@@ -76,7 +76,7 @@ class DocentesController extends Controller
             $correo = new CredencialesMailable($arrayInfo);
             Mail::to($request->email)->send($correo);
 
-            return redirect()->route('docentes');
+            return redirect()->route('docentes')->with('success', 'El docente fue registrado con Exito')->withInput();
         } else {
             if ($existe2 > 0) {
                 DB::insert('call p_crear_docente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [4, $request->dni, $request->nombres, $request->apepat, $request->apemat, $request->fnacimiento, $request->numcel, $clave, $request->condicion, $request->categoria, $request->dedicacion, $request->dptoacademico, 0, '0', 0, $request->email]);
@@ -90,7 +90,7 @@ class DocentesController extends Controller
                 $correo = new CredencialesMailable($arrayInfo);
                 Mail::to($request->email)->send($correo);
 
-                return redirect()->route('docentes');
+                return redirect()->route('docentes')->with('success', 'El docente fue registrado con Exito')->withInput();
             } else {
                 return redirect()->route('docentes')->with('info', 'El docente con DNI: ' . $request->dni . ' ya esta registrado')->withInput();
             }

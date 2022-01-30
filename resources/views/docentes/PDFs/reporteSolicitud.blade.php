@@ -76,7 +76,7 @@
                     <div class="Column">
                         <p style="display: inline">Firmado el dia <b>{{$Firma->fechaFirma}}</b></p><br>
                         <p style="display: inline">via firma <b>{{$Firma->tipo}}</b></p><br>
-                        <p style="display: inline">Razón: <b>{{$Firma->token}}</b></p><br>
+                        {{-- <p style="display: inline">Razón: <b>{{$Firma->token}}</b></p><br> --}}
                         <p style="display: inline">Ubicación: <b>{{$Firma->firma}}</b></p><br>
                         <p style="display: inline">Nombre: <b>{{$Firma->nombres.' '.$Firma->apellPat.' '.$Firma->apellMat}}</b></p><br> 
                         <p style="display: inline">DNI N° <b>{{$Firma->DNI}}</b></p>

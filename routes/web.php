@@ -66,6 +66,7 @@ Route::post('/URyC/docentes/registros/asistencia/justificar', [ParteDiarioContro
 Route::get('/URyC/ParteDiario/general/{fecha}', [ParteDiarioController::class, 'reportegeneral'])->middleware('can:reportes.parteDiario')->name('reportegeneral');
 Route::get('/URyC/ParteDiario/general/faltas/{fecha}', [ParteDiarioController::class, 'reportegeneralfaltas'])->middleware('can:reportes.parteDiario')->name('reportegeneralfaltas');
 Route::get('/URyC/ParteDiario/reporte/{id}/{mes}/{aa}', [ParteDiarioController::class, 'reportedocente'])->middleware('can:reportes.parteDiario');
+Route::get('/URyC/ParteDiario/dpto/{fecha}/{idfac}/{iddpto}', [ParteDiarioController::class, 'reportedpto'])->middleware('can:reportes.parteDiario');
 
 
 Route::get('/departamento/docentes', [DocentesController::class, 'index'])->middleware('can:gestion.docente')->name('docentes');

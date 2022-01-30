@@ -171,8 +171,9 @@
                                 <p style="display: inline"> Firmado por:{{ $docentes->nombres }} </p><br>
                                 <p style="display: inline"> DNI:{{ $docentes->dni }} </p><br>
                                 <p style="display: inline">Motivo: Registro asistencia</p><br>
-                                <p style="display: inline">{{ $dato->fentrada }}</p><br>
-                                <p style="display: inline">{{ $dato->tkentrada }}</p>
+                                <p style="display: inline">{{ $dato->fentrada }}</p>
+                                {{-- <br>
+                                <p style="display: inline">{{ $dato->tkentrada }}</p> --}}
 
                             </td>
                             <td style="text-align: center">{{ $dato->hor_salida }}</td>
@@ -180,8 +181,9 @@
                                 <p style="display: inline"> Firmado por:{{ $docentes->nombres }} </p><br>
                                 <p style="display: inline"> DNI:{{ $docentes->dni }} </p><br>
                                 <p style="display: inline">Motivo: Registro asistencia</p><br>
-                                <p style="display: inline">{{ $dato->fsalida }}</p><br>
-                                <p style="display: inline">{{ $dato->tksalida }}</p>
+                                <p style="display: inline">{{ $dato->fsalida }}</p>
+                                {{-- <br>
+                                <p style="display: inline">{{ $dato->tksalida }}</p> --}}
                             </td>
                         </tr>
                     @break
@@ -222,8 +224,9 @@
                                 <p style="display: inline"> Firmado por:{{ $docentes->nombres }} </p><br>
                                 <p style="display: inline"> DNI:{{ $docentes->dni }} </p><br>
                                 <p style="display: inline">Motivo: Registro asistencia</p><br>
-                                <p style="display: inline">{{ $dato->fentrada }}</p><br>
-                                <p style="display: inline">{{ $dato->tkentrada }}</p>
+                                <p style="display: inline">{{ $dato->fentrada }}</p>
+                                {{-- <br>
+                                <p style="display: inline">{{ $dato->tkentrada }}</p> --}}
 
                             </td>
                             <td colspan="2">No hay registro</td>

@@ -11,7 +11,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-5">
                 <div class="card fondo-cards">
                     <div class="card-body">
                         <div class="row">
@@ -46,24 +46,32 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-7">
                 <div class="card fondo-cards">
                     <div class="card-body">
                         <div class="row">
 
                             <div class="col-md-5">
-                                <label class="form-label">Fecha de Reporte (*)</label>
+                                <label class="form-label">Fecha de Parte Diario (*)</label>
                                 <input type="date" id="freporte" name="freporte" class="form-control" tabindex="3">
                             </div>
 
                             <div class="col-md-7 mt-4 d-flex align-items-center justify-content-center">
                                 <button type="button" class="btn btn-outline-primary mr-2" id="InfGeneral">Parte
                                     Diario</button>
-                                <button type="button" class="btn btn-outline-danger" id="InfFaltas">Informe de
+                                <button type="button" class="btn btn-outline-danger mr-2" id="InfFaltas">Informe de
                                     Faltas</button>
+                                <input type="checkbox" checked data-toggle="toggle" data-on="+" data-off="-" data-onstyle="secondary" data-offstyle="success" id="toggle-state">    
                             </div>
 
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12" id="dpto">
+                <div class="card fondo-cards">
+                    <div class="card-body">
+                        @livewire('show-depacademicos')
                     </div>
                 </div>
             </div>
@@ -187,9 +195,13 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
+        rel="stylesheet">
+    @livewireStyles 
 @stop
 
 @section('js')
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
     <script>
         $(document).ready(function() {
 
@@ -212,7 +224,7 @@
                 }
             });
             selectanio(new Date().getFullYear());
-
+            $("#dpto").hide();
 
             $("#meses1 option[value=" + (new Date().getMonth() + 1) + "]").attr("selected", true);
 
@@ -224,6 +236,14 @@
                 RegistroMensual($('#meses').val(), $(this).val(), $('#iddoc').val());
             });
 
+            $('#toggle-state').change(function() {
+                if(document.getElementById('toggle-state').checked){
+                    $("#dpto").hide();
+                }else{
+                    $("#dpto").show();
+                }
+            })
+
         });
 
 
@@ -234,9 +254,23 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Debes Indicar una Fecha para el Reporte',
+                    text: 'Debes Indicar una Fecha de Parte Diario',
                 });
                 $('#freporte').focus();
+            }
+        });
+
+        $('#InformeDpto').on('click', function() {
+            //console.log($('#facultad').val()+' ggg '+$('#dptoacademico').val());
+            if ($('#freporte1').val().trim() !== '' && $('#facultad').val() !== '' && $('#dptoacademico').val() !== '') {
+                window.open('/URyC/ParteDiario/dpto/' + $('#freporte1').val()+'/'+$('#facultad').val()+'/'+$('#dptoacademico').val(), '_blank');
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Debes Indicar una Fecha para el Reporte y Departamento Academico',
+                });
+                $('#freporte1').focus();
             }
         });
 
@@ -349,8 +383,8 @@
             IncioRep(new Date().getMonth() + 1, new Date().getFullYear(), $('#iddoc').val());
 
             $("table tbody tr").click(function() {
-                $('#nomdoc').text("Docente: "+$(this).find("td:eq(1)").text());
-                
+                $('#nomdoc').text("Docente: " + $(this).find("td:eq(1)").text());
+
             });
 
             $('#InfoAsistencias').modal('show');
@@ -410,4 +444,5 @@
 
         }
     </script>
+    @livewireScripts
 @stop
