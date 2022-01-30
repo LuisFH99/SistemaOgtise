@@ -259,7 +259,7 @@ return [
             'icon'        => 'fas fa-users',
             'can'  => 'admin.users.index'
         ],
-        ['header' => 'DOCENTES'],
+        ['header' => 'DOCENTES', 'can'  => 'asistencia.Entrada'],
 
         [
             'text'      => 'Registrar Asistencia',
@@ -286,7 +286,7 @@ return [
             'route'  => 'licencias',
             'can'  => 'licencia'
         ],
-        ['header' => 'DPTO. ACADÉMINCO'],
+        ['header' => 'DPTO. ACADÉMICO','can'  => 'valida.Salida'],
         [
             'text' => 'Validar Salidas',
             'icon' => 'fas fa-user-check',
@@ -307,7 +307,7 @@ return [
             'can'  => 'gestion.docente'
         ],
 
-        ['header' => 'DECANATURA'],
+        ['header' => 'DECANATURA','can'  => 'valida.licencia1'],
         [
             'text' => 'Validar Licencias',
             'icon' => 'fas fa-tasks',
@@ -315,7 +315,7 @@ return [
             'can'  => 'valida.licencia1'
         ],
 
-        ['header' => 'UND. REGISTRO Y CONTROL'],
+        ['header' => 'UND. REGISTRO Y CONTROL', 'can'  => 'reportes.parteDiario'],
         [
             'text' => 'Parte Diario',
             'icon' => 'fas fa-clipboard-list',
@@ -334,7 +334,7 @@ return [
             'route'  => 'ValidaLicencia',
             'can'  => 'valida.licencia2'
         ],
-        ['header' => 'DIRECCION RR.HH'],
+        ['header' => 'DIRECCION RR.HH','can'  => 'valida.licencia3'],
         [
             'text' => 'Validar Licencias',
             'icon' => 'fas fa-tasks',

@@ -83,7 +83,8 @@ class ValidaLicenciaController extends Controller
     public function datos(Request $request){
         $user=auth()->user();
         $Roles=$user->getRoleNames();
-        $Role=0;$Valor=0;
+        $Role=0;
+        $Valor=0;
         foreach ($Roles as $value) {
             switch($value) {
                 case('URyC'):
@@ -98,11 +99,11 @@ class ValidaLicenciaController extends Controller
         }
         if($Role==0){
             $iddoc=Docente::join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
-            ->select('idDocentes')->where('correo',$user->email)->first();
+            ->select('idDocentes')->where('correo',$user->email)->where('personas.estado','=',1)->first();
             $Valor=Docente::where('clave','=',''.$request->dt.'')->where('idDocentes',$iddoc->idDocentes)->count();
         }
         if($Role==1){
-            $idper=Persona::select('idPersonas')->where('correo',$user->email)->first();
+            $idper=Persona::select('idPersonas')->where('correo',$user->email)->where('estado','=',1)->first();
             $Valor=Administrativo::where('clave','=',''.$request->dt.'')->where('fk_idPersonas',$idper->idPersonas)->count();
         }
         return $Valor;

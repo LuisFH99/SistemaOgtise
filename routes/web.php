@@ -33,7 +33,15 @@ use Illuminate\Support\Facades\Mail;
 Route::get('/', function () {
     return view('auth/login');
 });
-
+Route::get('storage-link', function () {
+    if(file_exists(public_path('storage'))){
+        return 'The "Public/storage" directory already exist.';
+    }
+    app('files')->link(
+        storage_path('app/public'),public_path('storage')
+    );
+    return 'The [public/storage] directory has been linked';
+});
 
 Auth::routes();
 
