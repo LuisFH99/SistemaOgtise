@@ -30,7 +30,7 @@
                     <div class="col-md-4">
                         <div class="d-flex abs-center">
                             <h1>
-                                Bienvenidos al Sistema de Asistencia Docente
+                                Bienvenidos al Sistema de Gestion de Asistencia Docente
                             </h1>
                         </div>
                     </div>
