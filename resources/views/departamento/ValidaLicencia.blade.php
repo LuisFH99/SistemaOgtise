@@ -17,7 +17,7 @@
     @can('valida.licencia2')
         @livewire('valida-licencia-index',['user' => $user,'estado'=>'Visto Bueno','bdr'=>1])
     @endcan
-    @can('valida.licencia3') --}}
+    @can('valida.licencia3')
         @livewire('valida-licencia-index',['user' => $user,'estado'=>'Admitida','bdr'=>1])
     @endcan
 </div> 
@@ -99,8 +99,7 @@
     @livewireStyles
 @stop
 
-@section('js')
-<script> console.log('Hi!');</script>
+@section('js') 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/ValidaLicencia.js">
     </script>

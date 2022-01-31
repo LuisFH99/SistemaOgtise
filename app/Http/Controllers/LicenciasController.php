@@ -47,7 +47,7 @@ class LicenciasController extends Controller
         $DocsAd=Adjunto::where('fk_idSolicitudes',$solicitudes->idSolicitudes)->get();
         $Motivos=MotivoSolicitud::all();
         $aux=0;
-        $url='storage/Archivos/'.$solicitudes->fech_solicitud.'_'.$solicitudes->codigo.'.pdf';
+        $url='storage/archivos/'.$solicitudes->fech_solicitud.'_'.$solicitudes->codigo.'.pdf';
         //$Sol=Solicitud::where('idSolicitudes', $solicitudes->idSolicitudes)->update(array('url_doc' => $url));
         $pdf = PDF :: loadView ( 'docentes.PDFs.reporteSolicitud' , compact('solicitudes','Motivos','DocsAd','Firmas','aux'));
         /*return  */$pdf->save($url)/*->stream()*/;
@@ -90,7 +90,7 @@ class LicenciasController extends Controller
             'fk_idTipFirmas'=>$request->idTf,
         ]);
         $ultFirma=Firma::latest('idFirmas')->first();
-        $url='storage/Archivos/'.$Docente->dia.'_'.$Docente->hora.'.pdf';
+        $url='storage/archivos/'.$Docente->dia.'_'.$Docente->hora.'.pdf';
         Solicitud::create([
             'fech_solicitud'    =>$Docente->dia,
             'hor_solicitud'     =>$Docente->hora,
@@ -126,6 +126,7 @@ class LicenciasController extends Controller
         Mail::to($user->email)->send($correo);
         return $arrayInfo;
     }
+
     public function dato(Request $request){
         $user=auth()->user();
         $iddoc=Docente::join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
@@ -133,6 +134,7 @@ class LicenciasController extends Controller
         $Valor=Docente::where('clave','=',''.$request->dt.'')->where('idDocentes',$iddoc->idDocentes)->count();
         return $Valor;
     }
+    
     public function file(Request $request)
     {
         
@@ -141,7 +143,7 @@ class LicenciasController extends Controller
             ->join('solicitudes', 'docentes.idDocentes', '=', 'solicitudes.fk_idDocentes')
             ->select('idSolicitudes')->where('correo',$user->email)
             ->latest('idSolicitudes')->first();
-        $Archivos= $request->file('file')->store('public/Archivos');
+        $Archivos= $request->file('file')->store('public/archivos');
         $url=Storage::url($Archivos);
         // $Adjuntos=new Adjunto;
         // $Adjuntos->docs= $url;

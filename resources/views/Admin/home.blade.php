@@ -29,8 +29,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="d-flex abs-center">
-                            <h1>
-                                Bienvenidos al Sistema de Asistencia Docente
+                            <h1 style="text-align: center">
+                                Bienvenido al Sistema de Gestión de Asistencia Docente
                             </h1>
                         </div>
                     </div>
@@ -46,5 +46,5 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+
 @stop

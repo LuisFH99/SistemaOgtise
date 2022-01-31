@@ -100,7 +100,8 @@
 <body>
 
     <div class="header">
-        <img src="Uploads/Frame.jpg" alt="">
+        
+        <img src= {{ asset('uploads/frame.jpg') }} alt="">
     </div>
     @php
         $aux = '';

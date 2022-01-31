@@ -22,5 +22,5 @@ class Docente extends Model
         'fk_idDedicaciones',
         'fk_idDepAcademicos',
     ];
-    protected $table = 'Docentes';
+    protected $table = 'docentes';
 }

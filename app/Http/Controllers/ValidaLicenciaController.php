@@ -74,12 +74,13 @@ class ValidaLicenciaController extends Controller
         $DocsAd=Adjunto::where('fk_idSolicitudes',$solicitudes->idSolicitudes)->get();
         $Motivos=MotivoSolicitud::all();
         $aux=0;
-        $url='storage/Archivos/'.$solicitudes->fech_solicitud.'_'.$solicitudes->codigo.'.pdf';
+        $url='storage/archivos/'.$solicitudes->fech_solicitud.'_'.$solicitudes->codigo.'.pdf';
         //$Sol=Solicitud::where('idSolicitudes', $solicitudes->idSolicitudes)->update(array('url_doc' => $url));
         $pdf = PDF :: loadView ( 'docentes.PDFs.reporteSolicitud' , compact('solicitudes','Motivos','DocsAd','Firmas','aux'));
         /*return  */$pdf->save($url)/*->stream()*/;
         return /*view('docentes.licencias',compact('user','Motivos'))*/'/'.$url;
     }
+
     public function datos(Request $request){
         $user=auth()->user();
         $Roles=$user->getRoleNames();
@@ -98,15 +99,16 @@ class ValidaLicenciaController extends Controller
         }
         if($Role==0){
             $iddoc=Docente::join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
-            ->select('idDocentes')->where('correo',$user->email)->first();
+            ->select('idDocentes')->where('correo',$user->email)->where('personas.estado','=',1)->first();
             $Valor=Docente::where('clave','=',''.$request->dt.'')->where('idDocentes',$iddoc->idDocentes)->count();
         }
         if($Role==1){
-            $idper=Persona::select('idPersonas')->where('correo',$user->email)->first();
+            $idper=Persona::select('idPersonas')->where('correo',$user->email)->where('estado','=',1)->first();
             $Valor=Administrativo::where('clave','=',''.$request->dt.'')->where('fk_idPersonas',$idper->idPersonas)->count();
         }
         return $Valor;
     }
+
     public function store(Request $request)
     {
         $user=auth()->user();
@@ -149,7 +151,7 @@ class ValidaLicenciaController extends Controller
         $DocsAd=Adjunto::where('fk_idSolicitudes',$request->idSol)->get();
         $Motivos=MotivoSolicitud::all();
         $aux=0;
-        $url='storage/Archivos/'.$solicitudes->fech_solicitud.'_'.$solicitudes->codigo.'.pdf';
+        $url='storage/archivos/'.$solicitudes->fech_solicitud.'_'.$solicitudes->codigo.'.pdf';
         
         $pdf = PDF :: loadView ( 'docentes.PDFs.reporteSolicitud' , compact('solicitudes','Motivos','DocsAd','Firmas','aux'));
         /*return  */$pdf->save($url)/*->stream()*/;

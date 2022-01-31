@@ -32,7 +32,7 @@
     </style>
 </head>
 <body>
-    <img src="Uploads/Membrete RRHH URYC_001.jpg" width="700">
+    <img src={{ asset('uploads/membrete.jpg') }} width="700">
     <div>
         <h1 class="titulo">Solicitud de Licencia </h1><br>
         <div>

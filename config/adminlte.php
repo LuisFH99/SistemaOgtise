@@ -259,29 +259,19 @@ return [
             'icon'        => 'fas fa-users',
             'can'  => 'admin.users.index'
         ],
-        ['header' => 'DOCENTES'],
+        [
+            'header' => 'DOCENTEddddd'
+        ],
 
         [
             'text'      => 'Registrar Asistencia',
             'icon'      => 'far fa-address-card',
             'route'     => 'entrada',
-            'can'  => 'asistencia.Entrada'
-            // 'submenu'   => [
-            //     [
-            //         'text'  => 'Registrar Entrada',
-            //         'route'   => 'entrada',
-            //         //'can'  => 'asistencia.Entrada'
-            //     ],
-            //     [
-            //         'text'  => 'Registrar Salida',
-            //         'route'   => 'salida',
-            //         //'can'  => 'asistencia.Salida'
-            //     ],
-            // ],
+            'can'       => 'asistencia.Entrada'
 
         ],
         [
-            'text' => 'Licencias',
+            'text' => 'Licenciasss',
             'icon'      => 'fas fa-file-upload',
             'route'  => 'licencias',
             'can'  => 'licencia'
@@ -307,7 +297,10 @@ return [
             'can'  => 'gestion.docente'
         ],
 
-        ['header' => 'DECANATURA'],
+        [
+            'header' => 'DECANATURA',
+            'can'  => 'valida.licencia1'
+        ],
         [
             'text' => 'Validar Licencias',
             'icon' => 'fas fa-tasks',

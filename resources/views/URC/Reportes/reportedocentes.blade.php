@@ -106,7 +106,7 @@
 
 <body>
     <div class="header">
-        <img src="Uploads/Frame.jpg" alt="">
+        <img src={{ asset('uploads/frame.jpg') }} alt="">
     </div>
     <h3 id="titulo">Registro de Asistencia</h3>
 

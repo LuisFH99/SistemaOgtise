@@ -20,5 +20,5 @@ class Administrativo extends Model
         'fk_idPersonas', 
         'fk_idRoles'
     ];
-    protected $table = 'Administrativos';
+    protected $table = 'administrativos';
 }

@@ -23,5 +23,5 @@ class Persona extends Model
         'telefono',
         'estado',
     ];
-    protected $table = 'Personas';
+    protected $table = 'personas';
 }

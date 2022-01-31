@@ -150,3 +150,14 @@ function formatoFecha(dato) { //2021-12-09
     let formatted_date = days[date.getDay()] + ", " + fecha[2] + " de " + months[parseInt(fecha[1]) - 1] + " de " + date.getFullYear();
     return formatted_date;
 }
+
+function mostrarPassword() {
+    var cambio = document.getElementById("txtCodigoFirma");
+    if (cambio.type == "password") {
+        cambio.type = "text";
+        $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+    } else {
+        cambio.type = "password";
+        $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+    }
+}

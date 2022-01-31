@@ -22,5 +22,5 @@ class FirmaHasSolicitud extends Model
         'fk_idPersonas',
     ];
 
-    protected $table = 'FirmaHasSolicitudes';
+    protected $table = 'firmahassolicitudes';
 }

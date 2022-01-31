@@ -121,3 +121,15 @@ Route::resource('/departamento/ValidaLicencia', ValidaLicenciaController::class)
 Route::post('/departamento/ValidaLicencia/store', [ValidaLicenciaController::class, 'store'])->middleware('can:valida.licencia.general')->name('licencias.store');
 Route::post('/departamento/ValidaLicencia/datos', [ValidaLicenciaController::class, 'datos'])->middleware('can:valida.licencia.general')->name('ValidaLicencia.datos');
 Route::post('/departamento/ValidaLicencia/imprimir', [ValidaLicenciaController::class, 'imprimir'])->name('ValidaLicencia.imprimir');
+
+
+Route::get('storage-link', function () {
+    if(file_exists(public_path('storage'))){
+        return 'The "Public/storage" directory already exist.';
+    }
+    app('files')->link(
+        storage_path('app/public'),public_path('storage')
+    );
+    return 'The [public/storage] directory has been linked';
+});
+

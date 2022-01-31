@@ -128,7 +128,7 @@ class EntradaController extends Controller
             $rpta = "1";
             }else{
                 $ip = $request->ip();
-                $ruta = '/storage/docentesimg/user.jpeg'; 
+                $ruta = '/uploads/user.jpeg'; 
                 $rpta = DB::insert('call p_asistencia(?,?,?,?,?,?,?,?,?,?,?)', [1, $ruta, $request->fecha, $request->hora, $ip, bin2hex(random_bytes(10)), $request->iddoc, 1, '', '', '']);
             }
         } else {
