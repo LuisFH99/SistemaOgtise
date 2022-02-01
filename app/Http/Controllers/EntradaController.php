@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Docente;
 use App\Models\Asistencia;
 use App\Models\Evidencia;
+use App\Models\Horario;
 use Illuminate\Support\Facades\Storage;
 
 use Carbon\Carbon;
@@ -54,11 +55,10 @@ class EntradaController extends Controller
             ->join('asistenciasalidas', 'asistencias.fk_idasistenciasalidas', '=', 'asistenciasalidas.idasistenciasalidas')
             ->select('asistencias.fk_idestadoasistencias', 'asistenciaentradas.hor_entrada', 'asistenciasalidas.hor_salida')->where('asistencias.fk_iddocentes', $this->getidDocente())->where('fechasistencias.fecha', DB::raw('curdate()'))->first();
 
-        
+        $horario=Horario::first();
 
-        $var = 2;
 
-        return view('docentes.entrada', compact('var', 'Datos', 'estado','registros'));
+        return view('docentes.entrada', compact('horario', 'Datos', 'estado','registros'));
     }
 
     
@@ -172,8 +172,15 @@ class EntradaController extends Controller
             ->join('asistenciasalidas', 'asistencias.fk_idasistenciasalidas', '=', 'asistenciasalidas.idasistenciasalidas')
             ->join('firmas as m', 'asistenciaentradas.fk_idfirmas', '=', 'm.idfirmas')
             ->join('firmas as t', 'asistenciasalidas.fk_idfirmas', '=', 't.idfirmas')
-            ->select('fechasistencias.fecha', 'asistenciaentradas.hor_entrada', 'asistenciaentradas.URL_foto','m.token as tkentrada' ,'asistenciasalidas.hor_salida','asistenciasalidas.informe','t.token as tksalida','asistencias.observacion')->where('asistencias.fk_iddocentes', $this->getidDocente())->where('fechasistencias.fecha', $fecha)->first();
+            ->select('fechasistencias.fecha', 'asistenciaentradas.hor_entrada', 'asistenciaentradas.URL_foto','m.token as tkentrada' ,'asistenciasalidas.hor_salida','asistenciasalidas.informe','t.token as tksalida','asistencias.observacion','asistenciasalidas.idAsistenciaSalidas')->where('asistencias.fk_iddocentes', $this->getidDocente())->where('fechasistencias.fecha', $fecha)->first();
+        $evidencia=Evidencia::where('fk_idAsistenciaSalidas',$detregistro->idAsistenciaSalidas)->get();
         return $detregistro;
+    }
+    public function detevidencia(Request $request)
+    {
+        
+        $evidencia=Evidencia::where('fk_idAsistenciaSalidas',$request->id)->get();
+        return $evidencia;
     }
 
     /**

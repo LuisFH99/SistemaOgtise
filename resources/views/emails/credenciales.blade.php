@@ -17,6 +17,7 @@
     <p><strong>Usuario: </strong>{{$credenciales["user"]}}</p>
     <p><strong>Contraseña: </strong>{{$credenciales["contra"]}}</p>
     <p><strong>Clave: </strong>{{$credenciales["clave"]}}</p>
+    <p><strong>Link:</strong> <a href="https://registroycontrol.unasam.edu.pe/">https://registroycontrol.unasam.edu.pe/</a> </p>
     <p>La credencial Clave, servirá para realizar su registro de asistencia en el sistema y otras validaciones.</p>
 </body>
 </html>

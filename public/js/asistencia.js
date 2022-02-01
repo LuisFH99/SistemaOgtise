@@ -363,12 +363,40 @@ function ModalAsistio(dia) {
             year: $('#selectyyyy').val()
         }
     }).done(function(res) {
-        //console.log(res.observacion);
+        //console.log(res);
         
         $('#fechreg').text('Fecha de Registro: '+formatoFecha(res.fecha));
         $('#entrada').text('Hora de Entrada: '+res.hor_entrada);
         $('#salida').text('Hora de Salida: '+res.hor_salida);
         $('#informe').text(''+res.informe);
+
+        $.ajax({
+            url: '/docentes/registros/asistencia/evidencia',
+            method: 'POST',
+            data: {
+                _token: $('input[name="_token"]').val(),
+                id: res.idAsistenciaSalidas
+            }
+        }).done(function(evi) { 
+            /*console.log(evi);
+            console.log(evi.length);
+            console.log(evi[0].docs);*/
+            let mj = "Documentos enviados: ";
+            if(evi.length == 0 ){
+                $('#documentos').text('Documentos enviados: Ninguno');
+            }else{
+                for(i=0;i<evi.length;i++){
+                    mj = mj + "<a href='"+evi[i].docs +"' target='_blank' class='text-secondary mr-3'><i class='far fa-file-pdf'></i> Documento 0" + (i+1) + "</a>";
+                }
+                $('#documentos').html(mj);
+            }
+
+        }).fail(function() {
+            Swal.fire('Falla en el envio de Datos', '', 'error');
+        });
+
+        
+        
         $('#foto').attr("src",res.URL_foto);
         $('#observacion').text('Observacion: '+res.observacion);
         $('#tkentrada').text('Codigo de Registro de Entrada: '+res.tkentrada);
