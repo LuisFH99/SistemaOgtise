@@ -18,7 +18,8 @@ class Administrativo extends Model
         'clave', 
         'estado', 
         'fk_idPersonas', 
-        'fk_idRoles'
+        'fk_idRoles',
+        'activos',
     ];
-    protected $table = 'Administrativos';
+    protected $table = 'administrativos';
 }

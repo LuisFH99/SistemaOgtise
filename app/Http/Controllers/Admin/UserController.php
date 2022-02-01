@@ -79,19 +79,22 @@ class UserController extends Controller
                     'fechNacimiento'=>$request->fnacimiento,
                     'correo'        =>$request->email,
                     'telefono'      =>$request->numcel,
-                    'estado'        =>1
+                    'estado'        =>1,
+                    'activos'        =>1
                 ]);
                 User::create([
                     'name' => $request->nombres.' '.$request->apepat.' '.$request->apemat,
                     'email' => $request->email,
-                    'password' => bcrypt($request->dni)
+                    'password' => bcrypt($request->dni),
+                    'activos'        =>1
                 ])->assignRole($cargo->name);
                 $idper=Persona::select('idPersonas')->where('DNI',$request->dni)->first();
                 Administrativo::create([
                     'clave'         =>$clave, 
                     'estado'        =>1, 
                     'fk_idPersonas' =>$idper->idPersonas, 
-                    'fk_idRoles'   =>$request->cargo
+                    'fk_idRoles'   =>$request->cargo,
+                    'activos'        =>1
                 ]);
                 $correo = new CredencialesMailable($arrayInfo);
                 Mail::to($request->email)->send($correo);
@@ -162,7 +165,7 @@ class UserController extends Controller
             'nombres'=> 'required',
             'fnacimiento'=> 'required|date',
             'numcel'=> 'required|integer',
-            'email'=> 'required|email',
+            'email'=> 'required|email|unique:users',
             'idper'=> 'integer',
             'bdr'=> 'integer',
         ]);
@@ -182,12 +185,15 @@ class UserController extends Controller
                         'fechNacimiento'=>$request->fnacimiento,
                         'correo'        =>$request->email,
                         'telefono'      =>$request->numcel,
-                        'estado'        =>1
+                        'estado'        =>1,
+                        'activos'        =>1
                     ));
+                    
                     User::where('id', $user->id)->update(array(
                         'name' => $request->nombres.' '.$request->apepat.' '.$request->apemat,
                         'email' => $request->email,
-                        'password' => bcrypt($request->dni)
+                        'password' => bcrypt($request->dni),
+                        'activos'        =>1
                     ));
                     $valor=0;
                     foreach ($request->roles as $value) {

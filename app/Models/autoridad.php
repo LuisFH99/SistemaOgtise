@@ -12,5 +12,9 @@ class autoridad extends Model
     protected $fillable = [
         'fk_idDocentes',
         'fk_idCargos',
+        'fech_ini',
+        'fech_fin',
+        'estado',
+        'borrados',
     ];
 }

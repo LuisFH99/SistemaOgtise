@@ -22,6 +22,7 @@ class Persona extends Model
         'correo',
         'telefono',
         'estado',
+        'activos',
     ];
-    protected $table = 'Personas';
+    protected $table = 'personas';
 }

@@ -23,6 +23,7 @@
                             <th>DNI</th>
                             <th>Nombre</th>
                             <th>Email</th>
+                            <th>Clave</th>
                             <th>Estado</th>
                             <th></th>
                         </tr>
@@ -37,7 +38,8 @@
                                 <td>{{$user->DNI}}</td>
                                 <td>{{$user->name}}</td>
                                 <td>{{$user->email}}</td>
-                                <td>{{$user->activos}}</td>
+                                <td>{{$user->clave}}</td>
+                                <td>{{($user->activos==1)?'Habilitado':'Desabilitado'}}</td>
                                 <td width="100px">
                                     <a class="mr-1" href="{{route('users.reestablecer',$user)}}"><i class="fas fa-recycle greenr"></i></a>
                                     <a class="mr-1" href="{{route('Admin.users.edit',$user)}}"><i class="fas fa-user-edit"></i></a>
