@@ -1,4 +1,4 @@
-console.log('Hi!');
+
 let idsali = 0;
 $(function() {
     $('#buscaFecha').val("{{date('Y-m-d')}}");

@@ -28,7 +28,7 @@
                 <h4 class="">Crear Docentes</h4>
             </div> --}}
             <div class="card-body">
-                <form action="{{ route('docentes.store') }}" method="POST">
+                <form action="{{ route('docentes.store') }}" method="POST" id="formcreardocentes">
                     <div class="col-12">
                         @csrf
                         @livewire('crear-docentes')
@@ -246,6 +246,13 @@
             $('#eliminar').on('click', function() {
                 EliminarDocente();
             });
+
+            /*$('#formcreardocentes').submit(function(e){
+                alert("verifica el email")
+                
+                e.preventDefault();
+                window.history.back();
+            });*/
         });
 
         function MostarModal(dto) {

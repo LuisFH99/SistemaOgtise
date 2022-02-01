@@ -9,7 +9,7 @@
 @section('content')
     <div class="container">
 
-        {{-- {{ $var }} --}}
+        {{-- {{ $horario }}  --}}
 
         {{-- {{ $Datos }}
         {{ $estado }}
@@ -26,7 +26,7 @@
                                 </div>
                             @break
                             @case(2)
-                                @if ($Datos->hora > '00:00:00' && $Datos->hora < '23:59:59')
+                                @if ($Datos->hora > $horario->ini_entrada && $Datos->hora < $horario->fin_entrada)
                                     <div class="card-body">
                                         <h4 class="">Registro de Entrada</h4>
                                         <div class="row">
@@ -116,7 +116,7 @@
                                 </div>
                             @break
                             @case(6)
-                                @if ($Datos->hora > '00:00:00' && $Datos->hora < '23:59:59')
+                                @if ($Datos->hora > $horario->ini_salida && $Datos->hora < $horario->fin_salida)
                                     <div class="card-body">
                                         <h4 class="">Registro de Salida</h4>
                                         <div class="row">
@@ -390,7 +390,10 @@
                                 <h6>Detalle de Actividad</h6>
                                 <h6 id="informe"></h6>
                             </div>
-                            <div class="col-12 my-2">
+                            <div class="col-12 mt-2">
+                                <h6 id="documentos"> </h6>
+                            </div>
+                            <div class="col-12">
                                 <h6 id="observacion"> </h6>
                             </div>
                             <div class="col-12">

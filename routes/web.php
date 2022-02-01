@@ -10,6 +10,7 @@ use App\Http\Controllers\ValidaSalidaController;
 use App\Http\Controllers\LicenciasController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ContactanosController;
+use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\ValidaLicenciaController;
 use App\Http\Livewire\Admin\UsersIndex;
 use App\Http\Livewire\LicenciasIndex;
@@ -56,12 +57,17 @@ Route::get('docentes/entrada', [EntradaController::class, 'index'])->middleware(
 
 Route::post('/docentes/registros/asistencia/All', [EntradaController::class, 'allregistros']);
 Route::post('/docentes/registros/asistencia/Detalle', [EntradaController::class, 'detalleregistro']);
+Route::post('/docentes/registros/asistencia/evidencia', [EntradaController::class, 'detevidencia']);
+
 Route::post('/docentes/entrada/registrar', [EntradaController::class, 'store'])->middleware('can:asistencia.Entrada')->name('registrar');
 Route::post('/docentes/salida/registrar', [EntradaController::class, 'registrarsalida'])->middleware('can:asistencia.Salida')->name('registrar.salida');
 Route::post('/docentes/salida/file', [EntradaController::class, 'evidenciafile'])->middleware('can:asistencia.Salida')->name('evidencia.file');
 
 
 Route::get('/URyC/ParteDiario', [ParteDiarioController::class, 'index'])->middleware('can:reportes.parteDiario')->name('partediario');
+Route::get('/URyC/Horario', [HorarioController::class, 'index'])->middleware('can:reportes.parteDiario')->name('horario');
+Route::post('/URyC/Horario/Uptade', [HorarioController::class, 'update'])->middleware('can:reportes.parteDiario')->name('horario.update');
+
 Route::post('/URyC/docentes/registros/asistencia', [ParteDiarioController::class, 'allAsistencias'])->middleware('can:reportes.parteDiario');
 Route::post('/URyC/docentes/registros/asistencia/justificar', [ParteDiarioController::class, 'justificarAsistencia'])->middleware('can:reportes.parteDiario');
 Route::get('/URyC/ParteDiario/general/{fecha}', [ParteDiarioController::class, 'reportegeneral'])->middleware('can:reportes.parteDiario')->name('reportegeneral');

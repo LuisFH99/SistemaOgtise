@@ -250,20 +250,20 @@ return [
         [
             'text'        => 'Inicio',
             'route'         => 'home',
-            'icon'        => 'fas fa-home',
+            'icon'        => 'nav-icon fas fa-home',
             'can'  => 'admin.home'
         ],
         [
             'text'        => 'Usuarios',
             'route'         => 'Users',
-            'icon'        => 'fas fa-users',
+            'icon'        => 'nav-icon fas fa-users',
             'can'  => 'admin.users.index'
         ],
         ['header' => 'DOCENTES', 'can'  => 'asistencia.Entrada'],
 
         [
             'text'      => 'Registrar Asistencia',
-            'icon'      => 'far fa-address-card',
+            'icon'      => 'nav-icon far fa-address-card',
             'route'     => 'entrada',
             'can'  => 'asistencia.Entrada'
             // 'submenu'   => [
@@ -282,27 +282,27 @@ return [
         ],
         [
             'text' => 'Licencias',
-            'icon'      => 'fas fa-file-upload',
+            'icon'      => 'nav-icon fas fa-file-upload',
             'route'  => 'licencias',
             'can'  => 'licencia'
         ],
         ['header' => 'DPTO. ACADÉMICO','can'  => 'valida.Salida'],
         [
             'text' => 'Validar Salidas',
-            'icon' => 'fas fa-user-check',
+            'icon' => 'nav-icon fas fa-user-check',
             'route'  => 'ValidaSalida',
             'can'  => 'valida.Salida'
         ],
         [
             'text' => 'Validar Licencias',
-            'icon' => 'fas fa-tasks',
+            'icon' => 'nav-icon fas fa-tasks',
             'route'  => 'ValidaLicencia',
             'can'  => 'valida.licencia'
         ],
                 
         [
             'text' => 'Docentes',
-            'icon' => 'fas fa-user-tie',
+            'icon' => 'nav-icon fas fa-user-tie',
             'route'  => 'docentes',
             'can'  => 'gestion.docente'
         ],
@@ -310,15 +310,22 @@ return [
         ['header' => 'DECANATURA','can'  => 'valida.licencia1'],
         [
             'text' => 'Validar Licencias',
-            'icon' => 'fas fa-tasks',
+            'icon' => 'nav-icon fas fa-tasks',
             'route'  => 'ValidaLicencia',
             'can'  => 'valida.licencia1'
         ],
 
         ['header' => 'UND. REGISTRO Y CONTROL', 'can'  => 'reportes.parteDiario'],
         [
+            'text' => 'Horario',
+            'icon' => 'nav-icon fas fa-clock',
+            'route'  => 'horario',
+            'can'  => 'reportes.parteDiario'
+        ],
+
+        [
             'text' => 'Parte Diario',
-            'icon' => 'fas fa-clipboard-list',
+            'icon' => 'nav-icon fas fa-clipboard-list',
             'route'  => 'partediario',
             'can'  => 'reportes.parteDiario'
         ],
@@ -330,14 +337,14 @@ return [
         ],
         [
             'text' => 'Validar Licencias',
-            'icon' => 'fas fa-tasks',
+            'icon' => 'nav-icon fas fa-tasks',
             'route'  => 'ValidaLicencia',
             'can'  => 'valida.licencia2'
         ],
         ['header' => 'DIRECCION RR.HH','can'  => 'valida.licencia3'],
         [
             'text' => 'Validar Licencias',
-            'icon' => 'fas fa-tasks',
+            'icon' => 'nav-icon fas fa-tasks',
             'route'  => 'ValidaLicencia',
             'can'  => 'valida.licencia3'
         ],
