@@ -21,9 +21,11 @@ class UsersIndex extends Component
     {   
         $roles=Role::all();
         //$us=User::where('id','=',1)->first();
-        $users=User::where('name','LIKE','%'.$this->search.'%')
-                   ->orWhere('email','LIKE','%'.$this->search.'%')
-                   ->paginate();
+        $users=User::join('personas', 'users.email', '=', 'personas.correo')
+                    ->where('name','LIKE','%'.$this->search.'%')
+                    ->orWhere('email','LIKE','%'.$this->search.'%')
+                    ->orWhere('DNI','LIKE','%'.$this->search.'%')
+                    ->paginate();
         return view('livewire.admin.users-index',compact('users','roles'));
     }
     public function datos(Request $request){

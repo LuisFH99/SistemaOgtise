@@ -141,11 +141,10 @@
 
 /* estilos modulo Docentes */
 
-.create-docente .form-control{
+.create-docente .form-control {
     border: none;
     border-bottom: 1px solid #003E78;
     border-radius: 0px;
-    
 }
 
 #tableDocentes thead {
@@ -246,6 +245,10 @@
 
 .dangerito {
     color: rgb(231, 43, 43);
+}
+
+.greenr {
+    color: rgb(65, 231, 43);
 }
 
 .abs-center {

@@ -19,9 +19,11 @@
                 <table class="table table-striped" id="idtableUser">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>N°</th>
+                            <th>DNI</th>
                             <th>Nombre</th>
                             <th>Email</th>
+                            <th>Estado</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -32,9 +34,12 @@
                         @foreach($users as $user)
                             <tr>
                                 <td>{{$aux++}}</td>
+                                <td>{{$user->DNI}}</td>
                                 <td>{{$user->name}}</td>
                                 <td>{{$user->email}}</td>
+                                <td>{{$user->activos}}</td>
                                 <td width="100px">
+                                    <a class="mr-1" href="{{route('users.reestablecer',$user)}}"><i class="fas fa-recycle greenr"></i></a>
                                     <a class="mr-1" href="{{route('Admin.users.edit',$user)}}"><i class="fas fa-user-edit"></i></a>
                                     <a href="#" onclick="eliminar({{$user->id}},'{{$user->email}}')"><i class="far fa-trash-alt dangerito" aria-hidden="true"></i></a>
                                 </td>

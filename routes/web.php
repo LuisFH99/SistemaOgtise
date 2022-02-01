@@ -14,6 +14,7 @@ use App\Http\Controllers\ValidaLicenciaController;
 use App\Http\Livewire\Admin\UsersIndex;
 use App\Http\Livewire\LicenciasIndex;
 use App\Http\Livewire\ValidarSalidasIndex;
+use App\Http\Controllers\PerfilController;
 use App\Http\Livewire\ValidaLicenciaIndex;
 use App\Mail\ContactanosMailable;
 use App\Http\Controllers\ParteDiarioController;
@@ -108,6 +109,8 @@ Route::resource('users', App\Http\Controllers\Admin\UserController::class)->midd
     'store'=> 'Admin.users.store',
     'update'=> 'Admin.users.update'
 ]);
+Route::get('/users/reestablecer/{user}', [App\Http\Controllers\Admin\UserController::class, 'reestablecer'])->middleware('can:admin.users.index')->name('users.reestablecer');
+
 Route::post('/users/eliminar', [App\Http\Controllers\Admin\UserController::class, 'eliminar'])->middleware('can:admin.users.index')->name('users.eliminar');
 
 Route::post('/users/index/datos', [UsersIndex::class, 'datos'])->middleware('can:admin.users.index')->name('datos');
@@ -129,3 +132,10 @@ Route::resource('/departamento/ValidaLicencia', ValidaLicenciaController::class)
 Route::post('/departamento/ValidaLicencia/store', [ValidaLicenciaController::class, 'store'])->middleware('can:valida.licencia.general')->name('licencias.store');
 Route::post('/departamento/ValidaLicencia/datos', [ValidaLicenciaController::class, 'datos'])->middleware('can:valida.licencia.general')->name('ValidaLicencia.datos');
 Route::post('/departamento/ValidaLicencia/imprimir', [ValidaLicenciaController::class, 'imprimir'])->name('ValidaLicencia.imprimir');
+
+Route::resource('/Perfiles', PerfilController::class)->middleware('can:admin.home')->names([
+    'index' => 'Perfiles',
+    'edit' => 'Perfiles.edit',
+    'store'=> 'Perfiles.store',
+    'update'=> 'Perfiles.update'
+]);

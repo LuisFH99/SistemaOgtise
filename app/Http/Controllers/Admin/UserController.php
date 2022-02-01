@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Administrativo;
+use App\Models\Docente;
 use App\Models\Persona;
 use App\Models\cargo;
 use Spatie\Permission\Models\Role;
@@ -224,6 +225,28 @@ class UserController extends Controller
         $us = User::find($request->idu);
         $us->delete();
         $pe=Persona::where('correo', $request->correo)->update(array('estado' => 0));
+        
+
         return $pe;
+    }
+    public function reestablecer(User $user){
+        $pers=Persona::where('correo','=', ''.$user->email.'')->first();
+        $clav='-';
+        $doc=Docente::where('fk_idPersonas', $pers->idPersonas)->count();
+        $adm=Administrativo::where('fk_idPersonas', $pers->idPersonas)->count();
+        $pe=User::where('email', $user->email)->update(array('password' => bcrypt($pers->DNI)));
+        if($doc==1){
+            $clav=Docente::select('clave')->where('fk_idPersonas', $pers->idPersonas)->first();
+        }
+        if($adm==1){
+            $clav=Administrativo::select('clave')->where('fk_idPersonas', $pers->idPersonas)->first();
+        }
+        $arrayInfo = ['user' => $user->email, 'docente' => $pers->nombres . ' ' . $pers->apepat . ' ' . $pers->apemat, 'contra' => $pers->DNI, 'clave' => $clav->clave];
+        $correo = new CredencialesMailable($arrayInfo);
+        Mail::to($user->email)->send($correo);
+        $cargos=Role::where('id','>',4)->pluck('name','id');
+        $idMsg='info';
+        $Mensaje='Las credenciales han sido reestablecidas para: '.$user->name;
+        return redirect()->route('Users',compact('cargos'))->with($idMsg,$Mensaje);
     }
 }

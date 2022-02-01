@@ -341,7 +341,12 @@ return [
             'route'  => 'ValidaLicencia',
             'can'  => 'valida.licencia3'
         ],
-
+        ['header' => 'CONFIGIRACION DE CUENTA'],
+        [
+            'text' => 'Perfil de usuario',
+            'url'  => '/Perfiles',
+            'icon' => 'fas fa-fw fa-user',
+        ],
     ],
 
     /*
