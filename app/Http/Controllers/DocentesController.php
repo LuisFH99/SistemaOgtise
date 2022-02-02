@@ -200,26 +200,7 @@ class DocentesController extends Controller
     public function updateSemana(Request $request, $id)
     {
         //$user->roles()->sync($request->roles);
-        if ($request->id != 0) {
-            if (DB::table('autoridades')->where('fk_idDocentes', $id)->exists()) {
-                $eliminar = autoridad::where("fk_idDocentes", $id)->delete();
-                autoridad::create([
-                    'fk_idDocentes' => $id,
-                    'fk_idCargos' => $request->id
-                ]);
-            } else {
-                autoridad::create([
-                    'fk_idDocentes' => $id,
-                    'fk_idCargos' => $request->id
-                ]);
-            }
-        } else {
-            if (DB::table('autoridades')->where('fk_idDocentes', $id)->exists()) {
-                $eliminar = autoridad::where("fk_idDocentes", $id)->delete();
-            }
-        }
-
-
+        
         $respuesta = DetSemana::where('fk_idDocentes', $id)->delete();
         $Persona = Docente::join('personas', 'docentes.fk_idpersonas', '=', 'personas.idpersonas')
             ->select('personas.nombres', 'personas.apellPat', 'personas.apellMat')
