@@ -61,7 +61,7 @@ class UserController extends Controller
             'nombres'=> 'required',
             'fnacimiento'=> 'required|date',
             'numcel'=> 'required|integer|min:9',
-            'email'=> 'required|email',
+            'email'=> 'required|email|unique:users',
             'cargo'=> 'required|integer',
         ]);
         $idMsg='info';
@@ -161,11 +161,10 @@ class UserController extends Controller
         $request->validate([
             'dni' => 'required|integer',
             'apepat' => 'required',
-            
             'nombres'=> 'required',
             'fnacimiento'=> 'required|date',
             'numcel'=> 'required|integer',
-            'email'=> 'required|email|unique:users',
+            'email'=> 'required|email',
             'idper'=> 'integer',
             'bdr'=> 'integer',
         ]);

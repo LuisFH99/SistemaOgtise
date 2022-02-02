@@ -46,7 +46,7 @@ class ValidarSalidasIndex extends Component
         ->join('condiciones', 'docentes.fk_idCondiciones', '=', 'condiciones.idCondiciones')
         ->join('dedicaciones', 'docentes.fk_idDedicaciones', '=', 'dedicaciones.idDedicaciones')
         ->select('asistencias.observacion','asistenciasalidas.idAsistenciaSalidas','asistenciasalidas.hor_salida',
-                 'asistenciasalidas.informe','fechasistencias.fecha','fechasistencias.dia',
+                 'asistenciasalidas.informe','asistenciasalidas.estado as puntero','fechasistencias.fecha','fechasistencias.dia',
                  'estadoasistencias.estado','personas.*','categorias.nomCat','condiciones.nomCondi',
                  'dedicaciones.nomDedi','depacademicos.nomdep','facultades.nomFac')
         ->where('personas.estado',1)->where('fk_idDepAcademicos',$idDep->idDepAcademicos)->where('fecha',$this->sdate)  
@@ -55,7 +55,7 @@ class ValidarSalidasIndex extends Component
                   ->orWhere('fecha','LIKE','%'.$this->search.'%')
                   ->orWhere('asistencias.observacion','LIKE','%'.$this->search.'%');
         })
-        ->paginate();
+        ->paginate(); 
         return view('livewire.validar-salidas-index',compact('Salidas'));
     }
     public function validando(Request $request){

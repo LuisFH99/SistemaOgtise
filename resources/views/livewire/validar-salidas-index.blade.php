@@ -37,9 +37,9 @@
                                             <td>{{$Salida->apellPat.' '.$Salida->apellMat.' '.$Salida->nombres}}</td>
                                             <td>{{strtoupper(substr($Salida->nomCat, ($Salida->nomCat=='Auxiliar')?2:0,1)).substr($Salida->nomDedi, 0, 1).substr(strstr($Salida->nomDedi, ' '), 1, 1)}}</td>
                                             <td>{{$Salida->fecha.','.$Salida->hor_salida}}</td>
-                                            <td>{{$Salida->observacion}}</td>
+                                            <td>{{$Salida->observacion}}</td> 
                                             <td><a href="#"
-                                                onclick="selecId({{$Salida->idAsistenciaSalidas}},'{{$Salida->apellPat.' '.$Salida->apellMat.' '.$Salida->nombres}}','{{$Salida->fecha}}','{{$Salida->hor_salida}}','{{$Salida->informe}}')"><i class="far fa-eye"></i></a></td>
+                                                onclick="selecId({{$Salida->idAsistenciaSalidas}},'{{$Salida->apellPat.' '.$Salida->apellMat.' '.$Salida->nombres}}','{{$Salida->fecha}}','{{$Salida->hor_salida}}','{{$Salida->informe}}','{{$Salida->puntero}}')"><i class="far fa-eye"></i></a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>

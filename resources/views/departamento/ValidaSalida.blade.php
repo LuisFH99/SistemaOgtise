@@ -51,10 +51,10 @@
                                     <label for="">Observación:</label><br>
                                     <textarea class="form-control" id="txtareaj" rows="3"></textarea>
                                 </div>
-                                <div class="col-md-5"><br><br>
+                                <div class="col-md-5 d-flex" id="divMsg"><br><br>
                                     <p class="text-danger">*Debes firmar para autenticar el documento:</p>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6 d-flex" id="divFrm">
                                     <br>
                                     <div class="col-12 d-flex justify-content-center">
                                         <div class="checkbox-custom mr-4">

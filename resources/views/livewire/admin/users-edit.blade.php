@@ -119,8 +119,6 @@
                         {{-- {!! Form::submit('Crear Usuarios', ['class'=>'d-flex btn btn-secondary mt-auto ml-auto']) !!} --}}
                     </div>
                 </div>
-                {{-- <h5>Listado de Roles:</h5> --}}
-                {{-- {!! Form::model($user,['route' => ['Admin.users.update',$user],'method'=>'put']) !!} --}}
                 <div class="row">
                     <h5>Listado de Roles:</h5>
                     <div class="col-md-12 mr-1">
@@ -130,7 +128,6 @@
                                     {!! Form::checkbox('roles[]', $role->id, null, ['class'=>'mr-1 alicb']) !!}
                                     {{$role->name}}
                                 </label>
-    
                         @endforeach
                     </div>
                     <div class="col-md-12 mr-1">

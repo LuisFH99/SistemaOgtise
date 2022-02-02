@@ -1,4 +1,3 @@
-
 let idsali = 0;
 $(function() {
     $('#buscaFecha').val("{{date('Y-m-d')}}");
@@ -131,7 +130,7 @@ function validarEntradas() {
     return bdr;
 }
 
-function selecId(id, nombre, fecha, hora, informe) {
+function selecId(id, nombre, fecha, hora, informe, ptro) {
     //document.getElementById('exampleModalLabel').innerHTML=""+nombre;
     idsali = id;
     $.ajax({
@@ -157,6 +156,12 @@ function selecId(id, nombre, fecha, hora, informe) {
                 "</i> Reporte " + numAlet(element.idEvidencias) + "</a><br>";
         });
         $("#archivos").html(mj);
+        if (ptro == '9') {
+            $("#divMsg").removeClass("d-flex");
+            $("#divFrm").removeClass("d-flex");
+            $("#divMsg").addClass("d-none");
+            $("#divFrm").addClass("d-none");
+        }
         $("#modal1").modal('show');
     }).fail(function(msg) {
         Swal.fire({
