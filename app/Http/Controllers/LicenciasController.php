@@ -17,7 +17,7 @@ use App\Models\Adjunto;
 use App\Models\Firma;
 
 use App\Mail\ContactanosMailable;
-
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use PDF;
 
 class LicenciasController extends Controller
@@ -49,7 +49,7 @@ class LicenciasController extends Controller
         $aux=0;
         $url='storage/Archivos/'.$solicitudes->fech_solicitud.'_'.$solicitudes->codigo.'.pdf';
         //$Sol=Solicitud::where('idSolicitudes', $solicitudes->idSolicitudes)->update(array('url_doc' => $url));
-        $pdf = PDF :: loadView ( 'docentes.PDFs.reporteSolicitud' , compact('solicitudes','Motivos','DocsAd','Firmas','aux'));
+        $pdf = PDF::loadView ( 'docentes.PDFs.reporteSolicitud' , compact('solicitudes','Motivos','DocsAd','Firmas','aux'));
         /*return  */$pdf->save($url)/*->stream()*/;
         return /*view('docentes.licencias',compact('user','Motivos'))*/'/'.$url;
     }

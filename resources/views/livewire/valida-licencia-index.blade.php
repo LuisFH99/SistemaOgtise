@@ -3,16 +3,32 @@
         <div class="col-14 p-2 anc">
             <div class="card fondo-cards">
                 <div class="col-14 card-body ">
-                    <h2>Licencias Solicitadas:</h2>
-                    <div class="input-group rounded col-6">
-                        <input wire:model="search" type="search" class="form-control rounded" placeholder="Buscar" aria-label="Search"
-                        aria-describedby="search-addon" />
-                        <span class="input-group-text border-0" id="search-addon">
-                          <i class="fas fa-search"></i>
-                        </span>
+                    @if ($aux==0)
+                        <h2>Licencias Solicitadas:</h2>
+                    @else
+                        <h2>Listado de Licencias:</h2>
+                    @endif
+                    <div class="row">
+                        <div class="input-group rounded col-6">
+                            <input wire:model="search" type="search" class="form-control rounded" placeholder="Buscar" aria-label="Search"
+                            aria-describedby="search-addon" />
+                            <span class="input-group-text border-0" id="search-addon">
+                              <i class="fas fa-search"></i>
+                            </span>
+                        </div>
+                        @if ($aux==1)
+                            <div class="input-group rounded col-6">
+                                <p class="col-2 d-flex align-items-center mr-1"><b>Estado: </b></p>
+                                {!! Form::select('estado', $estados, null, ['placeholder' => 'Seleccione...',
+                                                                            'class'=>'form-control col-3',
+                                                                            'wire:model'=>'combo']) !!}
+                                
+                            </div>
+                            
+                        @endif
                     </div>
                     @if ($licencias->count()==0)
-                        <div class="card-body">
+                        <div class="card-body"> 
                             <center><strong>No hay Licencias a Mostrar</strong></center>
                         </div>
                     @else
@@ -39,7 +55,7 @@
                                             <td>{{$licencia->num_dias}}</td>
                                             <td>{{$licencia->fech_retorno}}</td>
                                             <td><a href="#"
-                                                onclick="selecId({{$licencia->idSolicitudes}},'{{$licencia->fech_solicitud}}','{{$licencia->hor_solicitud}}','{{$licencia->apellPat.' '.$licencia->apellMat.' '.$licencia->nombres}}')"><i class="far fa-eye"></i></a></td>
+                                                onclick="selecId({{$licencia->idSolicitudes}},'{{$licencia->fech_solicitud}}','{{$licencia->hor_solicitud}}','{{$licencia->apellPat.' '.$licencia->apellMat.' '.$licencia->nombres}}',{{$aux}})"><i class="far fa-eye"></i></a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>
