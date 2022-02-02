@@ -51,7 +51,7 @@ function MostarFirma() {
 
 function AcepDene(dto) {
     let txtCodigoFirma = $('#txtCodigoFirma').val();
-    //if (validarEntradas()) {
+    //if (validarEntradas()) { 
     $.ajax({
         url: '/departamento/ValidaLicencia/datos',
         method: 'POST',
@@ -108,7 +108,7 @@ function AcepDene(dto) {
     //}
 }
 
-function selecId(id, fecha, hr, nomb) {
+function selecId(id, fecha, hr, nomb, aux) {
     idlic = id;
     $.ajax({
         url: '/departamento/ValidaLicencia/imprimir',
@@ -123,6 +123,14 @@ function selecId(id, fecha, hr, nomb) {
         $('#nombre').html('Docente: <b>' + nomb + '</b>');
         $('#verArchivos').html("<embed src='" + url + "' frameborder='0'" +
             " width='100%' height='350px'>");
+        if (aux === 1) {
+            $("#divRow").removeClass("d-flex");
+            $("#divValidar").removeClass("d-flex");
+            $("#divAceptar").removeClass("d-none");
+            $("#divRow").addClass("d-none");
+            $("#divValidar").addClass("d-none");
+            $("#divAceptar").addClass("d-flex");
+        }
         $('#modal2').modal('show');
     }).fail(function(msg) {
         console.log(msg);
