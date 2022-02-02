@@ -109,7 +109,7 @@ class ValidaLicenciaController extends Controller
         return $Valor;
     }
     public function store(Request $request)
-    {
+    { 
         $user=auth()->user();
         //$dto=$request->all();
         $toke=bin2hex(random_bytes(8));
