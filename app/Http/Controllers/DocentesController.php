@@ -164,12 +164,17 @@ class DocentesController extends Controller
 
         $cargoDocente = autoridad::join('cargos', 'autoridades.fk_idcargos', '=', 'cargos.idcargos')
             ->select('cargos.idcargos', 'cargos.cargo','autoridades.fech_ini','autoridades.fech_fin')
-            ->where('fk_iddocentes', $id)->where('cargos.cargo','<>','Suspendido')->whereBetween((DB::raw('curdate()')),['autoridades.fech_ini','autoridades.fech_fin'])->first();
+            ->where('autoridades.fk_iddocentes', $id)->where('cargos.cargo','<>','Suspendido')->where('autoridades.estado','1')->first();
+
         $cargos = cargo::where('cargo','<>','Suspendido')->get();
 
+        $allcargos=autoridad::join('cargos', 'autoridades.fk_idcargos', '=', 'cargos.idcargos')
+        ->select( 'cargos.cargo','autoridades.fech_ini','autoridades.fech_fin','autoridades.estado')
+        ->where('autoridades.fk_iddocentes', $id)->get();
 
 
-        return view('departamento.DocentesSemanaEdit', compact('DetSemanas', 'Persona', 'Semanas', 'msg', 'cargoDocente', 'cargos'));
+
+        return view('departamento.DocentesSemanaEdit', compact('DetSemanas', 'Persona', 'Semanas', 'msg', 'cargoDocente', 'cargos','allcargos'));
     }
     public function dpto(Request $request)
     {

@@ -9,9 +9,10 @@
 @stop
 
 @section('content')
-
+    
     <div class="container">
         <div class="row">
+            {{$cargoDocente}}
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
@@ -37,6 +38,7 @@
 
 
                         {!! Form::open(['url' => '/departamento/docentes/updatecargos/' . $Persona->idDocentes . '', 'method' => 'put']) !!}
+                        
                         <br>
                         {{-- @if (isset($cargoDocente)) --}}
                             <input name="id" id="id" type="hidden" value="{{ isset($cargoDocente->idcargos) ? $cargoDocente->idcargos : '0' }}">
@@ -48,7 +50,7 @@
                         {{-- @if (isset($cargoDocente)) --}}
                         <div class="row">
                             <input class="form-control col-md-10 cargo" type="text"
-                                value="{{ isset($cargoDocente->cargo) ? $cargoDocente->fech_ini : 'Ningún cargo designado' }}"
+                                value="{{ isset($cargoDocente->cargo) ? $cargoDocente->cargo : 'Ningún cargo designado' }}"
                                 readonly><span class="col-md-2"><i class="fas fa-backspace"
                                     onclick="Borrar()"></i></span>
                         </div>
@@ -70,7 +72,7 @@
                             <div class="col-md-6">
                                 <p class="h6">Fecha Fin:</p>
                                 <input class="form-control col-md-10 " name="fin" type="date"
-                                    value="{{ isset($cargoDocente->fech_ini) ? $cargoDocente->fech_ini : '' }}">
+                                    value="{{ isset($cargoDocente->fech_fin) ? $cargoDocente->fech_fin : '' }}">
 
                             </div>
 
@@ -122,15 +124,15 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="text-center">Lista de Cargos</h5>
+                        <h5 class="text-center"><strong>Lista de Cargos</strong></h5>
                         <div class="table-responsive ">
-                            <table class="table table-sm" id="cargos">
+                            <table class="table table-sm" id="historial">
                                 <thead class="text-white">
                                     <tr>
                                         <th scope="col" style="width: 10%; ">N°</th>
-                                        <th scope="col" style="width: 40%; ">Cargo</th>
-                                        <th scope="col" style="width: 40%; ">Desde</th>
-                                        <th scope="col" style="width: 40%; ">Hasta</th>
+                                        <th scope="col" style="width: 40%; ">C</th>
+                                        <th scope="col" style="width: 20%; ">Desde</th>
+                                        <th scope="col" style="width: 20%; ">Hasta</th>
                                         <th scope="col" style="width: 20%; ">Estado</th>
                                     </tr>
                                 </thead>
@@ -139,15 +141,14 @@
                                         @php
                                             $num = 1;
                                         @endphp
-                                        @foreach ($cargos as $cargo)
+                                        @foreach ($allcargos as $item)
                                             <tr>
                                                 <td style="text-align: center;">{{ $num++ }}</td>
-                                                <td>{{ $cargo->cargo }}</td>
+                                                <td>{{ $item->cargo }}</td>
+                                                <td style="text-align: center;">{{$item->fech_ini}}</td>
+                                                <td style="text-align: center;">{{$item->fech_fin}}</td>
                                                 <td style="text-align: center;">
-                                                    <span><i class="fas fa-clipboard-check mr-3"
-                                                            onclick="DesignarCargo({{ $cargo->idCargos }},'{{ $cargo->cargo }}')"></i></span>
-                                                    <span><i class="fas fa-trash-alt "
-                                                            onclick="EliminarCargo({{ $cargo->idCargos }})"></i></span>
+                                                    <span class="badge {{($item->estado ==1 )?'bg-success':'bg-danger'}}">{{($item->estado ==1 )?'Habilitado':'Deshabilitado'}}</span>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -195,6 +196,22 @@
         $(function() {
             marcarSemana();
             $('#cargos').DataTable({
+                dom: 'ftp',
+                "lengthMenu": [
+                    [6],
+                    [6]
+                ],
+                "language": {
+                    "zeroRecords": "No hay datos",
+                    "search": "Buscar",
+                    "paginate": {
+                        'next': '>>',
+                        'previous': '<<'
+                    }
+                }
+            });
+
+            $('#historial').DataTable({
                 dom: 'ftp',
                 "lengthMenu": [
                     [6],
