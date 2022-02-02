@@ -139,9 +139,9 @@ Route::post('/departamento/ValidaLicencia/store', [ValidaLicenciaController::cla
 Route::post('/departamento/ValidaLicencia/datos', [ValidaLicenciaController::class, 'datos'])->middleware('can:valida.licencia.general')->name('ValidaLicencia.datos');
 Route::post('/departamento/ValidaLicencia/imprimir', [ValidaLicenciaController::class, 'imprimir'])->name('ValidaLicencia.imprimir');
 
-Route::resource('/Perfiles', PerfilController::class)->middleware('can:admin.home')->names([
-    'index' => 'Perfiles',
-    'edit' => 'Perfiles.edit',
-    'store'=> 'Perfiles.store',
-    'update'=> 'Perfiles.update'
+Route::resource('/perfiles', PerfilController::class)->middleware('can:admin.home')->names([
+    'index' => 'perfiles',
+    'edit' => 'perfiles.edit',
+    'store'=> 'perfiles.store',
+    'update'=> 'perfiles.update'
 ]);

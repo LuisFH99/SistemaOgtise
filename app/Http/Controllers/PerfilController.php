@@ -21,7 +21,7 @@ class PerfilController extends Controller
     public function index()
     {
         $user=auth()->user();
-        return view('Perfiles',compact('user'));
+        return view('perfiles',compact('user'));
     }
 
     /**
@@ -63,7 +63,7 @@ class PerfilController extends Controller
             $idMsg='info1';
             $Mensaje='No se puede cambiar de contraseña';
         }
-        return redirect()->route('Perfiles',compact('user'))->with($idMsg,$Mensaje);
+        return redirect()->route('perfiles',compact('user'))->with($idMsg,$Mensaje);
     }
 
     /**
