@@ -86,6 +86,8 @@ Route::get('/departamento/docentes/cargo/{id}',[DocentesController::class,'Crear
 Route::post('/departamento/docentes/cargo/eliminar',[DocentesController::class,'EliminarCargo'])->middleware('can:gestion.docente')->name('docentes.eliminar.cargo');
 Route::put('/departamento/docentes/updateSemana/{id}',[DocentesController::class,'updateSemana'])->middleware('can:gestion.docente')->name('docentes.updateSemana');
 
+Route::put('/departamento/docentes/updatecargos/{id}',[DocentesController::class,'updateCargo'])->middleware('can:gestion.docente')->name('docentes.updateCargo');
+
 Route::post('/departamento/docentes/dpto',[DocentesController::class,'dpto']);
 Route::post('/departamento/docentes/update',[DocentesController::class,'update']);
 Route::post('/departamento/docentes/delete',[DocentesController::class,'destroy']);

@@ -15,6 +15,6 @@ class autoridad extends Model
         'fech_ini',
         'fech_fin',
         'estado',
-        'borrados',
+        'borrado',
     ];
 }

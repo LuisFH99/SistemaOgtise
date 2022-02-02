@@ -9,9 +9,10 @@
 @stop
 
 @section('content')
-
+    
     <div class="container">
         <div class="row">
+            {{$cargoDocente}}
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
@@ -22,41 +23,61 @@
 
                         <h5>Listado de dias de la semana:</h5>
                         {!! Form::model($DetSemanas, ['url' => '/departamento/docentes/updateSemana/' . $Persona->idDocentes . '', 'method' => 'put']) !!}
-                        @if (isset($cargoDocente))
-                            <input name="id" id="id" type="hidden" value="{{ $cargoDocente->idcargos }}">
-                        @else
-                            <input name="id" id="id" type="hidden" value="0">
-                        @endif
+
 
                         @foreach ($Semanas as $Semana)
-                            {{-- <div> --}}
                             <label class="form-check-label mr-3">
-                                {{-- {!! Form::checkbox('cbox'.$Semana->idSemanas, $Semana->idSemanas, null, ['class'=>'mr-1']) !!} --}}
                                 <input type="checkbox" name='cbox{{ $Semana->idSemanas }}'
                                     id='cbox{{ $Semana->idSemanas }}' value="{{ $Semana->idSemanas }}">
                                 {{ $Semana->dia }}
                             </label>
-                            {{-- </div> --}}
                         @endforeach
-                        <br><br>
-                        <p class="h5">Cargo Desinado:</p>
-                        @if (isset($cargoDocente))
-                            <div class="row">
-                                <input class="form-control col-md-10 cargo" type="text" value="{{ $cargoDocente->cargo }}"
-                                    readonly><span class="col-md-2"><i class="fas fa-backspace"
-                                        onclick="Borrar()"></i></span>
-                            </div>
+                        <br>
+                        {!! Form::submit('Guardar Cambios', ['class' => 'btn btn-primary mt-2']) !!}
+                        {!! Form::close() !!}
 
-                        @else
+
+                        {!! Form::open(['url' => '/departamento/docentes/updatecargos/' . $Persona->idDocentes . '', 'method' => 'put']) !!}
+                        
+                        <br>
+                        {{-- @if (isset($cargoDocente)) --}}
+                            <input name="id" id="id" type="hidden" value="{{ isset($cargoDocente->idcargos) ? $cargoDocente->idcargos : '0' }}">
+                        {{-- @else
+                            <input name="id" id="id" type="hidden" value="0">
+                        @endif --}}
+
+                        <p class="h5">Cargo Designado:</p>
+                        {{-- @if (isset($cargoDocente)) --}}
+                        <div class="row">
+                            <input class="form-control col-md-10 cargo" type="text"
+                                value="{{ isset($cargoDocente->cargo) ? $cargoDocente->cargo : 'Ningún cargo designado' }}"
+                                readonly><span class="col-md-2"><i class="fas fa-backspace"
+                                    onclick="Borrar()"></i></span>
+                        </div>
+
+                        {{-- @else
                             <div class="row">
                                 <input class="form-control col-md-10 cargo" type="text" value="Ningún cargo designado"
                                     readonly> <span class="col-md-2"><i class="fas fa-backspace"
                                         onclick="Borrar()"></i></span>
                             </div>
-                        @endif
-                        <br>
+                        @endif --}}
 
-                        {!! Form::submit('Guardar Cambios', ['class' => 'btn btn-primary mt-2']) !!}
+                        <div class="row mt-2">
+                            <div class="col-md-6">
+                                <p class="h6">Fecha Inicio:</p>
+                                <input class="form-control col-md-10 " name="inicio" type="date"
+                                    value="{{ isset($cargoDocente->fech_ini) ? $cargoDocente->fech_ini : '' }}">
+                            </div>
+                            <div class="col-md-6">
+                                <p class="h6">Fecha Fin:</p>
+                                <input class="form-control col-md-10 " name="fin" type="date"
+                                    value="{{ isset($cargoDocente->fech_fin) ? $cargoDocente->fech_fin : '' }}">
+
+                            </div>
+
+                        </div>
+                        {!! Form::submit('Actualizar Cargo', ['class' => 'btn btn-primary mt-2']) !!}
                         {!! Form::close() !!}
                     </div>
                 </div>
@@ -88,6 +109,46 @@
                                                             onclick="DesignarCargo({{ $cargo->idCargos }},'{{ $cargo->cargo }}')"></i></span>
                                                     <span><i class="fas fa-trash-alt "
                                                             onclick="EliminarCargo({{ $cargo->idCargos }})"></i></span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="text-center"><strong>Lista de Cargos</strong></h5>
+                        <div class="table-responsive ">
+                            <table class="table table-sm" id="historial">
+                                <thead class="text-white">
+                                    <tr>
+                                        <th scope="col" style="width: 10%; ">N°</th>
+                                        <th scope="col" style="width: 40%; ">C</th>
+                                        <th scope="col" style="width: 20%; ">Desde</th>
+                                        <th scope="col" style="width: 20%; ">Hasta</th>
+                                        <th scope="col" style="width: 20%; ">Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (isset($cargos))
+                                        @php
+                                            $num = 1;
+                                        @endphp
+                                        @foreach ($allcargos as $item)
+                                            <tr>
+                                                <td style="text-align: center;">{{ $num++ }}</td>
+                                                <td>{{ $item->cargo }}</td>
+                                                <td style="text-align: center;">{{$item->fech_ini}}</td>
+                                                <td style="text-align: center;">{{$item->fech_fin}}</td>
+                                                <td style="text-align: center;">
+                                                    <span class="badge {{($item->estado ==1 )?'bg-success':'bg-danger'}}">{{($item->estado ==1 )?'Habilitado':'Deshabilitado'}}</span>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -137,8 +198,24 @@
             $('#cargos').DataTable({
                 dom: 'ftp',
                 "lengthMenu": [
-                    [5],
-                    [5]
+                    [6],
+                    [6]
+                ],
+                "language": {
+                    "zeroRecords": "No hay datos",
+                    "search": "Buscar",
+                    "paginate": {
+                        'next': '>>',
+                        'previous': '<<'
+                    }
+                }
+            });
+
+            $('#historial').DataTable({
+                dom: 'ftp',
+                "lengthMenu": [
+                    [6],
+                    [6]
                 ],
                 "language": {
                     "zeroRecords": "No hay datos",
@@ -282,7 +359,7 @@
                                                 timer: 1000
                                             });
                                             location.reload();
-                                        } 
+                                        }
                                     }).fail(function() {
                                         alert("error");
                                     });

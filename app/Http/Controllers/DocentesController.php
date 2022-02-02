@@ -161,12 +161,20 @@ class DocentesController extends Controller
             $msg = $msg . ',' . $DetSemana->fk_idSemanas;
         endforeach;
         $Semanas = Semana::all();
-        $cargoDocente = autoridad::join('cargos', 'autoridades.fk_idcargos', '=', 'cargos.idcargos')
-            ->select('cargos.idcargos', 'cargos.cargo')
-            ->where('fk_iddocentes', $id)->first();
-        $cargos = cargo::all();
 
-        return view('departamento.DocentesSemanaEdit', compact('DetSemanas', 'Persona', 'Semanas', 'msg', 'cargoDocente', 'cargos'));
+        $cargoDocente = autoridad::join('cargos', 'autoridades.fk_idcargos', '=', 'cargos.idcargos')
+            ->select('cargos.idcargos', 'cargos.cargo','autoridades.fech_ini','autoridades.fech_fin')
+            ->where('autoridades.fk_iddocentes', $id)->where('cargos.cargo','<>','Suspendido')->where('autoridades.estado','1')->first();
+
+        $cargos = cargo::where('cargo','<>','Suspendido')->get();
+
+        $allcargos=autoridad::join('cargos', 'autoridades.fk_idcargos', '=', 'cargos.idcargos')
+        ->select( 'cargos.cargo','autoridades.fech_ini','autoridades.fech_fin','autoridades.estado')
+        ->where('autoridades.fk_iddocentes', $id)->get();
+
+
+
+        return view('departamento.DocentesSemanaEdit', compact('DetSemanas', 'Persona', 'Semanas', 'msg', 'cargoDocente', 'cargos','allcargos'));
     }
     public function dpto(Request $request)
     {
@@ -228,6 +236,40 @@ class DocentesController extends Controller
             }
         }
         return view('departamento.docentes')->with('info', 'Se asignó los dias laborables al Docente: ' . $Persona->apellPat . ' ' . $Persona->apellMat . ' ' . $Persona->nombres);
+    }
+
+    public function updateCargo(Request $request, $id)
+    {
+        
+        if ($request->id != 0) {
+            if (DB::table('autoridades')->where('fk_idDocentes', $id)->exists()) {
+                $eliminar = autoridad::where("fk_idDocentes", $id)->delete();
+                autoridad::create([
+                    'fk_idDocentes' => $id,
+                    'fk_idCargos' => $request->id
+                ]);
+            } else {
+                autoridad::create([
+                    'fk_idDocentes' => $id,
+                    'fk_idCargos' => $request->id,
+                    'fech_ini'  => $request->inicio,
+                    'fech_fin'  => $request->fin,
+                    'estado'    => '1',
+                    'borrado'   => '1'
+                ]);
+            }
+        } else {
+            if (DB::table('autoridades')->where('fk_idDocentes', $id)->exists()) {
+                $eliminar = autoridad::where("fk_idDocentes", $id)->delete();
+            }
+        }
+        
+
+        $Persona = Docente::join('personas', 'docentes.fk_idpersonas', '=', 'personas.idpersonas')
+            ->select('personas.nombres', 'personas.apellPat', 'personas.apellMat')
+            ->where('idDocentes', $id)->first();
+
+        return view('departamento.docentes')->with('info', 'Se modifico el cargo al Docente: ' . $Persona->apellPat . ' ' . $Persona->apellMat . ' ' . $Persona->nombres);
     }
 
     public function CrearCargo($cargo)
