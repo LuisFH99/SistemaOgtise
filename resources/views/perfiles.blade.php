@@ -31,7 +31,7 @@
         
                         <div class="card-body">
                             
-                            {!! Form::open(['route' => ['Perfiles.store'],'method'=>'post']) !!}
+                            {!! Form::open(['route' => ['perfiles.store'],'method'=>'post']) !!}
                                 <div class="form-group">
                                     <div class="row mb-3">
                                         {!! Form::label('Contraseña Anterior', null, ['class' => 'col-md-4 col-form-label text-md-right']) !!}

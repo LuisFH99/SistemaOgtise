@@ -351,7 +351,7 @@ return [
         ['header' => 'CONFIGIRACION DE CUENTA'],
         [
             'text' => 'Perfil de usuario',
-            'url'  => '/Perfiles',
+            'url'  => '/perfiles',
             'icon' => 'fas fa-fw fa-user',
         ],
     ],
