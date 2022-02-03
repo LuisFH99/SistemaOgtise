@@ -40,7 +40,7 @@
                             </div>
                             <div class="col-md-2 col-sm-6">
                                 <label class="form-label">Apellidos Paterno:</label>
-                                <input type="text" id="apepat" name="apepat" class="form-control" placeholder="" tabindex="2">
+                                <input type="text" id="apepat" name="apepat" class="form-control" placeholder="" tabindex="2" value="{{ old('apepat') }}">
                                 @error('apepat')
                                     <small class="text-danger">{{$message}}</small>
                                 @enderror
@@ -51,7 +51,7 @@
                             </div>
                             <div class="col-md-2 col-sm-6">
                                 <label class="form-label">Apellidos Materno:</label>
-                                <input type="text" id="apemat" name="apemat" class="form-control" placeholder="" tabindex="3">
+                                <input type="text" id="apemat" name="apemat" class="form-control" placeholder="" tabindex="3" value="{{ old('apemat') }}">
                                 @error('apemat')
                                     <small class="text-danger">{{$message}}</small>
                                 @enderror
@@ -62,7 +62,7 @@
                             </div>
                             <div class="col-md-3 col-sm-6">
                                 <label class="form-label">Nombres:</label>
-                                <input type="text" id="nombres" name="nombres" class="form-control" placeholder="" tabindex="4">
+                                <input type="text" id="nombres" name="nombres" class="form-control" placeholder="" tabindex="4" value="{{ old('nombres') }}">
                                 @error('nombres')
                                     <small class="text-danger">{{$message}}</small>
                                 @enderror
@@ -94,7 +94,7 @@
                             </div>
                             <div class="col-md-3 col-sm-6 my-3">
                                 <label class="form-label">Correo Institucional:</label>
-                                <input type="email" id="email" name="email" class="form-control" placeholder="correo@unasam.edu.pe"
+                                <input type="email" id="email" name="email" class="form-control" placeholder="correo@unasam.edu.pe" value="{{ old('email') }}"
                                     tabindex="7">
                                     
                                 {{-- <div class="form-group">
