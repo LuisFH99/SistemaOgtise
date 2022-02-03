@@ -179,7 +179,6 @@
 }
 
 
-
 /* Fin estilos modulo Docentes */
 
 
@@ -254,6 +253,10 @@
 
 .greenr {
     color: rgb(65, 231, 43);
+}
+
+.orangenr {
+    color: rgb(231, 150, 43);
 }
 
 .abs-center {

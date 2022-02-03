@@ -159,7 +159,7 @@ class UserController extends Controller
     public function update(Request $request,User $user)
     {
         $request->validate([
-            'dni' => 'required|integer',
+            'dni' => 'required|min:8',
             'apepat' => 'required',
             'nombres'=> 'required',
             'fnacimiento'=> 'required|date',
@@ -234,7 +234,8 @@ class UserController extends Controller
 
         return $pe;
     }
-    public function reestablecer(User $user){
+    public function reestablecer(Request $request){
+        $user=User::where('id',$request->id)->first();
         $pers=Persona::where('correo','=', ''.$user->email.'')->first();
         $clav='-';
         $doc=Docente::where('fk_idPersonas', $pers->idPersonas)->count();
@@ -249,9 +250,19 @@ class UserController extends Controller
         $arrayInfo = ['user' => $user->email, 'docente' => $pers->nombres . ' ' . $pers->apepat . ' ' . $pers->apemat, 'contra' => $pers->DNI, 'clave' => $clav->clave];
         $correo = new CredencialesMailable($arrayInfo);
         Mail::to($user->email)->send($correo);
-        $cargos=Role::where('id','>',4)->pluck('name','id');
-        $idMsg='info';
+        //$cargos=Role::where('id','>',4)->pluck('name','id');
+        //$idMsg='info';
         $Mensaje='Las credenciales han sido reestablecidas para: '.$user->name;
-        return redirect()->route('Users',compact('cargos'))->with($idMsg,$Mensaje);
+        //return redirect()->route('Users',compact('cargos'))->with($idMsg,$Mensaje);
+        return $Mensaje;
+    }
+    public function habilitar(Request $request){
+        $user=User::where('id',$request->id)->first();
+        $pe=Persona::where('correo',$user->email)->first();
+        User::where('email', $user->email)->update(array('activos' => ($request->bdr==1)?0:1));
+        Persona::where('idpersonas', $pe->idPersonas)->update(array('activos' => ($request->bdr==1)?0:1));
+        Administrativo::where('fk_idPersonas', $pe->idPersonas)->update(array('activos' => ($request->bdr==1)?0:1));
+        $Mensaje='El usuario '.$user->name.' ha sido '.(($request->bdr==1)?'desabilitado':'habilitado').' ';
+        return $Mensaje;
     }
 }

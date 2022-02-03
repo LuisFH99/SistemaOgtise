@@ -278,7 +278,99 @@
                 }
             })
         }
+        function restaurar(ids) {
+            console.log(ids);
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-warning mr-1',
+                    cancelButton: 'btn btn-secondary mr-1'
+                },
+                buttonsStyling: false
+            })
 
+            swalWithBootstrapButtons.fire({
+                title: 'Estas Seguro?',
+                text: "Esta accion es Irreversible!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Restaurar Contraseña!',
+                cancelButtonText: 'Cancelar!',
+                reverseButtons: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/users/reestablecer',
+                        method: 'POST',
+                        data: {
+                            _token: $('input[name="_token"]').val(),
+                            id: ids
+                        }
+                    }).done(function(msg) {
+                        Swal.fire({
+                            icon: 'info',
+                            title: ' '+msg,
+                            showConfirmButton: false,
+                            timer: 4500
+                        });
+                        //location.reload();
+                    }).fail(function(msg) {
+                        console.log(msg);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Algo salio mal!...'
+                        })
+                    });
+                }
+            })
+        }
+        function habilitar(ids,aux) {
+            console.log(ids);
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-warning mr-1',
+                    cancelButton: 'btn btn-secondary mr-1'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Estas Seguro?',
+                text: "Esta accion es Irreversible!",
+                icon: (aux==1)?'warning':'success',
+                showCancelButton: true,
+                confirmButtonText: (aux==1)?'Deshabilitar':'Habilitar',
+                cancelButtonText: 'Cancelar!',
+                reverseButtons: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/users/habilitar',
+                        method: 'POST',
+                        data: {
+                            _token: $('input[name="_token"]').val(),
+                            id: ids,
+                            bdr: aux
+                        }
+                    }).done(function(msg) {
+                        Swal.fire({
+                            icon: 'info',
+                            title: ' '+msg,
+                            showConfirmButton: false,
+                            timer: 4500
+                        });
+                        location.reload();
+                    }).fail(function(msg) {
+                        console.log(msg);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Algo salio mal!...'
+                        })
+                    });
+                }
+            })
+        }
         function listAllProperties(o) {
             var objectToInspect;
             var result = [];

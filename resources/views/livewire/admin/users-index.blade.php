@@ -40,10 +40,11 @@
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->clave}}</td>
                                 <td><span class="badge {{($user->activos ==1 )?'bg-success':'bg-danger'}}">{{($user->activos ==1 )?'Habilitado':'Deshabilitado'}}</span></td>
-                                <td width="100px">
-                                    <a class="mr-1" href="{{route('users.reestablecer',$user)}}"><i class="fas fa-recycle greenr"></i></a>
-                                    <a class="mr-1" href="{{route('Admin.users.edit',$user)}}"><i class="fas fa-user-edit"></i></a>
-                                    <a href="#" onclick="eliminar({{$user->id}},'{{$user->email}}')"><i class="far fa-trash-alt dangerito" aria-hidden="true"></i></a>
+                                <td width="120px">
+                                    <a class="mr-1" href="#" onclick="habilitar({{$user->id}},{{$user->activos}})" title="{{($user->activos ==1 )?'Deshabilitar':'Habilitar'}} Usuario"><i class="fas fa-arrow-alt-circle-{{($user->activos ==1 )?'down':'up'}} orangenr"></i></a>
+                                    <a class="mr-1" href="{{route('Admin.users.edit',$user)}}" title="Editar Usuario"><i class="fas fa-user-edit"></i></a>
+                                    <a class="mr-1" href="#" onclick="eliminar({{$user->id}},'{{$user->email}}')" title="Eliminar Usuario"><i class="far fa-trash-alt dangerito" aria-hidden="true"></i></a>
+                                    <a class="mr-1" href="#" onclick="restaurar({{$user->id}})" title="Reestablecer Contraseña"><i class="fas fa-key greenr"></i></a>
                                 </td>
                             </tr>
                         @endforeach

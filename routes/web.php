@@ -118,8 +118,8 @@ Route::resource('users', App\Http\Controllers\Admin\UserController::class)->midd
     'store'=> 'Admin.users.store',
     'update'=> 'Admin.users.update'
 ]);
-Route::get('/users/reestablecer/{user}', [App\Http\Controllers\Admin\UserController::class, 'reestablecer'])->middleware('can:admin.users.index')->name('users.reestablecer');
-
+Route::post('/users/reestablecer', [App\Http\Controllers\Admin\UserController::class, 'reestablecer'])->middleware('can:admin.users.index')->name('users.reestablecer');
+Route::post('/users/habilitar', [App\Http\Controllers\Admin\UserController::class, 'habilitar'])->middleware('can:admin.users.index')->name('users.habilitar');
 Route::post('/users/eliminar', [App\Http\Controllers\Admin\UserController::class, 'eliminar'])->middleware('can:admin.users.index')->name('users.eliminar');
 
 Route::post('/users/index/datos', [UsersIndex::class, 'datos'])->middleware('can:admin.users.index')->name('datos');
