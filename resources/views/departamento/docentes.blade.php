@@ -5,7 +5,7 @@
 @section('plugins.Datatables', true)
 
 @section('content_header')
-    <h1 class="text-center">Lista de Docentes Registrados</h1>
+    <h1 class="text-center">Gestion de Docentes </h1>
 @stop
 
 @section('content')
@@ -21,7 +21,7 @@
         </script>
     @endif
 
-    
+
     <div class="container create-docente">
         <div class="card">
             {{-- <div class="card-header">
@@ -29,9 +29,122 @@
             </div> --}}
             <div class="card-body">
                 <form action="{{ route('docentes.store') }}" method="POST" id="formcreardocentes">
-                    <div class="col-12">
+                    <div class="row">
                         @csrf
+                        <div class="col-md-2 col-sm-6">
+                            <label class="form-label">DNI:</label>
+                            <input type="text" class="form-control" id="dni" name="dni" placeholder="Ingrese el N° DNI"
+                                tabindex="1" maxlength="8" onkeypress="return SoloNumeros(event)" autocomplete="off"
+                                value={{ old('dni') }}>
+                            @error('dni')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="col-md-2 col-sm-6">
+                            <label class="form-label">Apellidos Paterno:</label>
+                            <input type="text" id="apepat" name="apepat" class="form-control"
+                                placeholder="Apellido parteno" tabindex="2" autocomplete="off" value={{ old('apepat') }}>
+                            @error('apepat')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="col-md-2 col-sm-6">
+                            <label class="form-label">Apellidos Materno:</label>
+                            <input type="text" id="apemat" name="apemat" class="form-control"
+                                placeholder="Apellido Materno" tabindex="3" autocomplete="off" value={{ old('apemat') }}>
+                            @error('apemat')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <label class="form-label">Nombres:</label>
+                            <input type="text" id="nombres" name="nombres" class="form-control" placeholder="Nombres"
+                                tabindex="4" autocomplete="off" value={{ old('nombres') }}>
+                            @error('nombres')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <label class="form-label">Fecha de Nacimiento</label>
+                            <input type="date" id="fnacimiento" name="fnacimiento" class="form-control" tabindex="5"
+                                value={{ old('fnacimiento') }}>
+                            @error('fnacimiento')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="col-md-3 col-sm-6 my-3">
+                            <label class="form-label">Celular:</label>
+                            <input type="text" id="numcel" name="numcel" class="form-control"
+                                placeholder="Ingrese N° celular" tabindex="6" maxlength="9"
+                                onkeypress="return SoloNumeros(event)" autocomplete="off" value={{ old('numcel') }}>
+                            @error('numcel')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="col-md-3 col-sm-6 my-3">
+                            <label class="form-label">Correo Institucional:</label>
+                            <input type="email" id="email" name="correo" class="form-control"
+                                placeholder="correo@unasam.edu.pe" tabindex="7" autocomplete="off"
+                                value={{ old('correo') }}>
+                            @error('correo')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+
                         @livewire('crear-docentes')
+
+                        <div class="col-md-4 col-sm-6 mb-3">
+                            <label for="" class="form-label">Condición:</label>
+                            <select class="form-control" id="condicion" name="condicion" tabindex="10">
+                                <option>Seleccione...</option>
+                                @foreach ($condiciones as $condicion)
+                                    <option value="{{ $condicion->idCondiciones }}"
+                                        {{ old('condicion') == $condicion->idCondicioness ? 'selected' : '' }}>
+                                        {{ $condicion->nomCondi }}</option>
+                                @endforeach
+                            </select>
+                            @error('condicion')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+
+                        <div class="col-md-4 col-sm-6 mb-3">
+                            <label for="" class="form-label">Categoría:</label>
+                            <select class="form-control" id="categoria" name="categoria" tabindex="11">
+                                <option>Seleccione...</option>
+                                @foreach ($categorias as $categoria)
+                                    <option value="{{ $categoria->idCategorias }}"
+                                        {{ old('categoria') == $categoria->idCategorias ? 'selected' : '' }}>
+                                        {{ $categoria->nomCat }}</option>
+                                @endforeach
+                            </select>
+                            @error('categoria')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+
+                        <div class="col-md-4 col-sm-6 mb-3">
+                            <label for="" class="form-label">Dedicación:</label>
+                            <select class="form-control" id="dedicacion" name="dedicacion" tabindex="12">
+                                <option selected="selected" value="">Seleccione...</option>
+                                @foreach ($dedicaciones as $dedicacion)
+                                    <option value="{{ $dedicacion->idDedicaciones }}"
+                                        {{ old('dedicacion') == $dedicacion->idDedicaciones ? 'selected' : '' }}>
+                                        {{ $dedicacion->nomDedi }}</option>
+                                @endforeach
+                            </select>
+                            @error('dedicacion')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+
+                        </div>
+                        <div class="col-12 mx-auto">
+                            <div class="text-center">
+                                <a href="{{ route('docentes') }}" class="btn btn-secondary mr-2">Cancelar</a>
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                        </div>
+
 
                     </div>
                 </form>
@@ -215,6 +328,12 @@
                     '#apemat').val().trim()));
             });
 
+            $('#emailEdit').focus(function() {
+                $(this).val("" + generaremail($('#nombresEdit').val().trim(), $('#apepatEdit').val().trim(),
+                    $(
+                        '#apematEdit').val().trim()));
+            });
+
             $("#modalEdit").on('hidden.bs.modal', function() {
                 Limpiar();
             });
@@ -339,16 +458,23 @@
                     ev: 2
                 }
             }).done(function(res) {
-                Swal.fire({
-                    position: 'top-center',
-                    icon: 'success',
-                    title: res[0].rpta,
-                    showConfirmButton: false,
-                    timer: 2500
-                })
-
-                $('#modalEdit').modal('hide');
-                location.reload();
+                if (res != 1) {
+                    Swal.fire({
+                        position: 'top-center',
+                        icon: 'success',
+                        title: res[0].rpta,
+                        showConfirmButton: false,
+                        timer: 2500
+                    })
+                    $('#modalEdit').modal('hide');
+                    location.reload();
+                } else {
+                    Swal.fire(
+                        'Ooops!!',
+                        '¡El correo Institucional ya esta registrado!',
+                        'error'
+                    )
+                }
 
             }).fail(function() {
                 alert("error");

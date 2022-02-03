@@ -57,7 +57,7 @@
                             <div class="col-md-6">
                                 <p class="h6">Fecha Fin:</p>
                                 <input class="form-control col-md-10 " name="fin" type="date"
-                                    value="{{ isset($cargoDocente->fech_fin) ? $cargoDocente->fech_fin : '' }}" min="{{$allcargos->dia}}">
+                                    value="{{ isset($cargoDocente->fech_fin) ? $cargoDocente->fech_fin : '' }}" min="{{$Persona->dia}}">
 
                             </div>
 
