@@ -45,7 +45,7 @@ class ValidaSalidaController extends Controller
         $user=auth()->user();
         $dt=$request->idsal.','.$request->Justif;
         $Salida=Asistencia::where('fk_idAsistenciaSalidas', $request->idsal)->update(array('observacion' =>$request->Justif,'estado'=>9));
-        return $dt;
+        return $dt; 
     }
     public function dato(Request $request){
         $user=auth()->user();

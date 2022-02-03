@@ -16,16 +16,13 @@
                               <i class="fas fa-search"></i>
                             </span>
                         </div>
-                        @if ($aux==1)
-                            <div class="input-group rounded col-6">
-                                <p class="col-2 d-flex align-items-center mr-1"><b>Estado: </b></p>
-                                {!! Form::select('estado', $estados, null, ['placeholder' => 'Seleccione...',
-                                                                            'class'=>'form-control col-3',
-                                                                            'wire:model'=>'combo']) !!}
-                                
-                            </div>
+                        <div class="input-group rounded col-6">
+                            <p class="col-2 d-flex align-items-center mr-1"><b>Estado: </b></p>
+                            {!! Form::select('estado', $estados, null, ['placeholder' => 'Seleccione...',
+                                                                        'class'=>'form-control col-3',
+                                                                        'wire:model'=>'combo']) !!}
                             
-                        @endif
+                        </div>
                     </div>
                     @if ($licencias->count()==0)
                         <div class="card-body"> 
@@ -35,27 +32,29 @@
                         <div class="table-responsive">
                             <table class="table table-striped" id="idtableSalidas">
                                 <thead>
-                                    <tr>
+                                    <tr class="text-center">
                                         <th scope="col">Código</th>
                                         <th scope="col">Docente</th>
                                         <th scope="col">Fecha</th>
                                         <th scope="col">Motivo</th>
                                         <th scope="col">Dias Ausente</th>
                                         <th scope="col">Fecha de Retorno</th>
+                                        <th scope="col">Estado</th>
                                         <th scope="col">Ver</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($licencias as $licencia)
-                                        <tr>
+                                        <tr class="{{($estado==$licencia->estadoSol)?'font-weight-bold':'font-weight-normal';}}">
                                             <td>{{$licencia->codigo}}</td>
                                             <td>{{$licencia->apellPat.' '.$licencia->apellMat.' '.$licencia->nombres}}</td>
                                             <td>{{$licencia->fech_solicitud}}</td>
                                             <td>{{$licencia->motivo}}</td>
                                             <td>{{$licencia->num_dias}}</td>
                                             <td>{{$licencia->fech_retorno}}</td>
+                                            <td>{{$licencia->estadoSol}}</td>
                                             <td><a href="#"
-                                                onclick="selecId({{$licencia->idSolicitudes}},'{{$licencia->fech_solicitud}}','{{$licencia->hor_solicitud}}','{{$licencia->apellPat.' '.$licencia->apellMat.' '.$licencia->nombres}}',{{$aux}})"><i class="far fa-eye"></i></a></td>
+                                                onclick="selecId({{$licencia->idSolicitudes}},'{{$licencia->fech_solicitud}}','{{$licencia->hor_solicitud}}','{{$licencia->apellPat.' '.$licencia->apellMat.' '.$licencia->nombres}}','{{$estado}}','{{$licencia->estadoSol}}')"><i class="far fa-eye"></i></a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>

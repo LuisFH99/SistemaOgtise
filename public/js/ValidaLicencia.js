@@ -108,7 +108,7 @@ function AcepDene(dto) {
     //}
 }
 
-function selecId(id, fecha, hr, nomb, aux) {
+function selecId(id, fecha, hr, nomb, estado1, estado2) {
     idlic = id;
     $.ajax({
         url: '/departamento/ValidaLicencia/imprimir',
@@ -123,7 +123,14 @@ function selecId(id, fecha, hr, nomb, aux) {
         $('#nombre').html('Docente: <b>' + nomb + '</b>');
         $('#verArchivos').html("<embed src='" + url + "' frameborder='0'" +
             " width='100%' height='350px'>");
-        if (aux === 1) {
+        if (estado1 === estado2) {
+            $("#divRow").removeClass("d-none");
+            $("#divValidar").removeClass("d-none");
+            $("#divAceptar").removeClass("d-flex");
+            $("#divRow").addClass("d-flex");
+            $("#divValidar").addClass("d-flex");
+            $("#divAceptar").addClass("d-none");
+        } else {
             $("#divRow").removeClass("d-flex");
             $("#divValidar").removeClass("d-flex");
             $("#divAceptar").removeClass("d-none");

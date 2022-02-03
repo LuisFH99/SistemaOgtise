@@ -36,7 +36,7 @@ class ValidaLicenciaIndex extends Component
         $user=auth()->user();
         
         $aux=$this->aux;
-        if($aux==1){
+        //if($aux==1){
             if ($this->bdr==0) {
                 $Dpto = Docente::join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
                     ->join('depacademicos', 'docentes.fk_idDepAcademicos', '=', 'depacademicos.idDepAcademicos')
@@ -58,7 +58,7 @@ class ValidaLicenciaIndex extends Component
                               ->orWhere('fech_solicitud','LIKE','%'.$this->search.'%')
                               ->orWhere('fech_retorno','LIKE','%'.$this->search.'%')
                               ->orWhere('codigo','LIKE','%'.$this->search.'%');
-                    })
+                    })->orderBy(DB::raw('field(estadosolicitudes.estadosol,"'.$this->estado.'")'), 'DESC')
                     ->paginate();
             } else {
                 $licencias=Solicitud::join('estadosolicitudes', 'solicitudes.fk_idEstadoSolicitudes', '=', 'estadosolicitudes.idEstadoSolicitudes')
@@ -76,51 +76,51 @@ class ValidaLicenciaIndex extends Component
                                 ->orWhere('fech_solicitud','LIKE','%'.$this->search.'%')
                                 ->orWhere('fech_retorno','LIKE','%'.$this->search.'%')
                                 ->orWhere('codigo','LIKE','%'.$this->search.'%');
-                    })
+                    })->orderBy(DB::raw('field(estadosolicitudes.estadosol,"'.$this->estado.'")'), 'DESC')
                     ->paginate();
             }
-        } else{
-            if ($this->bdr==0) {
-                $Dpto = Docente::join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
-                    ->join('depacademicos', 'docentes.fk_idDepAcademicos', '=', 'depacademicos.idDepAcademicos')
-                    ->join('facultades', 'depacademicos.fk_idFacultades', '=', 'facultades.id_Facultades')
-                    ->select('idDepAcademicos')->where('personas.correo',$user->email)->first();
-                $licencias=Solicitud::join('estadosolicitudes', 'solicitudes.fk_idEstadoSolicitudes', '=', 'estadosolicitudes.idEstadoSolicitudes')
-                    ->join('motivosolicitudes', 'solicitudes.fk_idMotivoSolicitudes', '=', 'motivosolicitudes.idMotivoSolicitudes')
-                    ->join('docentes', 'solicitudes.fk_idDocentes', '=', 'docentes.idDocentes')
-                    ->join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
-                    ->join('depacademicos', 'docentes.fk_idDepAcademicos', '=', 'depacademicos.idDepAcademicos')
-                    ->select('solicitudes.*','estadosolicitudes.estadoSol','motivosolicitudes.motivo',
-                        'personas.*','depacademicos.nomdep')
-                    ->where('idDepAcademicos',$Dpto->idDepAcademicos)->where('estadoSol',$this->estado)->where('solicitudes.estado',1)
-                    ->where(function ($query) {
-                        $query->orWhere(DB::raw('CONCAT(apellPat," ",apellMat," ",nombres)'),'LIKE','%'.$this->search.'%')
-                              ->orWhere('estadosolicitudes.estadoSol','LIKE','%'.$this->search.'%')
-                              ->orWhere('motivosolicitudes.motivo','LIKE','%'.$this->search.'%')
-                              ->orWhere('fech_solicitud','LIKE','%'.$this->search.'%')
-                              ->orWhere('fech_retorno','LIKE','%'.$this->search.'%')
-                              ->orWhere('codigo','LIKE','%'.$this->search.'%');
-                    })
-                    ->paginate();
-            } else {
-                $licencias=Solicitud::join('estadosolicitudes', 'solicitudes.fk_idEstadoSolicitudes', '=', 'estadosolicitudes.idEstadoSolicitudes')
-                    ->join('motivosolicitudes', 'solicitudes.fk_idMotivoSolicitudes', '=', 'motivosolicitudes.idMotivoSolicitudes')
-                    ->join('docentes', 'solicitudes.fk_idDocentes', '=', 'docentes.idDocentes')
-                    ->join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
-                    ->join('depacademicos', 'docentes.fk_idDepAcademicos', '=', 'depacademicos.idDepAcademicos')
-                    ->select('solicitudes.*','estadosolicitudes.estadoSol','motivosolicitudes.motivo',
-                        'personas.*','depacademicos.nomdep')->where('estadoSol',$this->estado)->where('solicitudes.estado',1)
-                    ->where(function ($query) {
-                        $query->orWhere(DB::raw('CONCAT(apellPat," ",apellMat," ",nombres)'),'LIKE','%'.$this->search.'%')
-                                ->orWhere('estadosolicitudes.estadoSol','LIKE','%'.$this->search.'%')
-                                ->orWhere('motivosolicitudes.motivo','LIKE','%'.$this->search.'%')
-                                ->orWhere('fech_solicitud','LIKE','%'.$this->search.'%')
-                                ->orWhere('fech_retorno','LIKE','%'.$this->search.'%')
-                                ->orWhere('codigo','LIKE','%'.$this->search.'%');
-                    })
-                    ->paginate();
-            }
-        }
+        // } else{
+        //     if ($this->bdr==0) {
+        //         $Dpto = Docente::join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
+        //             ->join('depacademicos', 'docentes.fk_idDepAcademicos', '=', 'depacademicos.idDepAcademicos')
+        //             ->join('facultades', 'depacademicos.fk_idFacultades', '=', 'facultades.id_Facultades')
+        //             ->select('idDepAcademicos')->where('personas.correo',$user->email)->first();
+        //         $licencias=Solicitud::join('estadosolicitudes', 'solicitudes.fk_idEstadoSolicitudes', '=', 'estadosolicitudes.idEstadoSolicitudes')
+        //             ->join('motivosolicitudes', 'solicitudes.fk_idMotivoSolicitudes', '=', 'motivosolicitudes.idMotivoSolicitudes')
+        //             ->join('docentes', 'solicitudes.fk_idDocentes', '=', 'docentes.idDocentes')
+        //             ->join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
+        //             ->join('depacademicos', 'docentes.fk_idDepAcademicos', '=', 'depacademicos.idDepAcademicos')
+        //             ->select('solicitudes.*','estadosolicitudes.estadoSol','motivosolicitudes.motivo',
+        //                 'personas.*','depacademicos.nomdep')
+        //             ->where('idDepAcademicos',$Dpto->idDepAcademicos)->where('estadoSol',$this->estado)->where('solicitudes.estado',1)
+        //             ->where(function ($query) {
+        //                 $query->orWhere(DB::raw('CONCAT(apellPat," ",apellMat," ",nombres)'),'LIKE','%'.$this->search.'%')
+        //                       ->orWhere('estadosolicitudes.estadoSol','LIKE','%'.$this->search.'%')
+        //                       ->orWhere('motivosolicitudes.motivo','LIKE','%'.$this->search.'%')
+        //                       ->orWhere('fech_solicitud','LIKE','%'.$this->search.'%')
+        //                       ->orWhere('fech_retorno','LIKE','%'.$this->search.'%')
+        //                       ->orWhere('codigo','LIKE','%'.$this->search.'%');
+        //             })
+        //             ->paginate();
+        //     } else {
+        //         $licencias=Solicitud::join('estadosolicitudes', 'solicitudes.fk_idEstadoSolicitudes', '=', 'estadosolicitudes.idEstadoSolicitudes')
+        //             ->join('motivosolicitudes', 'solicitudes.fk_idMotivoSolicitudes', '=', 'motivosolicitudes.idMotivoSolicitudes')
+        //             ->join('docentes', 'solicitudes.fk_idDocentes', '=', 'docentes.idDocentes')
+        //             ->join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
+        //             ->join('depacademicos', 'docentes.fk_idDepAcademicos', '=', 'depacademicos.idDepAcademicos')
+        //             ->select('solicitudes.*','estadosolicitudes.estadoSol','motivosolicitudes.motivo',
+        //                 'personas.*','depacademicos.nomdep')->where('estadoSol',$this->estado)->where('solicitudes.estado',1)
+        //             ->where(function ($query) {
+        //                 $query->orWhere(DB::raw('CONCAT(apellPat," ",apellMat," ",nombres)'),'LIKE','%'.$this->search.'%')
+        //                         ->orWhere('estadosolicitudes.estadoSol','LIKE','%'.$this->search.'%')
+        //                         ->orWhere('motivosolicitudes.motivo','LIKE','%'.$this->search.'%')
+        //                         ->orWhere('fech_solicitud','LIKE','%'.$this->search.'%')
+        //                         ->orWhere('fech_retorno','LIKE','%'.$this->search.'%')
+        //                         ->orWhere('codigo','LIKE','%'.$this->search.'%');
+        //             })
+        //             ->paginate();
+        //     }
+        // }
         
         $estados=EstadoSolicitud::pluck('estadoSol','idEstadoSolicitudes');
         

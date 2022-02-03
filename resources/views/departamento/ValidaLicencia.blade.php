@@ -10,19 +10,19 @@
 <div class="container">
     @can('valida.licencia')
         @livewire('valida-licencia-index',['estado'=>'Enviada','bdr'=>0,'aux'=>0])
-        @livewire('valida-licencia-index',['estado'=>'Enviada','bdr'=>0,'aux'=>1])
+        {{-- @livewire('valida-licencia-index',['estado'=>'Enviada','bdr'=>0,'aux'=>1]) --}}
     @endcan
     @can('valida.licencia1')
         @livewire('valida-licencia-index',['user' => $user,'estado'=>'Procesada','bdr'=>0,'aux'=>0])
-        @livewire('valida-licencia-index',['user' => $user,'estado'=>'Procesada','bdr'=>0,'aux'=>1])
+        {{-- @livewire('valida-licencia-index',['user' => $user,'estado'=>'Procesada','bdr'=>0,'aux'=>1]) --}}
     @endcan
     @can('valida.licencia2')
         @livewire('valida-licencia-index',['user' => $user,'estado'=>'Visto Bueno','bdr'=>1,'aux'=>0])
-        @livewire('valida-licencia-index',['user' => $user,'estado'=>'Procesada','bdr'=>0,'aux'=>1])
+        {{-- @livewire('valida-licencia-index',['user' => $user,'estado'=>'Procesada','bdr'=>0,'aux'=>1]) --}}
     @endcan
     @can('valida.licencia3')
         @livewire('valida-licencia-index',['user' => $user,'estado'=>'Admitida','bdr'=>1,'aux'=>0])
-        @livewire('valida-licencia-index',['user' => $user,'estado'=>'Procesada','bdr'=>0,'aux'=>1])
+        {{-- @livewire('valida-licencia-index',['user' => $user,'estado'=>'Procesada','bdr'=>0,'aux'=>1]) --}}
     @endcan
 </div> 
 
@@ -41,7 +41,7 @@
                 <div id="verArchivos">
                     <embed src="#" frameborder="0" width="100%" height="400px">
                 </div>
-                <div class="row d-flex" id="divRow">
+                <div class="row d-none" id="divRow">
                     <div class="col-md-5">
                         <p class="text-danger">*Debes firmar para autenticar el documento:</p>
                         <div class="col-12 d-flex justify-content-center">
@@ -78,7 +78,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer d-flex" id="divValidar">
+            <div class="modal-footer d-none" id="divValidar">
                     <button type="button" id="btnDenied"class="btn btn-outline-danger">Rechazar</button>
                 @can('valida.licencia')
                     <button type="button" id="btnAcepted" class="btn btn-outline-success">Validar</button>
@@ -93,7 +93,7 @@
                     <button type="button" id="btnAceptedDRRHH" class="btn btn-outline-success">Validar</button>
                 @endcan
             </div>
-            <div class="modal-footer d-none" id="divAceptar">
+            <div class="modal-footer d-flex" id="divAceptar">
                     <button type="button" id="btnDenied"class="btn btn-outline-primary" data-dismiss="modal">Aceptar</button>
             </div>
         </div>
