@@ -23,7 +23,7 @@
     <div class="col-md-2 col-sm-6">
         <label class="form-label">Apellidos Materno:</label>
         <input type="text" id="apemat" name="apemat" class="form-control" placeholder="Apellido Materno" tabindex="3"
-            autocomplete="off">
+            autocomplete="off" value= {{old('apemat')}}>
         @error('apemat')
             <small class="text-danger">{{ $message }}</small>
         @enderror
@@ -54,7 +54,7 @@
     <div class="col-md-3 col-sm-6 my-3">
         <label class="form-label">Correo Institucional:</label>
         <input type="email" id="email" name="email" class="form-control" placeholder="correo@unasam.edu.pe"
-            tabindex="7" autocomplete="off" value= {{old('numcel')}}>
+            tabindex="7" autocomplete="off" value= {{old('email')}}>
         @error('email')
             <small class="text-danger">{{ $message }}</small>
         @enderror

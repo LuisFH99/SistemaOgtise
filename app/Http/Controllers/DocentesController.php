@@ -56,7 +56,7 @@ class DocentesController extends Controller
             'categoria' => 'required|integer',
             'dedicacion' => 'required|integer',
             'dptoacademico' => 'required|integer',
-            'email' => 'required|email'
+            'email' => 'required|email|regex:/(.*)@unasam\.edu\.pe$/i'
         ]);
 
         $existe1 = DB::table('personas')->where('dni', $request->dni)->where('estado', 1)->count();
@@ -163,13 +163,13 @@ class DocentesController extends Controller
         $Semanas = Semana::all();
 
         $cargoDocente = autoridad::join('cargos', 'autoridades.fk_idcargos', '=', 'cargos.idcargos')
-            ->select('cargos.idcargos', 'cargos.cargo','autoridades.fech_ini','autoridades.fech_fin',DB::raw('curdate() as dia'))
+            ->select('cargos.idcargos', 'cargos.cargo','autoridades.fech_ini','autoridades.fech_fin')
             ->where('autoridades.fk_iddocentes', $id)->where('cargos.cargo','<>','Suspendido')->where('autoridades.estado','1')->first();
 
         $cargos = cargo::where('cargo','<>','Suspendido')->get();
         
         $allcargos=autoridad::join('cargos', 'autoridades.fk_idcargos', '=', 'cargos.idcargos')
-        ->select( 'cargos.cargo','autoridades.fech_ini','autoridades.fech_fin','autoridades.estado')
+        ->select( 'cargos.cargo','autoridades.fech_ini','autoridades.fech_fin','autoridades.estado',DB::raw('curdate() as dia'))
         ->where('autoridades.fk_iddocentes', $id)->orderBy('idAutoridades', 'desc')->get();
 
         $suspendido = autoridad::join('cargos', 'autoridades.fk_idcargos', '=', 'cargos.idcargos')

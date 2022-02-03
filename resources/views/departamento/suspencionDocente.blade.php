@@ -30,7 +30,7 @@
                             </div>
                         </div>
                         <div class="row mt-2">
-                            <h4 class="col-md-12 bg-primary">Fechas de Suspención</h4>
+                            <h4 class="col-md-12">Fechas de Suspención</h4>
                             <form action="{{ route('docentes.generarSuspencion', $Persona->idDocentes) }}" method="post">
                                 @csrf
                                 @method('put')
