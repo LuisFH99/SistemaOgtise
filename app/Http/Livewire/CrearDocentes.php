@@ -18,10 +18,8 @@ class CrearDocentes extends Component
     public function render()
     {
         $facultades = Facultad::all();
-        $condiciones = Condicion::all();
-        $categorias = Categoria::all();
-        $dedicaciones = Dedicacion::all();
-        return view('livewire.crear-docentes', compact('facultades', 'condiciones', 'categorias', 'dedicaciones'));
+        
+        return view('livewire.crear-docentes', compact('facultades'));
         // return view('livewire.crear-docentes', [
         //     'facultades' => Facultad::all()
         // ]);
