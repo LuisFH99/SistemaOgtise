@@ -18,7 +18,7 @@
             <div class="modal-header">
                 <h2 class="modal-title" id="nombret"></h2>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -28,8 +28,12 @@
                             <table class="table table-sm">
                                 <tbody>
                                     <tr>
-                                        <td>Fecha y Hora de Salida</td>
-                                        <td class="dr" id="fecha">Lunes, 06 de diciembre de 2021</td>
+                                        <td>Fecha y Hora de Entrada:</td>
+                                        <td class="dr" id="fechaE">Lunes, 06 de diciembre de 2021</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fecha y Hora de Salida:</td>
+                                        <td class="dr" id="fechaS">Lunes, 06 de diciembre de 2021</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -56,30 +60,32 @@
                                 </div>
                                 <div class="col-md-6 d-flex" id="divFrm">
                                     <br>
-                                    <div class="col-12 d-flex justify-content-center">
-                                        <div class="checkbox-custom mr-4">
-                                            <label>
-                                                <input type="checkbox" id="chkDNIE" class="radio" value="1" name="fooby[1][]">
-                                                <b></b>
-                                                <span class="font-weight-light">DNIe</span>
-                                            </label>
-                                        </div>                              
-                                        <div class="checkbox-custom">
-                                            <label>
-                                            <input type="checkbox" id="chkCodigoFirma" class="radio" value="2" name="fooby[1][]">
-                                                <b></b>
-                                                <span class="font-weight-light">Clave de Firma Electrónica</span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 d-none justify-content-center" id="formclave">
-                                        <div class="col-8">
-                                            <label class="mt-1 text-sm-right ">Ingrese clave</label>
-                                            <div class="input-group ">
-                                                <input id="txtCodigoFirma" type="Password" Class="form-control">
-                                                <div class="input-group-append">
-                                                    <button style="background-color:#28AECE;border-color:#28AECE" id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()">
-                                                        <span class="fa fa-eye-slash icon"></span>
+                                    <div class="row">
+                                        <div class="col-12 d-flex justify-content-center">
+                                            <div class="checkbox-custom mr-4">
+                                                <label>
+                                                    <input type="checkbox" id="chkDNIE" class="radio" value="1" name="fooby[1][]">
+                                                    <b></b>
+                                                    <span class="font-weight-light">DNIe</span>
+                                                </label>
+                                            </div>                              
+                                            <div class="checkbox-custom">
+                                                <label>
+                                                <input type="checkbox" id="chkCodigoFirma" class="radio" value="2" name="fooby[1][]">
+                                                    <b></b>
+                                                    <span class="font-weight-light">Clave de Firma Electrónica</span>
+                                                </label>
+                                            </div>
+                                        </div><br>
+                                        <div class="col-12 d-none justify-content-center" id="formclave">
+                                            <div class="col-8">
+                                                <label class="mt-1 text-sm-right ">Ingrese clave</label>
+                                                <div class="input-group ">
+                                                    <input id="txtCodigoFirma" type="Password" Class="form-control">
+                                                    <div class="input-group-append">
+                                                        <button style="background-color:#28AECE;border-color:#28AECE" id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()">
+                                                            <span class="fa fa-eye-slash icon"></span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -88,10 +94,12 @@
                             </div><br>
                     </div>
                 </div>
-                
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer d-flex" id="divValidar">
                 <button type="button" class="btn btn-outline-success" id="btnAceptar" data-dismiss="modal">Validar</button>
+            </div>
+            <div class="modal-footer d-none" id="divAceptar">
+                <button type="button" class="btn btn-outline-primary" id="btnAceptar" data-dismiss="modal">Aceptar</button>
             </div>
         </div>
     </div>

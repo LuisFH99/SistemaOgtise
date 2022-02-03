@@ -130,7 +130,7 @@ function validarEntradas() {
     return bdr;
 }
 
-function selecId(id, nombre, fecha, hora, informe, ptro) {
+function selecId(id, nombre, fechaS, horaS, horaE, informe, ptro) {
     //document.getElementById('exampleModalLabel').innerHTML=""+nombre;
     idsali = id;
     $.ajax({
@@ -146,7 +146,8 @@ function selecId(id, nombre, fecha, hora, informe, ptro) {
         // $("#fecha").html(formatoFecha(msg.Salida.fecha) + " - " + msg.Salida.hor_salida);
         // $("#justificacion").html(msg.Salida.informe);
         $("#nombret").html('Docente: ' + nombre);
-        $("#fecha").html(formatoFecha(fecha) + " - " + hora);
+        $("#fechaE").html(formatoFecha(fechaS) + " - " + horaE);
+        $("#fechaS").html(formatoFecha(fechaS) + " - " + horaS);
         $("#justificacion").html(informe);
         let ArrayE = msg.evi;
         let mj = "";
@@ -159,8 +160,12 @@ function selecId(id, nombre, fecha, hora, informe, ptro) {
         if (ptro == '9') {
             $("#divMsg").removeClass("d-flex");
             $("#divFrm").removeClass("d-flex");
+            $("#divValidar").removeClass("d-flex");
+            $("#divAceptar").removeClass("d-none");
             $("#divMsg").addClass("d-none");
             $("#divFrm").addClass("d-none");
+            $("#divValidar").addClass("d-none");
+            $("#divAceptar").addClass("d-flex");
         }
         $("#modal1").modal('show');
     }).fail(function(msg) {

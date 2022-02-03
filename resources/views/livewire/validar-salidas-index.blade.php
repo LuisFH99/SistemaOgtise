@@ -39,7 +39,7 @@
                                             <td>{{$Salida->fecha.','.$Salida->hor_salida}}</td>
                                             <td>{{$Salida->observacion}}</td> 
                                             <td><a href="#"
-                                                onclick="selecId({{$Salida->idAsistenciaSalidas}},'{{$Salida->apellPat.' '.$Salida->apellMat.' '.$Salida->nombres}}','{{$Salida->fecha}}','{{$Salida->hor_salida}}','{{$Salida->informe}}','{{$Salida->puntero}}')"><i class="far fa-eye"></i></a></td>
+                                                onclick="selecId({{$Salida->idAsistenciaSalidas}},'{{$Salida->nombres.' '.$Salida->apellPat.' '.$Salida->apellMat}}','{{$Salida->fecha}}','{{$Salida->hor_salida}}','{{$Salida->hor_entrada}}','{{$Salida->informe}}','{{$Salida->puntero}}')"><i class="far fa-eye"></i></a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>

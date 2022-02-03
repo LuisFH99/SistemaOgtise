@@ -36,6 +36,7 @@ class ValidarSalidasIndex extends Component
                         ->join('personas', 'docentes.fk_idPersonas', '=', 'personas.idPersonas')
                         ->select('idDepAcademicos')->where('personas.correo',$user->email)->first();
         $Salidas=Asistencia::join('asistenciasalidas', 'asistencias.fk_idAsistenciaSalidas', '=', 'asistenciasalidas.idAsistenciaSalidas')
+        ->join('asistenciaentradas', 'asistencias.fk_idAsistenciaEntradas', '=', 'asistenciaentradas.idAsistenciaEntradas')
         ->join('fechasistencias', 'asistencias.fk_idFechAsistencias', '=', 'fechasistencias.idFechAsistencias')
         ->join('estadoasistencias', 'asistencias.fk_idEstadoAsistencias', '=', 'estadoasistencias.idEstadoAsistencias')
         ->join('docentes', 'asistencias.fk_idDocentes', '=', 'docentes.idDocentes')
@@ -45,11 +46,13 @@ class ValidarSalidasIndex extends Component
         ->join('categorias', 'docentes.fk_idCategorias', '=', 'categorias.idCategorias')
         ->join('condiciones', 'docentes.fk_idCondiciones', '=', 'condiciones.idCondiciones')
         ->join('dedicaciones', 'docentes.fk_idDedicaciones', '=', 'dedicaciones.idDedicaciones')
-        ->select('asistencias.observacion','asistenciasalidas.idAsistenciaSalidas','asistenciasalidas.hor_salida',
-                 'asistenciasalidas.informe','asistenciasalidas.estado as puntero','fechasistencias.fecha','fechasistencias.dia',
+        ->select('asistencias.observacion','asistenciasalidas.idAsistenciaSalidas','asistenciasalidas.hor_salida','asistenciaentradas.hor_entrada',
+                 'asistenciasalidas.informe','asistencias.estado as puntero','fechasistencias.fecha','fechasistencias.dia',
                  'estadoasistencias.estado','personas.*','categorias.nomCat','condiciones.nomCondi',
                  'dedicaciones.nomDedi','depacademicos.nomdep','facultades.nomFac')
-        ->where('personas.estado',1)->where('fk_idDepAcademicos',$idDep->idDepAcademicos)->where('fecha',$this->sdate)  
+        ->where('personas.estado',1)->where('asistencias.fk_idEstadoAsistencias','=',1)
+        ->where('fk_idDepAcademicos',$idDep->idDepAcademicos)
+        ->where('fecha',$this->sdate)  
         ->where(function ($query) {
             $query->orWhere(DB::raw('CONCAT(apellPat," ",apellMat," ",nombres)'),'LIKE','%'.$this->search.'%')
                   ->orWhere('fecha','LIKE','%'.$this->search.'%')

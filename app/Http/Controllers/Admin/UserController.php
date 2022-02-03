@@ -61,7 +61,7 @@ class UserController extends Controller
             'nombres'=> 'required',
             'fnacimiento'=> 'required|date',
             'numcel'=> 'required|integer|min:9',
-            'email'=> 'required|email|unique:users',
+            'email'=> 'required|email|unique:users|regex:/(.*)@unasam\.edu\.pe$/i',
             'cargo'=> 'required|integer',
         ]);
         $idMsg='info';
@@ -164,7 +164,7 @@ class UserController extends Controller
             'nombres'=> 'required',
             'fnacimiento'=> 'required|date',
             'numcel'=> 'required|integer',
-            'email'=> 'required|email',
+            'email'=> 'required|email|regex:/(.*)@unasam\.edu\.pe$/i',
             'idper'=> 'integer',
             'bdr'=> 'integer',
         ]);
