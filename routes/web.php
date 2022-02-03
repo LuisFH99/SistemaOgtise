@@ -82,11 +82,12 @@ Route::post('/departamento/docentes/store',[DocentesController::class,'store'])-
 
 Route::post('/departamento/docentes/edit',[DocentesController::class,'edit'])->middleware('can:gestion.docente')->name('docentes.edit');
 Route::get('/departamento/docentes/editSemana/{id}',[DocentesController::class,'editSemana'])->middleware('can:gestion.docente')->name('docentes.editSemana');
+Route::get('/departamento/docentes/suspenderDocente/{id}',[DocentesController::class,'suspenderDocente'])->middleware('can:gestion.docente')->name('docentes.suspenderDocente');
 Route::get('/departamento/docentes/cargo/{id}',[DocentesController::class,'CrearCargo'])->middleware('can:gestion.docente')->name('docentes.crear.cargo');
 Route::post('/departamento/docentes/cargo/eliminar',[DocentesController::class,'EliminarCargo'])->middleware('can:gestion.docente')->name('docentes.eliminar.cargo');
 Route::put('/departamento/docentes/updateSemana/{id}',[DocentesController::class,'updateSemana'])->middleware('can:gestion.docente')->name('docentes.updateSemana');
-
 Route::put('/departamento/docentes/updatecargos/{id}',[DocentesController::class,'updateCargo'])->middleware('can:gestion.docente')->name('docentes.updateCargo');
+Route::put('/departamento/docentes/generarSuspencion/{id}',[DocentesController::class,'generarSuspencion'])->middleware('can:gestion.docente')->name('docentes.generarSuspencion');
 
 Route::post('/departamento/docentes/dpto',[DocentesController::class,'dpto']);
 Route::post('/departamento/docentes/update',[DocentesController::class,'update']);

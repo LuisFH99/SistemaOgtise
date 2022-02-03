@@ -56,7 +56,7 @@ class DocentesController extends Controller
             'categoria' => 'required|integer',
             'dedicacion' => 'required|integer',
             'dptoacademico' => 'required|integer',
-            'email' => 'required|email'
+            'email' => 'required|email|regex:/(.*)@unasam\.edu\.pe$/i'
         ]);
 
         $existe1 = DB::table('personas')->where('dni', $request->dni)->where('estado', 1)->count();
@@ -167,14 +167,18 @@ class DocentesController extends Controller
             ->where('autoridades.fk_iddocentes', $id)->where('cargos.cargo','<>','Suspendido')->where('autoridades.estado','1')->first();
 
         $cargos = cargo::where('cargo','<>','Suspendido')->get();
-
+        
         $allcargos=autoridad::join('cargos', 'autoridades.fk_idcargos', '=', 'cargos.idcargos')
-        ->select( 'cargos.cargo','autoridades.fech_ini','autoridades.fech_fin','autoridades.estado')
-        ->where('autoridades.fk_iddocentes', $id)->get();
+        ->select( 'cargos.cargo','autoridades.fech_ini','autoridades.fech_fin','autoridades.estado',DB::raw('curdate() as dia'))
+        ->where('autoridades.fk_iddocentes', $id)->orderBy('idAutoridades', 'desc')->get();
+
+        $suspendido = autoridad::join('cargos', 'autoridades.fk_idcargos', '=', 'cargos.idcargos')
+            ->where('autoridades.fk_iddocentes', $id)->where('cargos.cargo','Suspendido')->where('autoridades.estado','1')->count();
 
 
 
-        return view('departamento.DocentesSemanaEdit', compact('DetSemanas', 'Persona', 'Semanas', 'msg', 'cargoDocente', 'cargos','allcargos'));
+
+        return view('departamento.DocentesSemanaEdit', compact('DetSemanas', 'Persona', 'Semanas', 'msg', 'cargoDocente', 'cargos','allcargos','suspendido'));
     }
     public function dpto(Request $request)
     {
@@ -223,12 +227,12 @@ class DocentesController extends Controller
     {
         
         if ($request->id != 0) {
-            if (DB::table('autoridades')->where('fk_idDocentes', $id)->exists()) {
-                $eliminar = autoridad::where("fk_idDocentes", $id)->delete();
-                autoridad::create([
-                    'fk_idDocentes' => $id,
-                    'fk_idCargos' => $request->id
-                ]);
+            if (DB::table('autoridades')->where('fk_idDocentes', $id)->where('fk_idCargos',$request->id)->where('estado',1)->exists()) {
+                
+                autoridad::where('fk_idDocentes', $id)->where('estado',1)->update(array(
+                    'fech_fin'  => $request->fin
+                ));
+                
             } else {
                 autoridad::create([
                     'fk_idDocentes' => $id,
@@ -238,10 +242,6 @@ class DocentesController extends Controller
                     'estado'    => '1',
                     'borrado'   => '1'
                 ]);
-            }
-        } else {
-            if (DB::table('autoridades')->where('fk_idDocentes', $id)->exists()) {
-                $eliminar = autoridad::where("fk_idDocentes", $id)->delete();
             }
         }
         
@@ -290,5 +290,32 @@ class DocentesController extends Controller
     {
         $respuesta = DB::select('call p_crear_docente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [$request->ev, $request->dni, "1", "1", "1", "2000-10-10", "1", "1", "1", "1", "1", "1", $request->idper, "1", $request->idusu, "1",'1']);
         return $respuesta;
+    }
+
+    public function suspenderDocente($id){
+
+        $Persona = Docente::join('personas', 'docentes.fk_idpersonas', '=', 'personas.idpersonas')
+        ->select('idDocentes', DB::raw('concat_ws(personas.nombres,personas.apellPat,personas.apellMat) as nombres'),'personas.DNI')
+        ->where('idDocentes', $id)->first();
+
+        $allsupenciones=autoridad::join('cargos', 'autoridades.fk_idcargos', '=', 'cargos.idcargos')
+        ->select( 'autoridades.fech_ini','autoridades.fech_fin','autoridades.estado')
+        ->where('autoridades.fk_iddocentes', $id)->where('cargos.cargo','Suspendido')->orderBy('idAutoridades', 'desc')->get();
+
+        return view('departamento.suspencionDocente', compact('allsupenciones', 'Persona'));
+
+    }
+    public function generarSuspencion(Request $request, $id){
+        $idsuspencion= DB::table('cargos')->where('cargo','Suspendido')->value('idCargos');
+        autoridad::create([
+            'fk_idDocentes' => $id,
+            'fk_idCargos' => $idsuspencion,
+            'fech_ini'  => $request->inicio,
+            'fech_fin'  => $request->fin,
+            'estado'    => '1',
+            'borrado'   => '1'
+        ]);
+        return redirect()->route('docentes.suspenderDocente',$id);
+        
     }
 }
