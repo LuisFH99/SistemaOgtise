@@ -33,7 +33,28 @@
                                         <td>{{$solicitud->codigo}}</td>
                                         <td>{{$solicitud->fech_solicitud}}</td>
                                         <td>{{$solicitud->hor_solicitud}}</td>
-                                        <td>{{$solicitud->estadoSol}}</td>
+                                        @switch($solicitud->estadoSol)
+                                            @case('Enviada')
+                                                <td><span class="badge badge-primary">{{$solicitud->estadoSol}}</span></td>
+                                                @break
+                                            @case('Procesada')
+                                                <td><span class="badge badge-secondary">{{$solicitud->estadoSol}}</span></td>
+                                                @break
+                                            @case('Visto Bueno')
+                                                <td><span class="badge badge-info">{{$solicitud->estadoSol}}</span></td>
+                                                @break
+                                            @case('Admitida')
+                                                <td><span class="badge badge-light">{{$solicitud->estadoSol}}</span></td>
+                                                @break
+                                            @case('Aprobada')
+                                                <td><span class="badge badge-success">{{$solicitud->estadoSol}}</span></td>
+                                                @break
+                                            @case('Denegada')
+                                                <td><span class="badge badge-danger">{{$solicitud->estadoSol}}</span></td>
+                                                @break
+                                            @default
+                                                <td><span>{{$solicitud->estadoSol}}</span></td>
+                                        @endswitch
                                         <td><a href="#" onclick="imprimir({{$solicitud->idSolicitudes.',\''.$solicitud->fech_solicitud.'\',\''.$solicitud->hor_solicitud.'\''}})"><i class="far fa-eye mr-1"></i></a>
                                             <a href="#" onclick="eliminar({{$solicitud->idSolicitudes}})"><i class="far fa-trash-alt dangerito" aria-hidden="true"></i></a></td>
                                     </tr>

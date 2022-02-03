@@ -52,7 +52,28 @@
                                             <td>{{$licencia->motivo}}</td>
                                             <td>{{$licencia->num_dias}}</td>
                                             <td>{{$licencia->fech_retorno}}</td>
-                                            <td>{{$licencia->estadoSol}}</td>
+                                            @switch($licencia->estadoSol)
+                                                @case('Enviada')
+                                                    <td><span class="badge badge-primary">{{$licencia->estadoSol}}</span></td>
+                                                    @break
+                                                @case('Procesada')
+                                                    <td><span class="badge badge-secondary">{{$licencia->estadoSol}}</span></td>
+                                                    @break
+                                                @case('Visto Bueno')
+                                                    <td><span class="badge badge-info">{{$licencia->estadoSol}}</span></td>
+                                                    @break
+                                                @case('Admitida')
+                                                    <td><span class="badge badge-light">{{$licencia->estadoSol}}</span></td>
+                                                    @break
+                                                @case('Aprobada')
+                                                    <td><span class="badge badge-success">{{$licencia->estadoSol}}</span></td>
+                                                    @break
+                                                @case('Denegada')
+                                                    <td><span class="badge badge-danger">{{$solicitud->estadoSol}}</span></td>
+                                                    @break
+                                                @default
+                                                    <td><span>{{$licencia->estadoSol}}</span></td>
+                                            @endswitch
                                             <td><a href="#"
                                                 onclick="selecId({{$licencia->idSolicitudes}},'{{$licencia->fech_solicitud}}','{{$licencia->hor_solicitud}}','{{$licencia->apellPat.' '.$licencia->apellMat.' '.$licencia->nombres}}','{{$estado}}','{{$licencia->estadoSol}}')"><i class="far fa-eye"></i></a></td>
                                         </tr>

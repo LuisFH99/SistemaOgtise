@@ -18,7 +18,7 @@
             <div class="card-body  mt-n4">
                 <table class="table table-striped" id="idtableUser">
                     <thead>
-                        <tr>
+                        <tr class="text-center">
                             <th>N°</th>
                             <th>DNI</th>
                             <th>Nombre</th>
@@ -39,7 +39,7 @@
                                 <td>{{$user->name}}</td>
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->clave}}</td>
-                                <td>{{($user->activos==1)?'Habilitado':'Desabilitado'}}</td>
+                                <td><span class="badge {{($user->activos ==1 )?'bg-success':'bg-danger'}}">{{($user->activos ==1 )?'Habilitado':'Deshabilitado'}}</span></td>
                                 <td width="100px">
                                     <a class="mr-1" href="{{route('users.reestablecer',$user)}}"><i class="fas fa-recycle greenr"></i></a>
                                     <a class="mr-1" href="{{route('Admin.users.edit',$user)}}"><i class="fas fa-user-edit"></i></a>
