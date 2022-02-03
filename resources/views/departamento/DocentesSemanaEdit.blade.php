@@ -11,8 +11,8 @@
 @section('content')
     
     <div class="container">
+        @if($suspendido==0)
         <div class="row">
-            {{$cargoDocente}}
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
@@ -38,30 +38,15 @@
 
 
                         {!! Form::open(['url' => '/departamento/docentes/updatecargos/' . $Persona->idDocentes . '', 'method' => 'put']) !!}
-                        
                         <br>
-                        {{-- @if (isset($cargoDocente)) --}}
                             <input name="id" id="id" type="hidden" value="{{ isset($cargoDocente->idcargos) ? $cargoDocente->idcargos : '0' }}">
-                        {{-- @else
-                            <input name="id" id="id" type="hidden" value="0">
-                        @endif --}}
-
                         <p class="h5">Cargo Designado:</p>
-                        {{-- @if (isset($cargoDocente)) --}}
                         <div class="row">
                             <input class="form-control col-md-10 cargo" type="text"
                                 value="{{ isset($cargoDocente->cargo) ? $cargoDocente->cargo : 'Ningún cargo designado' }}"
                                 readonly><span class="col-md-2"><i class="fas fa-backspace"
                                     onclick="Borrar()"></i></span>
                         </div>
-
-                        {{-- @else
-                            <div class="row">
-                                <input class="form-control col-md-10 cargo" type="text" value="Ningún cargo designado"
-                                    readonly> <span class="col-md-2"><i class="fas fa-backspace"
-                                        onclick="Borrar()"></i></span>
-                            </div>
-                        @endif --}}
 
                         <div class="row mt-2">
                             <div class="col-md-6">
@@ -72,7 +57,7 @@
                             <div class="col-md-6">
                                 <p class="h6">Fecha Fin:</p>
                                 <input class="form-control col-md-10 " name="fin" type="date"
-                                    value="{{ isset($cargoDocente->fech_fin) ? $cargoDocente->fech_fin : '' }}">
+                                    value="{{ isset($cargoDocente->fech_fin) ? $cargoDocente->fech_fin : '' }}" min="{{$cargoDocente->dia}}">
 
                             </div>
 
@@ -130,7 +115,7 @@
                                 <thead class="text-white">
                                     <tr>
                                         <th scope="col" style="width: 10%; ">N°</th>
-                                        <th scope="col" style="width: 40%; ">C</th>
+                                        <th scope="col" style="width: 40%; ">Cargos-Suspenciones</th>
                                         <th scope="col" style="width: 20%; ">Desde</th>
                                         <th scope="col" style="width: 20%; ">Hasta</th>
                                         <th scope="col" style="width: 20%; ">Estado</th>
@@ -159,7 +144,18 @@
                     </div>
                 </div>
             </div>
+        </div>          
+        @else
+        <div class="row justify-content-center ">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="text-center"> <strong>El docentes esta suspendido</strong></h5>
+                    </div>
+                </div>
+            </div>
         </div>
+        @endif
     </div>
     </div>
 
