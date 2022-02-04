@@ -91,6 +91,7 @@ Route::put('/departamento/docentes/generarSuspencion/{id}',[DocentesController::
 
 Route::post('/departamento/docentes/dpto',[DocentesController::class,'dpto']);
 Route::post('/departamento/docentes/update',[DocentesController::class,'update']);
+Route::post('/departamento/docentes/sendemail',[DocentesController::class,'sendEmail']);
 Route::post('/departamento/docentes/delete',[DocentesController::class,'destroy']);
 
 //CRUD 
