@@ -15,7 +15,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <h4 class="col-md-12 bg-primary">Identificacion de Docente</h4>
+                            <h4 class="col-md-12">Identificacion de Docente</h4>
                             <div class="col-md-6">
                                 <p class="h5"><strong>Docente:</strong> </p>
                                 <p class="h5">
@@ -37,11 +37,11 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <p class="h6">Fecha Inicio:</p>
-                                        <input class="form-control col-md-10 " name="inicio" type="date">
+                                        <input class="form-control col-md-10 " name="inicio" type="date" min="{{$Persona->dia}}">
                                     </div>
                                     <div class="col-md-6">
                                         <p class="h6">Fecha Fin:</p>
-                                        <input class="form-control col-md-10 " name="fin" type="date">
+                                        <input class="form-control col-md-10 " name="fin" type="date" min="{{$Persona->dia}}">
                                     </div>
                                     <div class="col-md-12 mt-3 text-center">
                                         <a href="{{ route('docentes') }}" class="btn btn-secondary mr-2">Cancelar</a>

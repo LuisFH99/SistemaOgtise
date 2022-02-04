@@ -16,7 +16,7 @@
                 icon: 'success',
                 title: '{{ session('info') }}',
                 showConfirmButton: false,
-                timer: 2500
+                timer: 4500
             })
         </script>
     @endif
@@ -460,14 +460,60 @@
             }).done(function(res) {
                 if (res != 1) {
                     Swal.fire({
-                        position: 'top-center',
-                        icon: 'success',
                         title: res[0].rpta,
-                        showConfirmButton: false,
-                        timer: 2500
+                        text: "¿Enviar credenciales al correo?",
+                        icon: 'success',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        cancelButtonText: 'No enviar',
+                        confirmButtonText: 'Si, enviar!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: '/departamento/docentes/sendemail',
+                                method: 'POST',
+                                data: {
+                                    _token: $('input[name="_token"]').val(),
+                                    dni: $('#dniEdit').val(),
+                                    nombres: $('#nombresEdit').val(),
+                                    apepat: $('#apepatEdit').val(),
+                                    apemat: $('#apematEdit').val(),
+                                    email: $('#emailEdit').val(),
+                                    clave: $('#claveEdit').val()
+                                }
+                            }).done(function(res) {
+                                Swal.fire({
+                                    position: 'top-center',
+                                    icon: 'success',
+                                    title: 'Actualizacion Completada',
+                                    text: 'Se envio en correo, de forma exitosa',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+
+                                $('#modalEdit').modal('hide');
+                                location.reload();
+
+                            }).fail(function() {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Error en el envio de correo',
+                                })
+                            })
+                        } else {
+                            Swal.fire(
+                                '¡Actualizacion Completada!',
+                                'Se envio en correo, de forma exitosa',
+                                'success'
+                            )
+                            $('#modalEdit').modal('hide');
+                            location.reload();
+                        }
+
                     })
-                    $('#modalEdit').modal('hide');
-                    location.reload();
+
                 } else {
                     Swal.fire(
                         'Ooops!!',
@@ -477,7 +523,11 @@
                 }
 
             }).fail(function() {
-                alert("error");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Error en la actualización del docente',
+                })
             });
         }
 

@@ -35,10 +35,10 @@
                     <td>{{$docente->nomcat}}</td>
                     <td>{{$docente->nomdedi}}</td>
                     <td>
-                        <span><i class="fas fa-user-edit mr-1" onclick="MostarModal({{$docente->idpersonas}})"></i></span>
-                        <a href="{{route('docentes.editSemana',$docente->iddocentes)}}"><i class="far fa-calendar-alt mr-1"></i></a>
-                        <a href="{{route('docentes.suspenderDocente',$docente->iddocentes)}}"><i class="fas fa-user-slash"></i></a>
-                        <span><i class="far fa-trash-alt" onclick="EliminarDocente({{$docente->dni}},{{$docente->id}},{{$docente->idpersonas}})"></i></span>
+                        <span><i class="fas fa-user-edit mr-1" onclick="MostarModal({{$docente->idpersonas}})" title="Editar"></i></span>
+                        <a href="{{route('docentes.editSemana',$docente->iddocentes)}}"><i class="far fa-calendar-alt mr-1" title="Dias laborales"></i></a>
+                        <a href="{{route('docentes.suspenderDocente',$docente->iddocentes)}}"><i class="fas fa-user-slash" title="Suspender"></i></a>
+                        <span><i class="far fa-trash-alt" onclick="EliminarDocente({{$docente->dni}},{{$docente->id}},{{$docente->idpersonas}})" title="Eliminar"></i></span>
                     </td>
                 </tr>
             @endforeach
