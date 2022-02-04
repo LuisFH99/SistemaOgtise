@@ -72,32 +72,32 @@ class DocentesController extends Controller
 
 
         if ($existe1 == 0 && $existe2 == 0) {
-            DB::insert('call p_crear_docente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [1, $request->dni, $request->nombres, $request->apepat, $request->apemat, $request->fnacimiento, $request->numcel, $clave, $request->condicion, $request->categoria, $request->dedicacion, $request->dptoacademico, 0, '0', 0, $request->email, '1']);
+            DB::insert('call p_crear_docente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [1, $request->dni, $request->nombres, $request->apepat, $request->apemat, $request->fnacimiento, $request->numcel, $clave, $request->condicion, $request->categoria, $request->dedicacion, $request->dptoacademico, 0, '0', 0, $request->correo, '1']);
             User::create([
                 'name' => $request->nombres . ' ' . $request->apepat . ' ' . $request->apemat,
-                'email' => $request->email,
+                'email' => $request->correo,
                 'password' => bcrypt($request->dni),
                 'activos' => 1
             ])->assignRole('Docente');
 
-            $arrayInfo = ['user' => $request->email, 'docente' => $request->nombres . ' ' . $request->apepat . ' ' . $request->apemat, 'contra' => $request->dni, 'clave' => $clave];
+            $arrayInfo = ['user' => $request->correo, 'docente' => $request->nombres . ' ' . $request->apepat . ' ' . $request->apemat, 'contra' => $request->dni, 'clave' => $clave];
             $correo = new CredencialesMailable($arrayInfo);
-            Mail::to($request->email)->send($correo);
+            Mail::to($request->correo)->send($correo);
 
             return redirect()->route('docentes')->with('success', 'El docente fue registrado con Exito')->withInput();
         } else {
             if ($existe2 > 0) {
-                DB::insert('call p_crear_docente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [4, $request->dni, $request->nombres, $request->apepat, $request->apemat, $request->fnacimiento, $request->numcel, $clave, $request->condicion, $request->categoria, $request->dedicacion, $request->dptoacademico, 0, '0', 0, $request->email, '1']);
+                DB::insert('call p_crear_docente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [4, $request->dni, $request->nombres, $request->apepat, $request->apemat, $request->fnacimiento, $request->numcel, $clave, $request->condicion, $request->categoria, $request->dedicacion, $request->dptoacademico, 0, '0', 0, $request->correo, '1']);
                 User::create([
                     'name' => $request->nombres . ' ' . $request->apepat . ' ' . $request->apemat,
-                    'email' => $request->email,
+                    'email' => $request->correo,
                     'password' => bcrypt($request->dni),
                     'activos' => 1
                 ])->assignRole('Docente');
 
-                $arrayInfo = ['user' => $request->email, 'docente' => $request->nombres . ' ' . $request->apepat . ' ' . $request->apemat, 'contra' => $request->dni, 'clave' => $clave];
+                $arrayInfo = ['user' => $request->correo, 'docente' => $request->nombres . ' ' . $request->apepat . ' ' . $request->apemat, 'contra' => $request->dni, 'clave' => $clave];
                 $correo = new CredencialesMailable($arrayInfo);
-                Mail::to($request->email)->send($correo);
+                Mail::to($request->correo)->send($correo);
 
                 return redirect()->route('docentes')->with('success', 'El docente fue registrado con Exito')->withInput();
             } else {
