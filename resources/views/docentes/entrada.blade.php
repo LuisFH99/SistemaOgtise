@@ -57,7 +57,7 @@
                                             <div class="col-12 d-flex justify-content-center">
                                                 <div class="d-inline-flex my-1">
                                                     <div class="checkbox-custom mr-4">
-                                                        <label>
+                                                        <label id="dnie">
                                                             <input type="checkbox" id="chkDNIE">
                                                             <b></b>
                                                             <span>DNIe</span>
@@ -152,7 +152,7 @@
                                             <div class="col-12 d-flex justify-content-center">
                                                 <div class="d-inline-flex my-1">
                                                     <div class="checkbox-custom mr-4">
-                                                        <label>
+                                                        <label id="dnie">
                                                             <input type="checkbox" id="chkDNIE">
                                                             <b></b>
                                                             <span>DNIe</span>

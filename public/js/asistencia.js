@@ -301,7 +301,7 @@ function mostrarPassword() {
 }
 
 function MostarFirma(){
-    
+    $('#dnie').addClass("d-none");
      $('#chkCodigoFirma').on("click", function(){
         if ($(this).is(":checked")) {
             $('#chkDNIE').prop("checked",false);
