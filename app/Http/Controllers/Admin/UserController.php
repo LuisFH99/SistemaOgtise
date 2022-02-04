@@ -109,7 +109,8 @@ class UserController extends Controller
                 User::create([
                     'name' => $request->nombres.' '.$request->apepat.' '.$request->apemat,
                     'email' => $request->email,
-                    'password' => bcrypt($request->dni)
+                    'password' => bcrypt($request->dni),
+                    'activos'        =>1
                 ])->assignRole($cargo->name);
                 $idper=Persona::select('idPersonas')->where('DNI',$request->dni)->first();
                 Administrativo::where('fk_idPersonas', $idper->idPersonas)->update(array('fk_idRoles' => $request->cargo));
