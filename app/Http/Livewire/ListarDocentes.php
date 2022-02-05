@@ -25,7 +25,7 @@ class ListarDocentes extends Component
             ->join('categorias', 'docentes.fk_idcategorias', '=', 'categorias.idcategorias')
             ->join('dedicaciones', 'docentes.fk_iddedicaciones', '=', 'dedicaciones.iddedicaciones')
             ->join('users', 'personas.correo', '=', 'users.email')
-            ->select('personas.idpersonas','personas.dni','docentes.iddocentes',DB::raw('concat_ws(" ",personas.apellpat,personas.apellmat,personas.nombres) as nombres'), 'personas.correo', 'personas.telefono', 'facultades.nomfac', 'depacademicos.nomdep', 'condiciones.nomcondi', 'categorias.nomcat', 'dedicaciones.nomdedi','users.id')->where('docentes.estado', 1)->where('personas.estado', 1)->get();
+            ->select('personas.idpersonas','personas.dni','docentes.iddocentes',DB::raw('concat_ws(" ",personas.apellpat,personas.apellmat,personas.nombres) as nombres'), 'personas.correo', 'personas.telefono', 'facultades.nomfac', 'depacademicos.nomdep', 'condiciones.nomcondi', 'categorias.nomcat', 'dedicaciones.nomdedi','users.id')->where('docentes.estado', 1)->where('personas.estado', 1)->orderBy('docentes.idDocentes','desc')->get();
 
         return view('livewire.listar-docentes', compact('docentes'));
     }
