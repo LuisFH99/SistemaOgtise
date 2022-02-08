@@ -24,6 +24,7 @@
                             <th>Nombre</th>
                             <th>Email</th>
                             <th>Clave</th>
+                            <th>tipo</th>
                             <th>Estado</th>
                             <th></th>
                         </tr>
@@ -39,12 +40,13 @@
                                 <td>{{$user->name}}</td>
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->clave}}</td>
+                                <td>{{$user->tipo}}</td>
                                 <td><span class="badge {{($user->activos ==1 )?'bg-success':'bg-danger'}}">{{($user->activos ==1 )?'Habilitado':'Deshabilitado'}}</span></td>
-                                <td width="120px">
-                                    <a class="mr-1" href="#" onclick="habilitar({{$user->id}},{{$user->activos}})" title="{{($user->activos ==1 )?'Deshabilitar':'Habilitar'}} Usuario"><i class="fas fa-arrow-alt-circle-{{($user->activos ==1 )?'down':'up'}} orangenr"></i></a>
-                                    <a class="mr-1" href="{{route('Admin.users.edit',$user)}}" title="Editar Usuario"><i class="fas fa-user-edit"></i></a>
-                                    <a class="mr-1" href="#" onclick="eliminar({{$user->id}},'{{$user->email}}')" title="Eliminar Usuario"><i class="far fa-trash-alt dangerito" aria-hidden="true"></i></a>
-                                    <a class="mr-1" href="#" onclick="restaurar({{$user->id}})" title="Reestablecer Contraseña"><i class="fas fa-key greenr"></i></a>
+                                <td width="170px">
+                                    <a class="btn btn-warning btn-sm" href="#" onclick="habilitar({{$user->id}},{{$user->activos}})" title="{{($user->activos ==1 )?'Deshabilitar':'Habilitar'}} Usuario"><i class="fas fa-arrow-alt-circle-{{($user->activos ==1 )?'down':'up'}} whiterr"></i></a>
+                                    <a class="btn btn-primary btn-sm" href="{{route('Admin.users.edit',$user)}}" title="Editar Usuario"><i class="fas fa-user-edit"></i></a>
+                                    <a class="btn btn-danger btn-sm" href="#" onclick="eliminar({{$user->id}},'{{$user->email}}')" title="Eliminar Usuario"><i class="far fa-trash-alt" aria-hidden="true"></i></a>
+                                    <a class="btn btn-success btn-sm" href="#" onclick="restaurar({{$user->id}})" title="Reestablecer Contraseña"><i class="fas fa-key"></i></a>
                                 </td>
                             </tr>
                         @endforeach

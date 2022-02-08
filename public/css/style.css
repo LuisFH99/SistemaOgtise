@@ -259,6 +259,10 @@
     color: rgb(231, 150, 43);
 }
 
+.whiterr {
+    color: rgb(255, 255, 255);
+}
+
 .abs-center {
     display: flex;
     align-items: center;

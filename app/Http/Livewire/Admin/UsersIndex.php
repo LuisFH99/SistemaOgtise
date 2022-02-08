@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin;
 use App\Models\User;
 use App\Models\Persona;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
@@ -22,14 +23,14 @@ class UsersIndex extends Component
         $roles=Role::all();
         //$us=User::where('id','=',1)->first();
         $users1=User::join('personas', 'users.email', '=', 'personas.correo')
-                    ->join('administrativos', 'personas.idpersonas', '=', 'administrativos.fk_idpersonas')
-                    ->select('users.*','personas.DNI','administrativos.clave')
+                    ->join('docentes', 'personas.idpersonas', '=', 'docentes.fk_idpersonas')
+                    ->select('users.*','personas.DNI','docentes.clave',DB::raw('"Docente" as tipo'))
                     ->where('name','LIKE','%'.$this->search.'%')
                     ->orWhere('email','LIKE','%'.$this->search.'%')
                     ->orWhere('DNI','LIKE','%'.$this->search.'%');
         $users=User::join('personas', 'users.email', '=', 'personas.correo')
-                    ->join('docentes', 'personas.idpersonas', '=', 'docentes.fk_idpersonas')
-                    ->select('users.*','personas.DNI','docentes.clave')
+                    ->join('administrativos', 'personas.idpersonas', '=', 'administrativos.fk_idpersonas')
+                    ->select('users.*','personas.DNI','administrativos.clave',DB::raw('"Administrativo" as tipo'))
                     ->where('name','LIKE','%'.$this->search.'%')
                     ->orWhere('email','LIKE','%'.$this->search.'%')
                     ->orWhere('DNI','LIKE','%'.$this->search.'%')

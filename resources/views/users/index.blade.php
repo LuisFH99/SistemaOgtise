@@ -23,7 +23,10 @@
                 <p class="h5"><b>Gestión de Usuarios:</b></p>
             </div>
             <div class="col-md-12">
-                <div class="card-body">
+                <div class="card-body d-flex" id="divButton">
+                    <a class="btn btn-info btn-lg" href="#" onclick="crear(1)" title="Crear Usuario"><i class="far fa-address-card whiterr"> Crear Usuarios</i></a>
+                </div>
+                <div class="card-body d-none" id="divCrear">
                     {!! Form::open(['route' => ['Admin.users.store'],'method'=>'post']) !!}
                         <div class="row">
                             <div class="col-md-2 col-sm-6">
@@ -123,8 +126,8 @@
                                 </div>
                             </div>
                             <div class="d-flex align-items-center col-md-3 col-sm-6 my-3">
-                                {{-- <button type="submit" class="d-flex btn btn-secondary mt-auto ml-auto" href="#">Crear Usuarios</button> --}}
-                                {!! Form::submit('Crear Usuarios', ['class'=>'btn btn-secondary mt-auto ml-auto']) !!}
+                                <a class="btn btn-secondary mt-auto ml-auto" href="#" onclick="crear(0)" title="Cancelar">Cancelar</a>
+                                {!! Form::button('<i class="fas fa-user-plus"></i> Crear', ['type' => 'submit', 'class' => 'btn btn-primary mt-auto ml-auto'] ) !!}
                             </div>
                         </div>
                     {!! Form::close() !!}    
@@ -164,7 +167,19 @@
             //         $("input[name='apemat']").val().trim()));
             //     });
         });
-
+        function crear(a){
+            if(a==1){
+                $("#divButton").removeClass("d-flex");
+                $("#divCrear").removeClass("d-none");
+                $("#divButton").addClass("d-none");
+                $("#divCrear").addClass("d-flex");
+            }else{
+                $("#divButton").removeClass("d-none");
+                $("#divCrear").removeClass("d-flex");
+                $("#divButton").addClass("d-flex");
+                $("#divCrear").addClass("d-none");
+            }
+        }
         function generaremail(nom, ap, am) {
             let dto = nom.charAt(0).replace('ñ', 'n') + ap.replace('ñ', 'n') + am.charAt(0).replace('ñ', 'n') + "@unasam.edu.pe";
             return dto.toLowerCase();

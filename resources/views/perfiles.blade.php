@@ -27,7 +27,7 @@
                         </div>
                     @endif
                     <div class="card">
-                        <div class="card-header">{{ __('Cambiar Contraseña') }}</div>
+                        <div class="card-header bg-success">{{ __('Cambiar Contraseña') }}</div>
         
                         <div class="card-body">
                             
@@ -69,7 +69,7 @@
         
                                 <div class="row mb-0">
                                     <div class="col-md-6 offset-md-4">
-                                        {!! Form::button('<i class="fas fa-lock"></i> Cambiar Contraseña', ['type' => 'submit', 'class' => 'btn btn-primary'] ) !!}
+                                        {!! Form::button('<i class="fas fa-lock"></i> Guardar', ['type' => 'submit', 'class' => 'btn btn-primary'] ) !!}
                                     </div>
                                 </div>
                                 {!! Form::close() !!}   

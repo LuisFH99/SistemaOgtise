@@ -69,7 +69,7 @@
                                                     <td><span class="badge badge-success">{{$licencia->estadoSol}}</span></td>
                                                     @break
                                                 @case('Denegada')
-                                                    <td><span class="badge badge-danger">{{$solicitud->estadoSol}}</span></td>
+                                                    <td><span class="badge badge-danger">{{$licencia->estadoSol}}</span></td>
                                                     @break
                                                 @default
                                                     <td><span>{{$licencia->estadoSol}}</span></td>
