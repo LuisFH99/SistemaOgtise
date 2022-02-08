@@ -233,7 +233,7 @@ class DocentesController extends Controller
                 ]);
             }
         }
-        return view('departamento.docentes')->with('info', 'Se asignó los dias laborables al Docente: ' . $Persona->apellPat . ' ' . $Persona->apellMat . ' ' . $Persona->nombres);
+        return redirect()->route('docentes');
     }
 
     public function updateCargo(Request $request, $id)
@@ -261,7 +261,7 @@ class DocentesController extends Controller
             ->select('personas.nombres', 'personas.apellPat', 'personas.apellMat')
             ->where('idDocentes', $id)->first();
 
-        return view('departamento.docentes')->with('info', 'Se modifico el cargo al Docente: ' . $Persona->apellPat . ' ' . $Persona->apellMat . ' ' . $Persona->nombres);
+        return redirect()->route('docentes');
     }
 
     public function CrearCargo($cargo)
