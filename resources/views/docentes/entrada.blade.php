@@ -9,7 +9,7 @@
 @section('content')
     <div class="container">
 
-        {{-- {{ $horario }}  --}}
+        {{-- {{ $horario }} --}}
 
         {{-- {{ $Datos }}
         {{ $estado }}
@@ -18,12 +18,17 @@
             <div class="col-lg-6 p-2">
                 <div class="card fondo-cards">
                     @if (isset($estado->fk_idestadoasistencias))
-
                         @switch($estado->fk_idestadoasistencias)
                             @case(1)
-                                <div class="card-body">
-                                    <h1>Su Asistencia ya fue Registrada</h1>
+                            <div class="alert alert-info m-0" role="alert">
+                                <div class="m-0 row card-body justify-content-center">
+                                    <div class="col-auto text-centar">
+                                        <i class="fas fa-user-check ml-5" style="font-size: 200px"></i>
+                                    </div>
                                 </div>
+                                <hr>
+                                <p class="mb-0 text-center">Su asistencia registrada</p>
+                            </div>
                             @break
                             @case(2)
                                 @if ($Datos->hora > $horario->ini_entrada && $Datos->hora < $horario->fin_entrada)
@@ -100,19 +105,38 @@
                                         </div>
                                     </div>
                                 @else
-                                    <div class="card-body">
-                                        <h1>Fuera de Horario</h1>
+                                    <div class="alert alert-danger m-0" role="alert">
+                                        <div class="m-0 row card-body justify-content-center">
+                                            <div class="col-auto text-centar">
+                                                <i class="fas fa-user-clock ml-5" style="font-size: 200px"></i>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <p class="mb-0 text-center">Fuera de Horario</p>
                                     </div>
                                 @endif
                             @break
                             @case(4)
-                                <div class="card-body">
-                                    <h1>De Licencia</h1>
+                                <div class="alert alert-danger m-0" role="alert">
+                                    <div class="m-0 row card-body justify-content-center">
+                                        <div class="col-auto text-centar">
+
+                                            <i class="fas fa-id-card-alt ml-5" style="font-size: 200px"></i>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <p class="mb-0 text-center">Licencia Aprobada</p>
                                 </div>
                             @break
                             @case(5)
-                                <div class="card-body">
-                                    <h1>El dia de Hoy es no Laborable</h1>
+                                <div class="alert advertencia m-0" role="alert">
+                                    <div class="m-0 row card-body justify-content-center">
+                                        <div class="col-auto text-centar">
+                                            <i class="fas fa-calendar-times ml-5" style="font-size: 200px"></i>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <p class="mb-0 text-center">El dia de hoy es no laborable.</p>
                                 </div>
                             @break
                             @case(6)
@@ -199,20 +223,38 @@
                                         </div>
                                     </div>
                                 @else
-                                    <div class="card-body">
-                                        <h1>Fuera de Horario</h1>
+                                    <div class="alert alert-danger m-0" role="alert">
+                                        <div class="m-0 row card-body justify-content-center">
+                                            <div class="col-auto text-centar">
+                                                <i class="fas fa-user-clock ml-5" style="font-size: 200px"></i>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <p class="mb-0 text-center">Fuera de Horario</p>
                                     </div>
                                 @endif
                             @break
                             @default
-                                <div class="card-body">
-                                    <h1>No puede Registrar Asistencia...Contactese con el Administrador</h1>
-                                </div>
+                                <div class="alert alert-danger m-0" role="alert">
+                                    <div class="m-0 row card-body justify-content-center">
+                                        <div class="col-auto text-centar">
 
+                                            <i class="fas fa-users-cog ml-5" style="font-size: 200px"></i>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <p class="mb-0 text-center">No puede Registrar Asistencia...Contactese con el Administrador.</p>
+                                </div>
                         @endswitch
                     @else
-                        <div class="card-body">
-                            <h1>Hoy no registras Asistencia</h1>
+                        <div class="alert advertencia m-0" role="alert">
+                            <div class="m-0 row card-body justify-content-center">
+                                <div class="col-auto text-centar">
+                                    <i class="fas fa-user-times ml-5" style="font-size: 200px"></i>
+                                </div>
+                            </div>
+                            <hr>
+                            <p class="mb-0 text-center">El dia de hoy no registras asistencia.</p>
                         </div>
                     @endif
                 </div>
@@ -233,13 +275,13 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        @if (isset($estado->hor_entrada) && $estado->hor_entrada != '00:00:00' )
+                                        @if (isset($estado->hor_entrada) && $estado->hor_entrada != '00:00:00')
                                             <td>{{ $estado->hor_entrada }}</td>
                                         @else
                                             <td>-</td>
                                         @endif
 
-                                        @if ( isset($estado->hor_salida) && $estado->hor_salida != '00:00:00' )
+                                        @if (isset($estado->hor_salida) && $estado->hor_salida != '00:00:00')
                                             <td>{{ $estado->hor_salida }}</td>
                                         @else
                                             <td>-</td>
@@ -272,7 +314,6 @@
                                             <td>{{ $registro->hor_salida }}</td>
                                             {{-- <td>{{ $registro->observacion }}</td> --}}
                                         </tr>
-
                                     @endforeach
 
                                 </tbody>
@@ -316,38 +357,38 @@
                             <table class="table table-sm  table-bordered" id="table">
                                 <thead class="fondo-table">
                                     <!-- <tr>
-                                                                                                                            <th>MI</th>
-                                                                                                                            <th>JU</th>
-                                                                                                                            <th>VI</th>
-                                                                                                                            <th>SA</th>
-                                                                                                                            <th>DO</th>
-                                                                                                                            <th>LU</th>
-                                                                                                                            <th>MA</th>
-                                                                                                                            <th>MI</th>
-                                                                                                                            <th>JU</th>
-                                                                                                                            <th>VI</th>
-                                                                                                                            <th>SA</th>
-                                                                                                                            <th>DO</th>
-                                                                                                                            <th>LU</th>
-                                                                                                                            <th>MA</th>
-                                                                                                                            <th>MI</th>
-                                                                                                                            <th>JU</th>
-                                                                                                                            <th>VI</th>
-                                                                                                                            <th>SA</th>
-                                                                                                                            <th>DO</th>
-                                                                                                                            <th>LU</th>
-                                                                                                                            <th>MA</th>
-                                                                                                                            <th>MI</th>
-                                                                                                                            <th>JU</th>
-                                                                                                                            <th>VI</th>
-                                                                                                                            <th>SA</th>
-                                                                                                                            <th>DO</th>
-                                                                                                                            <th>LU</th>
-                                                                                                                            <th>MA</th>
-                                                                                                                            <th>MI</th>
-                                                                                                                            <th>JU</th>
-                                                                                                                            <th>VI</th>
-                                                                                                                        </tr> -->
+                                                                                                                                                        <th>MI</th>
+                                                                                                                                                        <th>JU</th>
+                                                                                                                                                        <th>VI</th>
+                                                                                                                                                        <th>SA</th>
+                                                                                                                                                        <th>DO</th>
+                                                                                                                                                        <th>LU</th>
+                                                                                                                                                        <th>MA</th>
+                                                                                                                                                        <th>MI</th>
+                                                                                                                                                        <th>JU</th>
+                                                                                                                                                        <th>VI</th>
+                                                                                                                                                        <th>SA</th>
+                                                                                                                                                        <th>DO</th>
+                                                                                                                                                        <th>LU</th>
+                                                                                                                                                        <th>MA</th>
+                                                                                                                                                        <th>MI</th>
+                                                                                                                                                        <th>JU</th>
+                                                                                                                                                        <th>VI</th>
+                                                                                                                                                        <th>SA</th>
+                                                                                                                                                        <th>DO</th>
+                                                                                                                                                        <th>LU</th>
+                                                                                                                                                        <th>MA</th>
+                                                                                                                                                        <th>MI</th>
+                                                                                                                                                        <th>JU</th>
+                                                                                                                                                        <th>VI</th>
+                                                                                                                                                        <th>SA</th>
+                                                                                                                                                        <th>DO</th>
+                                                                                                                                                        <th>LU</th>
+                                                                                                                                                        <th>MA</th>
+                                                                                                                                                        <th>MI</th>
+                                                                                                                                                        <th>JU</th>
+                                                                                                                                                        <th>VI</th>
+                                                                                                                                                    </tr> -->
                                 </thead>
                                 <tbody>
                                     <tr class="bg-tr">
@@ -364,7 +405,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Formato Modal -->
 
     <div class="modal" tabindex="-1" id="AsisteciaModal">
@@ -437,6 +478,6 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script src="/js/asistencia.js"></script>
-    
+
 
 @stop
