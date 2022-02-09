@@ -1,12 +1,13 @@
 /* estilos para la modulo asistencia */
-.os-content{
-    background-color: #002548;
+
+.os-content {
+    background-color: #002548 !important;
 }
 
-.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active, .sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active{
+.sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active,
+.sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
     background-color: #336593;
 }
-
 
 .fondo-cards {
     background-color: #e6e7e9;
@@ -170,17 +171,20 @@
     vertical-align: middle;
 }
 
+
 /* #tableDocentes .fa-user-edit {
     color: rgb(8, 51, 179);
 } */
 
- #tableDocentes .fa-calendar-alt {
+#tableDocentes .fa-calendar-alt {
     color: rgb(255, 255, 255);
-} 
+}
+
 
 /* #tableDocentes .fa-user-slash {
     color: rgb(236, 48, 48);
 } */
+
 
 /* #tableDocentes .fa-trash-alt {
     color: rgb(236, 48, 48);

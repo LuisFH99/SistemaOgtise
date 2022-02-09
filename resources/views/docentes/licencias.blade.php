@@ -89,7 +89,7 @@
                                                 <br>
                                                 <p class="text-danger">*Debes firmar para autenticar el documento:</p>
                                                 <div class="col-12 d-flex justify-content-center">
-                                                    <div class="checkbox-custom mr-4">
+                                                    <div class="checkbox-custom mr-4 d-none">
                                                         <label>
                                                             <input type="checkbox" id="chkDNIE" class="radio" value="1" name="fooby[1][]">
                                                             <b></b>
@@ -124,7 +124,7 @@
                         </div>
                     </form>
                         <br>
-                        <button type="button" class="btn btn-primary btn-lg dr d-none" id="btnSolicitar">Solicitar</button>
+                        <button type="button" class="btn btn-primary btn-lg dr d-none" id="btnSolicitar"><i class="fa fa-reply-all mr-1"></i>Solicitar</button>
                         <div class="d-none">
                             <button type="button" class="btn btn-primary btn-lg dr" id="btnSolicitar1">Archivo</button>
                         </div>

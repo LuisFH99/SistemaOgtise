@@ -45,7 +45,7 @@
                     <div class="col-md-5">
                         <p class="text-danger">*Debes firmar para autenticar el documento:</p>
                         <div class="col-12 d-flex justify-content-center">
-                            <div class="checkbox-custom mr-4">
+                            <div class="checkbox-custom mr-4 d-none">
                                 <label>
                                     <input type="checkbox" id="chkDNIE" class="radio" value="1" name="fooby[1][]">
                                     <b></b>

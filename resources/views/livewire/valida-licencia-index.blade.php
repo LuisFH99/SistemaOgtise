@@ -31,7 +31,7 @@
                     @else
                         <div class="table-responsive">
                             <table class="table table-striped" id="idtableSalidas">
-                                <thead>
+                                <thead class="text-white bluenr">
                                     <tr class="text-center">
                                         <th scope="col">Código</th>
                                         <th scope="col">Docente</th>
@@ -40,7 +40,7 @@
                                         <th scope="col">Dias Ausente</th>
                                         <th scope="col">Fecha de Retorno</th>
                                         <th scope="col">Estado</th>
-                                        <th scope="col">Ver</th>
+                                        <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -74,8 +74,10 @@
                                                 @default
                                                     <td><span>{{$licencia->estadoSol}}</span></td>
                                             @endswitch
-                                            <td><a href="#"
-                                                onclick="selecId({{$licencia->idSolicitudes}},'{{$licencia->fech_solicitud}}','{{$licencia->hor_solicitud}}','{{$licencia->apellPat.' '.$licencia->apellMat.' '.$licencia->nombres}}','{{$estado}}','{{$licencia->estadoSol}}')"><i class="far fa-eye"></i></a></td>
+                                            <td width="50px">
+                                                <a class="btn btn-primary btn-sm" href="#"
+                                                onclick="selecId({{$licencia->idSolicitudes}},'{{$licencia->fech_solicitud}}','{{$licencia->hor_solicitud}}','{{$licencia->apellPat.' '.$licencia->apellMat.' '.$licencia->nombres}}','{{$estado}}','{{$licencia->estadoSol}}')"><i class="far fa-eye"></i></a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

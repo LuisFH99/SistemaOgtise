@@ -22,13 +22,13 @@
                     @if ($Salidas->count())
                         <div class="table-responsive">
                             <table class="table table-sm" id="idtableSalidas">
-                                <thead>
-                                    <tr>
+                                <thead class="text-white bluenr">
+                                    <tr class="text-center">
                                         <th scope="col">Docente</th>
                                         <th scope="col">Tipo</th>
                                         <th scope="col">Hora de Salida</th>
                                         <th scope="col">Observación</th>
-                                        <th scope="col">Ver</th>
+                                        <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -38,8 +38,10 @@
                                             <td>{{strtoupper(substr($Salida->nomCat, ($Salida->nomCat=='Auxiliar')?2:0,1)).substr($Salida->nomDedi, 0, 1).substr(strstr($Salida->nomDedi, ' '), 1, 1)}}</td>
                                             <td>{{$Salida->fecha.','.$Salida->hor_salida}}</td>
                                             <td>{{$Salida->observacion}}</td> 
-                                            <td><a href="#"
-                                                onclick="selecId({{$Salida->idAsistenciaSalidas}},'{{$Salida->nombres.' '.$Salida->apellPat.' '.$Salida->apellMat}}','{{$Salida->fecha}}','{{$Salida->hor_salida}}','{{$Salida->hor_entrada}}','{{$Salida->informe}}','{{$Salida->puntero}}')"><i class="far fa-eye"></i></a></td>
+                                            <td width="50px">
+                                                <a class="btn btn-primary btn-sm" href="#"
+                                                onclick="selecId({{$Salida->idAsistenciaSalidas}},'{{$Salida->nombres.' '.$Salida->apellPat.' '.$Salida->apellMat}}','{{$Salida->fecha}}','{{$Salida->hor_salida}}','{{$Salida->hor_entrada}}','{{$Salida->informe}}','{{$Salida->puntero}}')"><i class="far fa-eye"></i></a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
