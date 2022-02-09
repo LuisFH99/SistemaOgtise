@@ -51,19 +51,19 @@
                     <div class="card-body">
                         <div class="row">
 
-                            <div class="col-md-5">
+                            <div class="col-md-4">
                                 <label class="form-label">Fecha de Parte Diario (*)</label>
                                 <input type="date" id="freporte" name="freporte" class="form-control" tabindex="3">
                             </div>
 
-                            <div class="col-md-7 mt-4 d-flex align-items-center justify-content-center">
-                                <button type="button" class="btn btn-outline-primary mr-2" id="InfGeneral">Parte
+                            <div class="col-md-8 mt-4 d-flex align-items-center justify-content-center">
+                                <button type="button" class="btn btn-outline-primary mr-1" id="InfGeneral"><i class="fas fa-file-alt mr-1"></i>Parte
                                     Diario</button>
-                                <button type="button" class="btn btn-outline-danger mr-2" id="InfFaltas">Informe de
+                                <button type="button" class="btn btn-outline-danger mr-2" id="InfFaltas"><i class="fas fa-file mr-1"></i>Informe de
                                     Faltas</button>
                                 <input type="checkbox" checked data-toggle="toggle" data-on="+" data-off="-" data-onstyle="secondary" data-offstyle="success" id="toggle-state">    
                             </div>
-
+                            
                         </div>
                     </div>
                 </div>
@@ -106,9 +106,9 @@
                                         </td>
                                         <td>{{ $docente->nomfac }}</td>
                                         <td>{{ $docente->nomdep }}</td>
-                                        <td><i class="far fa-address-book mr-2"
+                                        <td><i class="far fa-address-book btn-success btn-sm"
                                                 onclick="GenerarReporte({{ $docente->iddocentes }})"></i>
-                                            <i class="fas fa-calendar-alt"
+                                            <i class="fas fa-calendar-alt btn-warning btn-sm"
                                                 onclick="Asistencia({{ $docente->iddocentes }})"></i>
                                         </td>
                                     </tr>

@@ -140,8 +140,8 @@
                         </div>
                         <div class="col-12 mx-auto">
                             <div class="text-center">
-                                <a href="{{ route('docentes') }}" class="btn btn-secondary mr-2">Cancelar</a>
-                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                <a href="{{ route('docentes') }}" class="btn btn-danger mr-2"><i class="fas fa-ban mr-1"></i>Cancelar</a>
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-save mr-1"></i> Guardar</button>
                             </div>
                         </div>
 
@@ -264,8 +264,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="editar">Editar</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="editar"><i class="fas fa-edit mr-1"></i>Editar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-ban mr-1"></i>Cancelar</button>
 
                 </div>
             </div>

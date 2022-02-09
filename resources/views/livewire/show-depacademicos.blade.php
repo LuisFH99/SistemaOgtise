@@ -35,7 +35,7 @@
     </div>
 
     <div class="col-md-3 mt-4 d-flex align-items-center justify-content-center">
-        <button type="button" class="btn btn-outline-primary mr-2" id="InformeDpto">Generar Informe</button>
+        <button type="button" class="btn btn-outline-success mr-2" id="InformeDpto"><i class="fas fa-file-alt mr-1"></i>Generar Informe</button>
         
     </div>
 
