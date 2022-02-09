@@ -23,7 +23,7 @@
                             <div class="alert alert-info m-0" role="alert">
                                 <div class="m-0 row card-body justify-content-center">
                                     <div class="col-auto text-centar">
-                                        <i class="fas fa-user-check ml-5" style="font-size: 200px"></i>
+                                        <i class="fas fa-user-check" style="font-size: 200px"></i>
                                     </div>
                                 </div>
                                 <hr>
@@ -117,11 +117,11 @@
                                 @endif
                             @break
                             @case(4)
-                                <div class="alert alert-danger m-0" role="alert">
+                                <div class="alert alert-success m-0" role="alert">
                                     <div class="m-0 row card-body justify-content-center">
                                         <div class="col-auto text-centar">
 
-                                            <i class="fas fa-id-card-alt ml-5" style="font-size: 200px"></i>
+                                            <i class="fas fa-id-card-alt" style="font-size: 200px"></i>
                                         </div>
                                     </div>
                                     <hr>
@@ -132,7 +132,7 @@
                                 <div class="alert advertencia m-0" role="alert">
                                     <div class="m-0 row card-body justify-content-center">
                                         <div class="col-auto text-centar">
-                                            <i class="fas fa-calendar-times ml-5" style="font-size: 200px"></i>
+                                            <i class="fas fa-calendar-times" style="font-size: 200px"></i>
                                         </div>
                                     </div>
                                     <hr>
@@ -226,7 +226,7 @@
                                     <div class="alert alert-danger m-0" role="alert">
                                         <div class="m-0 row card-body justify-content-center">
                                             <div class="col-auto text-centar">
-                                                <i class="fas fa-user-clock ml-5" style="font-size: 200px"></i>
+                                                <i class="fas fa-user-clock" style="font-size: 200px"></i>
                                             </div>
                                         </div>
                                         <hr>
@@ -239,7 +239,7 @@
                                     <div class="m-0 row card-body justify-content-center">
                                         <div class="col-auto text-centar">
 
-                                            <i class="fas fa-users-cog ml-5" style="font-size: 200px"></i>
+                                            <i class="fas fa-users-cog" style="font-size: 200px"></i>
                                         </div>
                                     </div>
                                     <hr>
@@ -250,7 +250,7 @@
                         <div class="alert advertencia m-0" role="alert">
                             <div class="m-0 row card-body justify-content-center">
                                 <div class="col-auto text-centar">
-                                    <i class="fas fa-user-times ml-5" style="font-size: 200px"></i>
+                                    <i class="fas fa-user-times" style="font-size: 200px"></i>
                                 </div>
                             </div>
                             <hr>
