@@ -34,8 +34,8 @@
                                 </div>
                                 <div class="col-md-2 my-auto">
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-primary mb-4">Guardar</button>
-                                        <a href="{{ route('horario') }}" class="btn btn-secondary">Cancelar</a>
+                                        <button type="submit" class="btn btn-primary mb-4"><i class="fas fa-check-circle mr-1"></i>Guardar</button>
+                                        <a href="{{ route('horario') }}" class="btn btn-danger"><i class="fas fa-times mr-1"></i>Cancelar</a>
                                         
                                     </div>
                                     
