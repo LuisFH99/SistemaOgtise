@@ -263,6 +263,10 @@
     color: rgb(255, 255, 255);
 }
 
+.bluenr {
+    background-color: #003E78;
+}
+
 .abs-center {
     display: flex;
     align-items: center;
