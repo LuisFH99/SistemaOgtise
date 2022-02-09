@@ -126,8 +126,8 @@
                                 </div>
                             </div>
                             <div class="d-flex align-items-center col-md-3 col-sm-6 my-3">
-                                <a class="btn btn-secondary mt-auto ml-auto" href="#" onclick="crear(0)" title="Cancelar">Cancelar</a>
-                                {!! Form::button('<i class="fas fa-user-plus"></i> Crear', ['type' => 'submit', 'class' => 'btn btn-primary mt-auto ml-auto'] ) !!}
+                                <a class="btn btn-secondary mt-auto ml-auto" href="#" onclick="crear(0)" title="Cancelar"><i class="fas fa-times mr-1"></i>Cancelar</a>
+                                {!! Form::button('<i class="fas fa-user-plus mr-1"></i> Crear', ['type' => 'submit', 'class' => 'btn btn-primary mt-auto ml-auto'] ) !!}
                             </div>
                         </div>
                     {!! Form::close() !!}    

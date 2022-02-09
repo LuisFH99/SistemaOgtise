@@ -62,7 +62,7 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-12 d-flex justify-content-center">
-                                            <div class="checkbox-custom mr-4">
+                                            <div class="checkbox-custom mr-4 d-none">
                                                 <label>
                                                     <input type="checkbox" id="chkDNIE" class="radio" value="1" name="fooby[1][]">
                                                     <b></b>

@@ -18,8 +18,8 @@
                     @else
                         <div class="table-responsive">
                             <table class="table table-striped" id="idtablelicencia">
-                                <thead>
-                                    <tr>
+                                <thead class="text-white bluenr">
+                                    <tr class="text-center">
                                         <th scope="col">Código de licencia</th>
                                         <th scope="col">Fecha</th>
                                         <th scope="col">Hora</th>
@@ -55,8 +55,10 @@
                                             @default
                                                 <td><span>{{$solicitud->estadoSol}}</span></td>
                                         @endswitch
-                                        <td><a href="#" onclick="imprimir({{$solicitud->idSolicitudes.',\''.$solicitud->fech_solicitud.'\',\''.$solicitud->hor_solicitud.'\''}})"><i class="far fa-eye mr-1"></i></a>
-                                            <a href="#" onclick="eliminar({{$solicitud->idSolicitudes}})"><i class="far fa-trash-alt dangerito" aria-hidden="true"></i></a></td>
+                                        <td width="100px">
+                                            <a class="btn btn-primary btn-sm" href="#" onclick="imprimir({{$solicitud->idSolicitudes.',\''.$solicitud->fech_solicitud.'\',\''.$solicitud->hor_solicitud.'\''}})"><i class="far fa-eye mr-1"></i></a>
+                                            <a class="btn btn-danger btn-sm" href="#" onclick="eliminar({{$solicitud->idSolicitudes}})"><i class="far fa-trash-alt" aria-hidden="true"></i></a>
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>

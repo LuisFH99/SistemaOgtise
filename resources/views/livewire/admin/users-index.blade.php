@@ -17,14 +17,14 @@
         @if($users->count())
             <div class="card-body  mt-n4">
                 <table class="table table-striped" id="idtableUser">
-                    <thead>
+                    <thead class="text-white bluenr">
                         <tr class="text-center">
                             <th>N°</th>
                             <th>DNI</th>
                             <th>Nombre</th>
                             <th>Email</th>
                             <th>Clave</th>
-                            <th>tipo</th>
+                            <th>Tipo</th>
                             <th>Estado</th>
                             <th></th>
                         </tr>
