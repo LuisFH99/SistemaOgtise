@@ -156,6 +156,7 @@
                                 $cantfalta = 0;
                                 $cantjusti = 0;
                                 $cantLicencia = 0;
+                                $cantsupendido=0;
                             @endphp
                             @if ($departamento->docentes != null)
                                 @foreach ($departamento->docentes as $docente)
@@ -174,7 +175,7 @@
                                                                 src=".{{ $asistencia->foto }}" width="55"> </td>
                                                         <td style="text-align: center">
                                                             {{ substr($asistencia->entrada, 0, 8) }}</td>
-                                                        <td style="font-size: 6px">
+                                                        <td style="font-size: 7px">
                                                             <p style="display: inline"> Firmado
                                                                 por:{{ $docente->nombres }} </p><br>
                                                             <p style="display: inline"> DNI:{{ $docente->dni }} </p><br>
@@ -185,7 +186,7 @@
 
                                                         <td style="text-align: center">
                                                             {{ substr($asistencia->salida, 0, 8) }}</td>
-                                                        <td style="font-size: 6px">
+                                                        <td style="font-size: 7px">
                                                             <p style="display: inline"> Firmado
                                                                 por:{{ $docente->nombres }} </p>
                                                             <p style="display: inline"> DNI:{{ $docente->dni }} </p>
@@ -197,7 +198,6 @@
                                                             {{-- <p style="display: inline">{{ $asistencia->tksalida }}
                                                             </p> --}}
                                                         </td>
-
 
                                                     </tr>
                                                 @break
@@ -256,7 +256,7 @@
                                                                 src=".{{ $asistencia->foto }}" width="55"> </td>
                                                         <td style="text-align: center">
                                                             {{ substr($asistencia->entrada, 0, 8) }}</td>
-                                                        <td style="font-size: 6px">
+                                                        <td style="font-size: 7px;">
                                                             <p style="display: inline"> Firmado
                                                                 por:{{ $docente->nombres }} </p><br>
                                                             <p style="display: inline"> DNI:{{ $docente->dni }} </p><br>
@@ -265,6 +265,17 @@
                                                             {{-- <p style="display: inline">{{ $asistencia->tkentrada }}</p> --}}
                                                         </td>
                                                         <td colspan="2">No hay registro</td>
+                                                    </tr>
+                                                @break
+                                                @case(7)
+                                                    {{ $cantsupendido++ }}
+                                                    <tr>
+                                                        <td scope="row" style="text-align: center">{{ $cont++ }}</td>
+                                                        <td>{{ $docente->nombres }}</td>
+                                                        <td style="text-align: center">
+                                                            {{ strtoupper(substr($docente->condicion, 0, 1) . '-' . substr($docente->categoria, $docente->categoria == 'Auxiliar' ? 2 : 0, 1)) . substr($docente->dedicacion, 0, 1) . substr(strstr($docente->dedicacion, ' '), 1, 1) }}
+                                                        </td>
+                                                        <td colspan="5">Docente suspendido</td>
                                                     </tr>
                                                 @break
                                                 @default
@@ -306,13 +317,14 @@
                         <table id="tableResumen">
                             <thead>
                                 <tr>
-                                    <th colspan="4">Resumen Parte Diario</th>
+                                    <th colspan="5">Resumen Parte Diario</th>
                                 </tr>
                                 <tr>
                                     <th>Cant. Presentes</th>
                                     <th>Cant. Ausentes</th>
                                     <th>Justificados</th>
                                     <th>De Licencia</th>
+                                    <th>Suspendidos</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -321,6 +333,7 @@
                                     <td>{{ $cantfalta }}</td>
                                     <td>{{ $cantjusti }}</td>
                                     <td>{{ $cantLicencia }}</td>
+                                    <td>{{ $cantsupendido }}</td>
                                 </tr>
                             </tbody>
                         </table>

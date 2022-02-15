@@ -234,6 +234,17 @@
                                     </div>
                                 @endif
                             @break
+                            @case(7)
+                                <div class="alert alert-success m-0" role="alert">
+                                    <div class="m-0 row card-body justify-content-center">
+                                        <div class="col-auto text-centar">
+                                            <i class="fas fa-user-alt-slash" style="font-size: 200px"></i>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <p class="mb-0 text-center">El dia de hoy es no laborable.</p>
+                                </div>
+                            @break
                             @default
                                 <div class="alert alert-danger m-0" role="alert">
                                     <div class="m-0 row card-body justify-content-center">

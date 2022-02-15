@@ -74,7 +74,7 @@
         }
 
         #tableResumen th {
-            
+
             background-color: #003E78;
             color: #ffff;
             font-size: 10px;
@@ -87,10 +87,12 @@
         #tableResumen td {
             font-size: 10px;
         }
-        #divresumen{
-            margin-top: 10px; 
+
+        #divresumen {
+            margin-top: 10px;
         }
-        #tableResumen{
+
+        #tableResumen {
             border-collapse: collapse;
         }
 
@@ -158,16 +160,17 @@
                 $cantfalta = 0;
                 $cantjusti = 0;
                 $cantLicencia = 0;
+                $cantsupendido = 0;
             @endphp
             @foreach ($datos as $dato)
                 @switch($dato->fk_idestadoAsistencias)
                     @case(1)
-                        {{$cantpresente++}}
+                        {{ $cantpresente++ }}
                         <tr>
                             <td>{{ $dato->Dia }}</td>
                             <td style="text-align: center"><img src=".{{ $dato->foto }}" width="55"></td>
                             <td style="text-align: center">{{ $dato->hor_entrada }}</td>
-                            <td style="font-size: 6px">
+                            <td style="font-size: 7px;">
                                 <p style="display: inline"> Firmado por:{{ $docentes->nombres }} </p><br>
                                 <p style="display: inline"> DNI:{{ $docentes->dni }} </p><br>
                                 <p style="display: inline">Motivo: Registro asistencia</p><br>
@@ -177,7 +180,7 @@
 
                             </td>
                             <td style="text-align: center">{{ $dato->hor_salida }}</td>
-                            <td style="font-size: 6px">
+                            <td style="font-size: 7px;">
                                 <p style="display: inline"> Firmado por:{{ $docentes->nombres }} </p><br>
                                 <p style="display: inline"> DNI:{{ $docentes->dni }} </p><br>
                                 <p style="display: inline">Motivo: Registro asistencia</p><br>
@@ -188,21 +191,21 @@
                         </tr>
                     @break
                     @case(2)
-                        {{$cantfalta++}}
+                        {{ $cantfalta++ }}
                         <tr>
                             <td>{{ $dato->Dia }}</td>
                             <td colspan="5">No Registro Asistencia</td>
                         </tr>
                     @break
                     @case(3)
-                        {{$cantjusti++}}
+                        {{ $cantjusti++ }}
                         <tr>
                             <td>{{ $dato->Dia }}</td>
                             <td colspan="5">Falta Justificada</td>
                         </tr>
                     @break
                     @case(4)
-                        {{$cantLicencia++}}
+                        {{ $cantLicencia++ }}
                         <tr>
                             <td>{{ $dato->Dia }}</td>
                             <td colspan="5">Licencia Aprobada</td>
@@ -215,12 +218,12 @@
                         </tr>
                     @break
                     @case(6)
-                        {{$cantpresente++}}
+                        {{ $cantpresente++ }}
                         <tr>
                             <td>{{ $dato->Dia }}</td>
                             <td style="text-align: center"><img src=".{{ $dato->foto }}" width="55"></td>
                             <td style="text-align: center">{{ $dato->hor_entrada }}</td>
-                            <td style="font-size: 6px">
+                            <td style="font-size: 7px;">
                                 <p style="display: inline"> Firmado por:{{ $docentes->nombres }} </p><br>
                                 <p style="display: inline"> DNI:{{ $docentes->dni }} </p><br>
                                 <p style="display: inline">Motivo: Registro asistencia</p><br>
@@ -232,9 +235,18 @@
                             <td colspan="2">No hay registro</td>
                         </tr>
                     @break
-
+                    @case(7)
+                        {{ $cantsupendido++ }}
+                        <tr>
+                            <td scope="row" style="text-align: center">{{ $cont++ }}</td>
+                            <td>{{ $docente->nombres }}</td>
+                            <td style="text-align: center">
+                                {{ strtoupper(substr($docente->condicion, 0, 1) . '-' . substr($docente->categoria, $docente->categoria == 'Auxiliar' ? 2 : 0, 1)) .substr($docente->dedicacion, 0, 1) .substr(strstr($docente->dedicacion, ' '), 1, 1) }}
+                            </td>
+                            <td colspan="5">Docente suspendido</td>
+                        </tr>
+                    @break
                 @endswitch
-
             @endforeach
 
         </tbody>
@@ -244,13 +256,14 @@
         <table id="tableResumen">
             <thead>
                 <tr>
-                    <th colspan="4">Resumen Informe de Asistencias</th>
+                    <th colspan="5">Resumen Informe de Asistencias</th>
                 </tr>
                 <tr>
                     <th>Dias Presente</th>
                     <th>Dias Ausentes</th>
                     <th>Faltas Justificados</th>
                     <th>Dias De Licencia</th>
+                    <th>Dias Suspendidos</th>
                 </tr>
             </thead>
             <tbody>
@@ -259,9 +272,10 @@
                     <td>{{ $cantfalta }}</td>
                     <td>{{ $cantjusti }}</td>
                     <td>{{ $cantLicencia }}</td>
+                    <td>{{ $cantsupendido }}</td>
                 </tr>
             </tbody>
-        </table>  
+        </table>
     </div>
 
 
